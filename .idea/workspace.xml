@@ -19,7 +19,60 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Added Laravel 7" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Added Laravel 7">
+      <change afterPath="$PROJECT_DIR$/app/Chapter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Comic.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ComicFormat.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateAdmin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateEditor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Page.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Team.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2013_08_31_115937_create_roles_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_142142_create_comic_formats_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_145624_create_comics_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_150122_create_comic_user_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154645_create_teams_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154704_create_pages_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/ComicFormatSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/RoleTableSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/chapter.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic/form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/comics.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/series.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/alerts.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/breadcrumb.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/checkbox.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/input_file.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/input_text.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/select.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/textarea.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/invalid_feedback.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,11 +88,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="composer.json" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -84,9 +141,25 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/partials/form" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
+      <recent name="$PROJECT_DIR$/resources/views/admin" />
+      <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/partials/form" />
+      <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
+      <recent name="$PROJECT_DIR$/app/Http/Middleware" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
+      <recent name="$PROJECT_DIR$/resources/views/layouts" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -96,7 +169,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598868247257</updated>
-      <workItem from="1598868249410" duration="4123000" />
+      <workItem from="1598868249410" duration="47650000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -105,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598872371225</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Laravel 7">
+      <created>1598872625384</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1598872625384</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +211,18 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters/72.27.1848.1053@72.27.1848.1053" timestamp="1598868476940" />
+    <state x="625" y="235" width="732" height="644" key="#Inspections" timestamp="1598875935863">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="625" y="235" width="732" height="644" key="#Inspections/72.27.1848.1053@72.27.1848.1053" timestamp="1598875935863" />
+    <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598884189764">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1598884189764" />
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598912174285">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1598912174285" />
     <state x="729" y="436" width="523" height="281" key="ComposerInitDialogKey" timestamp="1598869698432">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -139,5 +231,17 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1598868447258" />
+    <state x="634" y="273" width="713" height="568" key="NewPhpClassDialog" timestamp="1598884291371">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="634" y="273" width="713" height="568" key="NewPhpClassDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1598884291371" />
+    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog" timestamp="1598884299065">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1598884299065" />
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1598875389666">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1598875389666" />
   </component>
 </project>

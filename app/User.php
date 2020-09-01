@@ -6,8 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use Notifiable;
 
     /**
@@ -36,4 +35,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasPermission($roleName): bool {
+        $role = Role::where('name', $roleName)->first();
+        return ($this->role_id <= $role->id);
+    }
+
+    public function comics() {
+        return $this->belongsToMany(Comic::class);
+    }
+
+    public function canEdit($comic_id): bool {
+        return $this->hasPermission('manager') || ($this->hasPermission('editor') && (bool) $this->comics()->find($comic_id)->first());
+    }
 }

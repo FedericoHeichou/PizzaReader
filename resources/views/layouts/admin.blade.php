@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -72,7 +74,9 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="container-lg p-0 py-sm-4 overflow-hidden">
+            @include('partials.breadcrumb')
+            @include('partials.alerts')
             @yield('content')
         </main>
     </div>
