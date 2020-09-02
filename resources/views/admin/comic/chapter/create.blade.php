@@ -1,6 +1,6 @@
-@extends('admin.comic.form', ['fields' => \App\Comic::getFormFields()])
-@section('card-title', 'Add new comic')
-@section('form-action', route('admin.comics.store'))
+@extends('admin.comic.form', ['fields' => \App\Chapter::getFormFields()])
+@section('card-title', 'Add new chapter')
+@section('form-action', route('admin.comics.chapters.store', $comic->slug))
 @section('choose-file', 'Choose file')
 @foreach(\App\Comic::getFormFields() as $field)
     <?php

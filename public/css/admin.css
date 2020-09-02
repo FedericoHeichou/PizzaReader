@@ -1,10 +1,13 @@
 .list .item {
     padding: 8px 8px 5px 8px;
     margin-top: 5px;
+    border-bottom: 1px solid #ddd;
 }
-.list div + div {
+
+/*.list div + div {
     border-top: 1px solid #ddd;
-}
+}*/
+
 .list div {
     margin-right: 10px;
 }
@@ -51,4 +54,9 @@
     background-color: #e9ecef;
     border-left: inherit;
     border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.thumbnail {
+    height: 250px;
+    width: auto;
 }

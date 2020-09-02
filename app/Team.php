@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model {
     protected $fillable = [
-        'name', 'stub', 'url',
+        'name', 'slug', 'url',
     ];
 
     // TODO controllare se becca sia team che team2

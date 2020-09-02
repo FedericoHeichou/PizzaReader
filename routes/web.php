@@ -33,7 +33,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         Route::prefix('comics/{comic}')->middleware('can.edit')->group(function () {
             Route::get('', 'ComicController@show')->name('show');
             Route::resource('chapters', 'ChapterController')->except(['destroy']);
-            Route::delete('chapters/{chapter}', 'ChapterController@destroy')->name('destroy')->middleware('auth.manager');
+            Route::delete('chapters/{chapter}', 'ChapterController@destroy')->name('chapters.destroy')->middleware('auth.manager');
         });
     });
 

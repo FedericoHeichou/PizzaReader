@@ -18,7 +18,7 @@ class CreatePagesTable extends Migration {
             $table->integer('width', false, true);
             $table->integer('height', false, true);
             $table->string('mime', 32);
-            $table->boolean('hidden');
+            $table->boolean('hidden')->default(0);
             $table->timestamps();
 
             $table->foreign('chapter_id')->references('id')->on('chapters');

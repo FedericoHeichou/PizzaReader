@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class CreateComicsTable extends Migration {
     /**
@@ -14,21 +15,21 @@ class CreateComicsTable extends Migration {
         Schema::create('comics', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('stub')->unique();
-            $table->string('salt')->unique();
-            $table->boolean('hidden');
-            $table->string('author');
-            $table->string('artist');
-            $table->string('target');
-            $table->string('status');
-            $table->string('description');
-            $table->string('thumbnail');
-            $table->string('custom_chapter');
+            $table->string('slug')->unique();
+            $table->string('salt');
+            $table->boolean('hidden')->default(0);
+            $table->string('author')->nullable();
+            $table->string('artist')->nullable();
+            $table->string('target')->nullable();
+            $table->string('status')->nullable();
+            $table->string('description')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('custom_chapter')->nullable();
             $table->bigInteger('comic_format_id', false, true);
-            $table->boolean('adult');
+            $table->boolean('adult')->default(0);
             $table->timestamps();
 
-            $table->foreign('comic_format_id')->references('id')->on('comic_formats');
+            $table->foreign('comic_format_id')->references('id')->on('comic_formats')->onDelete('cascade');
         });
     }
 
@@ -39,5 +40,6 @@ class CreateComicsTable extends Migration {
      */
     public function down() {
         Schema::dropIfExists('comics');
+        Storage::deleteDirectory('public/comics');
     }
 }

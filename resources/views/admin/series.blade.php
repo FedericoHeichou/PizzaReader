@@ -11,7 +11,7 @@
                     @endif
                 </div>
                 <div class="col-3">
-                    @yield('search')
+                    @include('partials.card-search')
                 </div>
             </div>
         </div>

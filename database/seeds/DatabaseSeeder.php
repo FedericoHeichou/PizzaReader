@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder {
         $this->call([
             RoleTableSeeder::class,
             ComicFormatSeeder::class,
+            TestSeeder::class, //TODO to remove
         ]);
     }
 }

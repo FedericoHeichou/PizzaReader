@@ -4,15 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComicUserTable extends Migration
-{
+class CreateComicUserTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('comic_user', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('comic_id', false, true);
@@ -29,8 +27,7 @@ class CreateComicUserTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('user_comic');
+    public function down() {
+        Schema::dropIfExists('comic_user');
     }
 }

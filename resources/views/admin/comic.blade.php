@@ -1,38 +1,25 @@
-@extends('admin.series')
-@section('information')
-    <div class="card">
-        <div class="card-header">
-            <div class="form-row">
-                <div class="col-12">
-                    <h3 class="mt-1 float-left">Information about this comic</h3>
-                    @if(Auth::user()->hasPermission("manager"))
-                        <a href="#TODO" class="btn btn-success ml-3">Read</a>
-                        <a href="{{ route('admin.comics.edit', $comic->stub) }}" class="btn btn-success ml-3">Edit</a>
-                        <a href="{{ route('admin.comics.destroy', $comic->id) }}" class="btn btn-danger ml-3">Delete</a>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <todo></todo>
-        </div>
-    </div>
-@endsection
+@extends('admin.comic.show', ['fields' => \App\Comic::getFormFields(), 'is_chapter' => false])
+@section('card-title', 'Information about this comic')
+@section('form-action', route('admin.comics.destroy', $comic->id))
 @section('list-title', 'Chapters')
 @section('list-buttons')
-    <a href="{{ route('admin.comics.chapters.create') }}" class="btn btn-success ml-3">Add chapter</a>
-@endsection
-@section('search')
-    <input id="autocomplete" class="form-control mr-sm-2 ui-autocomplete-input" type="search" placeholder="Search" aria-label="Search" name="text" autocomplete="off">
+    <a href="{{ route('admin.comics.chapters.create', $comic->slug) }}" class="btn btn-success ml-3">Add chapter</a>
 @endsection
 @section('list')
     <div class="list">
         @foreach($chapters as $chapter)
             <div class="item">
-                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', $chapter->id) }}">{{ $chapter->title }}</a></h5>
+                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ $chapter->title }}</a></h5>
                 <span class="small">
                     @if(Auth::user()->hasPermission("manager"))
-                        <a href="{{ route('admin.comics.chapters.destroy', $chapter->id) }}">Delete chapter</a>
+                        <a href="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
+                           onclick="event.preventDefault(); document.getElementById('destroy-chapter-form-{{ $chapter->id }}').submit();">
+                            Delete chapter</a>
+                        <form id="destroy-chapter-form-{{ $chapter->id }}" action="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
+                              method="POST" class="d-none">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                         <span class="spacer">|</span>
                     @endif
                     <a href="#">Read</a>
