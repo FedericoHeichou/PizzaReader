@@ -24,7 +24,7 @@ class CreateChaptersTable extends Migration {
             $table->string('salt');
             $table->string('prefix')->nullable();
             $table->boolean('hidden')->default(0);
-            $table->bigInteger('views', false, true)->default(0);
+            $table->bigInteger('views', false, true)->default(0)->nullable();
             $table->string('download_link')->nullable();
             $table->string('language', 2);
             $table->timestamps();

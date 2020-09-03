@@ -27,10 +27,7 @@ class ComicController extends Controller {
         $form_fields = Comic::getFormFieldsForValidation();
         $request->validate($form_fields);
 
-        $fields = [];
-        foreach ($form_fields as $key => $value) {
-            if ($request->$key != null) $fields[$key] = $request->$key;
-        }
+        $fields = getFieldsFromRequest($request, $form_fields);
         $fields['salt'] = Str::random();
         $fields['slug'] = Comic::generateSlug($fields);
         $has_thumbnail = isset($fields['thumbnail']) && $fields['thumbnail'];
@@ -67,10 +64,7 @@ class ComicController extends Controller {
         $form_fields = Comic::getFormFieldsForValidation();
         $request->validate($form_fields);
 
-        $fields = [];
-        foreach ($form_fields as $key => $value) {
-            if ($request->$key != null) $fields[$key] = $request->$key;
-        }
+        $fields = getFieldsFromRequest($request, $form_fields);
 
         // If has a new slug regenerate it
         if (!isset($fields['slug']) || $comic->slug != $fields['slug']) {
@@ -81,6 +75,8 @@ class ComicController extends Controller {
         if ($has_thumbnail) {
             $fields['thumbnail'] = $request->file('thumbnail')->getClientOriginalName();
             Storage::delete($old_path . '/' . $comic->thumbnail);
+        } else { // Please don't delete the old thumbnail
+            unset($fields['thumbnail']);
         }
 
         // If has a new slug rename the directory

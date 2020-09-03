@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.2"
+        "laravel/ui": "^2.2",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
@@ -41,7 +42,7 @@
             "database/seeds",
             "database/factories"
         ],
-        "files":[
+        "files": [
             "app/Helpers/helper_functions.php"
         ]
     },

@@ -14,8 +14,6 @@
     <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
     <script src="{{ asset('js/checkbox.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.fileupload-all.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.fileupload-setup.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

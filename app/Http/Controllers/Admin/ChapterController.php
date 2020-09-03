@@ -30,10 +30,7 @@ class ChapterController extends Controller {
         $form_fields = Chapter::getFormFieldsForValidation();
         $request->validate($form_fields);
 
-        $fields = [];
-        foreach ($form_fields as $key => $value) {
-            if ($request->$key != null) $fields[$key] = $request->$key;
-        }
+        $fields = getFieldsFromRequest($request, $form_fields);
         $fields['salt'] = Str::random();
         $fields['comic_id'] = $comic->id;
         $fields['slug'] = Chapter::generateSlug($fields);
@@ -53,7 +50,7 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
-        return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Chapter::getAllPagesWithUrls($comic, $chapter)]);
+        return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Chapter::getAllPagesForFileUpload($comic, $chapter)]);
     }
 
     public function edit($comic_slug, $chapter_id) {
@@ -81,10 +78,7 @@ class ChapterController extends Controller {
         $form_fields = Chapter::getFormFieldsForValidation();
         $request->validate($form_fields);
 
-        $fields = [];
-        foreach ($form_fields as $key => $value) {
-            if ($request->$key != null) $fields[$key] = $request->$key;
-        }
+        $fields = getFieldsFromRequest($request, $form_fields);
 
         $fields['comic_id'] = $comic_id;
 

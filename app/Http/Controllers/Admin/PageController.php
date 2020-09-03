@@ -59,7 +59,7 @@ class PageController extends Controller {
             $page->url = Page::getUrl($comic, $chapter, $page);
             array_push($response['files'], [
                 'name' => $page->filename,
-                'size' => $page->filesize,
+                'size' => $page->size,
                 'url' => $page->url,
                 'thumbnailUrl' => $page->url,
                 'deleteUrl' => route('admin.comics.chapters.pages.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id, 'page' => $page->id]),

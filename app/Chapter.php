@@ -11,7 +11,7 @@ class Chapter extends Model {
     ];
 
     public function pages() {
-        return $this->hasMany(Page::class);
+        return $this->hasMany(Page::class)->orderBy('filename', 'asc')->orderBy('id', 'asc');
     }
 
     public function comic() {
@@ -26,8 +26,24 @@ class Chapter extends Model {
         return Chapter::where([['slug', $slug], ['comic_id', $comic_id]])->first();
     }
 
+    public static function getAllPagesForFileUpload($comic, $chapter) {
+        $response = ["files" => []];
+        foreach ($chapter->pages as $page) {
+            $page->url = Page::getUrl($comic, $chapter, $page);
+            array_push($response['files'], [
+                'name' => $page->filename,
+                'size' => $page->size,
+                'url' => $page->url,
+                'thumbnailUrl' => $page->url,
+                'deleteUrl' => route('admin.comics.chapters.pages.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id, 'page' => $page->id]),
+                'deleteType' => 'DELETE'
+            ]);
+        }
+        return $response;
+    }
+
     public static function getAllPagesWithUrls($comic, $chapter) {
-        $pages = Page::where('chapter_id', $chapter->id)->orderBy('filename', 'asc')->get();
+        $pages = $chapter->pages;
         foreach ($pages as &$page) {
             $page->url = Page::getUrl($comic, $chapter, $page);
         }
@@ -36,15 +52,14 @@ class Chapter extends Model {
 
     public static function getAllPagesUrls($comic, $chapter) {
         $urls = [];
-        $pages = Page::where('chapter_id', $chapter->id)->orderBy('filename', 'asc')->get();
-        foreach ($pages as $page) {
+        foreach ($chapter->pages as $page) {
             array_push($urls, Page::getUrl($comic, $chapter, $page));
         }
         return $urls;
     }
 
     public static function getAllPagesUrlsJson($comic, $chapter) {
-        return \GuzzleHttp\json_encode(Chapter::getAllPagesUrls($comic, $chapter));
+        return json_encode(Chapter::getAllPagesUrls($comic, $chapter));
     }
 
     public static function buildPath($comic, $chapter) {
@@ -60,13 +75,51 @@ class Chapter extends Model {
         return public_path() . '/storage/' . Chapter::buildPath($comic, $chapter);
     }
 
-    public static function name($chapter) {
+    public static function name($comic, $chapter) {
         $name = "";
-        if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
-        if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
-        if ($chapter->subchapter !== null) $name .= ".$chapter->subchapter";
-        if ($name !== "") $name .= " - ";
-        if ($chapter->title !== null) $name .= $chapter->title;
+        // Yandere-dev kicks in
+        if ($comic->custom_chapter) {
+            preg_match_all('/{[^{]*}|[^{|}]+/', $comic->custom_chapter, $matches);
+            foreach ($matches[0] as $v) {
+                if ($v === '{vol}') {
+                    $name .= $chapter->volume;
+                } elseif ($v === '{num}') {
+                    $name .= $chapter->chapter;
+                } elseif ($v === '{sub}') {
+                    $name .= $chapter->subchapter;
+                } elseif ($v === '{tit}') {
+                    $name .= $chapter->title;
+                } elseif ($v === '{ord}' && $name !== "") {
+                    $num = substr($name, -1);
+                    if (is_numeric($num)) {
+                        if ($num === '1') $name .= 'st';
+                        elseif ($num === '2') $name .= 'nd';
+                        elseif ($num === '3') $name .= 'rd';
+                        else $name .= 'th';
+                    }
+                } elseif (substr($v, 4, 1) === ':') {
+                    $pre = substr($v, 0, 4);
+                    $past = substr($v, 5, -1);
+                    if (($pre === '{vol' && $chapter->volume !== null) ||
+                        ($pre === '{num' && $chapter->chapter !== null) ||
+                        ($pre === '{sub' && $chapter->subchapter !== null) ||
+                        ($pre === '{tit' && $chapter->title !== null)) {
+                        $name .= $past;
+                    }
+                } elseif(substr($v, 0, 1) !== '{' && substr($v, -1) !== '}'){
+                    $name .= $v;
+                }
+            }
+        }
+
+        if (!preg_match("/[A-z0-9]+/", $name)) {
+            if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
+            if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
+            if ($chapter->subchapter !== null) $name .= ".$chapter->subchapter";
+            if ($name !== "") $name .= " - ";
+            if ($chapter->title !== null) $name .= $chapter->title;
+        }
+        if ($name === "") $name = 'Oneshot';
         if ($chapter->prefix !== null) $name = "$chapter->prefix " . $name;
         return $name;
     }

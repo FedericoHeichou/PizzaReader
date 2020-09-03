@@ -19,7 +19,12 @@ class Comic extends Model {
     }
 
     public function chapters() {
-        return $this->hasMany(Chapter::class);
+        return $this->hasMany(Chapter::class)
+            ->orderByDesc('volume')
+            ->orderByDesc('chapter')
+            ->orderByDesc('subchapter')
+            ->orderByDesc('title')
+            ->orderByDesc('id');
     }
 
     public static function slug($slug) {
@@ -147,9 +152,9 @@ class Comic extends Model {
                 'parameters' => [
                     'field' => 'custom_chapter',
                     'label' => 'Custom chapter',
-                    'hint' => 'Replace the default chapter with a custom format [Example: "{num}{sub}{ord} punch" returns "2nd punch"]',
+                    'hint' => 'Replace the default chapter with a custom format. Syntax is: "{something:mystring}" which shows "mystring" only if you setted "something" in the chapter, while {something} shows the value of "something". Accepted values for "something": {vol}, {num}, {sub}, {tit}. Accepted characters in "mystring": everything (a single space too!) except "{" and "}". You can use {ord} after {something} to make it ordinal. [Example: "{vol:Vol.}{vol}{vol: }{num}{ord} punch {sub:Part }{sub}{tit: - }{tit}" returns "Vol.1 2nd punch Part 2 - NiceTitle" if everything is setted, while if a chapter has no Volume or Subchapter it will returns "2nd punch - NiceTitle"]',
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:191', 'regex:/^.*{(vol|num|tit|sub)}.*$/'],
             ],
 
         ];

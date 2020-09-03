@@ -75,3 +75,25 @@
     max-width: 80px;
     max-height: 80px;
 }
+
+#fileupload .table td {
+    vertical-align: middle;
+}
+
+#fileupload .preview {
+    text-align: center;
+}
+
+#fileupload .td-preview {
+    width: 80px;
+    height: 80px;
+}
+
+#fileupload .td-buttons {
+    width: 20%;
+    text-align: right;
+}
+
+.fade.in {
+    opacity: 1;
+}

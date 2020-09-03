@@ -10,7 +10,7 @@
     <div class="list">
         @foreach($chapters as $chapter)
             <div class="item">
-                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ \App\Chapter::name($chapter) }}</a></h5>
+                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ \App\Chapter::name($comic, $chapter) }}</a></h5>
                 <span class="small">
                     @if(Auth::user()->hasPermission("manager"))
                         <a href="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
