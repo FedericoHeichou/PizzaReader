@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comic extends Model {
     protected $fillable = [
-        'name', 'slug', 'salt', 'hidden', 'author', 'artist', 'target', 'status', 'description', 'thumbnail',
+        'name', 'slug', 'salt', 'hidden', 'author', 'artist', 'target', 'genres', 'status', 'description', 'thumbnail',
         'custom_chapter', 'comic_format_id', 'adult',
     ];
 
@@ -30,8 +30,8 @@ class Comic extends Model {
         return 'comics/' . $comic->slug . '_' . $comic->salt;
     }
 
-    public static function path($comic_id) {
-        return 'public/' . Comic::buildPath(Comic::find($comic_id));
+    public static function path($comic) {
+        return 'public/' . Comic::buildPath($comic);
     }
 
     public static function getThumbnailUrl($comic_id) {
@@ -57,6 +57,7 @@ class Comic extends Model {
                     'field' => 'slug',
                     'label' => 'URL slug',
                     'hint' => 'Automatically generated, use this if you want to have a custom URL slug',
+                    'disabled' => 'disabled',
                 ],
                 'values' => ['max:191'],
             ], [
@@ -89,9 +90,17 @@ class Comic extends Model {
                 'parameters' => [
                     'field' => 'target',
                     'label' => 'Target',
-                    'hint' => 'Insert comic\'s target [Example: Shonen, Seinen, Shojo, Kodomo, Josei]',
+                    'hint' => 'Insert comic\'s target [Example: "Shonen", "Seinen", "Shojo", "Kodomo", "Josei"]',
                 ],
                 'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'genres',
+                    'label' => 'Genres',
+                    'hint' => 'Insert comic\'s genres separated by comma [Example: "Slice of life, Romance, Drama"]',
+                ],
+                'values' => ['max:500'],
             ], [
                 'type' => 'input_text',
                 'parameters' => [

@@ -1,5 +1,6 @@
-@extends('admin.comic.show', ['fields' => \App\Comic::getFormFields(), 'is_chapter' => false])
+@extends('admin.comics.information', ['fields' => \App\Comic::getFormFields(), 'is_chapter' => false])
 @section('card-title', 'Information about this comic')
+@section('destroy-message', 'Do you want to delete this comic and its relative chapters?')
 @section('form-action', route('admin.comics.destroy', $comic->id))
 @section('list-title', 'Chapters')
 @section('list-buttons')
@@ -9,11 +10,11 @@
     <div class="list">
         @foreach($chapters as $chapter)
             <div class="item">
-                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ $chapter->title }}</a></h5>
+                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ \App\Chapter::name($chapter) }}</a></h5>
                 <span class="small">
                     @if(Auth::user()->hasPermission("manager"))
                         <a href="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
-                           onclick="event.preventDefault(); document.getElementById('destroy-chapter-form-{{ $chapter->id }}').submit();">
+                           onclick="confirmbox('Do you want to delete this chapter and its relative pages?', 'destroy-chapter-form-{{ $chapter->id }}')">
                             Delete chapter</a>
                         <form id="destroy-chapter-form-{{ $chapter->id }}" action="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
                               method="POST" class="d-none">

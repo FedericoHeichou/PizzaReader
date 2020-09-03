@@ -17,8 +17,8 @@ class CreateComicUserTable extends Migration {
             $table->bigInteger('user_id', false, true);
             $table->timestamps();
 
-            $table->foreign('comic_id')->references('id')->on('comics');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

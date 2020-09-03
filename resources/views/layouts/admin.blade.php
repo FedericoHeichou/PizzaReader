@@ -14,6 +14,8 @@
     <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
     <script src="{{ asset('js/checkbox.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.fileupload-all.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.fileupload-setup.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,6 +24,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.fileupload-all.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -82,5 +85,7 @@
             @yield('content')
         </main>
     </div>
+    @include('partials.confirmbox')
+    @yield('script')
 </body>
 </html>

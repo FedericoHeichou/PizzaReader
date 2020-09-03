@@ -34,6 +34,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
             Route::get('', 'ComicController@show')->name('show');
             Route::resource('chapters', 'ChapterController')->except(['destroy']);
             Route::delete('chapters/{chapter}', 'ChapterController@destroy')->name('chapters.destroy')->middleware('auth.manager');
+            Route::get('chapters/{chapter}/pages', 'PageController@index')->name('chapters.pages.index');
+            Route::post('chapters/{chapter}/pages', 'PageController@store')->name('chapters.pages.store');
+            Route::delete('chapters/{chapter}/pages/{page}', 'PageController@destroy')->name('chapters.pages.destroy');
         });
     });
 

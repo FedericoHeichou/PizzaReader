@@ -22,5 +22,11 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.14.0",
+        "blueimp-file-upload": "^10.31.0",
+        "blueimp-load-image": "^5.14.0",
+        "blueimp-tmpl": "^3.18.0"
     }
 }

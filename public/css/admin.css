@@ -39,6 +39,7 @@
 .custom-file-label::after {
     content: "Browse";
 }
+
 .custom-file-label::after {
     position: absolute;
     top: 0;
@@ -59,4 +60,18 @@
 .thumbnail {
     height: 250px;
     width: auto;
+}
+
+.disabled {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.disabled .btn {
+    padding: 5px 0 0 0;
+}
+
+#fileupload .preview img {
+    max-width: 80px;
+    max-height: 80px;
 }

@@ -19,53 +19,80 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Added some initials tables and views">
-      <change afterPath="$PROJECT_DIR$/app/Helpers/helper_functions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/TestSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/bscustomfile.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/card-search.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/checkbox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic/chapter/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic/chapter/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/comic/show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/partials/card-search.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Partials management of comics and chapters">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PageController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/css/jquery.fileupload-all.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/loading.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/progressbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/jquery.fileupload-all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/jquery.fileupload-setup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/confirmbox.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/base.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Chapter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Comic.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Comic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/helper_functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/helper_functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Team.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Page.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_145624_create_comics_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_145624_create_comics_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_150122_create_comic_user_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_150122_create_comic_user_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_154645_create_teams_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154645_create_teams_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_154704_create_pages_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154704_create_pages_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/chapter.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/chapter.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comic.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comic/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comic/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comic/form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/series.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/series.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/chapter.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/chapters/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/chapter/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/chapters/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/chapter/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/chapters/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comic/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/series.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/main.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/checkbox.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_checkbox.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/alerts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/alerts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/breadcrumb.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/breadcrumb.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/input_checkbox.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_checkbox.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/form/input_file.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_file.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/form/input_text.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_text.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/form/select.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/select.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/form/textarea.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/textarea.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <phar pharPath="$PROJECT_DIR$/../composer.phar" interpreterId="83c6d1c3-f487-4522-90eb-aa093a83664e" />
@@ -300,17 +327,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/admin/comics" />
+      <recent name="$PROJECT_DIR$/resources/views/admin/comics/chapters" />
+      <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
+      <recent name="$PROJECT_DIR$/resources/views/admin" />
+      <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/admin/comic/chapter" />
       <recent name="$PROJECT_DIR$/resources/views/partials/form" />
       <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
       <recent name="$PROJECT_DIR$/app/Http/Middleware" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
-      <recent name="$PROJECT_DIR$/resources/views/admin" />
-      <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -324,7 +353,8 @@
       <workItem from="1598868249410" duration="47898000" />
       <workItem from="1598956694294" duration="156000" />
       <workItem from="1598956865196" duration="131000" />
-      <workItem from="1598956998006" duration="40045000" />
+      <workItem from="1598956998006" duration="40365000" />
+      <workItem from="1599041177061" duration="50021000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -347,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598923429237</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Partials management of comics and chapters">
+      <created>1599009889423</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1599009889423</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,7 +405,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Laravel 7" />
     <MESSAGE value="Added some initials tables and views" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added some initials tables and views" />
+    <MESSAGE value="Partials management of comics and chapters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Partials management of comics and chapters" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -383,10 +421,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1598884189764" />
-    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599004488403">
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599070971861">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599004488403" />
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599070971861" />
     <state x="729" y="436" width="523" height="281" key="ComposerInitDialogKey" timestamp="1598869698432">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -411,10 +449,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1598923440403">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599009902231">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1598923440403" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599009902231" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

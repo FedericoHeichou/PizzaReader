@@ -1,4 +1,4 @@
-@extends('admin.series')
+@extends('admin.comics.main')
 @section('list-title', 'Your Comics')
 @section('list-buttons')
     <a href="{{ route('admin.comics.create') }}" class="btn btn-success ml-3">Add comic</a>
@@ -13,7 +13,7 @@
                     @if(Auth::user()->hasPermission("manager"))
                         <span class="spacer">|</span>
                         <a href="{{ route('admin.comics.destroy', $comic->id) }}"
-                           onclick="event.preventDefault(); document.getElementById('destroy-comic-form-{{ $comic->id }}').submit();">
+                           onclick="confirmbox('Do you want to delete this comic and its relative chapters?', 'destroy-comic-form-{{ $comic->id }}');">
                             Delete comic</a>
                         <form id="destroy-comic-form-{{ $comic->id }}" action="{{ route('admin.comics.destroy', $comic->id) }}"
                             method="POST" class="d-none">

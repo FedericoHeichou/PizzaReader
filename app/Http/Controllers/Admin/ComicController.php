@@ -16,11 +16,11 @@ class ComicController extends Controller {
         } else {
             $comics = Auth::user()->comics;
         }
-        return view('admin.comics')->with('comics', $comics);
+        return view('admin.comics.index')->with('comics', $comics);
     }
 
     public function create() {
-        return view('admin.comic.create');
+        return view('admin.comics.create');
     }
 
     public function store(Request $request) {
@@ -36,10 +36,10 @@ class ComicController extends Controller {
         $has_thumbnail = isset($fields['thumbnail']) && $fields['thumbnail'];
         if ($has_thumbnail) $fields['thumbnail'] = $request->file('thumbnail')->getClientOriginalName();
         $comic = Comic::create($fields);
-        $path = Comic::path($comic->id);
+        $path = Comic::path($comic);
         Storage::makeDirectory($path);
         if ($has_thumbnail) $request->file('thumbnail')->storeAs($path, $comic->thumbnail);
-        return redirect()->route('admin.comics.show', $comic->slug);
+        return redirect()->route('admin.comics.show', $comic->slug)->with('success', 'Comic created');
     }
 
     public function show($comic_slug) {
@@ -47,7 +47,7 @@ class ComicController extends Controller {
         if (!$comic) {
             abort(404);
         }
-        return view('admin.comic')->with(['comic' => $comic, 'chapters' => $comic->chapters]);
+        return view('admin.comics.show')->with(['comic' => $comic, 'chapters' => $comic->chapters]);
     }
 
     public function edit($comic_slug) {
@@ -55,7 +55,7 @@ class ComicController extends Controller {
         if (!$comic) {
             abort(404);
         }
-        return view('admin.comic.edit')->with('comic', $comic);
+        return view('admin.comics.edit')->with('comic', $comic);
     }
 
     public function update(Request $request, $comic_id) {
@@ -63,7 +63,7 @@ class ComicController extends Controller {
         if (!$comic) {
             abort(404);
         }
-        $old_path = 'public/' . Comic::buildPath($comic);
+        $old_path = Comic::path($comic);
         $form_fields = Comic::getFormFieldsForValidation();
         $request->validate($form_fields);
 
@@ -73,7 +73,7 @@ class ComicController extends Controller {
         }
 
         // If has a new slug regenerate it
-        if (!isset($fields['slug']) || $comic->slug != $fields['slug']){
+        if (!isset($fields['slug']) || $comic->slug != $fields['slug']) {
             $fields['slug'] = Comic::generateSlug($fields);
         }
         $has_thumbnail = isset($fields['thumbnail']) && $fields['thumbnail'];
@@ -88,14 +88,14 @@ class ComicController extends Controller {
             $new_comic = new Comic;
             $new_comic->slug = $fields['slug'];
             $new_comic->salt = $comic->salt;
-            $new_path = 'public/' . Comic::buildPath($new_comic);
+            $new_path = Comic::path($new_comic);
             Storage::move($old_path, $new_path);
         }
 
         Comic::where('id', $comic_id)->update($fields);
         $comic = Comic::find($comic_id);
-        if ($has_thumbnail) $request->file('thumbnail')->storeAs(Comic::path($comic->id), $comic->thumbnail);
-        return redirect()->route('admin.comics.show', $comic->slug);
+        if ($has_thumbnail) $request->file('thumbnail')->storeAs(Comic::path($comic), $comic->thumbnail);
+        return redirect()->route('admin.comics.show', $comic->slug)->with('success', 'Comic updated');
     }
 
     public function destroy($comic_id) {
@@ -103,9 +103,8 @@ class ComicController extends Controller {
         if (!$comic) {
             abort(404);
         }
-        Storage::deleteDirectory(Comic::path($comic_id));
-        //TODO cascade
+        Storage::deleteDirectory(Comic::path($comic));
         Comic::destroy($comic_id);
-        return redirect()->route('admin.comics.index');
+        return redirect()->route('admin.comics.index')->with('warning', 'Comic "' . $comic->name . '" and its chapters deleted');
     }
 }

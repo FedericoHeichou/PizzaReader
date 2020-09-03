@@ -20,14 +20,16 @@ class CreateChaptersTable extends Migration {
             $table->integer('chapter', false, true)->nullable();
             $table->integer('subchapter', false, true)->nullable();
             $table->string('title')->nullable();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('salt');
+            $table->string('prefix')->nullable();
             $table->boolean('hidden')->default(0);
             $table->bigInteger('views', false, true)->default(0);
             $table->string('download_link')->nullable();
+            $table->string('language', 2);
             $table->timestamps();
 
-            $table->foreign('comic_id')->references('id')->on('comics');
+            $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
             $table->foreign('team_id')->references('id')->on('teams');
             $table->foreign('team2_id')->references('id')->on('teams');
         });

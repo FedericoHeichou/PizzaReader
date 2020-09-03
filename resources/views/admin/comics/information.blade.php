@@ -1,4 +1,4 @@
-@extends('admin.series')
+@extends('admin.comics.main')
 @section('information')
     <div class="card mb-4">
         <div class="card-header">
@@ -14,7 +14,7 @@
                         <a href="{{ route('admin.comics.edit', $comic->slug) }}" class="btn btn-success ml-1">Edit</a>
                         @endif
                         <a href="@yield('form-action')" class="btn btn-danger ml-1"
-                           onclick="event.preventDefault(); document.getElementById('destroy-form').submit();">
+                           onclick="confirmbox('@yield("destroy-message")', 'destroy-form')">
                             Delete</a>
                         <form id="destroy-form" action="@yield('form-action')"
                               method="POST" class="d-none">
@@ -33,7 +33,7 @@
                     <div class="ml-2">
                         @if($field['type'] === 'input_checkbox') {{ $value ? "Yes" : "No" }}
                         @elseif($field['type'] === 'input_file' && $value) <img src="{{ \App\Comic::getThumbnailUrl($comic->id) }}" class="img-thumbnail thumbnail">
-                        @elseif($field['type'] === 'select') {{ $value > 0 ? $field['parameters']['options'][$value - 1]->name : 'N/A' }}
+                        @elseif($field['type'] === 'select') {{ !is_int($value) && $value !== null ? $value : ($value > 0 ? $field['parameters']['options'][$value - 1]->name : 'N/A') }}
                         @elseif($field['type'] === 'textarea') {!! nl2br(e($value ?? 'N/A')) !!}
                         @else <span>{{ $value ?? 'N/A' }}</span>
                         @endif

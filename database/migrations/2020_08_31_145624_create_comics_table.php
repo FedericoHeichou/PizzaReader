@@ -21,6 +21,7 @@ class CreateComicsTable extends Migration {
             $table->string('author')->nullable();
             $table->string('artist')->nullable();
             $table->string('target')->nullable();
+            $table->string('genres')->nullable();
             $table->string('status')->nullable();
             $table->string('description')->nullable();
             $table->string('thumbnail')->nullable();
@@ -29,7 +30,7 @@ class CreateComicsTable extends Migration {
             $table->boolean('adult')->default(0);
             $table->timestamps();
 
-            $table->foreign('comic_format_id')->references('id')->on('comic_formats')->onDelete('cascade');
+            $table->foreign('comic_format_id')->references('id')->on('comic_formats');
         });
     }
 

@@ -12,4 +12,22 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css').sourceMaps();
+
+mix.scripts([
+    'node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js',
+    'node_modules/blueimp-load-image/js/load-image.all.min.js',
+    'node_modules/blueimp-tmpl/js/tmpl.min.js',
+    'node_modules/blueimp-file-upload/js/jquery.fileupload.js',
+    'node_modules/blueimp-file-upload/js/jquery.fileupload-process.js',
+    'node_modules/blueimp-file-upload/js/jquery.fileupload-image.js',
+    'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js',
+    ], 'public/js/jquery.fileupload-all.js');
+
+mix.styles([
+    'node_modules/blueimp-file-upload/css/jquery.fileupload.css',
+    'node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css',
+], 'public/css/jquery.fileupload-all.css');
+
+mix.copyDirectory('node_modules/blueimp-file-upload/img', 'public/img');
+mix.copy('node_modules/blueimp-tmpl/js/tmpl.min.js.map', 'public/js');
