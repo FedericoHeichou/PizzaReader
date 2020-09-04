@@ -96,7 +96,8 @@ class Chapter extends Model {
             if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
             if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
             if ($chapter->subchapter !== null) $name .= ".$chapter->subchapter";
-            if ($chapter->title !== null) $name .= " - $chapter->title";
+            if($name !== "" && $chapter->title !== null) $name .= " - ";
+            if ($chapter->title !== null) $name .= "$chapter->title";
         }
         if ($name === "") $name = 'Oneshot';
         if ($chapter->prefix !== null) $name = "$chapter->prefix " . $name;
