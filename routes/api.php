@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::namespace('Reader')->name('reader.')->group(function () {
+    Route::get('/comics/', 'ReaderController@comics')->name('comics');
+    Route::get('/comics/{comic}', 'ReaderController@comic')->name('comic');
+    Route::get('/read/{comic}/{language}/{ch?}', 'ReaderController@chapter')->name('read')->where('ch', '.*');
+});

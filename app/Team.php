@@ -13,4 +13,12 @@ class Team extends Model {
     public function chapters() {
         return $this->hasMany(Chapter::class);
     }
+
+    public static function generateReaderArray($team) {
+        if (!$team) return null;
+        return [
+            'name' => $team->name,
+            'url' => $team->url,
+        ];
+    }
 }

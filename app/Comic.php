@@ -10,6 +10,10 @@ class Comic extends Model {
         'custom_chapter', 'comic_format_id', 'adult',
     ];
 
+    public function scopePublic() {
+        return $this->where('hidden', 0);
+    }
+
     public function format() {
         return $this->belongsTo(ComicFormat::class);
     }
@@ -26,9 +30,16 @@ class Comic extends Model {
             ->orderByDesc('title')
             ->orderByDesc('id');
     }
+    public function publicChapters() {
+        return $this->chapters()->where('hidden', 0);
+    }
 
     public static function slug($slug) {
         return Comic::where('slug', $slug)->first();
+    }
+
+    public static function publicSlug($slug) {
+        return Comic::public()->where('slug', $slug)->first();
     }
 
     public static function buildPath($comic) {
@@ -39,9 +50,13 @@ class Comic extends Model {
         return 'public/' . Comic::buildPath($comic);
     }
 
-    public static function getThumbnailUrl($comic_id) {
-        $comic = Comic::find($comic_id);
+    public static function getThumbnailUrl($comic) {
+        if ($comic->thumbnail === null || $comic->thumbnail === '') return null;
         return asset('storage/' . Comic::buildPath($comic) . '/' . $comic->thumbnail);
+    }
+
+    public static function getUrl($comic) {
+        return url("api/read/$comic->slug");
     }
 
     public static function getFormFields() {
@@ -159,6 +174,26 @@ class Comic extends Model {
 
         ];
 
+    }
+
+    public static function generateReaderArray($comic) {
+        if(!$comic) return null;
+        return [
+            'title' => $comic->name,
+            'thumbnail' => Comic::getThumbnailUrl($comic),
+            'description' => $comic->description,
+            'author' => $comic->author,
+            'artist' => $comic->artist,
+            'target' => $comic->target,
+            'genres' => explode(',', $comic->genres),
+            'status' => $comic->status,
+            'comic_format_id' => $comic->comic_format_id,
+            'adult' => $comic->adult,
+            'created_at' => $comic->created_at,
+            'updated_at' => $comic->updated_at,
+            'url' => Comic::getUrl($comic),
+            'last_chapter' => Chapter::generateReaderArray($comic, Chapter::public()->where('comic_id', $comic->id)->orderByDesc('created_at')->first()),
+        ];
     }
 
     public static function getFormFieldsForValidation() {

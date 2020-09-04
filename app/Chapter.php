@@ -10,8 +10,16 @@ class Chapter extends Model {
         'hidden', 'views', 'download_link', 'language'
     ];
 
+    public function scopePublic() {
+        return $this->where('hidden', 0);
+    }
+
     public function pages() {
         return $this->hasMany(Page::class)->orderBy('filename', 'asc')->orderBy('id', 'asc');
+    }
+
+    public function publicPages() {
+        return $this->pages()->where('hidden', 0);
     }
 
     public function comic() {
@@ -26,42 +34,6 @@ class Chapter extends Model {
         return Chapter::where([['slug', $slug], ['comic_id', $comic_id]])->first();
     }
 
-    public static function getAllPagesForFileUpload($comic, $chapter) {
-        $response = ["files" => []];
-        foreach ($chapter->pages as $page) {
-            $page->url = Page::getUrl($comic, $chapter, $page);
-            array_push($response['files'], [
-                'name' => $page->filename,
-                'size' => $page->size,
-                'url' => $page->url,
-                'thumbnailUrl' => $page->url,
-                'deleteUrl' => route('admin.comics.chapters.pages.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id, 'page' => $page->id]),
-                'deleteType' => 'DELETE'
-            ]);
-        }
-        return $response;
-    }
-
-    public static function getAllPagesWithUrls($comic, $chapter) {
-        $pages = $chapter->pages;
-        foreach ($pages as &$page) {
-            $page->url = Page::getUrl($comic, $chapter, $page);
-        }
-        return $pages;
-    }
-
-    public static function getAllPagesUrls($comic, $chapter) {
-        $urls = [];
-        foreach ($chapter->pages as $page) {
-            array_push($urls, Page::getUrl($comic, $chapter, $page));
-        }
-        return $urls;
-    }
-
-    public static function getAllPagesUrlsJson($comic, $chapter) {
-        return json_encode(Chapter::getAllPagesUrls($comic, $chapter));
-    }
-
     public static function buildPath($comic, $chapter) {
         return Comic::buildPath($comic) . '/' . intval($chapter->volume) . '-' . intval($chapter->chapter) . '-' .
             intval($chapter->subchapter) . '-' . $chapter->slug . '_' . $chapter->salt;
@@ -73,6 +45,14 @@ class Chapter extends Model {
 
     public static function absolutePath($comic, $chapter) {
         return public_path() . '/storage/' . Chapter::buildPath($comic, $chapter);
+    }
+
+    public static function getUrl($comic, $chapter) {
+        $url = Comic::getUrl($comic) . "/$chapter->language";
+        if($chapter->volume !== null) $url .= "/vol/$chapter->volume";
+        if($chapter->chapter !== null) $url .= "/ch/$chapter->chapter";
+        if($chapter->subchapter !== null) $url .= "/sub/$chapter->subchapter";
+        return $url;
     }
 
     public static function name($comic, $chapter) {
@@ -106,7 +86,7 @@ class Chapter extends Model {
                         ($pre === '{tit' && $chapter->title !== null)) {
                         $name .= $past;
                     }
-                } elseif(substr($v, 0, 1) !== '{' && substr($v, -1) !== '}'){
+                } elseif (substr($v, 0, 1) !== '{' && substr($v, -1) !== '}') {
                     $name .= $v;
                 }
             }
@@ -116,8 +96,7 @@ class Chapter extends Model {
             if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
             if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
             if ($chapter->subchapter !== null) $name .= ".$chapter->subchapter";
-            if ($name !== "") $name .= " - ";
-            if ($chapter->title !== null) $name .= $chapter->title;
+            if ($chapter->title !== null) $name .= " - $chapter->title";
         }
         if ($name === "") $name = 'Oneshot';
         if ($chapter->prefix !== null) $name = "$chapter->prefix " . $name;
@@ -239,6 +218,25 @@ class Chapter extends Model {
 
         ];
 
+    }
+
+    public static function generateReaderArray($comic, $chapter) {
+        if (!$comic || !$chapter || $comic->id !== $chapter->comic_id) return null;
+        return [
+            'full_title' => Chapter::name($comic, $chapter),
+            'title' => $chapter->title,
+            'volume' => $chapter->volume,
+            'chapter' => $chapter->chapter,
+            'subchapter' => $chapter->subchapter,
+            'views' => $chapter->views ?: 0,
+            'download_link' => $chapter->download_link,
+            'language' => $chapter->language,
+            'teams' => [Team::generateReaderArray(Team::find($chapter->team_id)),
+                Team::generateReaderArray(Team::find($chapter->team2_id)),],
+            'created_at' => $chapter->created_at,
+            'updated_at' => $chapter->updated_at,
+            'url' => Chapter::getUrl($comic, $chapter),
+        ];
     }
 
     public static function getFormFieldsForValidation() {

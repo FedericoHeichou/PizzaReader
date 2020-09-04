@@ -38,3 +38,9 @@ function getFieldsFromRequest($request, $form_fields) {
     }
     return $fields;
 }
+
+function trimCommas($string) {
+    $string = preg_replace('/\s*,\s*/', ',', $string);
+    $string = preg_replace('/,+,+/', ',', $string);
+    return trim($string, ',');
+}

@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Comic;
 use App\Chapter;
+use App\Page;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ChapterController extends Controller {
     public function index($comic_slug) {
-        return redirect()->route('admin.comics.show', $comic_slug)->with('success', 'prova');
+        return redirect()->route('admin.comics.show', $comic_slug);
     }
 
     public function create($comic_slug) {
@@ -50,7 +51,7 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
-        return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Chapter::getAllPagesForFileUpload($comic, $chapter)]);
+        return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Page::getAllPagesForFileUpload($comic, $chapter)]);
     }
 
     public function edit($comic_slug, $chapter_id) {
@@ -82,13 +83,15 @@ class ChapterController extends Controller {
 
         $fields['comic_id'] = $comic_id;
 
-        // If has a new slug regenerate it
-        if (!isset($fields['slug']) || $chapter->slug != $fields['slug']) {
+        // If has a new title or slug regenerate it
+        if ((!isset($fields['slug']) && isset($fields['title']) && $chapter->title != $fields['title']) || (isset($fields['slug']) && $chapter->slug != $fields['slug'])) {
             $fields['slug'] = Chapter::generateSlug($fields);
+        } else {
+            unset($fields['slug']);
         }
 
         // If has a new slug rename the directory
-        if ($chapter->slug != $fields['slug']) {
+        if (isset($fields['slug']) && $chapter->slug != $fields['slug']) {
             $new_chapter = new Chapter;
             $new_chapter->slug = $fields['slug'];
             $new_chapter->salt = $chapter->salt;

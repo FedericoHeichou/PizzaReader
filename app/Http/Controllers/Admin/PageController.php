@@ -11,19 +11,6 @@ use App\Page;
 
 class PageController extends Controller {
 
-    public function index($comic_slug, $chapter_id) {
-        $comic = Comic::slug($comic_slug);
-        if (!$comic) {
-            abort(404);
-        }
-        $chapter = Chapter::find($chapter_id);
-        if (!$chapter || $chapter->comic_id !== $comic->id) {
-            abort(404);
-        }
-
-        return response()->json(Chapter::getAllPagesUrls($comic, $chapter));
-    }
-
     public function store(Request $request, $comic_slug, $chapter_id) {
         $comic = Comic::slug($comic_slug);
         if (!$comic) {
