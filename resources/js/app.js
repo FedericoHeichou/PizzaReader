@@ -35,14 +35,7 @@ const router = new VueRouter({
         { path: '/public/*', redirect: '/*' },
         { path: '/comics', component: Comics },
         { path: '/comics/:stub', component: Comic },
-        { path: '/read/:stub/:lang/vol/:vol/ch/:ch/sub/:sub', component: Read }, // Yandere-dev mode
-        { path: '/read/:stub/:lang/vol/:vol/ch/:ch', component: Read },
-        { path: '/read/:stub/:lang/vol/:vol/sub/:sub', component: Read },
-        { path: '/read/:stub/:lang/ch/:ch/sub/:sub', component: Read },
-        { path: '/read/:stub/:lang/vol/:vol', component: Read },
-        { path: '/read/:stub/:lang/ch/:ch', component: Read },
-        { path: '/read/:stub/:lang/sub/:sub', component: Read },
-        { path: '/read/:stub/:lang/', component: Read },
+        { path: '/read/:stub/:lang/(vol/\\d+)?/(ch/\\d+)?/(sub/\\d+)?', component: Read },
     ]
 })
 
