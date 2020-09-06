@@ -48,7 +48,7 @@ class Chapter extends Model {
     }
 
     public static function getUrl($comic, $chapter) {
-        $url = Comic::getUrl($comic) . "/$chapter->language";
+        $url = "/read/$comic->slug/$chapter->language";
         if($chapter->volume !== null) $url .= "/vol/$chapter->volume";
         if($chapter->chapter !== null) $url .= "/ch/$chapter->chapter";
         if($chapter->subchapter !== null) $url .= "/sub/$chapter->subchapter";
@@ -77,7 +77,7 @@ class Chapter extends Model {
                         elseif ($num === '3') $name .= 'rd';
                         else $name .= 'th';
                     }
-                } elseif (substr($v, 4, 1) === ':') {
+                } elseif ($v[4] === ':') {
                     $pre = substr($v, 0, 4);
                     $past = substr($v, 5, -1);
                     if (($pre === '{vol' && $chapter->volume !== null) ||
@@ -86,7 +86,7 @@ class Chapter extends Model {
                         ($pre === '{tit' && $chapter->title !== null)) {
                         $name .= $past;
                     }
-                } elseif (substr($v, 0, 1) !== '{' && substr($v, -1) !== '}') {
+                } elseif ($v[0] !== '{' && substr($v, -1) !== '}') {
                     $name .= $v;
                 }
             }
@@ -234,8 +234,9 @@ class Chapter extends Model {
             'language' => $chapter->language,
             'teams' => [Team::generateReaderArray(Team::find($chapter->team_id)),
                 Team::generateReaderArray(Team::find($chapter->team2_id)),],
-            'created_at' => $chapter->created_at,
-            'updated_at' => $chapter->updated_at,
+            /*'created_at' => $chapter->created_at,
+            'updated_at' => $chapter->updated_at,*/
+            'published_on' => $chapter->updated_at,
             'url' => Chapter::getUrl($comic, $chapter),
         ];
     }

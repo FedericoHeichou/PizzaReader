@@ -7,9 +7,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+import store from './store/index'
+import router from './router/index.js';
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,23 +23,8 @@ Vue.use(VueRouter)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 // Vue.component('reader', require('./components/Reader.vue').default);
 
-import Comics from './components/Comics.vue';
-import Comic from './components/Comic.vue';
-import Read from './components/Read.vue';
-
-const router = new VueRouter({
-    mode: 'history',
-    base: __dirname,
-    routes: [
-        { path: '/', redirect: '/comics' },
-        { path: '/public/*', redirect: '/*' },
-        { path: '/comics', component: Comics },
-        { path: '/comics/:stub', component: Comic },
-        { path: '/read/:stub/:lang/(vol/\\d+)?/(ch/\\d+)?/(sub/\\d+)?', component: Read },
-    ]
-})
-
 new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

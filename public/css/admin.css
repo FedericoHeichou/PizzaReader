@@ -4,9 +4,10 @@
     border-bottom: 1px solid #ddd;
 }
 
-/*.list div + div {
-    border-top: 1px solid #ddd;
-}*/
+.pre-formatted {
+    white-space: pre-line;
+    line-height: 1.3;
+}
 
 .list div {
     margin-right: 10px;

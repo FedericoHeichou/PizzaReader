@@ -15,9 +15,11 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
-    mounted() {
-        console.log(this.$route.params);
+    name: "Read",
+    beforeCreate() {
         if (this.$route.params.pathMatch) {
             this.$route.params.vol = this.$route.params.pathMatch.split("/")[1];
         }
@@ -30,7 +32,20 @@ export default {
             this.$route.params.sub = this.$route.params[2].split("/")[1];
         }
         delete this.$route.params[2];
-        console.log(this.$route.params);
+        if (this.$route.params[3]) {
+            this.$route.params.page = this.$route.params[3];
+        }
+        delete this.$route.params[3];
+    },
+    mounted() {
+        $('#nav-search').hide();
+        //this.$store.dispatch('fetchComic');
+    },
+    methods: {},
+    computed: {
+        ...mapGetters([
+            'comic'
+        ])
     }
 }
 </script>

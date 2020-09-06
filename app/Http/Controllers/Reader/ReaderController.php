@@ -19,17 +19,17 @@ class ReaderController extends Controller {
     }
 
     public function comic($comic_slug) {
-        $response = ['comic' => null, 'chapters' => []];
+        $response = ['comic' => null];
 
         $comic = Comic::publicSlug($comic_slug);
         if (!$comic) {
             return response()->json($response);
         }
         $response['comic'] = Comic::generateReaderArray($comic);
-
+        $response['comic']['chapters'] = [];
         $chapters = $comic->publicChapters;
         foreach ($chapters as $chapter) {
-            array_push($response['chapters'], Chapter::generateReaderArray($comic, $chapter));
+            array_push($response['comic']['chapters'], Chapter::generateReaderArray($comic, $chapter));
         }
         return response()->json($response);
     }
@@ -49,6 +49,8 @@ class ReaderController extends Controller {
             }
             $ch = $temp;
             unset($temp);
+        } else {
+            $ch = ['vol' => null, 'ch' => null, 'sub' => null];
         }
         $comic = Comic::slug($comic_slug);
         if (!$comic) {
@@ -61,6 +63,9 @@ class ReaderController extends Controller {
             ['subchapter', $ch['sub']],
             ['language', $language],
         ])->first();
+        // TODO CHECK IP ADDRESS
+        $chapter->views++;
+        $chapter->save();
         $response['chapter'] = Chapter::generateReaderArray($comic, $chapter);
         $response['pages'] = Page::getAllPagesForReader($comic, $chapter);
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Comic extends Model {
     protected $fillable = [
@@ -30,6 +31,7 @@ class Comic extends Model {
             ->orderByDesc('title')
             ->orderByDesc('id');
     }
+
     public function publicChapters() {
         return $this->chapters()->where('hidden', 0);
     }
@@ -56,7 +58,7 @@ class Comic extends Model {
     }
 
     public static function getUrl($comic) {
-        return url("api/read/$comic->slug");
+        return "comics/$comic->slug";
     }
 
     public static function getFormFields() {
@@ -177,20 +179,26 @@ class Comic extends Model {
     }
 
     public static function generateReaderArray($comic) {
-        if(!$comic) return null;
+        if (!$comic) return null;
+        $genres = [];
+        foreach (explode(',', $comic->genres) as $genre) {
+            array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
+        }
         return [
             'title' => $comic->name,
-            'thumbnail' => Comic::getThumbnailUrl($comic),
+            'thumbnail' => Comic::getThumbnailUrl($comic) ?: config('app.url') . 'public/img/noimg.jpg', // TODO setting api
             'description' => $comic->description,
             'author' => $comic->author,
             'artist' => $comic->artist,
             'target' => $comic->target,
-            'genres' => explode(',', $comic->genres),
+            'genres' => $genres,
             'status' => $comic->status,
-            'comic_format_id' => $comic->comic_format_id,
+            'format_id' => $comic->comic_format_id,
             'adult' => $comic->adult,
             'created_at' => $comic->created_at,
             'updated_at' => $comic->updated_at,
+            'views' => Chapter::public()->where('comic_id', $comic->id)->sum('views'),
+            'rating' => 6.91, // TODO rating
             'url' => Comic::getUrl($comic),
             'last_chapter' => Chapter::generateReaderArray($comic, Chapter::public()->where('comic_id', $comic->id)->orderByDesc('created_at')->first()),
         ];

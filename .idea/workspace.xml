@@ -19,11 +19,33 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Created routes for Vue, bug fixes and improvements">
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Improvements to route of Read">
+      <change afterPath="$PROJECT_DIR$/public/img/flags.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Genre.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Target.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/store/actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/store/mutations.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/store/state.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Chapter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Comic.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Comic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/reader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/reader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/card-search.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/card-search.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Comic.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comic.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Comics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comics.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Read.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Read.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/card-search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/card-search.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +63,7 @@
       <list>
         <option value="composer.json" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -274,10 +297,10 @@
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/js/components" />
+      <recent name="$PROJECT_DIR$/public/js" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Reader" />
       <recent name="$PROJECT_DIR$/resources/views/admin/comic/chapter" />
       <recent name="$PROJECT_DIR$/resources/views/partials/form" />
-      <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -295,7 +318,8 @@
       <workItem from="1599041177061" duration="50170000" />
       <workItem from="1599130329608" duration="44758000" />
       <workItem from="1599251891849" duration="11285000" />
-      <workItem from="1599323533710" duration="5714000" />
+      <workItem from="1599323533710" duration="20711000" />
+      <workItem from="1599391252413" duration="18917000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -360,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599263632973</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Improvements to route of Read">
+      <created>1599329511584</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1599329511584</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,7 +418,8 @@
     <MESSAGE value="Update LICENSE" />
     <MESSAGE value="Added API for VUE (comics list, show comic and read chapter), bug fixes and improvements" />
     <MESSAGE value="Created routes for Vue, bug fixes and improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created routes for Vue, bug fixes and improvements" />
+    <MESSAGE value="Improvements to route of Read" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvements to route of Read" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -398,10 +430,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="625" y="235" width="732" height="644" key="#Inspections/72.27.1848.1053@72.27.1848.1053" timestamp="1598875935863" />
-    <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598884189764">
+    <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599407408243">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1598884189764" />
+    <state x="670" y="355" width="641" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1599407408243" />
     <state x="712" y="528" width="525" height="423" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1599158282210">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
