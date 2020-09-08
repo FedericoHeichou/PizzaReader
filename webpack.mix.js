@@ -31,3 +31,4 @@ mix.styles([
 
 mix.copyDirectory('node_modules/blueimp-file-upload/img', 'public/img');
 mix.copy('node_modules/blueimp-tmpl/js/tmpl.min.js.map', 'public/js');
+mix.copy('node_modules/jquery-touchswipe/jquery.touchSwipe.min.js', 'public/js');

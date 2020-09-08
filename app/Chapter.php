@@ -49,9 +49,9 @@ class Chapter extends Model {
 
     public static function getUrl($comic, $chapter) {
         $url = "/read/$comic->slug/$chapter->language";
-        if($chapter->volume !== null) $url .= "/vol/$chapter->volume";
-        if($chapter->chapter !== null) $url .= "/ch/$chapter->chapter";
-        if($chapter->subchapter !== null) $url .= "/sub/$chapter->subchapter";
+        if ($chapter->volume !== null) $url .= "/vol/$chapter->volume";
+        if ($chapter->chapter !== null) $url .= "/ch/$chapter->chapter";
+        if ($chapter->subchapter !== null) $url .= "/sub/$chapter->subchapter";
         return $url;
     }
 
@@ -77,7 +77,7 @@ class Chapter extends Model {
                         elseif ($num === '3') $name .= 'rd';
                         else $name .= 'th';
                     }
-                } elseif ($v[4] === ':') {
+                } elseif (strlen($v) > 3 && $v[4] === ':') {
                     $pre = substr($v, 0, 4);
                     $past = substr($v, 5, -1);
                     if (($pre === '{vol' && $chapter->volume !== null) ||
@@ -93,14 +93,20 @@ class Chapter extends Model {
         }
 
         if (!preg_match("/[A-z0-9]+/", $name)) {
-            if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
-            if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
-            if ($chapter->subchapter !== null) $name .= ".$chapter->subchapter";
-            if($name !== "" && $chapter->title !== null) $name .= " - ";
+            $name = Chapter::getVolChSub($chapter);
+            if ($name !== "" && $chapter->title !== null) $name .= " - ";
             if ($chapter->title !== null) $name .= "$chapter->title";
         }
         if ($name === "") $name = 'Oneshot';
         if ($chapter->prefix !== null) $name = "$chapter->prefix " . $name;
+        return $name;
+    }
+
+    public static function getVolChSub($chapter) {
+        $name = "";
+        if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
+        if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
+        if ($chapter->subchapter !== null) $name .= ".$chapter->subchapter";
         return $name;
     }
 
@@ -213,8 +219,9 @@ class Chapter extends Model {
                     'label' => 'URL slug',
                     'hint' => 'Automatically generated, use this if you want to have a custom URL slug',
                     'disabled' => 'disabled',
+                    'max' => '48',
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:48'],
             ],
 
         ];
@@ -229,6 +236,7 @@ class Chapter extends Model {
             'volume' => $chapter->volume,
             'chapter' => $chapter->chapter,
             'subchapter' => $chapter->subchapter,
+            'full_chapter' => Chapter::getVolChSub($chapter),
             'views' => $chapter->views ?: 0,
             'download_link' => $chapter->download_link,
             'language' => $chapter->language,

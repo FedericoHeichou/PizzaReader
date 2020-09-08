@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row py-sm-4">
         <div v-for="comic in comics" class="col-lg-6 my-1 border-bottom item">
             <div class="thumbnail float-left mr-2">
                 <router-link :to="comic.url"><img :src="comic.thumbnail" class="rounded"></router-link>
@@ -37,13 +37,17 @@ import {mapGetters} from 'vuex'
 export default {
     name: "Comics",
     mounted() {
-        $('#nav-search').show();
+        let header = $('#header');
+        header.removeClass('header-fixed');
+        header.show();
+        $('#nav-search').hide();
+        $('#nav-filter').show();
         this.$store.dispatch('fetchComics');
     },
     methods: {},
     computed: {
         ...mapGetters([
-            'comics'
+            'comics',
         ])
     }
 }

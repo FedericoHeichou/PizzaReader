@@ -18,7 +18,7 @@ const router = new VueRouter({
         {path: '/comics/:slug', component: Comic},
         {path: '/targets/:target', component: Target},
         {path: '/genres/:genre', component: Genre},
-        {path: '/read/:slug/:lang/(vol/\\d+)?/(ch/\\d+)?/(sub/\\d+)?/(\\d+)?', component: Read},
+        {path: '/read/:slug/:lang/(vol/\\d+)?/(ch/\\d+)?/(sub/\\d+)?', component: Read},
     ]
 })
 

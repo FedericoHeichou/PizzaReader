@@ -7,33 +7,14 @@
 
     <!-- Scripts -->
     <script type="text/javascript">
-        const API_BASE_URL = "{{ config('app.url') . 'api'}}" /* TODO setting api */
-        function timePassed(date){
-            // TODO check timezone
-            let diff = new Date().getTime() - new Date(date).getTime();
-            diff = parseInt(diff/1000);
-            if(diff < 60) return diff + " secs ago";
-            diff = parseInt(diff/60);
-            if(diff === 1) return diff + " min ago";
-            if(diff < 60) return diff + " mins ago";
-            diff = parseInt(diff/60);
-            if(diff === 1) return diff + " hour ago";
-            if(diff < 24) return diff + " hours ago";
-            diff = parseInt(diff/24);
-            if(diff === 1) return diff + " day ago";
-            if(diff < 30) return diff + " days ago";
-            diff = parseInt(diff/30);
-            if(diff === 1) return diff + " month ago";
-            if(diff < 12) return diff + " months ago";
-            diff = parseInt(diff/12);
-            if(diff === 1) return diff + " year ago";
-            return diff + " years ago";
-        }
-
-        window.timePassed = timePassed;
+        const BASE_URL = "{{ config('app.url') }}"
+        const API_BASE_URL = "{{ config('app.url') . 'api'}}"
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
+    <script src="{{ asset('js/frontend.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" defer></script>
+    <script src="{{ asset('js/reader.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -41,12 +22,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reader.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+        <nav id="header" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container px-lg-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'PizzaReader') }}
                 </a>
@@ -66,13 +48,21 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        @include('partials.card-search')
+                    <ul class="navbar-nav ml-auto col-4 pr-0">
+                        <div style="width: 100%">
+                            <input id="nav-filter" class="form-control mr-sm-2 card-search"
+                                   type="search" placeholder="Filter" aria-label="Filter" name="filter"
+                                   style="display: none" autocomplete="off">
+                            <input id="nav-search" type="search" placeholder="Search comic" aria-label="Search comic"
+                                   name="search" class="form-control mr-sm-2"
+                                   style="display: none" autocomplete="off">
+                            <div id="results-box" style="display: none">prova</div>
+                        </div>
                     </ul>
                 </div>
             </div>
         </nav>
-        <main class="container-lg p-0 py-sm-4 overflow-hidden">
+        <main class="container-lg p-0 overflow-hidden">
             <router-view></router-view>
         </main>
     </div>

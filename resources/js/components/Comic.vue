@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="comic != null" id="comic">
+    <div  v-if="comic != null" id="comic" class="py-sm-4">
         <div class="card">
             <div class="card-header">
                 <span class="fas fa-book fa-fw"></span>
@@ -188,8 +188,13 @@ import {mapGetters} from 'vuex'
 export default {
     name: "Comic",
     mounted() {
-        $('#nav-search').hide();
-        this.$store.dispatch('fetchComic');
+        let header = $('#header');
+        header.removeClass('header-fixed');
+        header.show();
+        $('#nav-search').show();
+        $('#nav-filter').hide();
+
+        this.$store.dispatch('fetchComic', this.$route);
     },
     methods: {},
     computed: {

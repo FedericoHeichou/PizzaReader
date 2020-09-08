@@ -19,33 +19,37 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Improvements to route of Read">
-      <change afterPath="$PROJECT_DIR$/public/img/flags.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Genre.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Target.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/actions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/mutations.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/state.js" afterDir="false" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Frontend implementations, improvements and bugfixes to the API">
+      <change afterPath="$PROJECT_DIR$/public/css/frontend.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/frontend.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/jquery.touchSwipe.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/reader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Chapter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Comic.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Comic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/helper_functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/helper_functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/reader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/reader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/card-search.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/card-search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Comic.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comic.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Comics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comics.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Genre.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Genre.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Read.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Read.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Target.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Target.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/mutations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/state.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/card-search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/card-search.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/input_text.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_text.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -319,7 +323,8 @@
       <workItem from="1599130329608" duration="44758000" />
       <workItem from="1599251891849" duration="11285000" />
       <workItem from="1599323533710" duration="20711000" />
-      <workItem from="1599391252413" duration="18917000" />
+      <workItem from="1599391252413" duration="19208000" />
+      <workItem from="1599473715536" duration="46474000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -391,7 +396,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599329511584</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Frontend implementations, improvements and bugfixes to the API">
+      <created>1599412920953</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1599412920953</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +431,8 @@
     <MESSAGE value="Added API for VUE (comics list, show comic and read chapter), bug fixes and improvements" />
     <MESSAGE value="Created routes for Vue, bug fixes and improvements" />
     <MESSAGE value="Improvements to route of Read" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvements to route of Read" />
+    <MESSAGE value="Frontend implementations, improvements and bugfixes to the API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Frontend implementations, improvements and bugfixes to the API" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -438,14 +451,18 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="712" y="528" width="525" height="423" key="#com.intellij.ide.util.TreeClassChooserDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599158282209" />
-    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599158331818">
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599480672557">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599158331817" />
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599480672557" />
     <state x="729" y="436" width="523" height="281" key="ComposerInitDialogKey" timestamp="1598869698432">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="729" y="436" width="523" height="281" key="ComposerInitDialogKey/72.27.1848.1053@72.27.1848.1053" timestamp="1598869698432" />
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog" timestamp="1599474378087">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599474378087" />
     <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl" timestamp="1598956992139">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -466,17 +483,21 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599263697588">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599412936407">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599263697588" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599412936407" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1053@72.27.1848.1053" timestamp="1598959387685" />
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1599172644778">
+    <state x="660" y="252" key="run.anything.popup" timestamp="1599491631596">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599172644778" />
+    <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599491631596" />
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1599484963289">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599484963289" />
   </component>
 </project>

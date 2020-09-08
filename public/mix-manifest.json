@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/js/jquery.fileupload-all.js": "/js/jquery.fileupload-all.js",
     "/css/jquery.fileupload-all.css": "/css/jquery.fileupload-all.css",
-    "/js/tmpl.min.js.map": "/js/tmpl.min.js.map"
+    "/js/tmpl.min.js.map": "/js/tmpl.min.js.map",
+    "/js/jquery.touchSwipe.min.js": "/js/jquery.touchSwipe.min.js"
 }

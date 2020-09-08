@@ -18,24 +18,23 @@ class ReaderController extends Controller {
         return response()->json($response);
     }
 
-    public function comic($comic_slug) {
-        $response = ['comic' => null];
+    public function search($search) {
+        $response = ['comics' => []];
 
-        $comic = Comic::publicSlug($comic_slug);
-        if (!$comic) {
-            return response()->json($response);
-        }
-        $response['comic'] = Comic::generateReaderArray($comic);
-        $response['comic']['chapters'] = [];
-        $chapters = $comic->publicChapters;
-        foreach ($chapters as $chapter) {
-            array_push($response['comic']['chapters'], Chapter::generateReaderArray($comic, $chapter));
+        $comics = Comic::publicSearch($search);
+        foreach ($comics as $comic) {
+            array_push($response['comics'], Comic::generateReaderArray($comic));
         }
         return response()->json($response);
     }
 
+    public function comic($comic_slug) {
+        $comic = Comic::publicSlug($comic_slug);
+        return response()->json(['comic' => Comic::generateReaderArrayWithChapters($comic)]);
+    }
+
     public function chapter($comic_slug, $language, $ch = null) {
-        $response = ['comic' => null, 'chapter' => null, 'pages' => [], 'next_chapter' => null, 'previous_chapter' => null];
+        $response = ['comic' => null, 'chapter' => null];
 
         if ($ch) {
             $ch = explode("/", $ch);
@@ -56,7 +55,7 @@ class ReaderController extends Controller {
         if (!$comic) {
             return response()->json($response);
         }
-        $response['comic'] = Comic::generateReaderArray($comic);
+        $response['comic'] = Comic::generateReaderArrayWithChapters($comic);
         $chapter = $comic->publicChapters()->where([
             ['volume', $ch['vol']],
             ['chapter', $ch['ch']],
@@ -65,9 +64,11 @@ class ReaderController extends Controller {
         ])->first();
         // TODO CHECK IP ADDRESS
         $chapter->views++;
+        $chapter->timestamps = false;
         $chapter->save();
+        $chapter->timestamps = true;
         $response['chapter'] = Chapter::generateReaderArray($comic, $chapter);
-        $response['pages'] = Page::getAllPagesForReader($comic, $chapter);
+        $response['chapter']['pages'] = Page::getAllPagesForReader($comic, $chapter);
 
         $previous_chapter = null;
         $next_chapter = null;
@@ -85,8 +86,8 @@ class ReaderController extends Controller {
                 }
                 $last = $c;
             }
-            $response['previous_chapter'] = Chapter::generateReaderArray($comic, $previous_chapter);
-            $response['next_chapter'] = Chapter::generateReaderArray($comic, $next_chapter);
+            $response['chapter']['previous'] = Chapter::generateReaderArray($comic, $previous_chapter);
+            $response['chapter']['next'] = Chapter::generateReaderArray($comic, $next_chapter);
         }
 
         return response()->json($response);

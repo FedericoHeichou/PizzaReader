@@ -44,6 +44,11 @@ class Comic extends Model {
         return Comic::public()->where('slug', $slug)->first();
     }
 
+    public static function publicSearch($search) {
+        $name = preg_replace("/[^A-Za-z0-9 ]/", '', $search);
+        return Comic::public()->where('name', 'LIKE', '%' . $name . '%')->get();
+    }
+
     public static function buildPath($comic) {
         return 'comics/' . $comic->slug . '_' . $comic->salt;
     }
@@ -58,7 +63,7 @@ class Comic extends Model {
     }
 
     public static function getUrl($comic) {
-        return "comics/$comic->slug";
+        return "/comics/$comic->slug";
     }
 
     public static function getFormFields() {
@@ -80,8 +85,9 @@ class Comic extends Model {
                     'label' => 'URL slug',
                     'hint' => 'Automatically generated, use this if you want to have a custom URL slug',
                     'disabled' => 'disabled',
+                    'max' => '48',
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:48'],
             ], [
                 'type' => 'input_checkbox',
                 'parameters' => [
@@ -170,6 +176,7 @@ class Comic extends Model {
                     'field' => 'custom_chapter',
                     'label' => 'Custom chapter',
                     'hint' => 'Replace the default chapter with a custom format. Syntax is: "{something:mystring}" which shows "mystring" only if you setted "something" in the chapter, while {something} shows the value of "something". Accepted values for "something": {vol}, {num}, {sub}, {tit}. Accepted characters in "mystring": everything (a single space too!) except "{" and "}". You can use {ord} after {something} to make it ordinal. [Example: "{vol:Vol.}{vol}{vol: }{num}{ord} punch {sub:Part }{sub}{tit: - }{tit}" returns "Vol.1 2nd punch Part 2 - NiceTitle" if everything is setted, while if a chapter has no Volume or Subchapter it will returns "2nd punch - NiceTitle"]',
+                    'pattern' => '.*\{(vol|num|tit|sub)\}.*',
                 ],
                 'values' => ['max:191', 'regex:/^.*{(vol|num|tit|sub)}.*$/'],
             ],
@@ -202,6 +209,17 @@ class Comic extends Model {
             'url' => Comic::getUrl($comic),
             'last_chapter' => Chapter::generateReaderArray($comic, Chapter::public()->where('comic_id', $comic->id)->orderByDesc('created_at')->first()),
         ];
+    }
+
+    public static function generateReaderArrayWithChapters($comic) {
+        if(!$comic) return null;
+        $response = Comic::generateReaderArray($comic);
+        $response['chapters'] = [];
+        $chapters = $comic->publicChapters;
+        foreach ($chapters as $chapter) {
+            array_push($response['chapters'], Chapter::generateReaderArray($comic, $chapter));
+        }
+        return $response;
     }
 
     public static function getFormFieldsForValidation() {
