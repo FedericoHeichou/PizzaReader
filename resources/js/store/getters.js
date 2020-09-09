@@ -11,12 +11,6 @@ let getters = {
     page: state => {
         return state.page
     },
-    valueLeft: state => {
-        return state.valueLeft
-    },
-    valueRight: state => {
-        return state.valueRight
-    },
 }
 
 export default  getters

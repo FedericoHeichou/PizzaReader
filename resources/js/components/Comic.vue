@@ -189,7 +189,7 @@ export default {
     name: "Comic",
     mounted() {
         let header = $('#header');
-        header.removeClass('header-fixed');
+        $('body').removeClass('body-reader');
         header.show();
         $('#nav-search').show();
         $('#nav-filter').hide();

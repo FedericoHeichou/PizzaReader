@@ -38,7 +38,7 @@ export default {
     name: "Comics",
     mounted() {
         let header = $('#header');
-        header.removeClass('header-fixed');
+        $('body').removeClass('body-reader');
         header.show();
         $('#nav-search').hide();
         $('#nav-filter').show();

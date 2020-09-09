@@ -62,6 +62,9 @@ class ReaderController extends Controller {
             ['subchapter', $ch['sub']],
             ['language', $language],
         ])->first();
+        if (!$chapter) {
+            return response()->json($response);
+        }
         // TODO CHECK IP ADDRESS
         $chapter->views++;
         $chapter->timestamps = false;
@@ -74,21 +77,19 @@ class ReaderController extends Controller {
         $next_chapter = null;
         $last = null;
         $can_break = false;
-        if ($chapter) {
-            foreach ($comic->publicChapters as $c) {
-                if ($can_break) {
-                    $previous_chapter = $c;
-                    break;
-                }
-                if ($c->id === $chapter->id) {
-                    $next_chapter = $last;
-                    $can_break = true;
-                }
-                $last = $c;
+        foreach ($comic->publicChapters as $c) {
+            if ($can_break) {
+                $previous_chapter = $c;
+                break;
             }
-            $response['chapter']['previous'] = Chapter::generateReaderArray($comic, $previous_chapter);
-            $response['chapter']['next'] = Chapter::generateReaderArray($comic, $next_chapter);
+            if ($c->id === $chapter->id) {
+                $next_chapter = $last;
+                $can_break = true;
+            }
+            $last = $c;
         }
+        $response['chapter']['previous'] = Chapter::generateReaderArray($comic, $previous_chapter);
+        $response['chapter']['next'] = Chapter::generateReaderArray($comic, $next_chapter);
 
         return response()->json($response);
     }

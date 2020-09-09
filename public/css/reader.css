@@ -1,26 +1,7 @@
 /* utility classes */
 
-.header-fixed {
-    position: fixed;
-    z-index: 2;
-    width: 100%;
-}
-
-.comic-title {
-    font-size: 1.25em;
-}
-
 .cursor-pointer {
     cursor: pointer;
-}
-
-.arrow-link {
-    font-size: 30px;
-}
-
-.lang-flag {
-    display: inline-block;
-    border-radius: 5px;
 }
 
 .noselect {
@@ -54,6 +35,32 @@
 .loading-container.is-loading .d-not-loading,
 .loading-container:not(.is-loading) .d-loading {
     display: none;
+}
+
+/* layout fixes */
+
+.body-reader {
+    padding-top: 3.5rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    min-height: 100vh;
+}
+
+.body-reader #header {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.body-reader main.container-lg {
+    max-width: 100%;
+}
+
+body.hide-header {
+    padding-top: 0;
 }
 
 /* transitions */
@@ -144,6 +151,8 @@
     display: none;
 }
 
+
+
 /* reader */
 
 .reader {
@@ -155,7 +164,11 @@
     min-width: 100%;
 }
 
-.reader.hide-header .reader-main {
+body.hide-header #header {
+    display: none;
+}
+
+body.hide-header .reader .reader-main {
     min-height: 100vh;
 }
 
@@ -186,6 +199,23 @@
 .reader[data-direction="rtl"] .directional {
     flex-direction: row-reverse;
 }
+
+.reader[data-direction="ltr"] .trail {
+    left: 0;
+}
+
+.reader[data-direction="rtl"] .trail {
+    right: 0;
+}
+
+.reader[data-direction="ltr"] .trail .thumb {
+    float: right;
+}
+
+.reader[data-direction="rtl"] .trail .thumb {
+    float: left;
+}
+
 
 .reader[data-renderer="long-strip"] .reader-images {
     flex-direction: column;
@@ -251,7 +281,7 @@
     max-height: calc(100vh - 3.5rem);
 }
 
-.reader.fit-vertical.hide-header .reader-main {
+body.hide-header .reader.fit-vertical .reader-main {
     height: 100vh;
     max-height: 100vh;
 }
@@ -309,6 +339,14 @@
     width: 100%;
     color: rgba(128, 128, 128, 0.7);
     border-top: 5px dashed rgba(128, 128, 128, 0.7);
+}
+
+.reader .comic-title {
+    font-size: 1.25em;
+}
+
+.reader .arrow-link {
+    font-size: 30px;
 }
 
 /* page track */
@@ -527,7 +565,7 @@
         width: 20vw;
     }
 
-    .reader.layout-horizontal.hide-header .reader-controls-wrapper {
+    body.hide-header .reader.layout-horizontal .reader-controls-wrapper {
         top: 0;
     }
 

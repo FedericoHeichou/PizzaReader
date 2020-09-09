@@ -1,3 +1,5 @@
+import router from '../router/index'
+
 let mutations = {
     FETCH_COMICS(state, comics) {
         return state.comics = comics
@@ -6,14 +8,13 @@ let mutations = {
         return state.comic = comic
     },
     FETCH_CHAPTER(state, chapter) {
-        return state.chapter = chapter
+        state.chapter = chapter
+        if(chapter == null) {
+            router.push(state.comic.url)
+        }
     },
     setPage(state, page) {
         return state.page = parseInt(page)
     },
-    invertDirection(state) {
-        state.valueRight *= -1;
-        state.valueLeft *= -1;
-    }
 }
 export default mutations

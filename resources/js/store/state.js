@@ -3,8 +3,6 @@ let state = {
     comic: [],
     chapter: [],
     page: 1,
-    valueLeft: -1,
-    valueRight: 1,
 }
 
 export default state

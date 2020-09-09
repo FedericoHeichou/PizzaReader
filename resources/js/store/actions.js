@@ -20,24 +20,11 @@ let actions = {
             console.log(err)
         })
     },
-    fetchChapter({commit}, route) {
-        axios.get(API_BASE_URL + route.path)
+    fetchChapter({commit}, path) {
+        return axios.get(API_BASE_URL + path)
             .then(res => {
                 commit('FETCH_COMIC', res.data['comic']);
                 commit('FETCH_CHAPTER', res.data['chapter']);
-                let page = 1;
-                let hash = route.hash.substring(1);
-                if(hash === "last" || parseInt(hash) > res.data['chapter']['pages'].length) {
-                    page = res.data['chapter']['pages'].length;
-                }else {
-                    page = isNaN(parseInt(hash)) || parseInt(hash) < 1 ? 1 : parseInt(hash);
-                }
-                commit('setPage', page);
-                if(history.pushState) {
-                    history.pushState(null, null, '#' + page);
-                } else {
-                    location.hash = '#' + page;
-                }
             }).catch(err => {
             console.log(err)
         })

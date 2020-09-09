@@ -1,6 +1,8 @@
+<!--suppress XmlDuplicatedId -->
 <template>
     <div v-if="chapter != null && comic != null && comic.url != null && chapter.pages.length > 0" id="read"
-         class="reader row flex-column no-gutters layout-horizontal fit-horizontal">
+         class="reader row flex-column no-gutters layout-horizontal fit-horizontal"
+         data-renderer="single-page" data-display="fit-both" :data-direction="direction">
         <div class="container reader-controls-container">
             <div class="reader-controls-wrapper bg-reader-controls row no-gutters flex-nowrap" style="z-index:1">
                 <div class="d-none d-lg-flex col-auto justify-content-center align-items-center cursor-pointer"
@@ -44,7 +46,7 @@
                         </router-link>
                         <div class="col-auto py-2 pr-2 d-lg-none">
                             <select class="form-control" id="jump-page" name="jump-page">
-                                <template v-for="(page, index) in chapter.pages">
+                                <template v-for="(chapter_page, index) in chapter.pages">
                                     <option :value="index + 1">{{ index + 1 }}</option>
                                 </template>
                             </select>
@@ -60,7 +62,8 @@
                                id="settings-button" data-toggle="modal" data-target="#modal-settings">
                                 <span class="fas fa-cog fa-fw"></span><span class="d-none d-lg-inline"> Settings</span>
                             </a>
-                            <a title="Hide header" class="btn btn-secondary col m-1" role="button" id="hide-header-button">
+                            <a title="Hide header" class="btn btn-secondary col m-1" role="button"
+                               @click="hideHeader" id="hide-header-button">
                                 <span class="far fa-window-maximize fa-fw"></span>
                                 <span class="d-none d-lg-inline"> Hide header</span>
                             </a>
@@ -70,40 +73,41 @@
                         <div class="col text-center font-weight-bold">Fit display to</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary col-4">
-                                <input type="radio" data-value="container" data-setting="displayFit"
+                                <input type="radio" data-value="container" data-setting="displayFit" @click="setSetting"
                                        autocomplete="off">Container
                             </label>
                             <label class="btn btn-secondary col-4 active">
-                                <input type="radio" data-value="width" data-setting="displayFit"
+                                <input type="radio" data-value="width" data-setting="displayFit" @click="setSetting"
                                        autocomplete="off" checked>Width
                             </label>
                             <label class="btn btn-secondary col-4">
-                                <input type="radio" data-value="height" data-setting="displayFit"
+                                <input type="radio" data-value="height" data-setting="displayFit" @click="setSetting"
                                        autocomplete="off">Height
                             </label>
                         </div>
                         <div class="col text-center font-weight-bold mt-2">Page rendering</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary col-4">
-                                <input type="radio" data-value="double" data-setting="renderingMode" autocomplete="off">Double
+                                <input type="radio" data-value="double" data-setting="renderingMode" @click="setSetting"
+                                       autocomplete="off">Double
                             </label>
                             <template v-if="chapter.format_id === 2">
                                 <label class="btn btn-secondary col-4">
-                                    <input type="radio" data-value="single" data-setting="renderingMode"
+                                    <input type="radio" data-value="single" data-setting="renderingMode" @click="setSetting"
                                            autocomplete="off">Single
                                 </label>
                                 <label class="btn btn-secondary col-4 active">
-                                    <input type="radio" data-value="long-strip" data-setting="renderingMode"
+                                    <input type="radio" data-value="long-strip" data-setting="renderingMode" @click="setSetting"
                                            autocomplete="off" checked>Long Strip
                                 </label>
                             </template>
                             <template v-else>
                                 <label class="btn btn-secondary col-4 active">
-                                    <input type="radio" data-value="single" data-setting="renderingMode"
+                                    <input type="radio" data-value="single" data-setting="renderingMode" @click="setSetting"
                                            autocomplete="off" checked>Single
                                 </label>
                                 <label class="btn btn-secondary col-4">
-                                    <input type="radio" data-value="long-strip" data-setting="renderingMode"
+                                    <input type="radio" data-value="long-strip" data-setting="renderingMode" @click="setSetting"
                                            autocomplete="off">Long Strip
                                 </label>
                             </template>
@@ -111,11 +115,11 @@
                         <div class="col text-center font-weight-bold mt-2">Direction</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary col-6 active">
-                                <input type="radio" data-value="left-to-right" data-setting="direction"
+                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSetting"
                                        autocomplete="off" checked>Left to right
                             </label>
                             <label class="btn btn-secondary col-6">
-                                <input type="radio" data-value="right-to-left" data-setting="direction"
+                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSetting"
                                        autocomplete="off">Right to left
                             </label>
                         </div>
@@ -131,16 +135,17 @@
                     <div class="reader-controls-pages col-auto d-none d-lg-flex row no-gutters align-items-center">
                         <router-link v-if="(valueLeft === -1 && page > 1) ||
                         (valueLeft === 1 && page < chapter.pages.length)" :to="'#' + (page+valueLeft)"
-                                     class="page-link-left col-auto arrow-link"
+                                     class="page-link-left col-auto arrow-link" id="turn-left"
                                      data-action="page" data-direction="left" data-by="1">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true" title="Turn page left"></span>
                         </router-link>
                         <router-link v-else-if="chapter.previous != null" :to="chapter.previous.url + '#last'"
-                                     class="page-link-left col-auto arrow-link"
+                                     class="page-link-left col-auto arrow-link" id="turn-left"
                                      data-action="page" data-direction="left" data-by="1">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true" title="Turn page left"></span>
                         </router-link>
-                        <router-link v-else :to="comic.url" class="page-link-left col-auto arrow-link"
+                        <router-link v-else :to="comic.url"
+                                     class="page-link-left col-auto arrow-link" id="turn-left"
                                      data-action="page" data-direction="left" data-by="1">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true" title="Turn page left"></span>
                         </router-link>
@@ -151,16 +156,17 @@
 
                         <router-link v-if="(valueRight === 1 && page < chapter.pages.length) ||
                                     (valueRight === -1 && page > 1)" :to="'#' + (page+valueRight)"
-                                     class="page-link-right col-auto arrow-link"
+                                     class="page-link-right col-auto arrow-link" id="turn-right"
                                      data-action="page" data-direction="right" data-by="1">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true" title="Turn page right"></span>
                         </router-link>
                         <router-link v-else-if="chapter.next != null" :to="chapter.next.url"
-                                     class="page-link-right col-auto arrow-link"
+                                     class="page-link-right col-auto arrow-link" id="turn-right"
                                      data-action="page" data-direction="left" data-by="1">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true" title="Turn page right"></span>
                         </router-link>
-                        <router-link v-else :to="comic.url" class="page-link-right col-auto arrow-link"
+                        <router-link v-else :to="comic.url"
+                                     class="page-link-right col-auto arrow-link" id="turn-right"
                                      data-action="page" data-direction="left" data-by="1">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true" title="Turn page right"></span>
                         </router-link>
@@ -175,24 +181,35 @@
                     JavaScript is required for this reader to work.
                 </div>
             </noscript>
-            <div class="reader-goto-top d-flex d-lg-none justify-content-center align-items-center fade cursor-pointer" data-scroll="0" data-turn="0" data-threshold="100">
-                <span class="fas fa-angle-up"></span>
+            <div class="reader-images col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
+                <div class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters"
+                     :data-page="page" :style="'order: ' + page + ';'">
+                    <img draggable="false" class="noselect nodrag cursor-pointer"
+                         :src="chapter.pages[page-1]" :alt="'Page ' + page">
+                </div>
             </div>
-            <div class="reader-images col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional"><div class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters" data-state="2" data-page="25" style="order: 25;"><img draggable="false" class="noselect nodrag cursor-pointer" src="https://s9q5t4xxwkqyt.n89szn4j53mg0.mangadex.network/GfoMdQwAojRhAd1rXFbpZu6WFqJuVmaarIgxEegNYA1qV52gFkW-FDaAuR1QLdRZD7kVfysTs-A9cXQQtg7VS5QJZauCeDssGJq42WVbcmtaVypQ5RBEwmWx0oY56oTE3gHGUQVDzSNwRrwWFif-hKFNjaW33KPu-zNPgCjpkvHxReKKrPo45sLz6GERNemlT3f1hFTt0xKDhfIR6fzoQ_5v/data-saver/626e6405f890735f4c985e32c2c3631e/s25.png"></div></div>
             <div class="reader-load-icon">
                 <span class="fas fa-circle-notch fa-spin" aria-hidden="true"></span>
             </div>
             <div class="reader-page-bar col-auto d-none d-lg-flex directional">
                 <div class="track cursor-pointer row no-gutters">
-                    <div class="trail position-absolute h-100 noevents" style="width: 46.2963%;">
-                        <div class="thumb h-100" style="width: 4%; float: right;"></div>
+                    <div class="trail position-absolute h-100 noevents"
+                         :style="'width: ' + (page/chapter.pages.length*100) + '%;'">
+                        <div class="thumb h-100" :style="'width: ' + (100/page) + '%;'"></div>
                     </div>
-                    <div class="notches row no-gutters h-100 w-100 directional"><div class="notch col loaded" data-page="1" style="order: 1;"></div><div class="notch col loaded" data-page="2" style="order: 2;"></div><div class="notch col loaded" data-page="3" style="order: 3;"></div><div class="notch col loaded" data-page="4" style="order: 4;"></div><div class="notch col loaded" data-page="5" style="order: 5;"></div><div class="notch col loaded" data-page="6" style="order: 6;"></div><div class="notch col loaded" data-page="7" style="order: 7;"></div><div class="notch col loaded" data-page="8" style="order: 8;"></div><div class="notch col loaded" data-page="9" style="order: 9;"></div><div class="notch col loaded" data-page="10" style="order: 10;"></div><div class="notch col loaded" data-page="11" style="order: 11;"></div><div class="notch col loaded" data-page="12" style="order: 12;"></div><div class="notch col loaded" data-page="13" style="order: 13;"></div><div class="notch col loaded" data-page="14" style="order: 14;"></div><div class="notch col loaded" data-page="15" style="order: 15;"></div><div class="notch col loaded" data-page="16" style="order: 16;"></div><div class="notch col loaded" data-page="17" style="order: 17;"></div><div class="notch col loaded" data-page="18" style="order: 18;"></div><div class="notch col loaded" data-page="19" style="order: 19;"></div><div class="notch col loaded" data-page="20" style="order: 20;"></div><div class="notch col loaded" data-page="21" style="order: 21;"></div><div class="notch col loaded" data-page="22" style="order: 22;"></div><div class="notch col loaded" data-page="23" style="order: 23;"></div><div class="notch col loaded" data-page="24" style="order: 24;"></div><div class="notch col loaded" data-page="25" style="order: 25;"></div><div class="notch col loaded" data-page="26" style="order: 26;"></div><div class="notch col loaded" data-page="27" style="order: 27;"></div><div class="notch col loaded" data-page="28" style="order: 28;"></div><div class="notch col loaded" data-page="29" style="order: 29;"></div><div class="notch col loaded" data-page="30" style="order: 30;"></div><div class="notch col loaded" data-page="31" style="order: 31;"></div><div class="notch col loaded" data-page="32" style="order: 32;"></div><div class="notch col loaded" data-page="33" style="order: 33;"></div><div class="notch col loaded" data-page="34" style="order: 34;"></div><div class="notch col loaded" data-page="35" style="order: 35;"></div><div class="notch col loaded" data-page="36" style="order: 36;"></div><div class="notch col loaded" data-page="37" style="order: 37;"></div><div class="notch col loaded" data-page="38" style="order: 38;"></div><div class="notch col loaded" data-page="39" style="order: 39;"></div><div class="notch col loaded" data-page="40" style="order: 40;"></div><div class="notch col loaded" data-page="41" style="order: 41;"></div><div class="notch col loaded" data-page="42" style="order: 42;"></div><div class="notch col loaded" data-page="43" style="order: 43;"></div><div class="notch col loaded" data-page="44" style="order: 44;"></div><div class="notch col loaded" data-page="45" style="order: 45;"></div><div class="notch col loaded" data-page="46" style="order: 46;"></div><div class="notch col loaded" data-page="47" style="order: 47;"></div><div class="notch col loaded" data-page="48" style="order: 48;"></div><div class="notch col loaded" data-page="49" style="order: 49;"></div><div class="notch col loaded" data-page="50" style="order: 50;"></div><div class="notch col loaded" data-page="51" style="order: 51;"></div><div class="notch col loaded" data-page="52" style="order: 52;"></div><div class="notch col loaded" data-page="53" style="order: 53;"></div><div class="notch col loaded" data-page="54" style="order: 54;"></div></div>
-                    <div class="notch-display col-auto m-auto px-3 py-1 noevents">28 / 54</div>
+                    <div class="notches row no-gutters h-100 w-100 directional">
+                        <template v-for="(chapter_page, index) in chapter.pages">
+                            <router-link :class="page === index+1 ? 'notch col loaded' : 'notch col'"
+                                         :data-page="index+1" @mouseover.native="setNotch(index+1)"
+                                         :to="'#' + (index+1)" :style="'order: ' + (index+1) + ';'"></router-link>
+                        </template>
+                    </div>
+                    <div class="notch-display col-auto m-auto px-3 py-1 noevents">
+                        {{ hover_page }} / {{ chapter.pages.length }}
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -202,46 +219,64 @@ import {mapGetters} from "vuex";
 export default {
     name: "Read",
     mounted() {
-        if (this.$route.params.pathMatch) {
-            this.$route.params.vol = this.$route.params.pathMatch.split("/")[1];
-        }
-        delete this.$route.params.pathMatch;
-        if (this.$route.params[1]) {
-            this.$route.params.ch = this.$route.params[1].split("/")[1];
-        }
-        delete this.$route.params[1];
-        if (this.$route.params[2]) {
-            this.$route.params.sub = this.$route.params[2].split("/")[1];
-        }
-        delete this.$route.params[2];
-        $('#header').addClass('header-fixed');
+        this.setupParams(this.$route.params)
+        $('body').addClass('body-reader');
         $('#nav-search').show();
         $('#nav-filter').hide();
 
-        this.$store.dispatch('fetchChapter', this.$route);
+        this.$store.dispatch('fetchChapter', this.$route.path)
+            .then(() => {
+                if(this.$store.getters.chapter != null){
+                    this.setPage(this.$route.hash, this.$store.getters.chapter.pages.length);
+                }
+            });
     },
     beforeRouteUpdate(to, from, next) {
-        if (to.params.pathMatch) {
-            to.params.vol = to.params.pathMatch.split("/")[1];
-        }
-        delete to.params.pathMatch;
-        if (to.params[1]) {
-            to.params.ch = to.params[1].split("/")[1];
-        }
-        delete to.params[1];
-        if (to.params[2]) {
-            to.params.sub = to.params[2].split("/")[1];
-        }
-        delete to.params[2];
-        if(to.params.vol !== from.params.vol || to.params.ch !== from.params.ch || to.params.sub !== from.params.sub) {
-            this.$store.dispatch('fetchChapter', to);
+        if(from.path !== to.path){
+            this.setupParams(to.params)
+            this.$store.dispatch('fetchChapter', to.path)
+                .then(() => {
+                    if(this.$store.getters.chapter != null){
+                        this.setPage(to.hash, this.$store.getters.chapter.pages.length);
+                    }
+                });
         } else {
+            this.setPage(to.hash, this.$store.getters.chapter.pages.length);
+        }
+        next();
+    },
+    data() {
+        return{
+            hover_page: 1,
+            displayFit: 'width',
+            renderingMode: 'single',
+            direction: 'ltr',
+            valueLeft: -1,
+            valueRight: 1,
+        }
+    },
+    methods: {
+        setupParams(params) {
+            if (params.pathMatch) {
+                params.vol = params.pathMatch.split("/")[1];
+            }
+            delete params.pathMatch;
+            if (params[1]) {
+                params.ch = params[1].split("/")[1];
+            }
+            delete params[1];
+            if (params[2]) {
+                params.sub = params[2].split("/")[1];
+            }
+            delete params[2];
+        },
+        setPage(hash, max_page) {
             let page = 1;
-            let hash = to.hash.substring(1);
-            if(hash === "last" || parseInt(hash) > this.$store.getters.chapter.pages.length) {
-                page = this.$store.getters.chapter.pages.length;
+            let requested_page = hash.substring(1);
+            if(requested_page === "last" || parseInt(requested_page) > max_page) {
+                page = max_page;
             }else {
-                page = isNaN(parseInt(hash)) || parseInt(hash) < 1 ? 1 : parseInt(hash);
+                page = isNaN(parseInt(requested_page)) || parseInt(requested_page) < 1 ? 1 : parseInt(requested_page);
             }
             this.$store.commit('setPage', page);
             if(history.pushState) {
@@ -249,17 +284,61 @@ export default {
             } else {
                 location.hash = '#' + page;
             }
+            this.preloadImagesFrom(page);
+        },
+        setNotch(page){
+            this.hover_page = page;
+        },
+        hideHeader(){
+            let hide_header_button = $('#hide-header-button');
+            hide_header_button.toggleClass('active');
+            if(hide_header_button.hasClass('active')){
+                $('body').addClass('hide-header');
+            } else {
+                $('body').removeClass('hide-header');
+            }
+        },
+        setSetting(e) {
+            const setting = $(e.target).data('setting')
+            const value = $(e.target).data('value')
+            if(setting === 'direction'){
+                this.direction = value;
+                this.valueLeft = value === 'ltr' ? -1 : 1
+                this.valueRight = value === 'ltr' ? 1 : -1
+            }
+        },
+        preloadImage(url) {
+            return new Promise(function(resolve, reject){
+                let img = new Image()
+                img.onload = function(){
+                    resolve(url)
+                }
+                img.onerror = function(){
+                    reject(url)
+                }
+                img.src = url;
+            })
+        },
+        recursivePreload(page_number, max){
+            this.preloadImage(this.$store.getters.chapter.pages[page_number - 1]).then((successUrl) => {
+                $('.notch[data-page="' + page_number +'"]').addClass('loaded');
+                if(page_number < max) {
+                    this.recursivePreload(page_number + 1, max)
+                }
+            }).catch((errorUrl) => {
+                // Nothing
+            });
+        },
+        async preloadImagesFrom(page_number) {
+            if(page_number == null) page_number = 1
+            this.recursivePreload(page_number, this.$store.getters.chapter.pages.length);
         }
-        next();
     },
-    methods: {},
     computed: {
         ...mapGetters([
             'comic',
             'chapter',
             'page',
-            'valueLeft',
-            'valueRight',
         ])
     }
 }
