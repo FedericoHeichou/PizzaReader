@@ -79,7 +79,7 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
-        $old_path = 'public/' . Chapter::buildPath($comic, $chapter);
+        $old_path = Chapter::path($comic, $chapter);
         $form_fields = Chapter::getFormFieldsForValidation();
         $request->validate($form_fields);
 
@@ -97,14 +97,19 @@ class ChapterController extends Controller {
             unset($fields['slug']);
         }
 
-        // If has a new slug rename the directory
-        if (isset($fields['slug']) && $chapter->slug != $fields['slug']) {
-            $new_chapter = new Chapter;
-            $new_chapter->slug = $fields['slug'];
-            $new_chapter->salt = $chapter->salt;
-            $new_path = 'public/' . Chapter::buildPath($comic, $new_chapter);
+        // Check if has a new path, then rename it
+        $new_chapter = new Chapter;
+        $new_chapter->slug = isset($fields['slug']) ? $fields['slug'] : $chapter->slug;
+        $new_chapter->language = isset($fields['language']) ? $fields['language'] : null;
+        $new_chapter->volume = isset($fields['volume']) ? $fields['volume'] : null;
+        $new_chapter->chapter = isset($fields['chapter']) ? $fields['chapter'] : null;
+        $new_chapter->subchapter = isset($fields['subchapter']) ? $fields['subchapter'] : null;
+        $new_chapter->salt = $chapter->salt;
+        $new_path = Chapter::path($comic, $new_chapter);
+        if ($old_path !== $new_path) {
             Storage::move($old_path, $new_path);
         }
+        unset($new_chapter);
 
         if ($fields['team2_id'] === '0') unset($fields['team2_id']);
 

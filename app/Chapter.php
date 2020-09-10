@@ -35,8 +35,12 @@ class Chapter extends Model {
     }
 
     public static function buildPath($comic, $chapter) {
-        return Comic::buildPath($comic) . '/' . intval($chapter->volume) . '-' . intval($chapter->chapter) . '-' .
-            intval($chapter->subchapter) . '-' . $chapter->slug . '_' . $chapter->salt;
+        $lang = $chapter->language ?: "N";
+        $vol = intval($chapter->volume) ?: "N";
+        $ch = intval($chapter->chapter) ?: "N";
+        $sub = intval($chapter->subchapter) ?: "N";
+        return Comic::buildPath($comic) . '/' . $lang . '-' . $vol . '-' . $ch . '-' . $sub . '-'. $chapter->slug
+            . '_' . $chapter->salt;
     }
 
     public static function path($comic, $chapter) {
