@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chapter extends Model {
     protected $fillable = [
         'comic_id', 'team_id', 'team2_id', 'volume', 'chapter', 'subchapter', 'title', 'slug', 'salt', 'prefix',
-        'hidden', 'views', 'download_link', 'language'
+        'hidden', 'views', 'download_link', 'language', 'published_on'
     ];
 
     public function scopePublic() {
@@ -164,6 +164,21 @@ class Chapter extends Model {
                 ],
                 'values' => ['max:191'],
             ], [
+                'type' => 'input_datetime_local',
+                'parameters' => [
+                    'field' => 'published_on',
+                    'label' => 'Published on',
+                    'hint' => 'It won\'t be used to programs the publication but only for information purpose. If your browser (es. Firefox) doesn\'t show a data picker, please use as format yyyy-mm-ddTHH:MM [Example: 2020-09-10T19:34]',
+                    'required' => 'required',
+                ],
+                'values' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/'],
+            ], [
+                'type' => 'input_hidden',
+                'parameters' => [
+                    'field' => 'timezone',
+                ],
+                'values' => ['max:191'],
+            ], [
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'views',
@@ -242,9 +257,8 @@ class Chapter extends Model {
             'language' => $chapter->language,
             'teams' => [Team::generateReaderArray(Team::find($chapter->team_id)),
                 Team::generateReaderArray(Team::find($chapter->team2_id)),],
-            /*'created_at' => $chapter->created_at,
-            'updated_at' => $chapter->updated_at,*/
-            'published_on' => $chapter->updated_at,
+            'updated_at' => $chapter->updated_at,
+            'published_on' => \Carbon\Carbon::parse($chapter->published_on)->toJson(),
             'url' => Chapter::getUrl($comic, $chapter),
         ];
     }

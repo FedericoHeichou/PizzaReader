@@ -12,7 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
-    <script src="{{ asset('js/checkbox.js') }}" defer></script>
+    <script src="{{ asset('js/backend.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
 
     <!-- Fonts -->

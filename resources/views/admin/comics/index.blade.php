@@ -21,7 +21,7 @@
                             @method('DELETE')
                         </form>
                     @endif
-                    <span class="spacer">|</span><a href="#">Read</a>
+                    <span class="spacer">|</span><a href="{{ \App\Comic::getUrl($comic) }}" target="_blank">Read</a>
                 </span>
             </div>
         @endforeach

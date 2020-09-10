@@ -19,20 +19,25 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes">
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Reader quite full working, need to fix some scroll-up and history spam in long-strip render mode, improvements and bugfixes">
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/input_datetime_local.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/partials/form/input_hidden.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Page.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/reader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/reader.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Comic.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comic.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Comics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comics.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Genre.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Genre.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Read.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Read.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Target.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Target.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/mutations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/state.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Chapter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_145624_create_comics_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_145624_create_comics_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/frontend.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/frontend.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/checkbox.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/backend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/chapters/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/chapters/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/information.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/base.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/textarea.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/textarea.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,26 +273,26 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/glorep/glorep" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/partials/form" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/partials/form" />
+      <recent name="$PROJECT_DIR$/resources/js/components" />
+      <recent name="$PROJECT_DIR$/public/js" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Reader" />
+      <recent name="$PROJECT_DIR$/resources/views/admin/comic/chapter" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/layouts" />
       <recent name="$PROJECT_DIR$/resources/views/admin/comics" />
       <recent name="$PROJECT_DIR$/resources/views/admin/comics/chapters" />
       <recent name="$PROJECT_DIR$/resources/views/admin/comic" />
       <recent name="$PROJECT_DIR$/resources/views/admin" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/components" />
-      <recent name="$PROJECT_DIR$/public/js" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Reader" />
-      <recent name="$PROJECT_DIR$/resources/views/admin/comic/chapter" />
-      <recent name="$PROJECT_DIR$/resources/views/partials/form" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -309,7 +314,8 @@
       <workItem from="1599391252413" duration="19208000" />
       <workItem from="1599473715536" duration="46615000" />
       <workItem from="1599565865626" duration="35291000" />
-      <workItem from="1599639280155" duration="46574000" />
+      <workItem from="1599639280155" duration="46828000" />
+      <workItem from="1599739426668" duration="19875000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -402,7 +408,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599611254568</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Reader quite full working, need to fix some scroll-up and history spam in long-strip render mode, improvements and bugfixes">
+      <created>1599697059126</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1599697059126</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +446,8 @@
     <MESSAGE value="Frontend implementations, improvements and bugfixes to the API" />
     <MESSAGE value="Implementation of 'search' in both frontend and backend, created partial reader, improvements and bugfixes" />
     <MESSAGE value="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes" />
+    <MESSAGE value="Reader quite full working, need to fix some scroll-up and history spam in long-strip render mode, improvements and bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reader quite full working, need to fix some scroll-up and history spam in long-strip render mode, improvements and bugfixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -476,18 +490,18 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1598884299065" />
-    <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1599255876412">
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1599748733257">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1599255876412" />
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1599748733257" />
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1598967827425">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599611260324">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599697062731">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599611260324" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599697062731" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

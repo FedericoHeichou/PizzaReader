@@ -27,6 +27,7 @@ class CreateChaptersTable extends Migration {
             $table->bigInteger('views', false, true)->default(0)->nullable();
             $table->string('download_link')->nullable();
             $table->string('language', 2);
+            $table->timestamp('published_on')->useCurrent();
             $table->timestamps();
 
             $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');

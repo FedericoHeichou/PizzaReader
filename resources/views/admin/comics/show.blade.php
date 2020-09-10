@@ -1,5 +1,6 @@
 @extends('admin.comics.information', ['fields' => \App\Comic::getFormFields(), 'is_chapter' => false])
 @section('card-title', 'Information about this comic')
+@section('reader_url', $comic->url)
 @section('destroy-message', 'Do you want to delete this comic and its relative chapters?')
 @section('form-action', route('admin.comics.destroy', $comic->id))
 @section('list-title', 'Chapters')
@@ -23,7 +24,7 @@
                         </form>
                         <span class="spacer">|</span>
                     @endif
-                    <a href="#">Read</a>
+                    <a href="{{ \App\Chapter::getUrl($comic, $chapter) }}">Read</a>
                 </span>
             </div>
         @endforeach

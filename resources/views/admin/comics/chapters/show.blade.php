@@ -1,5 +1,6 @@
 @extends('admin.comics.information', ['fields' => \App\Chapter::getFormFields(), 'is_chapter' => true])
 @section('card-title', 'Information about this chapter')
+@section('reader_url', $chapter->url)
 @section('destroy-message', 'Do you want to delete this chapter and its relative pages?')
 @section('form-action', route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]))
 @section('list-title', 'Pages')

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Comic;
 use App\Chapter;
 use App\Page;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -32,6 +33,8 @@ class ChapterController extends Controller {
         $request->validate($form_fields);
 
         $fields = getFieldsFromRequest($request, $form_fields);
+        $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
+        unset($fields['timezone']);
         $fields['salt'] = Str::random();
         $fields['comic_id'] = $comic->id;
         $fields['slug'] = Chapter::generateSlug($fields);
@@ -51,6 +54,7 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
+        $chapter->url = Chapter::getUrl($comic, $chapter);
         return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Page::getAllPagesForFileUpload($comic, $chapter)]);
     }
 
@@ -80,6 +84,9 @@ class ChapterController extends Controller {
         $request->validate($form_fields);
 
         $fields = getFieldsFromRequest($request, $form_fields);
+
+        $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
+        unset($fields['timezone']);
 
         $fields['comic_id'] = $comic_id;
 
@@ -116,6 +123,6 @@ class ChapterController extends Controller {
         }
         Storage::deleteDirectory(Chapter::path($comic, $chapter));
         Chapter::destroy($chapter_id);
-        return redirect()->route('admin.comics.show', ['comic' => $comic->slug])->with('warning', 'Chapter "' . Chapter::name($chapter) . '" deleted');
+        return redirect()->route('admin.comics.show', ['comic' => $comic->slug])->with('warning', 'Chapter "' . Chapter::name($comic, $chapter) . '" deleted');
     }
 }

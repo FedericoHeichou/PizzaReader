@@ -52,6 +52,7 @@ class ComicController extends Controller {
         if (!$comic) {
             abort(404);
         }
+        $comic->url = Comic::getUrl($comic);
         return view('admin.comics.show')->with(['comic' => $comic, 'chapters' => $comic->chapters]);
     }
 

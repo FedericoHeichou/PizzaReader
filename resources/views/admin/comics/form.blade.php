@@ -13,6 +13,7 @@
                 @csrf
                 @yield('method')
                 @foreach($fields as $field)
+                    <?php $field['parameters']['type'] =  $field['type'] ?>
                     @include('partials.form.' . $field['type'], $field['parameters'])
                 @endforeach
                 <div class="form-row text-center">

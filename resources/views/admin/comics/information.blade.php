@@ -5,7 +5,7 @@
             <div class="form-row">
                 <div class="col-12">
                     <h3 class="mt-1 float-left">@yield('card-title')</h3>
-                    <a href="#TODO" class="btn btn-success ml-3">Read</a>
+                    <a href="@yield('reader_url')" target="_blank" class="btn btn-success ml-3">Read</a>
                     @if($is_chapter)
                     <a href="{{ route('admin.comics.chapters.edit', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}" class="btn btn-success ml-1">Edit</a>
                     @endif
@@ -27,18 +27,21 @@
         </div>
         <div class="card-body">
             @foreach($fields as $field)
-                <?php $value = $is_chapter ? $chapter->{$field['parameters']['field']} : $comic->{$field['parameters']['field']} ?>
-                <div class="form-group @if(!(($field['type'] === 'input_file' || $field['type'] === 'textarea') && $value))form-row @endif">
-                    <label for="{{ $field['parameters']['field'] }}" class="font-weight-bold">{{ $field['parameters']['label'] }}:</label>
-                    <div class="ml-2">
-                        @if($field['type'] === 'input_checkbox') <span>{{ $value ? "Yes" : "No" }}</span>
-                        @elseif($field['type'] === 'input_file' && $value) <img src="{{ \App\Comic::getThumbnailUrl($comic) }}" class="img-thumbnail thumbnail">
-                        @elseif($field['type'] === 'select') <span>{{ !is_int($value) && $value !== null ? $value : ($value > 0 ? $field['parameters']['options'][$value - 1]->name : 'N/A') }}</span>
-                        @elseif($field['type'] === 'textarea') <span class="pre-formatted">{{ $value ?? 'N/A' }}</span>
-                        @else <span>{{ $value ?? 'N/A' }}</span>
-                        @endif
+                @if($field['type'] !== 'input_hidden')
+                    <?php $value = $is_chapter ? $chapter->{$field['parameters']['field']} : $comic->{$field['parameters']['field']} ?>
+                    <div class="form-group @if(!(($field['type'] === 'input_file' || $field['type'] === 'textarea') && $value))form-row @endif">
+                        <label for="{{ $field['parameters']['field'] }}" class="font-weight-bold">{{ $field['parameters']['label'] }}:</label>
+                        <div class="ml-2">
+                            @if($field['type'] === 'input_checkbox') <span>{{ $value ? "Yes" : "No" }}</span>
+                            @elseif($field['type'] === 'input_file' && $value) <img src="{{ \App\Comic::getThumbnailUrl($comic) }}" class="img-thumbnail thumbnail">
+                            @elseif($field['type'] === 'select') <span>{{ !is_int($value) && $value !== null ? $value : ($value > 0 ? $field['parameters']['options'][$value - 1]->name : 'N/A') }}</span>
+                            @elseif($field['type'] === 'textarea') <span class="pre-formatted">{{ $value ?? 'N/A' }}</span>
+                            @elseif($field['type'] === 'input_datetime_local') <span class="convert-timezone">{{ $value ?? 'N/A' }}</span>
+                            @else <span>{{ $value ?? 'N/A' }}</span>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
     </div>
