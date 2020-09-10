@@ -77,7 +77,8 @@ class ReaderController extends Controller {
         $next_chapter = null;
         $last = null;
         $can_break = false;
-        foreach ($comic->publicChapters as $c) {
+        // Previous and Next chapter should be in the same language
+        foreach ($comic->publicChapters()->where('language', $chapter->language)->get() as $c) {
             if ($can_break) {
                 $previous_chapter = $c;
                 break;

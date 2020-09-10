@@ -255,7 +255,7 @@ class Chapter extends Model {
             'volume' => $chapter->volume,
             'chapter' => $chapter->chapter,
             'subchapter' => $chapter->subchapter,
-            'full_chapter' => Chapter::getVolChSub($chapter),
+            'full_chapter' => "[" . strtoupper($chapter->language) . "] " . Chapter::getVolChSub($chapter),
             'views' => $chapter->views ?: 0,
             'download_link' => $chapter->download_link,
             'language' => $chapter->language,

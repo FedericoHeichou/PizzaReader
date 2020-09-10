@@ -1,12 +1,12 @@
 <!--suppress XmlDuplicatedId -->
 <template>
     <div v-if="chapter != null && comic != null && comic.url != null && max_page > 0" id="read"
-         class="reader row flex-column no-gutters layout-horizontal"
+         :class="'reader row flex-column no-gutters layout-horizontal' + (hide_sidebar ? ' hide-sidebar' : '')"
          :data-renderer="renderingMode" :data-display="displayFit" :data-direction="direction">
         <div class="container reader-controls-container">
             <div class="reader-controls-wrapper bg-reader-controls row no-gutters flex-nowrap" style="z-index:1">
                 <div class="d-none d-lg-flex col-auto justify-content-center align-items-center cursor-pointer"
-                      id="reader-controls-collapser">
+                      id="reader-controls-collapser" @click="hide_sidebar = !hide_sidebar">
                     <span class="fas fa-caret-right fa-fw arrow-link" aria-hidden="true" title="Collapse menu"></span>
                 </div>
                 <div class="reader-controls col row no-gutters flex-column flex-nowrap">
@@ -322,6 +322,7 @@ export default {
             max_page: 1,
             hover_page: 1,
             hide_header: 0,
+            hide_sidebar: 0,
             displayFit: 'fit-width',
             renderingMode: 'single-page',
             renderedPages: 1,

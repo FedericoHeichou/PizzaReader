@@ -44,4 +44,4 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::get('/{reader?}', [HomeController::class, 'index'])->name('home')->where('reader', '.*');
+Route::get('/{reader?}', HomeController::class)->name('home')->where('reader', '.*');
