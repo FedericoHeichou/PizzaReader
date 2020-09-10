@@ -19,9 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Implementation of 'search' in both frontend and backend, created partial reader, improvements and bugfixes">
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Page.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/reader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/reader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/reader.js" afterDir="false" />
@@ -30,7 +30,6 @@
       <change beforePath="$PROJECT_DIR$/resources/js/components/Genre.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Genre.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Read.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Read.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Target.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Target.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/mutations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/state.js" afterDir="false" />
@@ -269,7 +268,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
+    <property name="last_opened_file_path" value="$USER_HOME$/glorep/glorep" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
@@ -309,7 +308,8 @@
       <workItem from="1599323533710" duration="20711000" />
       <workItem from="1599391252413" duration="19208000" />
       <workItem from="1599473715536" duration="46615000" />
-      <workItem from="1599565865626" duration="35110000" />
+      <workItem from="1599565865626" duration="35291000" />
+      <workItem from="1599639280155" duration="46574000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -395,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599531479428</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes">
+      <created>1599611254568</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1599611254568</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +432,8 @@
     <MESSAGE value="Improvements to route of Read" />
     <MESSAGE value="Frontend implementations, improvements and bugfixes to the API" />
     <MESSAGE value="Implementation of 'search' in both frontend and backend, created partial reader, improvements and bugfixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementation of 'search' in both frontend and backend, created partial reader, improvements and bugfixes" />
+    <MESSAGE value="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -456,10 +464,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599474378087" />
-    <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl" timestamp="1598956992139">
+    <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl" timestamp="1599677393120">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1598956992139" />
+    <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1599677393120" />
     <state x="619" y="452" width="721" height="568" key="NewPhpClassDialog" timestamp="1599158286064">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -476,10 +484,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599531485905">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599611260324">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599531485905" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599611260324" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -488,9 +496,9 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599491631596" />
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1599484963289">
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1599646197917">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599484963289" />
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599646197917" />
   </component>
 </project>

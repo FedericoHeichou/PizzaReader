@@ -17,9 +17,7 @@
 <script>
 export default {
     mounted() {
-        let header = $('#header');
-        $('body').removeClass('body-reader');
-        header.show();
+        $('body').removeClass('body-reader hide-header');
         $('#nav-search').show();
         $('#nav-filter').hide();
     }

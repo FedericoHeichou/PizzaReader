@@ -8,9 +8,6 @@ let getters = {
     chapter: state => {
         return state.chapter
     },
-    page: state => {
-        return state.page
-    },
 }
 
 export default  getters

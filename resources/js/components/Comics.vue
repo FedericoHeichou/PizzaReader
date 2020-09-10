@@ -37,9 +37,7 @@ import {mapGetters} from 'vuex'
 export default {
     name: "Comics",
     mounted() {
-        let header = $('#header');
-        $('body').removeClass('body-reader');
-        header.show();
+        $('body').removeClass('body-reader hide-header');
         $('#nav-search').hide();
         $('#nav-filter').show();
         this.$store.dispatch('fetchComics');

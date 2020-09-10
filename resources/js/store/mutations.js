@@ -13,8 +13,5 @@ let mutations = {
             router.push(state.comic.url)
         }
     },
-    setPage(state, page) {
-        return state.page = parseInt(page)
-    },
 }
 export default mutations
