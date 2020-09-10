@@ -284,7 +284,6 @@ export default {
             for (let i = 1; i <= this.max_page; i++) {
                 this.images[i] = null;
             }
-            console.log(this.images)
             this.needToRefresh = true;
             this.$store.dispatch('fetchChapter', to.path)
                 .then(() => {
