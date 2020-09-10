@@ -1,4 +1,4 @@
-@extends('admin.comics.information', ['fields' => \App\Comic::getFormFields(), 'is_chapter' => false])
+@extends('admin.comics.information', ['fields' => \App\Models\Comic::getFormFields(), 'is_chapter' => false])
 @section('card-title', 'Information about this comic')
 @section('reader_url', $comic->url)
 @section('destroy-message', 'Do you want to delete this comic and its relative chapters?')
@@ -11,7 +11,7 @@
     <div class="list">
         @foreach($chapters as $chapter)
             <div class="item">
-                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ \App\Chapter::name($comic, $chapter) }}</a></h5>
+                <h5 class="mb-0"><a href="{{ route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}">{{ \App\Models\Chapter::name($comic, $chapter) }}</a></h5>
                 <span class="small">
                     @if(Auth::user()->hasPermission("manager"))
                         <a href="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
@@ -24,7 +24,7 @@
                         </form>
                         <span class="spacer">|</span>
                     @endif
-                    <a href="{{ \App\Chapter::getUrl($comic, $chapter) }}">Read</a>
+                    <a href="{{ \App\Models\Chapter::getUrl($comic, $chapter) }}">Read</a>
                 </span>
             </div>
         @endforeach

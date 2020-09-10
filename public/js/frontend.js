@@ -1,6 +1,6 @@
 function timePassed(date) {
-    // TODO check timezone
     let diff = new Date().getTime() - new Date(date).getTime();
+    if(diff < 0) return "In the future";
     diff = parseInt(diff / 1000);
     if (diff < 60) return diff + " secs ago";
     diff = parseInt(diff / 60);

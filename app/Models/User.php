@@ -1,13 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +51,6 @@ class User extends Authenticatable {
     }
 
     public function canEdit($comic_id): bool {
-        return $this->hasPermission('manager') || ($this->hasPermission('editor') && (bool) $this->comics()->find($comic_id)->first());
+        return $this->hasPermission('manager') || ($this->hasPermission('editor') && (bool)$this->comics()->find($comic_id)->first());
     }
 }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\ComicFormat;
+use App\Models\ComicFormat;
 
 class ComicFormatSeeder extends Seeder {
     /**

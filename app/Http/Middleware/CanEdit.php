@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use App\Comic;
+use App\Models\Comic;
 
 class CanEdit {
     public function handle($request, Closure $next) {

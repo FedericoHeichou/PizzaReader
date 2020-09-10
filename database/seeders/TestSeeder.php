@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\User;
-use App\Team;
+use App\Models\User;
+use App\Models\Team;
 
 class TestSeeder extends Seeder { //TODO to remove
     /**

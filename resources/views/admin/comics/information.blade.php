@@ -33,7 +33,7 @@
                         <label for="{{ $field['parameters']['field'] }}" class="font-weight-bold">{{ $field['parameters']['label'] }}:</label>
                         <div class="ml-2">
                             @if($field['type'] === 'input_checkbox') <span>{{ $value ? "Yes" : "No" }}</span>
-                            @elseif($field['type'] === 'input_file' && $value) <img src="{{ \App\Comic::getThumbnailUrl($comic) }}" class="img-thumbnail thumbnail">
+                            @elseif($field['type'] === 'input_file' && $value) <img src="{{ \App\Models\Comic::getThumbnailUrl($comic) }}" class="img-thumbnail thumbnail">
                             @elseif($field['type'] === 'select') <span>{{ !is_int($value) && $value !== null ? $value : ($value > 0 ? $field['parameters']['options'][$value - 1]->name : 'N/A') }}</span>
                             @elseif($field['type'] === 'textarea') <span class="pre-formatted">{{ $value ?? 'N/A' }}</span>
                             @elseif($field['type'] === 'input_datetime_local') <span class="convert-timezone">{{ $value ?? 'N/A' }}</span>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Reader;
 
-use App\Comic;
-use App\Chapter;
-use App\Page;
+use App\Models\Comic;
+use App\Models\Chapter;
+use App\Models\Page;
 use App\Http\Controllers\Controller;
 
 class ReaderController extends Controller {

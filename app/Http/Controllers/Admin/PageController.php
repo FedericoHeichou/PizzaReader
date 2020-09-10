@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Comic;
+use App\Models\Comic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Chapter;
-use App\Page;
+use App\Models\Chapter;
+use App\Models\Page;
 
 class PageController extends Controller {
 

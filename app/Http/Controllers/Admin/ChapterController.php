@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Comic;
-use App\Chapter;
-use App\Page;
+use App\Models\Comic;
+use App\Models\Chapter;
+use App\Models\Page;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;

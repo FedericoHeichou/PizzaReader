@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +39,7 @@ class Chapter extends Model {
         $vol = intval($chapter->volume) ?: "N";
         $ch = intval($chapter->chapter) ?: "N";
         $sub = intval($chapter->subchapter) ?: "N";
-        return Comic::buildPath($comic) . '/' . $lang . '-' . $vol . '-' . $ch . '-' . $sub . '-'. $chapter->slug
+        return Comic::buildPath($comic) . '/' . $lang . '-' . $vol . '-' . $ch . '-' . $sub . '-' . $chapter->slug
             . '_' . $chapter->salt;
     }
 
