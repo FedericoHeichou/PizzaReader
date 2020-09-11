@@ -19,13 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chapter.php" afterDir="false" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/reader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/reader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/reader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Read.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Read.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +47,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Test" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GotoFileConfiguration">
@@ -309,7 +313,8 @@
       <workItem from="1599473715536" duration="46615000" />
       <workItem from="1599565865626" duration="35291000" />
       <workItem from="1599639280155" duration="46828000" />
-      <workItem from="1599739426668" duration="35967000" />
+      <workItem from="1599739426668" duration="36179000" />
+      <workItem from="1599823289142" duration="8174000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -444,7 +449,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599774752862</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements">
+      <created>1599776648419</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1599776648419</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +493,8 @@
     <MESSAGE value="Important bug fixes and improvements to path generation of chapters" />
     <MESSAGE value="Moved all Models inside app/Models, tiny frontend fix" />
     <MESSAGE value="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php" />
+    <MESSAGE value="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -516,22 +529,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1599774839421" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1599761201551">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1599776699089">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1599761201551" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1599761201550">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1599776699089" />
+    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1599776699088">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1599761201550" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1599761201549">
+    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1599776699088" />
+    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1599776699087">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1599761201549" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1599761201550">
+    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1599776699087" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1599776699088">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1599761201550" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1599776699088" />
     <state x="619" y="452" width="721" height="568" key="NewPhpClassDialog" timestamp="1599158286064">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -548,10 +561,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599760665640">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599776661343">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599760665640" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599776661343" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

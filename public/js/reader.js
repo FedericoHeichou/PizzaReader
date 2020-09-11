@@ -1,5 +1,6 @@
 let timeout = 0;
 let allowed = true;
+var canChange = true;
 
 $(document).ready(function () {
     $("body").keydown(function (e) {
@@ -20,9 +21,11 @@ $(document).ready(function () {
     $(document).bind('scroll',function(e){
         let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
         $('.reader-image-wrapper').each(function(){
-            if ($(this).offset().top < window.pageYOffset + offset + 10
-                && $(this).offset().top + $(this).height() > window.pageYOffset + offset - 10) {
-                if(window.location.hash !== '#' + $(this).attr('data-page')) window.location.hash = $(this).attr('data-page');
+            if ($(this).offset().top < window.pageYOffset + offset + 10 &&
+                $(this).offset().top + $(this).height() > window.pageYOffset + offset &&
+                window.location.hash !== '#' + $(this).attr('data-page') &&
+                canChange){
+                window.location.hash = $(this).attr('data-page');
             }
         });
     });

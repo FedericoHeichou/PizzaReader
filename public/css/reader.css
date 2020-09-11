@@ -252,18 +252,14 @@ body.hide-header .reader .reader-main {
 }
 
 .reader[data-display="fit-height"] .reader-main,
-.reader[data-display="fit-both"] .reader-main,
-.reader[data-display="fit-height"][data-renderer="long-strip"] .reader-image-wrapper,
-.reader[data-display="fit-both"][data-renderer="long-strip"] .reader-image-wrapper {
-    /* this height & .reader-images.col seem necessary OKKK*/
+.reader[data-display="fit-both"] .reader-main {
+    /* this height & .reader-images.col seem necessary */
     height: calc(100vh - 3.5rem);
     max-height: calc(100vh - 3.5rem);
 }
 
 body.hide-header .reader[data-display="fit-height"]:not([data-renderer="long-strip"]) .reader-main,
-body.hide-header .reader[data-display="fit-both"]:not([data-renderer="long-strip"]) .reader-main,
-body.hide-header .reader[data-display="fit-height"][data-renderer="long-strip"] .reader-image-wrapper,
-body.hide-header .reader[data-display="fit-both"][data-renderer="long-strip"] .reader-image-wrapper {
+body.hide-header .reader[data-display="fit-both"]:not([data-renderer="long-strip"]) .reader-main {
     height: 100vh;
     max-height: 100vh;
 }
