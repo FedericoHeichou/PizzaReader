@@ -59,7 +59,7 @@ class Comic extends Model {
 
     public static function getThumbnailUrl($comic) {
         if ($comic->thumbnail === null || $comic->thumbnail === '') return null;
-        return asset('storage/' . Comic::buildPath($comic) . '/' . $comic->thumbnail);
+        return asset('storage/' . Comic::buildPath($comic) . '/' . urlencode($comic->thumbnail));
     }
 
     public static function getUrl($comic) {

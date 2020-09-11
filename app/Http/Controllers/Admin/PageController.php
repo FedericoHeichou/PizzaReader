@@ -28,15 +28,16 @@ class PageController extends Controller {
         $response = ["files" => []];
         $path = Chapter::absolutePath($comic, $chapter);
         foreach ($request->file('files') as $file) {
-            $filename = $path . '/' . $file->getClientOriginalName();
-            $file->storeAs(Chapter::path($comic, $chapter), $file->getClientOriginalName());
+            $original_file_name = preg_replace("/%/", "", $file->getClientOriginalName());
+            $filename = $path . '/' . $original_file_name;
+            $file->storeAs(Chapter::path($comic, $chapter), $original_file_name);
             $dimension = getimagesize($filename);
             $size = filesize($filename);
 
-            Page::where([['chapter_id', $chapter->id], ['filename', $file->getClientOriginalName()]])->delete();
+            Page::where([['chapter_id', $chapter->id], ['filename', $original_file_name]])->delete();
             $page = Page::create([
                 'chapter_id' => $chapter->id,
-                'filename' => $file->getClientOriginalName(),
+                'filename' => $original_file_name,
                 'size' => $size,
                 'width' => $dimension[0],
                 'height' => $dimension[1],

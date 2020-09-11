@@ -6,6 +6,7 @@ use App\Models\Comic;
 use App\Models\Chapter;
 use App\Models\Page;
 use App\Http\Controllers\Controller;
+use App\Models\View;
 
 class ReaderController extends Controller {
     public function comics() {
@@ -65,11 +66,8 @@ class ReaderController extends Controller {
         if (!$chapter) {
             return response()->json($response);
         }
-        // TODO CHECK IP ADDRESS
-        $chapter->views++;
-        $chapter->timestamps = false;
-        $chapter->save();
-        $chapter->timestamps = true;
+
+        View::incrementIfNew($chapter, request()->ip());
         $response['chapter'] = Chapter::generateReaderArray($comic, $chapter);
         $response['chapter']['pages'] = Page::getAllPagesForReader($comic, $chapter);
 

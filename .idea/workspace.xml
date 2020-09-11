@@ -19,12 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements">
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Fixed spam of history with long-strip, added cookies to remember settings">
+      <change afterPath="$PROJECT_DIR$/app/Models/View.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_11_143743_create_views_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/reader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/reader.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/reader.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/reader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Read.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Read.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/TrustProxies.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/TrustProxies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chapter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Comic.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/ComicFormatSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ComicFormatSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/RoleTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/RoleTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/TestSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TestSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +323,7 @@
       <workItem from="1599565865626" duration="35291000" />
       <workItem from="1599639280155" duration="46828000" />
       <workItem from="1599739426668" duration="36179000" />
-      <workItem from="1599823289142" duration="8174000" />
+      <workItem from="1599823289142" duration="16029000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -456,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599776648419</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Fixed spam of history with long-strip, added cookies to remember settings">
+      <created>1599833153032</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1599833153032</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -494,7 +510,8 @@
     <MESSAGE value="Moved all Models inside app/Models, tiny frontend fix" />
     <MESSAGE value="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php" />
     <MESSAGE value="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements" />
+    <MESSAGE value="Fixed spam of history with long-strip, added cookies to remember settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed spam of history with long-strip, added cookies to remember settings" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -577,5 +594,9 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599646197917" />
+    <state x="721" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1599835347014">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="721" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599835347014" />
   </component>
 </project>

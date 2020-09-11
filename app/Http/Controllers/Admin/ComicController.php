@@ -31,7 +31,7 @@ class ComicController extends Controller {
         $fields['salt'] = Str::random();
         $fields['slug'] = Comic::generateSlug($fields);
         if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $fields['thumbnail'] = $request->file('thumbnail')->getClientOriginalName();
+            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
         }
 
         if (isset($fields['genres']) && $fields['genres']) {
@@ -83,7 +83,7 @@ class ComicController extends Controller {
         }
 
         if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $fields['thumbnail'] = $request->file('thumbnail')->getClientOriginalName();
+            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
             Storage::delete($old_path . '/' . $comic->thumbnail);
         } else { // Please don't delete the old thumbnail
             unset($fields['thumbnail']);

@@ -18,6 +18,10 @@ class Chapter extends Model {
         return $this->hasMany(Page::class)->orderBy('filename', 'asc')->orderBy('id', 'asc');
     }
 
+    public function views_list() {
+        return $this->hasMany(View::class);
+    }
+
     public function publicPages() {
         return $this->pages()->where('hidden', 0);
     }
