@@ -97,6 +97,8 @@ class ChapterController extends Controller {
             unset($fields['slug']);
         }
 
+        if($fields['views'] === null && $chapter->views !== null) unset($fields['views']);
+
         // Check if has a new path, then rename it
         $new_chapter = new Chapter;
         $new_chapter->slug = isset($fields['slug']) ? $fields['slug'] : $chapter->slug;

@@ -10,6 +10,10 @@ class Chapter extends Model {
         'hidden', 'views', 'download_link', 'language', 'published_on'
     ];
 
+    protected $casts = [
+        'published_on' => 'datetime',
+    ];
+
     public function scopePublic() {
         return $this->where('hidden', 0);
     }
@@ -135,6 +139,7 @@ class Chapter extends Model {
                     'field' => 'volume',
                     'label' => 'Volume',
                     'hint' => 'Insert chapter\'s volume',
+                    'pattern' => '[1-9]\d*|0',
                 ],
                 'values' => ['integer', 'min:0'],
             ], [
@@ -143,6 +148,7 @@ class Chapter extends Model {
                     'field' => 'chapter',
                     'label' => 'Chapter',
                     'hint' => 'Insert chapter\'s number',
+                    'pattern' => '[1-9]\d*|0',
                 ],
                 'values' => ['integer', 'min:0'],
             ], [
@@ -151,6 +157,7 @@ class Chapter extends Model {
                     'field' => 'subchapter',
                     'label' => 'Subchapter',
                     'hint' => 'Insert the number of a intermediary chapter. Remember "0" is showed too, if you don\'t need a subchapter keep this field empty [Example: inserting chapter "2" and subchapter "3" the showed chapter is "2.3"]',
+                    'pattern' => '[1-9]\d*|0',
                 ],
                 'values' => ['integer', 'min:0'],
             ], [
@@ -193,6 +200,7 @@ class Chapter extends Model {
                     'label' => 'Views',
                     'hint' => 'The number of views of this chapter. This field is meant to be used when you want to recreate a chapter without starting the views from 0',
                     'disabled' => 'disabled',
+                    'pattern' => '[1-9]\d*|0',
                 ],
                 'values' => ['integer', 'min:0'],
             ], [
@@ -266,7 +274,7 @@ class Chapter extends Model {
             'teams' => [Team::generateReaderArray(Team::find($chapter->team_id)),
                 Team::generateReaderArray(Team::find($chapter->team2_id)),],
             'updated_at' => $chapter->updated_at,
-            'published_on' => \Carbon\Carbon::parse($chapter->published_on)->toJson(),
+            'published_on' => $chapter->published_on,
             'url' => Chapter::getUrl($comic, $chapter),
         ];
     }
