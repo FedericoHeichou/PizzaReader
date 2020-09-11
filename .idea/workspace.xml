@@ -19,21 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Fixed spam of history with long-strip, added cookies to remember settings">
-      <change afterPath="$PROJECT_DIR$/app/Models/View.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_09_11_143743_create_views_table.php" afterDir="false" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel">
+      <change afterPath="$PROJECT_DIR$/app/Console/Commands/CronCleanViews.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reader/ReaderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/TrustProxies.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/TrustProxies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chapter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Comic.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/ComicFormatSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ComicFormatSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/RoleTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/RoleTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/TestSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TestSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +312,7 @@
       <workItem from="1599565865626" duration="35291000" />
       <workItem from="1599639280155" duration="46828000" />
       <workItem from="1599739426668" duration="36179000" />
-      <workItem from="1599823289142" duration="16029000" />
+      <workItem from="1599823289142" duration="17144000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -472,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599833153032</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel">
+      <created>1599841948715</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1599841948715</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -511,7 +507,8 @@
     <MESSAGE value="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php" />
     <MESSAGE value="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements" />
     <MESSAGE value="Fixed spam of history with long-strip, added cookies to remember settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed spam of history with long-strip, added cookies to remember settings" />
+    <MESSAGE value="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -578,10 +575,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599776661343">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599841953452">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599776661343" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599841953452" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
