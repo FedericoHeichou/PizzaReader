@@ -7,7 +7,9 @@
     <div class="list">
         @foreach($comics as $comic)
             <div class="item">
-                <h5 class="mb-0"><a href="{{ route('admin.comics.show', $comic->slug) }}">{{ $comic->name }}</a></h5>
+                <h5 class="mb-0">
+                    <a href="{{ route('admin.comics.show', $comic->slug) }}" class="filter">{{ $comic->name }}</a>
+                </h5>
                 <span class="small">
                     <a href="{{ route('admin.comics.chapters.create', $comic->slug) }}">Add chapter</a>
                     @if(Auth::user()->hasPermission("manager"))

@@ -38,7 +38,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link{{ Route::is('admin.comics.*') ? ' active' : '' }}"
+                               href="{{ route('admin.comics.index') }}">Comics</a>
+                        </li>
+                        @if(Auth::check() && Auth::user()->hasPermission('admin'))
+                            <li class="nav-item">
+                                <a class="nav-link{{ Route::is('admin.users.*') ? ' active' : '' }}"
+                                   href="{{ route('admin.users.index') }}">Users</a>
+                            </li>
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{{ route('home') }}" target="_blank">Reader</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -60,6 +73,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(Auth::user()->hasPermission('editor'))
+                                        <a class="dropdown-item" href="{{ route('admin.comics.index') }}">Admin panel</a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('admin.users.edit', Auth::user()->id) }}">
+                                        Edit profile
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

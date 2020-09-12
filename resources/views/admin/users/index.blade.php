@@ -1,0 +1,64 @@
+@extends('layouts.admin')
+@section('content')
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="form-row">
+                <div class="col-9">
+                    <h3 class="mt-1 float-left">Users</h3>
+                </div>
+                <div class="col-3">
+                    @include('partials.card-search')
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row border-bottom py-1">
+                <div class="col-lg-3 text-left">Name</div>
+                <div class="col-lg-3 text-left">Email</div>
+                <div class="col-lg-2 text-left">Last login (UTC)</div>
+                <div class="col text-left pr-0">Change role</div>
+                <div class="col-auto text-right pl-1">Options</div>
+            </div>
+            @foreach($users as $user)
+                <div class="row flex-nowrap text-truncate border-bottom py-1 item users">
+                    <div class="col-lg-3 text-left"><span class="filter">{{ $user->name }}</span></div>
+                    <div class="col-lg-3 text-left">{{ $user->email }}</div>
+                    <div class="col-lg-2 text-left">{{ $user->last_login ?? 'N/A' }}</div>
+                    <div class="col text-center pr-0">
+                        <form id="edit-{{ $user->id }}" action="{{ route('admin.users.update', $user->id) }}"
+                              method="POST" class="d-none">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" class="role" name="role" value="{{ $user->role_id }}">
+                        </form>
+                        <select class="role custom-select"  data-user="{{ $user->id }}" @if(Auth::user()->id === $user->id || $user->id === 1) disabled @endif>
+                        @foreach($roles as $role)
+                                <option value="{{ $role->id }}" {{ $role->id === $user->role_id ? ' selected' : '' }}>
+                                    {{ ucfirst($role->name) }}
+                                </option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <div class="col-auto text-right pl-1">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success">Edit</a>
+                        @if($user->id === 1 || $user->id === Auth::user()->id)
+                            <a href="#" class="btn btn-secondary" title="You can't delete this user" onclick="event.preventDefault()">
+                        @else
+                        <form id="delete-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}"
+                              method="POST" class="d-none">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                        <a href="{{ route('admin.users.destroy', $user->id) }}" class="btn btn-danger"
+                           onclick="confirmbox('Do you want to delete {{ $user->name }}?', 'delete-{{ $user->id }}')">
+                        @endif
+                            Delete
+                        </a>
+
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        {{ $users->links() }}
+    </div>
+@endsection

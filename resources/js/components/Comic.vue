@@ -161,7 +161,7 @@
                     </div>
                     <div class="col-lg-5 text-left">
                         <span class="chapter">
-                            <router-link :to="chapter.url">{{ chapter.full_title }}</router-link>
+                            <router-link :to="chapter.url" class="filter">{{ chapter.full_title }}</router-link>
                         </span>
                     </div>
                     <div class="col-auto text-center">

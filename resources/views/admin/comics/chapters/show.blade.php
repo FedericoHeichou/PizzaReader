@@ -58,7 +58,7 @@
                   <div class="preview"></div>
               </td>
               <td>
-                  <h5 class="name">{%=file.name%}</h5>
+                  <h5 class="name filter">{%=file.name%}</h5>
                   <strong class="error text-danger"></strong>
               </td>
               <td>
@@ -102,9 +102,9 @@
               <td>
                   <h5 class="name">
                       {% if (file.url) { %}
-                          <a href="{%=file.url%}" target="_blank" title="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                          <a href="{%=file.url%}" target="_blank" class="filter" title="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
                       {% } else { %}
-                          <span>{%=file.name%}</span>
+                          <span class="filter">{%=file.name%}</span>
                       {% } %}
                   </h5>
                   {% if (file.error) { %}

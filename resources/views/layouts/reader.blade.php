@@ -49,15 +49,39 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto col-4 pr-0">
-                        <div style="width: 100%">
+                        <li class="nav-item" style="width: 100%">
                             <input id="nav-filter" class="form-control mr-sm-2 card-search"
                                    type="search" placeholder="Filter" aria-label="Filter" name="filter"
                                    style="display: none" autocomplete="off">
                             <input id="nav-search" type="search" placeholder="Search comic" aria-label="Search comic"
                                    name="search" class="form-control mr-sm-2"
                                    style="display: none" autocomplete="off">
-                            <div id="results-box" style="display: none">prova</div>
-                        </div>
+                        </li>
+                        @if(Auth::check())
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(Auth::user()->hasPermission('editor'))
+                                        <a class="dropdown-item" href="{{ route('admin.comics.index') }}">Admin panel</a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('admin.users.edit', Auth::user()->id) }}">
+                                        Edit profile
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

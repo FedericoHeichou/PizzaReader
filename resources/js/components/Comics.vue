@@ -6,7 +6,7 @@
             </div>
             <div class="text-truncate mb-1 d-flex flex-nowrap align-items-center">
                 <h5 class="font-weight-bold mb-0">
-                    <router-link class="ml-1 text-truncate" :title="comic.title" :to="comic.url">
+                    <router-link class="ml-1 text-truncate filter" :title="comic.title" :to="comic.url">
                         {{ comic.title }}
                     </router-link>
                 </h5>

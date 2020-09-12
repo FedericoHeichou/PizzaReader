@@ -9,9 +9,11 @@ use App\Models\Comic;
 class CanEdit {
     public function handle($request, Closure $next) {
         $comic = Comic::slug($request->route('comic'));
-        if (Auth::user() != null && Auth::user()->canEdit($comic ? $comic->id : null)) {
-            return $next($request);
+        if(!Auth::check()){
+            return redirect('login');
+        } elseif (!Auth::user()->canEdit($comic ? $comic->id : null)) {
+            return redirect('/');
         }
-        return redirect('login');
+        return $next($request);
     }
 }

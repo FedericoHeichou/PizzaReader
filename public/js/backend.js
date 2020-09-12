@@ -1,14 +1,14 @@
-$('input[type="checkbox"]').on('change', function(){
+$('input[type="checkbox"]').on('change', function () {
     this.value ^= 1;
 });
 
 window.addEventListener('load', () => {
     const input_time = $('.convert-timezone');
-    if(input_time.html() === "") {
+    if (input_time.html() === "") {
         let date;
-        if(input_time.val() && input_time.val() !== '1970-01-01T01:00'){
+        if (input_time.val() && input_time.val() !== '1970-01-01T01:00') {
             date = new Date(input_time.val());
-            date.setMinutes(date.getMinutes() - date.getTimezoneOffset()*2);
+            date.setMinutes(date.getMinutes() - date.getTimezoneOffset() * 2);
         } else {
             date = new Date();
             date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
@@ -24,4 +24,10 @@ window.addEventListener('load', () => {
         date.setSeconds(null);
         input_time.html(date);
     }
+});
+
+$('.role').on('change', function () {
+    let user = $(this).data('user');
+    $('#edit-' + user + ' .role').val($(this).val());
+    $('#edit-' + user).submit()
 });

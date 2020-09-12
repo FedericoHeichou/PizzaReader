@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,9 +67,9 @@ class RegisterController extends Controller {
             'password' => Hash::make($data['password']),
         ]);
         if($user->id != 1) {
-            $user->role()->associate(\App\Role::where('name', 'user')->first());
+            $user->role()->associate(Role::where('name', 'user')->first());
         } else {
-            $user->role()->associate(\App\Role::where('name', 'admin')->first());
+            $user->role()->associate(Role::where('name', 'admin')->first());
         }
         $user->save();
         return $user;

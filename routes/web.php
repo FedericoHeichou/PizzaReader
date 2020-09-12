@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function () {
             });
         });
 
-        Route::resource('users', UserController::class, ['except' => ['show']])->middleware('auth.admin');
+        Route::resource('users', UserController::class, ['except' => ['show', 'create', 'store']])->middleware('auth.yourself');
     });
 });
 

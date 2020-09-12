@@ -7,9 +7,11 @@ use Auth;
 
 class AuthenticateEditor {
     public function handle($request, Closure $next) {
-        if (Auth::user() != null && Auth::user()->hasPermission('editor')) {
-            return $next($request);
+        if(!Auth::check()){
+            return redirect('login');
+        } elseif (!Auth::user()->hasPermission('editor')) {
+            return redirect('/');
         }
-        return redirect('login');
+        return $next($request);
     }
 }

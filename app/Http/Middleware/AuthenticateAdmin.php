@@ -7,9 +7,11 @@ use Auth;
 
 class AuthenticateAdmin {
     public function handle($request, Closure $next) {
-        if (Auth::user() != null && Auth::user()->hasPermission('admin')) {
-            return $next($request);
+        if(!Auth::check()){
+            return redirect('login');
+        } elseif (!Auth::user()->hasPermission('admin')) {
+            return redirect('/');
         }
-        return redirect('login');
+        return $next($request);
     }
 }

@@ -7,9 +7,11 @@ use Auth;
 
 class AuthenticateManager {
     public function handle($request, Closure $next) {
-        if (Auth::user() != null && Auth::user()->hasPermission('manager')) {
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect('login');
+        } elseif (!Auth::user()->hasPermission('manager')) {
+            return redirect('/');
         }
-        return redirect('login');
+        return $next($request);
     }
 }
