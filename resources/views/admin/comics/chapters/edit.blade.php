@@ -4,5 +4,5 @@
 @section('method', method_field('PATCH'))
 @section('choose-file', 'Choose file')
 @foreach(\App\Models\Chapter::getFormFields() as $field)
-    @section($field['parameters']['field'], old($field['parameters']['field'], $chapter->{$field['parameters']['field']}))
+    @section($field['parameters']['field'], old($field['parameters']['field'], isset($chapter->{$field['parameters']['field']}) ? $chapter->{$field['parameters']['field']} : ($field['parameters']['default'] ?? '') ))
 @endforeach

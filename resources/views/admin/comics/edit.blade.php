@@ -4,5 +4,5 @@
 @section('method', method_field('PATCH'))
 @section('choose-file', 'Choose file')
 @foreach(\App\Models\Comic::getFormFields() as $field)
-    @section($field['parameters']['field'], old($field['parameters']['field'], $comic->{$field['parameters']['field']}))
+    @section($field['parameters']['field'], old($field['parameters']['field'], isset($comic->{$field['parameters']['field']}) ? $comic->{$field['parameters']['field']} : ($field['parameters']['default'] ?? '') ))
 @endforeach

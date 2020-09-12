@@ -19,33 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Form improvements, fix to views reset when update chapter">
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AllowYourself.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Implemented update and destroy of UserController, improvements and bug fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ComicController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChapterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateEditor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateEditor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chapter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/card-search.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/card-search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Comic.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comic.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Comics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Comics.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/chapters/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/chapters/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/chapters/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/chapters/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/comics/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/comics/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/input_hidden.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_hidden.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,7 +323,8 @@
       <workItem from="1599565865626" duration="35291000" />
       <workItem from="1599639280155" duration="46828000" />
       <workItem from="1599739426668" duration="36179000" />
-      <workItem from="1599823289142" duration="36454000" />
+      <workItem from="1599823289142" duration="37248000" />
+      <workItem from="1599904215976" duration="7175000" />
     </task>
     <task id="LOCAL-00001" summary="Added Laravel 7">
       <created>1598872371225</created>
@@ -505,7 +494,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599849797423</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Implemented update and destroy of UserController, improvements and bug fixes">
+      <created>1599870055790</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1599870055790</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +543,8 @@
     <MESSAGE value="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel" />
     <MESSAGE value="Cronjob for clean IP in views table" />
     <MESSAGE value="Form improvements, fix to views reset when update chapter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Form improvements, fix to views reset when update chapter" />
+    <MESSAGE value="Implemented update and destroy of UserController, improvements and bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented update and destroy of UserController, improvements and bug fixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -614,10 +611,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599844580010">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599870059112">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599844580010" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599870059112" />
     <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

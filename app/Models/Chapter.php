@@ -191,6 +191,8 @@ class Chapter extends Model {
                 'type' => 'input_hidden',
                 'parameters' => [
                     'field' => 'timezone',
+                    'required' => 'required',
+                    'default' => 'UTC',
                 ],
                 'values' => ['max:191'],
             ], [

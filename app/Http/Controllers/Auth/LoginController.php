@@ -39,7 +39,11 @@ class LoginController extends Controller {
     }
 
     public function authenticated(Request $request, $user) {
+        $request->validate([
+            'timezone' => ['required', 'string', 'max:255'],
+        ]);
         $user->last_login = Carbon::now()->toDateTimeString();
+        $user->timezone = $request->timezone;
         $user->save();
     }
 }

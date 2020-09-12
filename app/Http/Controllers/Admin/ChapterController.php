@@ -9,6 +9,7 @@ use App\Models\Chapter;
 use App\Models\Page;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ChapterController extends Controller {
@@ -34,6 +35,7 @@ class ChapterController extends Controller {
 
         $fields = getFieldsFromRequest($request, $form_fields);
         $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
+        Auth::user()->update(['timezone' => $fields['timezone']]);
         unset($fields['timezone']);
         $fields['salt'] = Str::random();
         $fields['comic_id'] = $comic->id;
@@ -55,6 +57,7 @@ class ChapterController extends Controller {
             abort(404);
         }
         $chapter->url = Chapter::getUrl($comic, $chapter);
+        $chapter->published_on = Carbon::createFromFormat('Y-m-d H:i:s', $chapter->published_on, 'UTC')->tz(Auth::user()->timezone);
         return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Page::getAllPagesForFileUpload($comic, $chapter)]);
     }
 
@@ -67,6 +70,7 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
+        $chapter->published_on = Carbon::createFromFormat('Y-m-d H:i:s', $chapter->published_on, 'UTC')->tz(Auth::user()->timezone);
         return view('admin.comics.chapters.edit')->with(['comic' => $comic, 'chapter' => $chapter]);
     }
 
@@ -86,6 +90,7 @@ class ChapterController extends Controller {
         $fields = getFieldsFromRequest($request, $form_fields);
 
         $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
+        Auth::user()->update(['timezone' => $fields['timezone']]);
         unset($fields['timezone']);
 
         $fields['comic_id'] = $comic_id;

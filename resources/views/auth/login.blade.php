@@ -39,6 +39,8 @@
                             </div>
                         </div>
 
+                        <input required="required" type="hidden" name="timezone" id="timezone" value="UTC">
+
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">

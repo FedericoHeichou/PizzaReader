@@ -15,7 +15,7 @@
             <div class="row border-bottom py-1">
                 <div class="col-lg-3 text-left">Name</div>
                 <div class="col-lg-3 text-left">Email</div>
-                <div class="col-lg-2 text-left">Last login (UTC)</div>
+                <div class="col-lg-2 text-left">Last login</div>
                 <div class="col text-left pr-0">Change role</div>
                 <div class="col-auto text-right pl-1">Options</div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="row flex-nowrap text-truncate border-bottom py-1 item users">
                     <div class="col-lg-3 text-left"><span class="filter">{{ $user->name }}</span></div>
                     <div class="col-lg-3 text-left">{{ $user->email }}</div>
-                    <div class="col-lg-2 text-left">{{ $user->last_login ?? 'N/A' }}</div>
+                    <div class="col-lg-2 text-left">{{ $user->last_login ? Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login, 'UTC')->tz(Auth::user()->timezone) : 'N/A' }}</div>
                     <div class="col text-center pr-0">
                         <form id="edit-{{ $user->id }}" action="{{ route('admin.users.update', $user->id) }}"
                               method="POST" class="d-none">
