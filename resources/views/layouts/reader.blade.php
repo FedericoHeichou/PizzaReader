@@ -67,7 +67,7 @@
                                     @if(Auth::user()->hasPermission('editor'))
                                         <a class="dropdown-item" href="{{ route('admin.comics.index') }}">Admin panel</a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('admin.users.edit', Auth::user()->id) }}">
+                                    <a class="dropdown-item" href="{{ route('user.edit') }}">
                                         Edit profile
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

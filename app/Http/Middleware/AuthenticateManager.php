@@ -10,7 +10,7 @@ class AuthenticateManager {
         if (!Auth::check()) {
             return redirect('login');
         } elseif (!Auth::user()->hasPermission('manager')) {
-            return redirect('/');
+            abort(403);
         }
         return $next($request);
     }

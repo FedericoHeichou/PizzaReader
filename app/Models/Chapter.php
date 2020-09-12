@@ -167,6 +167,7 @@ class Chapter extends Model {
                     'label' => 'Hidden',
                     'hint' => 'Check to hide this comic',
                     'checked' => 'checked',
+                    'required' => 'required',
                 ],
                 'values' => ['boolean'],
             ], [

@@ -2,16 +2,15 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AllowYourself {
     public function handle($request, Closure $next) {
-        if(!Auth::check()){
-            return redirect('login');
-        } elseif (!(Auth::user()->hasPermission('admin') || Auth::user()->id == $request->route('user'))) {
-            return redirect('/');
+        if(Auth::check()){
+            return $next($request);
         }
-        return $next($request);
+        return redirect('login');
     }
 }

@@ -40,8 +40,18 @@ Route::prefix('admin')->group(function () {
             });
         });
 
-        Route::resource('users', UserController::class, ['except' => ['show', 'create', 'store']])->middleware('auth.yourself');
+        Route::prefix('users')->name('users.')->group(function(){
+            Route::get('/', [UserController::class, 'index'])->name('index')->middleware('auth.manager');
+            Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth.admin');
+            Route::patch('/{user}/update', [UserController::class, 'update'])->name('update')->middleware('auth.admin');
+            Route::delete('/{user}/destroy', [UserController::class, 'destroy'])->name('destroy')->middleware('auth.admin');
+        });
     });
+});
+
+Route::prefix('user')->name('user.')->middleware('auth')->group(function() {
+    Route::get('/edit', [UserController::class, 'editYourself'])->name('edit');
+    Route::patch('/update', [UserController::class, 'updateYourself'])->name('update');
 });
 
 Route::get('/{reader?}', HomeController::class)->name('home')->where('reader', '.*');

@@ -12,7 +12,7 @@ class CanEdit {
         if(!Auth::check()){
             return redirect('login');
         } elseif (!Auth::user()->canEdit($comic ? $comic->id : null)) {
-            return redirect('/');
+            abort(403);
         }
         return $next($request);
     }

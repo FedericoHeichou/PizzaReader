@@ -10,7 +10,7 @@ class AuthenticateAdmin {
         if(!Auth::check()){
             return redirect('login');
         } elseif (!Auth::user()->hasPermission('admin')) {
-            return redirect('/');
+            abort(403);
         }
         return $next($request);
     }

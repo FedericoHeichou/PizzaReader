@@ -31,7 +31,7 @@
                             @method('PATCH')
                             <input type="hidden" class="role" name="role" value="{{ $user->role_id }}">
                         </form>
-                        <select class="role custom-select"  data-user="{{ $user->id }}" @if(Auth::user()->id === $user->id || $user->id === 1) disabled @endif>
+                        <select class="role custom-select"  data-user="{{ $user->id }}" @if(!Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id || $user->id === 1) disabled @endif>
                         @foreach($roles as $role)
                                 <option value="{{ $role->id }}" {{ $role->id === $user->role_id ? ' selected' : '' }}>
                                     {{ ucfirst($role->name) }}
@@ -40,8 +40,12 @@
                         </select>
                     </div>
                     <div class="col-auto text-right pl-1">
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success">Edit</a>
-                        @if($user->id === 1 || $user->id === Auth::user()->id)
+                        @if((Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id) && $user->id !== 1)
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success">Edit</a>
+                        @else
+                            <a href="#" class="btn btn-secondary" title="You can't edit this user" onclick="event.preventDefault()">Edit</a>
+                        @endif
+                        @if(!Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id || $user->id === 1)
                             <a href="#" class="btn btn-secondary" title="You can't delete this user" onclick="event.preventDefault()">
                         @else
                         <form id="delete-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}"

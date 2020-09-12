@@ -95,6 +95,7 @@ class Comic extends Model {
                     'label' => 'Hidden',
                     'hint' => 'Check to hide this comic',
                     'checked' => 'checked',
+                    'required' => 'required',
                 ],
                 'values' => ['boolean'],
             ], [
@@ -168,6 +169,7 @@ class Comic extends Model {
                     'field' => 'adult',
                     'label' => 'Adult',
                     'hint' => 'Check to set this comic for adults only',
+                    'required' => 'required',
                 ],
                 'values' => ['boolean'],
             ], [
