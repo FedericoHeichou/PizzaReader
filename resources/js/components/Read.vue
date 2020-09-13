@@ -1,27 +1,28 @@
 <!--suppress XmlDuplicatedId -->
 <template>
-    <div v-if="max_page > 0" id="read"
-         :class="'reader row flex-column no-gutters layout-horizontal' + (hide_sidebar ? ' hide-sidebar' : '')"
+    <div v-if="max_page > 0" id="reader"
+         class="row flex-column no-gutters layout-horizontal"
          :data-renderer="renderingMode" :data-display="displayFit" :data-direction="direction">
-        <div class="container reader-controls-container">
-            <div class="reader-controls-wrapper bg-reader-controls row no-gutters flex-nowrap" style="z-index:1">
+        <div id="reader-controls-container" class="container">
+            <div id="reader-controls-wrapper" class="bg-reader-controls row no-gutters flex-nowrap">
                 <div class="d-none d-lg-flex col-auto justify-content-center align-items-center cursor-pointer"
                      id="reader-controls-collapser" data-setting="hide-sidebar" :data-value="~hide_sidebar+2"
                      @click="setSetting">
-                    <span class="fas fa-caret-right fa-fw arrow-link" aria-hidden="true" title="Collapse menu"></span>
+                    <span class="fas fa-caret-right fa-fw arrow-link" aria-hidden="true" title="Collapse menu"
+                          data-setting="hide-sidebar" :data-value="~hide_sidebar+2"></span>
                 </div>
-                <div class="reader-controls col row no-gutters flex-column flex-nowrap">
-                    <div class="reader-controls-title col-auto text-center p-2">
+                <div id="reader-controls" class="col row no-gutters flex-column flex-nowrap">
+                    <div id="reader-controls-title" class="col-auto text-center p-2">
                         <router-link :to="comic.url" class="comic-title" :title="comic.title">
                             {{ comic.title }}
                         </router-link>
                     </div>
-                    <div class="reader-controls-chapters col-auto row no-gutters align-items-center">
+                    <div id="reader-controls-chapters" class="col-auto row no-gutters align-items-center">
                         <router-link v-if="chapter.previous != null" :title="chapter.previous.full_title"
-                                     class="chapter-link-left col-auto arrow-link" :to="chapter.previous.url">
+                                     id="chapter-link-left" class="col-auto arrow-link" :to="chapter.previous.url">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true"></span>
                         </router-link>
-                        <router-link v-else class="chapter-link-left col-auto arrow-link"
+                        <router-link v-else id="chapter-link-left" class="col-auto arrow-link"
                                      title="Back to comic" :to="comic.url">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true"></span>
                         </router-link>
@@ -38,27 +39,26 @@
                             </select>
                         </div>
                         <router-link v-if="chapter.next != null" :title="chapter.next.full_title"
-                                     class="chapter-link-right col-auto arrow-link" :to="chapter.next.url">
+                                     id="chapter-link-right" class="col-auto arrow-link" :to="chapter.next.url">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true"></span>
                         </router-link>
-                        <router-link v-else class="chapter-link-right col-auto arrow-link"
+                        <router-link v-else id="chapter-link-right" class="col-auto arrow-link"
                                      title="Back to comic" :to="comic.url">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true"></span>
                         </router-link>
                         <div class="col-auto py-2 pr-2 d-lg-none">
-                            <select class="form-control" id="jump-page" name="jump-page">
+                            <select id="jump-page" class="form-control" name="jump-page">
                                 <template v-for="(ch_page, index) in chapter.pages">
                                     <option :value="index + 1">{{ index + 1 }}</option>
                                 </template>
                             </select>
                         </div>
                     </div>
-                    <div class="reader-controls-groups no-gutters p-2 text-center font-weight-bold">
+                    <div id="reader-controls-groups" class="no-gutters p-2 text-center font-weight-bold">
                         {{ chapter.title ? chapter.title : chapter.full_title }}
                     </div>
-                    <div class="reader-controls-unsupported col-auto row no-gutters p-2 text-danger d-none"></div>
-                    <div class="reader-controls-actions col-auto row no-gutters p-1">
-                        <div class="col row no-gutters" style="min-width:120px;">
+                    <div id="reader-controls-actions" class="col-auto row no-gutters p-1">
+                        <div class="col row no-gutters">
                             <a title="Reader settings" class="btn btn-secondary col m-1" role="button"
                                id="settings-button" data-toggle="modal" data-target="#modal-settings">
                                 <span class="fas fa-cog fa-fw"></span><span class="d-none d-lg-inline"> Settings</span>
@@ -72,8 +72,8 @@
                             </a>
                         </div>
                     </div>
-                    <div
-                        class="reader-controls-mode col-auto d-lg-flex d-none flex-column align-items-start row no-gutters p-2">
+                    <div id="reader-controls-mode"
+                         class="col-auto d-lg-flex d-none flex-column align-items-start row no-gutters p-2">
                         <div class="col text-center font-weight-bold">Fit display to</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="displayFit === 'fit-both'" class="btn btn-secondary col-3 active">
@@ -164,7 +164,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="reader-controls-footer col-auto mt-auto d-none d-lg-flex justify-content-center">
+                    <div id="reader-controls-footer" class="col-auto mt-auto d-none d-lg-flex justify-content-center">
                         <div
                             class="text-muted text-center text-truncate row flex-wrap justify-content-center p-2 no-gutters">
                             Powered by&nbsp;
@@ -173,42 +173,40 @@
                             </a>
                         </div>
                     </div>
-                    <div class="reader-controls-pages col-auto d-none d-lg-flex row no-gutters align-items-center">
+                    <div id="reader-controls-pages" class="col-auto d-none d-lg-flex row no-gutters align-items-center">
                         <router-link v-if="(valueLeft === -1 && page > 1) ||
                         (valueLeft === 1 && page < max_page)" :to="'#' + (page+valueLeft)"
-                                     class="page-link-left col-auto arrow-link">
+                                     id="page-link-left" class="col-auto arrow-link">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true" title="Turn page left"
                                   @click="needToRefresh = true" id="turn-left"></span>
                         </router-link>
                         <router-link v-else-if="chapter.previous != null" :to="chapter.previous.url + '#last'"
-                                     class="page-link-left col-auto arrow-link">
+                                     id="page-link-left" class="col-auto arrow-link">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true" title="Turn page left"
                                   @click="needToRefresh = true" id="turn-left"></span>
                         </router-link>
-                        <router-link v-else :to="comic.url"
-                                     class="page-link-left col-auto arrow-link">
+                        <router-link v-else :to="comic.url" id="page-link-left" class="col-auto arrow-link">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true" title="Turn page left"
                                   @click="needToRefresh = true" id="turn-left"></span>
                         </router-link>
 
-                        <div class="col text-center reader-controls-page-text cursor-pointer">
+                        <div id="reader-controls-page-text" class="col text-center cursor-pointer">
                             Page <span class="current-page">{{ page }}</span> /
                             <span class="total-pages"> {{ max_page }} </span>
                         </div>
 
                         <router-link v-if="(valueRight === 1 && page < max_page) ||
                                     (valueRight === -1 && page > 1)" :to="'#' + (page+valueRight)"
-                                     class="page-link-right col-auto arrow-link">
+                                     id="page-link-right" class="col-auto arrow-link">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true" title="Turn page right"
                                   @click="needToRefresh = true" id="turn-right"></span>
                         </router-link>
                         <router-link v-else-if="chapter.next != null" :to="chapter.next.url"
-                                     class="page-link-right col-auto arrow-link">
+                                     id="page-link-right" class="col-auto arrow-link">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true" title="Turn page right"
                                   @click="needToRefresh = true" id="turn-right"></span>
                         </router-link>
-                        <router-link v-else :to="comic.url"
-                                     class="page-link-right col-auto arrow-link">
+                        <router-link v-else :to="comic.url" id="page-link-right" class="col-auto arrow-link">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true" title="Turn page right"
                                   @click="needToRefresh = true" id="turn-right"></span>
                         </router-link>
@@ -217,14 +215,14 @@
             </div>
         </div>
 
-        <div class="reader-main col row no-gutters flex-column flex-nowrap noselect" style="flex:1">
+        <div id="reader-main" class="col row no-gutters flex-column flex-nowrap noselect">
             <noscript>
                 <div class="alert alert-danger text-center">
                     JavaScript is required for this reader to work.
                 </div>
             </noscript>
-            <div
-                class="reader-images col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
+            <div @click="clickPage" id="reader-images"
+                class="col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
                 <template v-if="renderingMode === 'single-page'">
                     <div :data-page="page" :style="'order: ' + page + ';'"
                          class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
@@ -245,17 +243,14 @@
                     </div>
                 </template>
             </div>
-            <div class="reader-load-icon">
-                <span class="fas fa-circle-notch fa-spin" aria-hidden="true"></span>
-            </div>
-            <div class="reader-page-bar col-auto d-none d-lg-flex directional">
-                <div class="track cursor-pointer row no-gutters">
-                    <div class="trail position-absolute h-100 noevents"
+            <div id="reader-page-bar" class="col-auto d-none d-lg-flex directional">
+                <div id="track" class="cursor-pointer row no-gutters">
+                    <div id="trail" class="position-absolute h-100 noevents"
                          :style="'width: ' + ((page+renderedPages-1)/max_page*100) + '%;'">
-                        <div class="thumb h-100"
+                        <div id="thumb" class="h-100"
                              :style="'width: calc(' + (100/page*renderedPages) + '% - ' + (renderedPages*3-2) +'px);'"></div>
                     </div>
-                    <div class="notches row no-gutters h-100 w-100 directional">
+                    <div id="notches" class="row no-gutters h-100 w-100 directional">
                         <template v-for="(ch_page, index) in chapter.pages">
                             <router-link :class="images[index+1] == null ? 'notch col' : 'notch col loaded'"
                                          :data-page="index+1" @mouseover.native="setNotch(index+1)"
@@ -264,7 +259,7 @@
                             </router-link>
                         </template>
                     </div>
-                    <div class="notch-display col-auto m-auto px-3 py-1 noevents">
+                    <div id="notch-display" class="col-auto m-auto px-3 py-1 noevents">
                         {{ hover_page }} / {{ max_page }}
                     </div>
                 </div>
@@ -284,6 +279,7 @@ export default {
         $('#nav-search').show();
         $('#nav-filter').hide();
         if (this.hide_header) this.hideHeader();
+        if (this.hide_sidebar) this.hideSidebar();
         this.$store.dispatch('fetchChapter', this.$route.path)
             .then(() => {
                 if (this.$store.getters.chapter != null) {
@@ -330,6 +326,7 @@ export default {
             this.scrollTopOfPage();
             this.needToRefresh = false;
         }
+        console.log("r")
     },
     data() {
         return {
@@ -390,7 +387,11 @@ export default {
         hideHeader() {
             $('body').toggleClass('hide-header');
         },
+        hideSidebar() {
+            $('#reader').toggleClass('hide-sidebar');
+        },
         setSetting(e) {
+            console.log(this.hide_sidebar)
             const setting = $(e.target).data('setting');
             const value = $(e.target).data('value');
             if (setting === 'direction') {
@@ -402,12 +403,15 @@ export default {
                 this.hideHeader();
             } else if (setting === 'hide-sidebar') {
                 this.hide_sidebar = value;
+                this.hideSidebar();
             } else if (setting === 'displayFit') {
                 this.displayFit = value;
             } else if (setting === 'renderingMode') {
                 this.renderingMode = value;
                 this.renderedPages = this.renderingMode === 'double-page' ? 2 : 1;
                 this.needToRefresh = true;
+            } else {
+                return;
             }
 
             this.setCookie(setting, value, 1);
@@ -482,6 +486,10 @@ export default {
                 }
             }
             return "";
+        },
+        clickPage(e){
+            const pW = document.body.clientWidth - document.body.scrollWidth + $(e.target).closest('#reader-images').width();
+            e.clientX < pW / 2 ? $('#turn-left').click() : $('#turn-right').click();
         }
     },
     computed: {
