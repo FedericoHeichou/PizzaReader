@@ -14,8 +14,7 @@ class CreateChaptersTable extends Migration {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('comic_id', false, true);
-            $table->bigInteger('team_id', false, true);
-            $table->bigInteger('team2_id', false, true)->nullable();
+            $table->string('language', 2);
             $table->integer('volume', false, true)->nullable();
             $table->integer('chapter', false, true)->nullable();
             $table->integer('subchapter', false, true)->nullable();
@@ -26,10 +25,18 @@ class CreateChaptersTable extends Migration {
             $table->boolean('hidden')->default(0);
             $table->bigInteger('views', false, true)->default(0)->nullable();
             $table->string('download_link')->nullable();
-            $table->string('language', 2);
+            $table->bigInteger('team_id', false, true);
+            $table->bigInteger('team2_id', false, true)->nullable();
             $table->timestamp('published_on')->useCurrent();
             $table->timestamps();
 
+            // This is not very useful because multiple unique constraint with some values at NULL permits duplicates
+            // id | lan | vol | ch | sub
+            //  1 |  en |   1 |  1 | NULL
+            //  2 |  en |   1 |  1 | NULL
+            // This can happen in the database without code controls
+            $table->unique(['comic_id', 'language', 'volume', 'chapter', 'subchapter']);
+            $table->unique(['comic_id', 'slug']);
             $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
             $table->foreign('team_id')->references('id')->on('teams');
             $table->foreign('team2_id')->references('id')->on('teams');

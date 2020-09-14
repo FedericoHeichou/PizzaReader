@@ -228,6 +228,25 @@ class Comic extends Model {
         return getFormFieldsForValidation(Comic::getFormFields());
     }
 
+    public static function getFieldsFromRequest($request, $form_fields) {
+        $fields = getFieldsFromRequest($request, $form_fields);
+        if (isset($fields['thumbnail']) && $fields['thumbnail']) {
+            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
+        } else {
+            unset($fields['thumbnail']);
+        }
+        if (isset($fields['genres']) && $fields['genres']) {
+            $fields['genres'] = trimCommas($fields['genres']);
+        }
+        return $fields;
+    }
+
+    public static function getFieldsIfValid($request) {
+        $form_fields = Comic::getFormFieldsForValidation();
+        $request->validate($form_fields);
+        return Comic::getFieldsFromRequest($request, $form_fields);
+    }
+
     public static function generateSlug($fields) {
         return generateSlug(new Comic, $fields);
     }

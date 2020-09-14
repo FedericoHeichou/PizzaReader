@@ -24,24 +24,15 @@ class ComicController extends Controller {
     }
 
     public function store(Request $request) {
-        $form_fields = Comic::getFormFieldsForValidation();
-        $request->validate($form_fields);
+        $fields = Comic::getFieldsIfValid($request);
 
-        $fields = getFieldsFromRequest($request, $form_fields);
         $fields['salt'] = Str::random();
         $fields['slug'] = Comic::generateSlug($fields);
-        if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
-        }
-
-        if (isset($fields['genres']) && $fields['genres']) {
-            $fields['genres'] = trimCommas($fields['genres']);
-        }
 
         $comic = Comic::create($fields);
         $path = Comic::path($comic);
         Storage::makeDirectory($path);
-        if (isset($fields['thumbnail']) && $fields['thumbnail']) {
+        if (isset($fields['thumbnail'])) {
             $request->file('thumbnail')->storeAs($path, $comic->thumbnail);
         }
         return redirect()->route('admin.comics.show', $comic->slug)->with('success', 'Comic created');
@@ -70,10 +61,8 @@ class ComicController extends Controller {
             abort(404);
         }
         $old_path = Comic::path($comic);
-        $form_fields = Comic::getFormFieldsForValidation();
-        $request->validate($form_fields);
 
-        $fields = getFieldsFromRequest($request, $form_fields);
+        $fields = Comic::getFieldsIfValid($request);
 
         // If has a new title or slug regenerate it
         if ((!isset($fields['slug']) && isset($fields['name']) && $comic->name != $fields['name']) || (isset($fields['slug']) && $comic->slug != $fields['slug'])) {
@@ -82,11 +71,10 @@ class ComicController extends Controller {
             unset($fields['slug']);
         }
 
-        if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
+        // If has a new thumbnail delete the old one and store the new
+        if (isset($fields['thumbnail'])) {
             Storage::delete($old_path . '/' . $comic->thumbnail);
-        } else { // Please don't delete the old thumbnail
-            unset($fields['thumbnail']);
+            $request->file('thumbnail')->storeAs(Comic::path($comic), $fields['thumbnail']);
         }
 
         // If has a new slug rename the directory
@@ -96,17 +84,10 @@ class ComicController extends Controller {
             $new_comic->salt = $comic->salt;
             $new_path = Comic::path($new_comic);
             Storage::move($old_path, $new_path);
+            $comic->slug = $fields['slug'];
         }
 
-        if (isset($fields['genres']) && $fields['genres']) {
-            $fields['genres'] = trimCommas($fields['genres']);
-        }
-
-        Comic::where('id', $comic_id)->update($fields);
-        $comic = Comic::find($comic_id);
-        if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $request->file('thumbnail')->storeAs(Comic::path($comic), $comic->thumbnail);
-        }
+        Comic::where('id', $comic->id)->update($fields);
         return redirect()->route('admin.comics.show', $comic->slug)->with('success', 'Comic updated');
     }
 
@@ -116,7 +97,7 @@ class ComicController extends Controller {
             abort(404);
         }
         Storage::deleteDirectory(Comic::path($comic));
-        Comic::destroy($comic_id);
+        Comic::destroy($comic->id);
         return redirect()->route('admin.comics.index')->with('warning', 'Comic "' . $comic->name . '" and its chapters deleted');
     }
 }

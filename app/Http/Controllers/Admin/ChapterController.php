@@ -30,17 +30,15 @@ class ChapterController extends Controller {
         if (!$comic) {
             abort(404);
         }
-        $form_fields = Chapter::getFormFieldsForValidation();
-        $request->validate($form_fields);
 
-        $fields = getFieldsFromRequest($request, $form_fields);
-        $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
-        Auth::user()->update(['timezone' => $fields['timezone']]);
-        unset($fields['timezone']);
+        try {
+            $fields = Chapter::getFieldsIfValid($comic, $request);
+        } catch (\DuplicatedChapter $e){
+            return back()->with('error', $e->getMessage());
+        }
+
         $fields['salt'] = Str::random();
-        $fields['comic_id'] = $comic->id;
         $fields['slug'] = Chapter::generateSlug($fields);
-        if ($fields['team2_id'] === '0') unset($fields['team2_id']);
         $chapter = Chapter::create($fields);
         $path = Chapter::path($comic, $chapter);
         Storage::makeDirectory($path);
@@ -84,16 +82,12 @@ class ChapterController extends Controller {
             abort(404);
         }
         $old_path = Chapter::path($comic, $chapter);
-        $form_fields = Chapter::getFormFieldsForValidation();
-        $request->validate($form_fields);
 
-        $fields = getFieldsFromRequest($request, $form_fields);
-
-        $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
-        Auth::user()->update(['timezone' => $fields['timezone']]);
-        unset($fields['timezone']);
-
-        $fields['comic_id'] = $comic_id;
+        try {
+            $fields = Chapter::getFieldsIfValid($comic, $request);
+        } catch (\DuplicatedChapter $e){
+            return back()->with('error', $e->getMessage())->withInput();
+        }
 
         // If has a new title or slug regenerate it
         if ((!isset($fields['slug']) && isset($fields['title']) && $chapter->title != $fields['title']) || (isset($fields['slug']) && $chapter->slug != $fields['slug'])) {
@@ -117,8 +111,6 @@ class ChapterController extends Controller {
             Storage::move($old_path, $new_path);
         }
         unset($new_chapter);
-
-        if ($fields['team2_id'] === '0') unset($fields['team2_id']);
 
         Chapter::where('id', $chapter_id)->update($fields);
         return redirect()->route('admin.comics.chapters.show', ['comic' => $comic->slug, 'chapter' => $chapter_id])->with('success', 'Chapter updated');

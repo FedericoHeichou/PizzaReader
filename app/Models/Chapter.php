@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Chapter extends Model {
     protected $fillable = [
@@ -284,6 +286,32 @@ class Chapter extends Model {
 
     public static function getFormFieldsForValidation() {
         return getFormFieldsForValidation(Chapter::getFormFields());
+    }
+
+    public static function getFieldsFromRequest($request, $comic, $form_fields) {
+        $fields = getFieldsFromRequest($request, $form_fields);
+        $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
+        Auth::user()->update(['timezone' => $fields['timezone']]);
+        unset($fields['timezone']);
+        $fields['comic_id'] = $comic->id;
+        if ($fields['team2_id'] === '0') unset($fields['team2_id']);
+        return $fields;
+    }
+
+    public static function getFieldsIfValid($comic, $request) {
+        $form_fields = Chapter::getFormFieldsForValidation();
+        $request->validate($form_fields);
+        $fields = Chapter::getFieldsFromRequest($request, $comic, $form_fields);
+        $duplicated_chapter = Chapter::where([
+            ['id', '<>', $request->route('chapter')],
+            ['comic_id', $comic->id],
+            ['volume', $fields['volume']],
+            ['chapter', $fields['chapter']],
+            ['subchapter', $fields['subchapter']],
+            ['language', $fields['language']],
+        ])->first();
+        if($duplicated_chapter) throw new \DuplicatedChapter('Chapter duplicated, there is already a chapter for this comic with this combination of language, volume, chapter and subchapter.');
+        return $fields;
     }
 
     public static function generateSlug($fields) {

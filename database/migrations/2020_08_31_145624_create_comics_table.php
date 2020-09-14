@@ -24,7 +24,7 @@ class CreateComicsTable extends Migration {
             $table->string('genres')->nullable();
             $table->string('status')->nullable();
             $table->text('description')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->string('thumbnail')->nullable()->default(null);
             $table->string('custom_chapter')->nullable();
             $table->bigInteger('comic_format_id', false, true);
             $table->boolean('adult')->default(0);

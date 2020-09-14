@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->timestamp('last_login')->nullable();
-            $table->string('timezone');
+            $table->string('timezone')->default('UTC');
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles');
