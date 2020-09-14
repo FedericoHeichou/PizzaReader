@@ -42,6 +42,7 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('users')->name('users.')->group(function(){
             Route::get('/', [UserController::class, 'index'])->name('index')->middleware('auth.manager');
+            Route::redirect('/{user}', '/admin/users');
             Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth.admin');
             Route::patch('/{user}/update', [UserController::class, 'update'])->name('update')->middleware('auth.admin');
             Route::delete('/{user}/destroy', [UserController::class, 'destroy'])->name('destroy')->middleware('auth.admin');
