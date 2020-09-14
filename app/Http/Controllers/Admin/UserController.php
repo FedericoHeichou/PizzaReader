@@ -34,35 +34,28 @@ class UserController extends Controller {
         return $this->edit(Auth::user()->id);
     }
 
+    // user_id can be set only from admins, for other users is used Auth::user()->id automatically
     public function update(Request $request, $user_id) {
         $user = User::find($user_id);
         if (!$user) {
             abort(404);
         }
         $request->validate([
-            'name' => ['string', 'max:191'],
-            'email' => ['string', 'email', 'max:191', Rule::unique('users')->ignore($user->id)],
-            'password' => ['string', 'min:8', 'max:191'],
+            'name' => ['string', 'max:191', 'required'],
+            'email' => ['string', 'email', 'max:191', 'required', Rule::unique('users')->ignore($user->id)],
+            'password' => ['string', 'min:8', 'max:191', 'password:web', Rule::requiredIf(Auth::user()->id === $user->id)],
             'new_password' => ['string', 'min:8', 'max:191', 'nullable'],
             'role' => ['integer', 'between:1,4'],
         ]);
 
         // If target user is master admin and who invoked update is not the master admin
         if ($user->id === 1 && Auth::user()->id !== 1) {
-            return back()->with('warning', 'You are unauthorized to edit di user');
+            return back()->with('warning', 'You are unauthorized to edit this user');
         }
 
-        // If you are editing yourself password is required
-        if (Auth::user()->id === $user->id && !Hash::check($request->password, $user->password)) {
-            return back()->with('warning', 'The inserted current password doesn\'t match with the one in the database')->withInput();
-        }
+        $user->name = $request->name;
+        $user->email = strtolower($request->email);
 
-        if ($request->name) {
-            $user->name = $request->name;
-        }
-        if ($request->email) {
-            $user->email = strtolower($request->email);
-        }
         if ($request->new_password) {
             $user->password = Hash::make($request->new_password);
         }

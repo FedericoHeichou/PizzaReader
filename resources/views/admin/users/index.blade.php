@@ -40,7 +40,7 @@
                         </select>
                     </div>
                     <div class="col-auto text-right pl-1">
-                        @if((Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id) && $user->id !== 1)
+                        @if((Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id) && ($user->id !== 1 || Auth::user()->id === 1))
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success">Edit</a>
                         @else
                             <a href="#" class="btn btn-secondary" title="You can't edit this user" onclick="event.preventDefault()">Edit</a>
