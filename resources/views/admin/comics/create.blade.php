@@ -1,4 +1,4 @@
-@extends('admin.comics.form', ['fields' => \App\Models\Comic::getFormFields()])
+@extends('partials.form.form', ['fields' => \App\Models\Comic::getFormFields()])
 @section('card-title', 'Add new comic')
 @section('form-action', route('admin.comics.store'))
 @section('choose-file', 'Choose file')

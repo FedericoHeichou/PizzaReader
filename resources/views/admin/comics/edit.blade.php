@@ -1,4 +1,4 @@
-@extends('admin.comics.form', ['fields' => \App\Models\Comic::getFormFields()])
+@extends('partials.form.form', ['fields' => \App\Models\Comic::getFormFields()])
 @section('card-title', 'Edit comic')
 @section('form-action', route('admin.comics.update', $comic->id))
 @section('method', method_field('PATCH'))

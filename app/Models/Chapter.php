@@ -231,7 +231,7 @@ class Chapter extends Model {
                     'label' => 'Language',
                     'hint' => 'Select the language of this chapter',
                     'options' => ['en', 'es', 'fr', 'it', 'pt', 'jp',],
-                    'selected' => 'it',
+                    'selected' => config('settings.default_language'),
                     'required' => 1,
                 ],
                 'values' => ['string', 'size:2'],

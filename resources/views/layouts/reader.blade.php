@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'PizzaReader') }}</title>
+    <title>{{ config('settings.reader_name', 'PizzaReader') }}</title>
 
     <!-- Scripts -->
     <script type="text/javascript">
@@ -29,8 +29,13 @@
     <div id="app">
         <nav id="header" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container px-lg-0">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'PizzaReader') }}
+                <a class="navbar-brand" href="{{ config('settings.home_link', url('/')) }}">
+                    @if(config('settings.logo'))
+                        <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
+                             title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
+                             class="logo" src="{{ asset('storage/img/logo/' . config('settings.logo')) }}">
+                    @endif
+                    {{ config('settings.reader_name', 'PizzaReader') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
@@ -43,7 +48,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <router-link to="/comics" class="nav-link">Comics</router-link>
+                            <router-link to="/comics" class="nav-link">
+                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> Comics
+                            </router-link>
                         </li>
                     </ul>
 
@@ -65,15 +72,17 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->hasPermission('checker'))
-                                        <a class="dropdown-item" href="{{ route('admin.comics.index') }}">Admin panel</a>
+                                        <a class="dropdown-item" href="{{ route('admin.comics.index') }}">
+                                            <span aria-hidden="true" title="Admin panel" class="fas fa-wrench fa-fw"></span> Admin panel
+                                        </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('user.edit') }}">
-                                        Edit profile
+                                        <span aria-hidden="true" title="Profile" class="fas fa-user fa-fw"></span> Edit profile
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <span aria-hidden="true" title="Sign-out" class="fas fa-sign-out-alt fa-fw"></span> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

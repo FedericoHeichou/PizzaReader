@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'PizzaReader') }}</title>
+    <title>{{ config('settings.reader_name', 'PizzaReader') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,9 +27,14 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'PizzaReader') }}
+            <div class="container px-lg-0">
+                <a class="navbar-brand" href="{{ config('settings.home_link', url('/')) }}">
+                    @if(config('settings.logo'))
+                        <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
+                             title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
+                             class="logo" src="{{ asset('storage/img/logo/' . config('settings.logo')) }}">
+                    @endif
+                    {{ config('settings.reader_name', 'PizzaReader') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,17 +45,31 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link{{ Route::is('admin.comics.*') ? ' active' : '' }}"
-                               href="{{ route('admin.comics.index') }}">Comics</a>
+                               href="{{ route('admin.comics.index') }}">
+                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> Comics
+                            </a>
                         </li>
-                        @if(Auth::check() && Auth::user()->hasPermission('admin'))
+                        @if(Auth::check() && Auth::user()->hasPermission('manager'))
                             <li class="nav-item">
                                 <a class="nav-link{{ Route::is('admin.users.*') ? ' active' : '' }}"
-                                   href="{{ route('admin.users.index') }}">Users</a>
+                                   href="{{ route('admin.users.index') }}">
+                                    <span aria-hidden="true" title="Users" class="fas fa-users fa-fw"></span> Users
+                                </a>
+                            </li>
+                        @endif
+                        @if(Auth::check() && Auth::user()->hasPermission('admin'))
+                            <li class="nav-item">
+                                <a class="nav-link{{ Route::is('admin.settings.*') ? ' active' : '' }}"
+                                   href="{{ route('admin.settings.edit') }}">
+                                    <span aria-hidden="true" title="Settings" class="fas fa-cog fa-fw"></span> Settings
+                                </a>
                             </li>
                         @endif
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="{{ route('home') }}" target="_blank">Reader</a>
+                               href="{{ route('home') }}" target="_blank">
+                                <span aria-hidden="true" title="Reader" class="fas fa-book-open fa-fw"></span> Reader
+                            </a>
                         </li>
                     </ul>
 
@@ -74,15 +93,17 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->hasPermission('checker'))
-                                        <a class="dropdown-item" href="{{ route('admin.comics.index') }}">Admin panel</a>
+                                        <a class="dropdown-item" href="{{ route('admin.comics.index') }}">
+                                            <span aria-hidden="true" title="Admin panel" class="fas fa-wrench fa-fw"></span> Admin panel
+                                        </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('user.edit') }}">
-                                        Edit profile
+                                        <span aria-hidden="true" title="Profile" class="fas fa-user fa-fw"></span> Edit profile
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <span aria-hidden="true" title="Sign-out" class="fas fa-sign-out-alt fa-fw"></span> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -1,4 +1,4 @@
-@extends('admin.comics.form', ['fields' => \App\Models\Chapter::getFormFields()])
+@extends('partials.form.form', ['fields' => \App\Models\Chapter::getFormFields()])
 @section('card-title', 'Add new chapter')
 @section('form-action', route('admin.comics.chapters.store', $comic->slug))
 @section('choose-file', 'Choose file')

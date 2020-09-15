@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Admin\ComicController;
@@ -64,11 +65,18 @@ Route::prefix('admin')->group(function () {
             Route::patch('/{user}/update', [UserController::class, 'update'])->name('update')->middleware('auth.admin');
             Route::delete('/{user}/destroy', [UserController::class, 'destroy'])->name('destroy')->middleware('auth.admin');
         });
+
+        Route::prefix('settings')->name('settings.')->middleware('auth.admin')->group(function () {
+            Route::get('/', [SettingsController::class, 'edit'])->name('edit');
+            Route::patch('/', [SettingsController::class, 'update'])->name('update');
+        });
+
     });
 });
 
 Route::prefix('user')->name('user.')->middleware('auth')->group(function() {
     Route::get('/edit', [UserController::class, 'editYourself'])->name('edit');
+    Route::redirect('/', '/user/edit');
     Route::patch('/update', [UserController::class, 'updateYourself'])->name('update');
 });
 
