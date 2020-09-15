@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         $this->call([
-            RoleTableSeeder::class,
+            RoleSeeder::class,
             ComicFormatSeeder::class,
             TestSeeder::class, //TODO to remove
         ]);

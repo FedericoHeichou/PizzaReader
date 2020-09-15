@@ -52,16 +52,16 @@ class ReaderController extends Controller {
         } else {
             $ch = ['vol' => null, 'ch' => null, 'sub' => null];
         }
-        $comic = Comic::slug($comic_slug);
+        $comic = Comic::publicSlug($comic_slug);
         if (!$comic) {
             return response()->json($response);
         }
         $response['comic'] = Comic::generateReaderArrayWithChapters($comic);
         $chapter = $comic->publicChapters()->where([
+            ['language', $language],
             ['volume', $ch['vol']],
             ['chapter', $ch['ch']],
             ['subchapter', $ch['sub']],
-            ['language', $language],
         ])->first();
         if (!$chapter) {
             return response()->json($response);

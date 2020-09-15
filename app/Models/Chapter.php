@@ -17,7 +17,14 @@ class Chapter extends Model {
     ];
 
     public function scopePublic() {
-        return $this->where('hidden', 0);
+        if(!Auth::check() || !Auth::user()->hasPermission('checker'))
+            return $this->where('hidden', 0);
+        else if(Auth::user()->hasPermission('manager'))
+            return $this;
+        else{
+            $comics = Auth::user()->comics()->select('comic_id');
+            return $this->where(function($query) use ($comics) { $query->where('hidden', 0)->orWhereIn('comic_id', $comics); });
+        }
     }
 
     public function pages() {
@@ -280,6 +287,7 @@ class Chapter extends Model {
                 Team::generateReaderArray(Team::find($chapter->team2_id)),],
             'updated_at' => $chapter->updated_at,
             'published_on' => $chapter->published_on,
+            'hidden' => $chapter['hidden'], // "->hidden" is the eloquent variable for hidden attributes
             'url' => Chapter::getUrl($comic, $chapter),
         ];
     }

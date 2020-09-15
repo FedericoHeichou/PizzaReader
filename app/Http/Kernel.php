@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
         'auth.manager' => \App\Http\Middleware\AuthenticateManager::class,
         'auth.editor' => \App\Http\Middleware\AuthenticateEditor::class,
+        'auth.checker' => \App\Http\Middleware\AuthenticateChecker::class,
+        'can.see' => \App\Http\Middleware\CanSee::class,
         'can.edit' => \App\Http\Middleware\CanEdit::class,
         'auth.yourself' => \App\Http\Middleware\AllowYourself::class,
     ];

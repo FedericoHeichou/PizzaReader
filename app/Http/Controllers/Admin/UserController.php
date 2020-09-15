@@ -41,8 +41,8 @@ class UserController extends Controller {
             abort(404);
         }
         $request->validate([
-            'name' => ['string', 'max:191', 'required'],
-            'email' => ['string', 'email', 'max:191', 'required', Rule::unique('users')->ignore($user->id)],
+            'name' => ['string', 'max:191'],
+            'email' => ['string', 'email', 'max:191', Rule::unique('users')->ignore($user->id)],
             'password' => ['string', 'min:8', 'max:191', 'password:web', Rule::requiredIf(Auth::user()->id === $user->id)],
             'new_password' => ['string', 'min:8', 'max:191', 'nullable'],
             'role' => ['integer', 'between:1,4'],
@@ -53,12 +53,10 @@ class UserController extends Controller {
             return back()->with('warning', 'You are unauthorized to edit this user');
         }
 
-        $user->name = $request->name;
-        $user->email = strtolower($request->email);
+        if($request->name) $user->name = $request->name;
+        if($request->email) $user->email = strtolower($request->email);
+        if ($request->new_password) $user->password = Hash::make($request->new_password);
 
-        if ($request->new_password) {
-            $user->password = Hash::make($request->new_password);
-        }
         // If you are admin and your are not editing yourself
         if ($request->role && Auth::user()->hasPermission('admin') && Auth::user()->id !== $user->id) {
             $user->role_id = $request->role;

@@ -73,7 +73,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if(Auth::user()->hasPermission('editor'))
+                                    @if(Auth::user()->hasPermission('checker'))
                                         <a class="dropdown-item" href="{{ route('admin.comics.index') }}">Admin panel</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('user.edit') }}">

@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// The "+" near the role means "which has this privilege or more" [admin > manager > editor > checker > user]
+
 Route::prefix('admin')->group(function () {
     Auth::routes();
 
@@ -28,16 +30,30 @@ Route::prefix('admin')->group(function () {
             return redirect()->route('admin.comics.index');
         })->name('index');
 
+        // Only managers+ can create, store, edit, update and destroy comics
         Route::resource('comics', ComicController::class)->except(['index', 'show'])->middleware('auth.manager');
 
         Route::name('comics.')->group(function () {
-            Route::get('comics', [ComicController::class, 'index'])->name('index')->middleware('auth.editor');
-            Route::prefix('comics/{comic}')->middleware('can.edit')->group(function () {
-                Route::get('', [ComicController::class, 'show'])->name('show');
-                Route::resource('chapters', ChapterController::class)->except(['destroy']);
+            // Only checkers+ can see list of chapter
+            Route::get('comics', [ComicController::class, 'index'])->name('index')->middleware('auth.checker');
+
+            Route::prefix('comics/{comic}')->group(function () {
+                // Authorized checkers+ can see a comic
+                Route::get('', [ComicController::class, 'show'])->name('show')->middleware('can.see');
+
+                // Authorized editors+ can create, store, edit and update chapters
+                Route::resource('chapters', ChapterController::class)->except(['destroy', 'show', 'index'])->middleware('can.edit');
+
+                // Authorized checkers+ can see the list of comic's chapters and his chapters
+                Route::resource('chapters', ChapterController::class)->only(['show', 'index'])->middleware('can.see');
+
+                // Only managers+ can destroy chapters
                 Route::delete('chapters/{chapter}', [ChapterController::class, 'destroy'])->name('chapters.destroy')->middleware('auth.manager');
-                Route::post('chapters/{chapter}/pages', [PageController::class, 'store'])->name('chapters.pages.store');
-                Route::delete('chapters/{chapter}/pages/{page}', [PageController::class, 'destroy'])->name('chapters.pages.destroy');
+
+                // Only editors+ can store and destroy pages
+                Route::resource('chapters/{chapter}/pages', PageController::class)->only(['store', 'destroy'])->names('chapters.pages')->middleware('can.edit');
+                /*Route::post('chapters/{chapter}/pages', [PageController::class, 'store'])->name('chapters.pages.store')->middleware('can.edit');
+                Route::delete('chapters/{chapter}/pages/{page}', [PageController::class, 'destroy'])->name('chapters.pages.destroy')->middleware('can.edit');*/
             });
         });
 

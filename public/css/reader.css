@@ -415,9 +415,6 @@ body.hide-header #hide-header-button {
     background: rgba(255, 0, 0, 0.2);
 }
 
-/*#reader-page-bar .notch {
-  position: static;
-}*/
 #reader-page-bar #notch-display {
     opacity: 0;
     top: -7rem;

@@ -155,7 +155,8 @@
                     <div class="col text-right"><span class="fa fa-clock fa-fw" title="Publication date"></span></div>
                 </div>
 
-                <div v-for="chapter in comic.chapters" class="row flex-nowrap text-truncate border-bottom py-1 item">
+                <div v-for="chapter in comic.chapters"
+                     :class="'row flex-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '')">
                     <div class="col-auto text-center">
                         <span class="fa fa-eye-slash fa-fw" title="You didn't read it"></span>
                     </div>

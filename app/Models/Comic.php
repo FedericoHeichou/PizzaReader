@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Comic extends Model {
@@ -12,7 +13,14 @@ class Comic extends Model {
     ];
 
     public function scopePublic() {
-        return $this->where('hidden', 0);
+        if(!Auth::check() || !Auth::user()->hasPermission('checker'))
+            return $this->where('hidden', 0);
+        else if(Auth::user()->hasPermission('manager'))
+            return $this;
+        else{
+            $comics = Auth::user()->comics()->select('comic_id');
+            return $this->where(function($query) use ($comics) { $query->where('hidden', 0)->orWhereIn('id', $comics); });
+        }
     }
 
     public function format() {
@@ -28,12 +36,18 @@ class Comic extends Model {
             ->orderByDesc('volume')
             ->orderByDesc('chapter')
             ->orderByDesc('subchapter')
-            ->orderByDesc('title')
-            ->orderByDesc('id');
+            ->orderByDesc('language');
     }
 
     public function publicChapters() {
-        return $this->chapters()->where('hidden', 0);
+        if(!Auth::check() || !Auth::user()->hasPermission('checker'))
+            return $this->chapters()->where('hidden', 0);
+        else if(Auth::user()->hasPermission('manager'))
+            return $this->chapters();
+        else{
+            $comics = Auth::user()->comics()->select('comic_id');
+            return $this->chapters()->where(function($query) use ($comics) { $query->where('hidden', 0)->orWhereIn('comic_id', $comics); });
+        }
     }
 
     public static function slug($slug) {
@@ -191,7 +205,7 @@ class Comic extends Model {
         if (!$comic) return null;
         $genres = [];
         foreach (explode(',', $comic->genres) as $genre) {
-            array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
+            if($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
         }
         return [
             'title' => $comic->name,
@@ -206,6 +220,7 @@ class Comic extends Model {
             'adult' => $comic->adult,
             'created_at' => $comic->created_at,
             'updated_at' => $comic->updated_at,
+            'hidden' => $comic['hidden'], // "->hidden" is the eloquent variable for hidden attributes
             'views' => Chapter::public()->where('comic_id', $comic->id)->sum('views'),
             'rating' => 6.91, // TODO rating
             'url' => Comic::getUrl($comic),

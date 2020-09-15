@@ -51,7 +51,15 @@ class User extends Authenticatable {
         return $this->belongsToMany(Comic::class);
     }
 
+    public function canAccess($comic_id, $role) {
+        return $this->hasPermission('manager') || ($this->hasPermission($role) && (bool)$this->comics()->find($comic_id));
+    }
+
+    public function canSee($comic_id): bool {
+        return $this->canAccess($comic_id, 'checker');
+    }
+
     public function canEdit($comic_id): bool {
-        return $this->hasPermission('manager') || ($this->hasPermission('editor') && (bool)$this->comics()->find($comic_id)->first());
+        return $this->canAccess($comic_id, 'editor');
     }
 }
