@@ -175,8 +175,8 @@ class Chapter extends Model {
                     'field' => 'hidden',
                     'label' => 'Hidden',
                     'hint' => 'Check to hide this comic',
-                    'checked' => 'checked',
-                    'required' => 'required',
+                    'checked' => 1,
+                    'required' => 1,
                 ],
                 'values' => ['boolean'],
             ], [
@@ -194,14 +194,14 @@ class Chapter extends Model {
                     'field' => 'published_on',
                     'label' => 'Published on',
                     'hint' => 'It won\'t be used to programs the publication but only for information purpose. If your browser (es. Firefox) doesn\'t show a data picker, please use as format yyyy-mm-ddTHH:MM [Example: 2020-09-10T19:34]',
-                    'required' => 'required',
+                    'required' => 1,
                 ],
                 'values' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/'],
             ], [
                 'type' => 'input_hidden',
                 'parameters' => [
                     'field' => 'timezone',
-                    'required' => 'required',
+                    'required' => 1,
                     'default' => 'UTC',
                 ],
                 'values' => ['max:191'],
@@ -232,7 +232,7 @@ class Chapter extends Model {
                     'hint' => 'Select the language of this chapter',
                     'options' => ['en', 'es', 'fr', 'it', 'pt', 'jp',],
                     'selected' => 'it',
-                    'required' => 'required',
+                    'required' => 1,
                 ],
                 'values' => ['string', 'size:2'],
             ], [
@@ -242,7 +242,7 @@ class Chapter extends Model {
                     'label' => 'Team 1',
                     'hint' => 'Select the team who worked to this chapter',
                     'options' => $teams,
-                    'required' => 'required',
+                    'required' => 1,
                 ],
                 'values' => ['integer', 'between:1,' . $teams->count()],
             ], [

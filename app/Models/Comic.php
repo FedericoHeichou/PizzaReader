@@ -89,7 +89,7 @@ class Comic extends Model {
                     'field' => 'name',
                     'label' => 'Name',
                     'hint' => 'Insert comic\'s name',
-                    'required' => 'required',
+                    'required' => 1,
                 ],
                 'values' => ['max:191'],
             ], [
@@ -108,8 +108,8 @@ class Comic extends Model {
                     'field' => 'hidden',
                     'label' => 'Hidden',
                     'hint' => 'Check to hide this comic',
-                    'checked' => 'checked',
-                    'required' => 'required',
+                    'checked' => 1,
+                    'required' => 1,
                 ],
                 'values' => ['boolean'],
             ], [
@@ -183,7 +183,7 @@ class Comic extends Model {
                     'field' => 'adult',
                     'label' => 'Adult',
                     'hint' => 'Check to set this comic for adults only',
-                    'required' => 'required',
+                    'required' => 1,
                 ],
                 'values' => ['boolean'],
             ], [

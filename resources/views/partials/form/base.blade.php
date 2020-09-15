@@ -1,6 +1,6 @@
 @if($type !== "input_hidden")
     <div class="form-group form-row">
-        <label for="{{ $field }}" class="col-sm-2 col-form-label {{ isset($required) ? 'required' : '' }}">{{ $label }}</label>
+        <label for="{{ $field }}" class="col-sm-2 col-form-label {{ isset($required) && $required ? 'required' : '' }}">{{ $label }}</label>
         <div class="col-sm-10 {{ isset($disabled) ? 'disabled' : '' }}">
             @yield('element-' . $field)
             @if(isset($disabled))

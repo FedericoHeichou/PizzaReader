@@ -23,7 +23,7 @@ function getFormFieldsForValidation($fields) {
     $form_fields = [];
     foreach ($fields as $field) {
         $values = $field['values'];
-        if (isset($field['parameters']['required'])) {
+        if (isset($field['parameters']['required']) && $field['parameters']['required']) {
             array_push($values, 'required');
         } else {
             array_push($values, 'nullable');
