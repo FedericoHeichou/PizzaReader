@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class HomeController extends Controller {
+class FrontendController extends Controller {
     public function __invoke(){
         return view('layouts.reader');
     }

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Admin\ComicController;
 use App\Http\Controllers\Admin\PageController;
@@ -80,4 +80,5 @@ Route::prefix('user')->name('user.')->middleware('auth')->group(function() {
     Route::patch('/update', [UserController::class, 'updateYourself'])->name('update');
 });
 
-Route::get('/{reader?}', HomeController::class)->name('home')->where('reader', '.*');
+// Frontend
+Route::get('/{frontend?}', FrontendController::class)->name('home')->where('frontend', '[comics|read].*');
