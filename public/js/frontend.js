@@ -2,22 +2,17 @@ function timePassed(date) {
     let diff = new Date().getTime() - new Date(date).getTime();
     if(diff < 0) return "In the future";
     diff = parseInt(diff / 1000);
-    if (diff < 60) return diff + " secs ago";
+    if (diff < 60) return diff + " s";
     diff = parseInt(diff / 60);
-    if (diff === 1) return diff + " min ago";
-    if (diff < 60) return diff + " mins ago";
+    if (diff < 60) return diff + " m";
     diff = parseInt(diff / 60);
-    if (diff === 1) return diff + " hour ago";
-    if (diff < 24) return diff + " hours ago";
+    if (diff < 24) return diff + " h";
     diff = parseInt(diff / 24);
-    if (diff === 1) return diff + " day ago";
-    if (diff < 30) return diff + " days ago";
+    if (diff < 30) return diff + " d";
     diff = parseInt(diff / 30);
-    if (diff === 1) return diff + " month ago";
-    if (diff < 12) return diff + " months ago";
+    if (diff < 12) return diff + " mo";
     diff = parseInt(diff / 12);
-    if (diff === 1) return diff + " year ago";
-    return diff + " years ago";
+    return diff + " y ago";
 }
 
 window.timePassed = timePassed;

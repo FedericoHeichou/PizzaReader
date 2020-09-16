@@ -280,7 +280,6 @@ export default {
         $('#nav-filter').hide();
         if (this.hide_header) this.hideHeader();
         if (this.hide_sidebar) this.hideSidebar();
-        console.log(this.hide_sidebar)
         this.$store.dispatch('fetchChapter', this.$route.path)
             .then(() => {
                 if (this.$store.getters.chapter != null) {
@@ -417,18 +416,14 @@ export default {
         },
         scrollTopOfPage() {
             if (this.max_page < 1) return;
-            if (this.renderingMode === 'long-strip') {
-                let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
-                if (!this.animation) {
-                    $('html,body').scrollTop($('.reader-image-wrapper[data-page="' + this.page + '"]').offset().top - offset);
-                } else {
-                    canChange = false;
-                    $('html,body').animate({scrollTop: $('.reader-image-wrapper[data-page="' + this.page + '"]').offset().top - offset}, 400, function () {
-                        canChange = true;
-                    });
-                }
+            let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
+            if (this.renderingMode === 'long-strip' && this.animation) {
+                canChange = false;
+                $('html,body').animate({scrollTop: $('.reader-image-wrapper[data-page="' + this.page + '"]').offset().top - offset}, 400, function () {
+                    canChange = true;
+                });
             } else {
-                $('html,body').scrollTop(0);
+                $('html,body').scrollTop($('.reader-image-wrapper[data-page="' + this.page + '"]').offset().top - offset);
             }
             this.animation = false;
         },
