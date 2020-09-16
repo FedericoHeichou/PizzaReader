@@ -3,27 +3,27 @@
     <div class="card mb-4">
         <div class="card-header">
             <div class="form-row">
-                <div class="col-9">
+                <div class="col-sm-9 col-6">
                     <h3 class="mt-1 float-left">Users</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-sm-3 col-6">
                     @include('partials.card-search')
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <div class="row border-bottom py-1">
-                <div class="col-lg-3 text-left">Name</div>
-                <div class="col-lg-3 text-left">Email</div>
-                <div class="col-lg-2 text-left">Last login</div>
+            <div class="row border-bottom py-1 d-none d-md-flex">
+                <div class="col-md-3 text-left">Name</div>
+                <div class="col-md-3 text-left">Email</div>
+                <div class="col-md-2 text-left">Last login</div>
                 <div class="col text-left pr-0">Change role</div>
                 <div class="col-auto text-right pl-1">Options</div>
             </div>
             @foreach($users as $user)
-                <div class="row flex-nowrap text-truncate border-bottom py-1 item users">
-                    <div class="col-lg-3 text-left"><span class="filter">{{ $user->name }}</span></div>
-                    <div class="col-lg-3 text-left">{{ $user->email }}</div>
-                    <div class="col-lg-2 text-left">{{ $user->last_login ? Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login, 'UTC')->tz(Auth::user()->timezone) : 'N/A' }}</div>
+                <div class="row flex-md-nowrap text-truncate border-bottom py-1 item users">
+                    <div class="col-md-3 text-left"><span class="filter">{{ $user->name }}</span></div>
+                    <div class="col-md-3 text-left">{{ $user->email }}</div>
+                    <div class="col-md-2 text-left">{{ $user->last_login ? Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login, 'UTC')->tz(Auth::user()->timezone) : 'N/A' }}</div>
                     <div class="col text-center pr-0">
                         <form id="edit-{{ $user->id }}" action="{{ route('admin.users.update', $user->id) }}"
                               method="POST" class="d-none">

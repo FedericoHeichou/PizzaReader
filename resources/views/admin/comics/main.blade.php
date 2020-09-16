@@ -4,13 +4,13 @@
     <div class="card">
         <div class="card-header">
             <div class="form-row">
-                <div class="col-9">
+                <div class="col-sm-9">
                     <h3 class="mt-1 float-left">@yield('list-title')</h3>
                     @if(Auth::user()->hasPermission("manager"))
                         @yield('list-buttons')
                     @endif
                 </div>
-                <div class="col-3">
+                <div class="col-sm-3 mt-2 mt-sm-0">
                     @include('partials.card-search')
                 </div>
             </div>

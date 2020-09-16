@@ -21,8 +21,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.fileupload-all.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
     <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="32x32"/>
