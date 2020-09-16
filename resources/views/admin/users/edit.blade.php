@@ -53,10 +53,16 @@
 
                 <div class="form-group form-row">
                     <label for="new_password" class="col-sm-2 col-form-label">New password</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 input-group">
                         <input type="password" minlength="8" maxlength="191" name="new_password" id="new_password" placeholder="New password"
                                class="form-control @error('new_password') is-invalid @enderror col-sm-12"
                                value="">
+                        <div class="input-group-append">
+                            <div class="input-group-text"><span id="toggle-password" class="fas fa-eye fa-fw"></span>
+                            </div>
+                            <div class="input-group-text"><span id="generate-password" class="fas fa-magic fa-fw"></span>
+                            </div>
+                        </div>
                         @error('new_password')
                         @include('partials.invalid_feedback')
                         @enderror
