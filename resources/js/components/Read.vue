@@ -1,15 +1,15 @@
 <!--suppress XmlDuplicatedId -->
 <template>
     <div v-if="max_page > 0" id="reader"
-         class="row flex-column no-gutters layout-horizontal"
+         :class="'row flex-column no-gutters layout-horizontal' + (hide_sidebar ? ' hide-sidebar' : '')"
          :data-renderer="renderingMode" :data-display="displayFit" :data-direction="direction">
         <div id="reader-controls-container" class="container">
             <div id="reader-controls-wrapper" class="bg-reader-controls row no-gutters flex-nowrap">
                 <div class="d-none d-lg-flex col-auto justify-content-center align-items-center cursor-pointer"
-                     id="reader-controls-collapser" data-setting="hide-sidebar" :data-value="~hide_sidebar+2"
+                     id="reader-controls-collapser" data-setting="hide-sidebar" :data-value="hide_sidebar^1"
                      @click="setSetting">
                     <span class="fas fa-caret-right fa-fw arrow-link" aria-hidden="true" title="Collapse menu"
-                          data-setting="hide-sidebar" :data-value="~hide_sidebar+2"></span>
+                          data-setting="hide-sidebar" :data-value="hide_sidebar^1"></span>
                 </div>
                 <div id="reader-controls" class="col row no-gutters flex-column flex-nowrap">
                     <div id="reader-controls-title" class="col-auto text-center p-2">
@@ -64,10 +64,10 @@
                                 <span class="fas fa-cog fa-fw"></span><span class="d-none d-lg-inline"> Settings</span>
                             </a>
                             <a title="Hide header" class="btn btn-secondary col m-1" role="button" @click="setSetting"
-                               id="hide-header-button" :data-value="~hide_header+2" data-setting="hide-header">
-                                <span class="far fa-window-maximize fa-fw" :data-value="~hide_header+2"
+                               id="hide-header-button" :data-value="hide_header^1" data-setting="hide-header">
+                                <span class="far fa-window-maximize fa-fw" :data-value="hide_header^1"
                                       data-setting="hide-header"></span>
-                                <span class="d-none d-lg-inline" :data-value="~hide_header+2"
+                                <span class="d-none d-lg-inline" :data-value="hide_header^1"
                                       data-setting="hide-header"> Hide header</span>
                             </a>
                         </div>
@@ -280,6 +280,7 @@ export default {
         $('#nav-filter').hide();
         if (this.hide_header) this.hideHeader();
         if (this.hide_sidebar) this.hideSidebar();
+        console.log(this.hide_sidebar)
         this.$store.dispatch('fetchChapter', this.$route.path)
             .then(() => {
                 if (this.$store.getters.chapter != null) {
@@ -326,7 +327,6 @@ export default {
             this.scrollTopOfPage();
             this.needToRefresh = false;
         }
-        console.log("r")
     },
     data() {
         return {
@@ -391,7 +391,6 @@ export default {
             $('#reader').toggleClass('hide-sidebar');
         },
         setSetting(e) {
-            console.log(this.hide_sidebar)
             const setting = $(e.target).data('setting');
             const value = $(e.target).data('value');
             if (setting === 'direction') {
