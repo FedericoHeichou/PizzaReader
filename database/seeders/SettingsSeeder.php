@@ -23,6 +23,16 @@ class SettingsSeeder extends Seeder {
         $s->save();
 
         $s = new Settings();
+        $s->key = 'reader_name_long';
+        $s->value = 'PizzaReader - Read manga online';
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'description';
+        $s->value = 'Read manga online using PizzaReader';
+        $s->save();
+
+        $s = new Settings();
         $s->key = 'logo';
         $s->value = null;
         $s->save();

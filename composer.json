@@ -9,13 +9,14 @@
     "license": "Apache-2.0",
     "require": {
         "php": "^7.3",
+        "ext-json": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.2",
-        "ext-json": "*"
+        "laravel/ui": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

@@ -24,6 +24,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reader.css') }}" rel="stylesheet">
+
+    <!-- Browser info -->
+    <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="32x32"/>
+    <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="{{ config('settings.logo_path_72') }}"/>
+    <meta name="msapplication-TileImage" content="{{ config('settings.logo_path_72') }}"/>
+    <link rel="manifest" href="{{ asset('manifest.json') }}" crossOrigin="use-credentials">
 </head>
 <body>
     <div id="app">
@@ -33,7 +40,7 @@
                     @if(config('settings.logo'))
                         <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
                              title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
-                             class="logo" src="{{ asset('storage/img/logo/' . config('settings.logo')) }}">
+                             class="logo" src="{{ config('settings.logo_path_72') }}">
                     @endif
                     {{ config('settings.reader_name', 'PizzaReader') }}
                 </a>

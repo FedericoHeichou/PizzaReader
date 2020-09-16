@@ -20,13 +20,30 @@ class Settings extends Model {
                 ],
                 'values' => ['max:191'],
             ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'reader_name_long',
+                    'label' => 'Long name of reader',
+                    'hint' => 'Insert the long name of the reader. It is used for SEO',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'description',
+                    'label' => 'Description of reader',
+                    'hint' => 'Insert the description of the reader. It is used for SEO',
+                ],
+                'values' => ['max:191'],
+            ], [
                 'type' => 'input_file',
                 'parameters' => [
                     'field' => 'logo',
                     'label' => 'Logo',
-                    'hint' => 'Insert the logo of the reader. It is showed in the navigation bar',
+                    'hint' => 'Insert the logo of the reader. It is showed in the navigation bar (ONLY PNG)',
+                    'accept' => '.png'
                 ],
-                'values' => ['file', 'mimes:jpg,jpeg,png,gif,webp', 'max:10240'],
+                'values' => ['file', 'mimes:png', 'max:10240'],
             ], [
                 'type' => 'input_text',
                 'parameters' => [
