@@ -58,9 +58,17 @@ class Comic extends Model {
         return Comic::public()->where('slug', $slug)->first();
     }
 
+    public function scopeSearch($query, $search) {
+        $comic_name = preg_replace("/[^A-Za-z0-9]/", '_', $search);
+        return $query->where('name', 'LIKE', '%' . $comic_name . '%');
+    }
+
+    public static function fullSearch($search) {
+        return Comic::search($search)->get();
+    }
+
     public static function publicSearch($search) {
-        $name = preg_replace("/[^A-Za-z0-9 ]/", '', $search);
-        return Comic::public()->where('name', 'LIKE', '%' . $name . '%')->get();
+        return Comic::public()->search($search)->get();
     }
 
     public static function buildPath($comic) {

@@ -100,4 +100,14 @@ class ComicController extends Controller {
         Comic::destroy($comic->id);
         return redirect()->route('admin.comics.index')->with('warning', 'Comic "' . $comic->name . '" and its chapters deleted');
     }
+
+    public function search($search) {
+        $response = ['comics' => []];
+
+        $comics = Comic::fullSearch($search);
+        foreach ($comics as $comic) {
+            array_push($response['comics'], ['id' => $comic->id, 'name' => $comic->name]);
+        }
+        return response()->json($response);
+    }
 }

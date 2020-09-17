@@ -70,6 +70,7 @@
                             <input id="nav-search" type="search" placeholder="Search comic" aria-label="Search comic"
                                    name="search" class="form-control mr-sm-2"
                                    style="display: none" autocomplete="off">
+                            <div id="results-box" style="display: none"></div>
                         </li>
                         @if(Auth::check())
                             <li class="nav-item dropdown">

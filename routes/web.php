@@ -31,8 +31,9 @@ Route::prefix('admin')->group(function () {
             return redirect()->route('admin.comics.index');
         })->name('index');
 
-        // Only managers+ can create, store, edit, update and destroy comics
+        // Only managers+ can create, store, edit, update, destroy and search comics
         Route::resource('comics', ComicController::class)->except(['index', 'show'])->middleware('auth.manager');
+        Route::post('comics/search/{search}', [ComicController::class, 'search'])->name('search')->middleware('auth.manager');
 
         Route::name('comics.')->group(function () {
             // Only checkers+ can see list of chapter
@@ -53,8 +54,6 @@ Route::prefix('admin')->group(function () {
 
                 // Only editors+ can store and destroy pages
                 Route::resource('chapters/{chapter}/pages', PageController::class)->only(['store', 'destroy'])->names('chapters.pages')->middleware('can.edit');
-                /*Route::post('chapters/{chapter}/pages', [PageController::class, 'store'])->name('chapters.pages.store')->middleware('can.edit');
-                Route::delete('chapters/{chapter}/pages/{page}', [PageController::class, 'destroy'])->name('chapters.pages.destroy')->middleware('can.edit');*/
             });
         });
 
@@ -64,6 +63,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth.admin');
             Route::patch('/{user}/update', [UserController::class, 'update'])->name('update')->middleware('auth.admin');
             Route::delete('/{user}/destroy', [UserController::class, 'destroy'])->name('destroy')->middleware('auth.admin');
+            Route::patch('/{user}/comics', [UserController::class, 'comics'])->name('comics')->middleware('auth.manager');
         });
 
         Route::prefix('settings')->name('settings.')->middleware('auth.admin')->group(function () {

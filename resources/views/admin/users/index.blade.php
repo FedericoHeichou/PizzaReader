@@ -40,29 +40,53 @@
                         </select>
                     </div>
                     <div class="col-auto text-right pl-1">
+                        @if(Auth::user()->hasPermission('manager') && !$user->hasPermission('manager'))
+                            <button href="#" class="btn btn-primary" onclick="assignComicsBox({'id': '{{ $user->id }}', 'name': '{{ $user->name }}'}, {{ $user->comicsMinimal }})">Assign</button>
+                        @else
+                            <a href="#" class="btn btn-secondary" title="You can't assign this user" onclick="event.preventDefault()">Assign</a>
+                        @endif
                         @if((Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id) && ($user->id !== 1 || Auth::user()->id === 1))
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success">Edit</a>
                         @else
                             <a href="#" class="btn btn-secondary" title="You can't edit this user" onclick="event.preventDefault()">Edit</a>
                         @endif
                         @if(!Auth::user()->hasPermission('admin') || Auth::user()->id === $user->id || $user->id === 1)
-                            <a href="#" class="btn btn-secondary" title="You can't delete this user" onclick="event.preventDefault()">
+                            <a href="#" class="btn btn-secondary" title="You can't delete this user" onclick="event.preventDefault()">Delete</a>
                         @else
-                        <form id="delete-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}"
-                              method="POST" class="d-none">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                        <a href="{{ route('admin.users.destroy', $user->id) }}" class="btn btn-danger"
-                           onclick="confirmbox('Do you want to delete {{ $user->name }}?', 'delete-{{ $user->id }}')">
+                            <form id="delete-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}"
+                                  method="POST" class="d-none">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                            <a href="{{ route('admin.users.destroy', $user->id) }}" class="btn btn-danger"
+                               onclick="confirmbox('Do you want to delete {{ $user->name }}?', 'delete-{{ $user->id }}')">Delete</a>
                         @endif
-                            Delete
-                        </a>
-
                     </div>
                 </div>
             @endforeach
         </div>
         {{ $users->links() }}
+    </div>
+
+    <div id="modal-assign" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Assign comics</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <input id="comic-search" type="search" placeholder="Search comic" aria-label="Search comic"
+                           name="search" class="form-control mr-sm-2" autocomplete="off">
+                    <div id="results-box" style="display: none"></div>
+                </div>
+                <div id="assigned-comics" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" onclick="assignComics()">Update</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

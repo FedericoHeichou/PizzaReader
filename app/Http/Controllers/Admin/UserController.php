@@ -77,4 +77,17 @@ class UserController extends Controller {
         User::destroy($user_id);
         return redirect()->route('admin.users.index')->with('success', 'User deleted');
     }
+
+    public function comics(Request $request, $user_id) {
+        $user = User::find($user_id);
+        if (!$user || !$user->hasPermission('checker')) {
+            abort(404);
+        }
+        $request->validate([
+            'comics'   => ['array'],
+            'comics.*' => ['integer', 'min:1'],
+        ]);
+        $user->comics()->sync($request->comics);
+        return response()->json(['message' => 'success']);
+    }
 }

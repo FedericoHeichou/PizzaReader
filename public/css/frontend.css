@@ -39,12 +39,14 @@
     -webkit-box-shadow: 0 10px 15px 5px rgba(0, 0, 0, 0.2);
     box-shadow: 0 10px 15px 5px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
+    overflow-x: hidden;
     max-height: 350px;
 }
 
 #results-box ul {
     padding: 0;
     list-style: none;
+    margin-bottom: 0;
 }
 
 #results-box ul li {
