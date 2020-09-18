@@ -324,6 +324,7 @@ export default {
                 }
             }
             this.scrollTopOfPage();
+            this.swipeInit();
             this.needToRefresh = false;
         }
     },
@@ -484,7 +485,13 @@ export default {
         clickPage(e){
             const pW = document.body.clientWidth - document.body.scrollWidth + $(e.target).closest('#reader-images').width();
             e.clientX < pW / 2 ? $('#turn-left').click() : $('#turn-right').click();
-        }
+        },
+        swipeInit() {
+            $("#reader-images").swipe( {
+                swipeLeft: function() {$('#turn-right').click()},
+                swipeRight: function() {$('#turn-left').click()},
+            });
+        },
     },
     computed: {
         ...mapGetters([
