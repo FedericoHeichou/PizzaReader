@@ -124,8 +124,8 @@ body.hide-header {
     transform: rotateY(180deg);
 }
 
-#reader-controls-mode span:not(.fas) {
-    display: none
+#reader-controls-mode label {
+    overflow: hidden;
 }
 
 /* reader */

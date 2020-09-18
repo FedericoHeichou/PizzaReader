@@ -7,7 +7,7 @@
             <div id="reader-controls-wrapper" class="bg-reader-controls row no-gutters flex-nowrap">
                 <div class="d-none d-lg-flex col-auto justify-content-center align-items-center cursor-pointer"
                      id="reader-controls-collapser" data-setting="hide-sidebar" :data-value="hide_sidebar^1"
-                     @click="setSetting">
+                     @click="setSettings">
                     <span class="fas fa-caret-right fa-fw arrow-link" aria-hidden="true" title="Collapse menu"
                           data-setting="hide-sidebar" :data-value="hide_sidebar^1"></span>
                 </div>
@@ -59,11 +59,11 @@
                     </div>
                     <div id="reader-controls-actions" class="col-auto row no-gutters p-1">
                         <div class="col row no-gutters">
-                            <a title="Reader settings" class="btn btn-secondary col m-1" role="button"
-                               id="settings-button" data-toggle="modal" data-target="#modal-settings">
+                            <a title="Reader settings" class="btn btn-secondary col m-1 d-inline d-lg-none" role="button"
+                               id="settings-button" @click="toggleSettings">
                                 <span class="fas fa-cog fa-fw"></span><span class="d-none d-lg-inline"> Settings</span>
                             </a>
-                            <a title="Hide header" class="btn btn-secondary col m-1" role="button" @click="setSetting"
+                            <a title="Hide header" class="btn btn-secondary col m-1" role="button" @click="setSettings"
                                id="hide-header-button" :data-value="hide_header^1" data-setting="hide-header">
                                 <span class="far fa-window-maximize fa-fw" :data-value="hide_header^1"
                                       data-setting="hide-header"></span>
@@ -77,37 +77,37 @@
                         <div class="col text-center font-weight-bold">Fit display to</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="displayFit === 'fit-both'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSetting"
+                                <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Both
                             </label>
                             <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSetting"
+                                <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Both
                             </label>
                             <label v-if="displayFit === 'fit-width'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSetting"
+                                <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Width
                             </label>
                             <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSetting"
+                                <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Width
                             </label>
                             <label v-if="displayFit === 'fit-height'" class="btn btn-secondary col-3 active">
                                 <input type="radio" data-value="fit-height" data-setting="displayFit"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Height
                             </label>
                             <label v-else class="btn btn-secondary col-3">
                                 <input type="radio" data-value="fit-height" data-setting="displayFit"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Height
                             </label>
                             <label v-if="displayFit === 'no-resize'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSetting"
+                                <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Full
                             </label>
                             <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSetting"
+                                <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Full
                             </label>
                         </div>
@@ -115,51 +115,51 @@
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="renderingMode === 'double-page'" class="btn btn-secondary col-4 active">
                                 <input type="radio" data-value="double-page" data-setting="renderingMode"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Double
                             </label>
                             <label v-else class="btn btn-secondary col-4">
                                 <input type="radio" data-value="double-page" data-setting="renderingMode"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Double
                             </label>
                             <label v-if="renderingMode === 'single-page'" class="btn btn-secondary col-4 active">
                                 <input type="radio" data-value="single-page" data-setting="renderingMode"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Single
                             </label>
                             <label v-else class="btn btn-secondary col-4">
                                 <input type="radio" data-value="single-page" data-setting="renderingMode"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Single
                             </label>
                             <label v-if="renderingMode === 'long-strip'" class="btn btn-secondary col-4 active">
                                 <input type="radio" data-value="long-strip" data-setting="renderingMode"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Long Strip
                             </label>
                             <label v-else class="btn btn-secondary col-4">
                                 <input type="radio" data-value="long-strip" data-setting="renderingMode"
-                                       @click="setSetting"
+                                       @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Long Strip
                             </label>
                         </div>
                         <div class="col text-center font-weight-bold mt-2">Direction</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="direction === 'ltr'" class="btn btn-secondary col-6 active">
-                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSetting"
+                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Left to right
                             </label>
                             <label v-else class="btn btn-secondary col-6">
-                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSetting"
+                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Left to right
                             </label>
                             <label v-if="direction === 'rtl'" class="btn btn-secondary col-6 active">
-                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSetting"
+                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()" checked>Right to left
                             </label>
                             <label v-else class="btn btn-secondary col-6">
-                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSetting"
+                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSettings"
                                        autocomplete="off" onkeydown="event.preventDefault()">Right to left
                             </label>
                         </div>
@@ -322,9 +322,9 @@ export default {
                     $('.reader-image-wrapper[data-page="' + (this.page + 1) + '"]')
                         .html(this.images[this.page + 1] ? this.images[this.page + 1] : null);
                 }
+                this.swipeInit();
             }
             this.scrollTopOfPage();
-            this.swipeInit();
             this.needToRefresh = false;
         }
     },
@@ -390,7 +390,11 @@ export default {
         hideSidebar() {
             $('#reader').toggleClass('hide-sidebar');
         },
-        setSetting(e) {
+        toggleSettings() {
+            $('#reader-controls-mode').toggleClass('d-none');
+            $('#settings-button').toggleClass('active');
+        },
+        setSettings(e) {
             const setting = $(e.target).data('setting');
             const value = $(e.target).data('value');
             if (setting === 'direction') {
