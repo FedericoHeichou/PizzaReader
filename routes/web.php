@@ -82,4 +82,4 @@ Route::prefix('user')->name('user.')->middleware('auth')->group(function() {
 
 // Frontend
 Route::get('/manifest.json', function () { return response(view('manifest'))->header('Content-Type', 'application/json; charset=UTF-8'); });
-Route::get('/{frontend?}', FrontendController::class)->name('home')->where('frontend', '[comics|read].*');
+Route::get('/{frontend?}', FrontendController::class)->name('home')->where('frontend', '(comics|read|targets|genres).*');
