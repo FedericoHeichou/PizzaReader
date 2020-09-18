@@ -9,6 +9,15 @@ class Page extends Model {
         'chapter_id', 'filename', 'size', 'width', 'height', 'mime', 'hidden',
     ];
 
+    protected $casts = [
+        'id' => 'integer',
+        'chapter_id' => 'integer',
+        'size' => 'integer',
+        'width' => 'integer',
+        'height' => 'integer',
+        'hidden' => 'integer',
+    ];
+
     public function scopePublic() {
         return $this->where('hidden', 0);
     }

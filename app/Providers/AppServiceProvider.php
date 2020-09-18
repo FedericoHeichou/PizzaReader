@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
+        Schema::defaultStringLength(191);
         if (Schema::hasTable('settings')) {
             $settings = Settings::whereNotNull('value')->where('value', '<>', '')->pluck('value', 'key')->toArray();
             $settings['logo_path_72'] = isset($settings['logo']) && $settings['logo'] ?

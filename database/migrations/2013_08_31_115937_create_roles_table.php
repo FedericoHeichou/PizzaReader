@@ -17,6 +17,9 @@ class CreateRolesTable extends Migration {
             $table->string('description');
             $table->timestamps();
         });
+
+        $seeder = new \Database\Seeders\RoleSeeder();
+        $seeder->run();
     }
 
     /**

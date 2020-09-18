@@ -4,15 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
-{
+class CreateSettingsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('settings', function (Blueprint $table) {
             $table->string('key');
             $table->text('value')->nullable();
@@ -20,6 +18,15 @@ class CreateSettingsTable extends Migration
 
             $table->primary(['key']);
         });
+
+        $seeder = new \Database\Seeders\SettingsSeeder();
+        $seeder->run();
+        try {
+            \Illuminate\Support\Facades\Artisan::call('storage:link');
+        } catch (ErrorException $e) {
+            // Some webservers can return 'symlink() has been disabled for security reasons'
+        }
+
     }
 
     /**
@@ -27,8 +34,7 @@ class CreateSettingsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('settings');
     }
 }

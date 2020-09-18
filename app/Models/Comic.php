@@ -12,6 +12,13 @@ class Comic extends Model {
         'custom_chapter', 'comic_format_id', 'adult',
     ];
 
+    protected $casts = [
+        'id' => 'integer',
+        'hidden' => 'integer',
+        'comic_format_id' => 'integer',
+        'adult' => 'integer',
+    ];
+
     public function scopePublic() {
         if(!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $this->where('hidden', 0);
@@ -229,7 +236,7 @@ class Comic extends Model {
             'created_at' => $comic->created_at,
             'updated_at' => $comic->updated_at,
             'hidden' => $comic['hidden'], // "->hidden" is the eloquent variable for hidden attributes
-            'views' => Chapter::public()->where('comic_id', $comic->id)->sum('views'),
+            'views' => intval(Chapter::public()->where('comic_id', $comic->id)->sum('views')),
             'rating' => 6.91, // TODO rating
             'url' => Comic::getUrl($comic),
             'last_chapter' => Chapter::generateReaderArray($comic, Chapter::public()->where('comic_id', $comic->id)->orderByDesc('created_at')->first()),

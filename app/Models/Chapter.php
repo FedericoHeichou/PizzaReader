@@ -13,6 +13,15 @@ class Chapter extends Model {
     ];
 
     protected $casts = [
+        'id' => 'integer',
+        'comic_id' => 'integer',
+        'team_id' => 'integer',
+        'team2_id' => 'integer',
+        'volume' => 'integer',
+        'chapter' => 'integer',
+        'subchapter' => 'integer',
+        'hidden' => 'integer',
+        'views' => 'integer',
         'published_on' => 'datetime',
     ];
 
