@@ -34,6 +34,8 @@ class User extends Authenticatable {
      * @var array
      */
     protected $casts = [
+        'id' => 'integer',
+        'role_id' => 'integer',
         'email_verified_at' => 'datetime',
         'last_login' => 'datetime',
     ];
