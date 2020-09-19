@@ -175,9 +175,11 @@
                         <span :class="'rounded flag flag-' + chapter.language" :title="chapter.language"></span>
                     </div>
                     <div class="col-sm-2 col-7 text-success text-left pl-sm-3 pl-0 order-sm-4 order-5 overflow-hidden">
-                        <router-link :to="chapter.teams[0].url">{{ chapter.teams[0].name }}</router-link>
+                        <template v-if="chapter.teams[0] != null">
+                            <a :href="chapter.teams[0].url" target="_blank">{{ chapter.teams[0].name }}</a>
+                        </template>
                         <template v-if="chapter.teams[1] != null">,&nbsp;
-                            <router-link :to="chapter.teams[1].url">{{ chapter.teams[1].name }}</router-link>
+                            <a :href="chapter.teams[1].url" target="_blank">{{ chapter.teams[1].name }}</a>
                         </template>
                     </div>
                     <div class="col-sm-2 col text-info text-right order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>

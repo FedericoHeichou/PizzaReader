@@ -34,7 +34,7 @@ class ChapterController extends Controller {
         try {
             $fields = Chapter::getFieldsIfValid($comic, $request);
         } catch (\DuplicatedChapter $e){
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', $e->getMessage())->withInput();
         }
 
         $fields['salt'] = Str::random();

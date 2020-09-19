@@ -60,11 +60,17 @@
                             <li class="nav-item">
                                 <a class="nav-link{{ Route::is('admin.users.*') ? ' active' : '' }}"
                                    href="{{ route('admin.users.index') }}">
-                                    <span aria-hidden="true" title="Users" class="fas fa-users fa-fw"></span> Users
+                                    <span aria-hidden="true" title="Users" class="fas fa-users-cog fa-fw"></span> Users
                                 </a>
                             </li>
                         @endif
                         @if(Auth::check() && Auth::user()->hasPermission('admin'))
+                            <li class="nav-item">
+                                <a class="nav-link{{ Route::is('admin.teams.*') ? ' active' : '' }}"
+                                   href="{{ route('admin.teams.index') }}">
+                                    <span aria-hidden="true" title="Teams" class="fas fa-users fa-fw"></span> Teams
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link{{ Route::is('admin.settings.*') ? ' active' : '' }}"
                                    href="{{ route('admin.settings.edit') }}">

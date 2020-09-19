@@ -18,11 +18,21 @@ class Team extends Model {
         return $this->hasMany(Chapter::class);
     }
 
+    public static function slug($slug) {
+        return Team::where('slug', $slug)->first();
+    }
+
     public static function generateReaderArray($team) {
         if (!$team) return null;
         return [
             'name' => $team->name,
             'url' => $team->url,
         ];
+    }
+
+    public static function generateSlug($request) {
+        $fields['name'] = $request->name;
+        $fields['slug'] = $request->slug;
+        return generateSlug(new Team, $fields);
     }
 }

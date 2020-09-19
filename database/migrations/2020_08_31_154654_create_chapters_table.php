@@ -25,7 +25,7 @@ class CreateChaptersTable extends Migration {
             $table->boolean('hidden')->default(0);
             $table->bigInteger('views', false, true)->default(0)->nullable();
             $table->string('download_link')->nullable();
-            $table->bigInteger('team_id', false, true);
+            $table->bigInteger('team_id', false, true)->nullable();
             $table->bigInteger('team2_id', false, true)->nullable();
             $table->timestamp('published_on')->useCurrent();
             $table->timestamps();
@@ -38,8 +38,8 @@ class CreateChaptersTable extends Migration {
             $table->unique(['comic_id', 'language', 'volume', 'chapter', 'subchapter']);
             $table->unique(['comic_id', 'slug']);
             $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
-            $table->foreign('team_id')->references('id')->on('teams');
-            $table->foreign('team2_id')->references('id')->on('teams');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('set null');
+            $table->foreign('team2_id')->references('id')->on('teams')->onDelete('set null');
         });
     }
 

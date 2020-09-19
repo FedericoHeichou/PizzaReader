@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Admin\ComicController;
@@ -69,6 +70,12 @@ Route::prefix('admin')->group(function () {
         Route::prefix('settings')->name('settings.')->middleware('auth.admin')->group(function () {
             Route::get('/', [SettingsController::class, 'edit'])->name('edit');
             Route::patch('/', [SettingsController::class, 'update'])->name('update');
+        });
+
+        Route::name('teams.')->group(function(){
+            Route::get('/teams', [TeamController::class, 'index'])->name('index')->middleware('auth.manager');
+            Route::resource('teams', TeamController::class)->names('')->except(['index', 'show'])->middleware('auth.admin');
+            Route::get('/teams/{team}', function () { return redirect()->route('admin.teams.index'); });
         });
 
     });
