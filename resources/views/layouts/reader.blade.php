@@ -7,8 +7,8 @@
 
     <!-- Scripts -->
     <script type="text/javascript">
-        const BASE_URL = "{{ config('app.url') }}"
-        const API_BASE_URL = "{{ config('app.url') . 'api'}}"
+        const BASE_URL = "{{ substr(config('app.url'), -1) === '/' ? config('app.url') : config('app.url') . '/' }}"
+        const API_BASE_URL = BASE_URL + 'api';
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>

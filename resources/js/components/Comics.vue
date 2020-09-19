@@ -6,6 +6,9 @@
             </div>
             <div class="text-truncate mb-1 d-flex flex-nowrap align-items-center">
                 <h5 class="font-weight-bold mb-0">
+                    <a v-if="comic.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug" target="_blank">
+                        <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                    </a>
                     <router-link class="ml-1 text-truncate filter" :title="comic.title" :to="comic.url">
                         {{ comic.title }}
                     </router-link>
@@ -32,7 +35,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
 
 export default {
     name: "Comics",
@@ -41,6 +44,11 @@ export default {
         $('#nav-search').hide();
         $('#nav-filter').show();
         this.$store.dispatch('fetchComics');
+    },
+    data() {
+        return {
+            reader: this.$root,
+        }
     },
     methods: {},
     computed: {

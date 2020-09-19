@@ -4,6 +4,9 @@
             <div class="card-header">
                 <span class="fas fa-book fa-fw"></span>
                 {{ comic.title }}
+                <a v-if="comic.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug" target="_blank">
+                    <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                </a>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -162,6 +165,9 @@
                     </div>
                     <div class="col-sm-5 col-9 text-left order-2 overflow-hidden">
                         <span class="chapter">
+                            <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
+                                <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                            </a>
                             <router-link :to="chapter.url" class="filter">{{ chapter.full_title }}</router-link>
                         </span>
                     </div>
@@ -196,6 +202,11 @@ export default {
         $('#nav-filter').hide();
 
         this.$store.dispatch('fetchComic', this.$route);
+    },
+    data() {
+        return {
+            reader: this.$root,
+        }
     },
     methods: {},
     computed: {

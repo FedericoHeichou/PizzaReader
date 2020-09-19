@@ -26,5 +26,11 @@ import router from './router/index.js';
 new Vue({
     el: '#app',
     router,
-    store
+    store,
+    data() {
+        return {
+            BASE_URL: typeof BASE_URL !== 'undefined' ? BASE_URL : '/',
+            API_BASE_URL: typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : '/api',
+        }
+    }
 });

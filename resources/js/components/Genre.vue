@@ -16,10 +16,16 @@
 
 <script>
 export default {
+    name: "Genre",
     mounted() {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').show();
         $('#nav-filter').hide();
-    }
+    },
+    data() {
+        return {
+            reader: this.$root,
+        }
+    },
 }
 </script>

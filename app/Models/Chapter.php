@@ -283,6 +283,7 @@ class Chapter extends Model {
     public static function generateReaderArray($comic, $chapter) {
         if (!$comic || !$chapter || $comic->id !== $chapter->comic_id) return null;
         return [
+            'id' => Auth::check() && Auth::user()->canEdit($comic->id) ? $chapter->id : null,
             'full_title' => Chapter::name($comic, $chapter),
             'title' => $chapter->title,
             'volume' => $chapter->volume,

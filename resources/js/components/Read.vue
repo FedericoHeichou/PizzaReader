@@ -55,6 +55,9 @@
                         </div>
                     </div>
                     <div id="reader-controls-groups" class="no-gutters p-2 text-center font-weight-bold">
+                        <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
+                            <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                        </a>
                         {{ chapter.title ? chapter.title : chapter.full_title }}
                     </div>
                     <div id="reader-controls-actions" class="col-auto row no-gutters p-1">
@@ -330,6 +333,7 @@ export default {
     },
     data() {
         return {
+            reader: this.$root,
             page: 1,
             max_page: 0,
             hover_page: 1,

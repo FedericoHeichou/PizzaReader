@@ -223,6 +223,7 @@ class Comic extends Model {
             if($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
         }
         return [
+            'id' => Auth::check() && Auth::user()->hasPermission('manager') ? $comic->id : null,
             'title' => $comic->name,
             'thumbnail' => Comic::getThumbnailUrl($comic) ?: config('app.url') . 'public/img/noimg.jpg', // TODO setting api
             'description' => $comic->description,
@@ -239,7 +240,9 @@ class Comic extends Model {
             'views' => intval(Chapter::public()->where('comic_id', $comic->id)->sum('views')),
             'rating' => 6.91, // TODO rating
             'url' => Comic::getUrl($comic),
-            'last_chapter' => Chapter::generateReaderArray($comic, Chapter::public()->where('comic_id', $comic->id)->orderByDesc('created_at')->first()),
+            'slug' => $comic->slug,
+            'last_chapter' => Chapter::generateReaderArray($comic, Chapter::where([['comic_id', $comic->id], ['hidden', 0]])
+                ->orderByDesc('created_at')->first()), // I want only the last truly public chapter
         ];
     }
 
