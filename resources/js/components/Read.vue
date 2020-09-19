@@ -47,9 +47,14 @@
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true"></span>
                         </router-link>
                         <div class="col-auto py-2 pr-2 d-lg-none">
-                            <select id="jump-page" class="form-control" name="jump-page">
+                            <select id="jump-page" class="form-control" name="jump-page" @change="jumpPage">
                                 <template v-for="(ch_page, index) in chapter.pages">
-                                    <option :value="index + 1">{{ index + 1 }}</option>
+                                    <option v-if="page !== index+1" :value="index + 1">
+                                        {{ index + 1 }}
+                                    </option>
+                                    <option v-else :value="index + 1" selected>
+                                        {{ index + 1 }}
+                                    </option>
                                 </template>
                             </select>
                         </div>
@@ -384,6 +389,10 @@ export default {
                 }
             }
             this.preloadImagesFrom(page);
+        },
+        jumpPage(e) {
+            this.needToRefresh = true;
+            this.setPage('#' + e.target.value);
         },
         setNotch(page) {
             this.hover_page = page;
