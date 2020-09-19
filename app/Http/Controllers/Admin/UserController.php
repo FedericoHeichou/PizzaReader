@@ -53,8 +53,8 @@ class UserController extends Controller {
             return back()->with('warning', 'You are unauthorized to edit this user');
         }
 
-        if($request->name) $user->name = $request->name;
-        if($request->email) $user->email = strtolower($request->email);
+        if ($request->name) $user->name = $request->name;
+        if ($request->email) $user->email = strtolower($request->email);
         if ($request->new_password) $user->password = Hash::make($request->new_password);
 
         // If you are admin and your are not editing yourself
@@ -84,7 +84,7 @@ class UserController extends Controller {
             abort(404);
         }
         $request->validate([
-            'comics'   => ['array'],
+            'comics' => ['array'],
             'comics.*' => ['integer', 'min:1'],
         ]);
         $user->comics()->sync($request->comics);
