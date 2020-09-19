@@ -9,6 +9,10 @@ class Team extends Model {
         'name', 'slug', 'url',
     ];
 
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
     // TODO controllare se becca sia team che team2
     public function chapters() {
         return $this->hasMany(Chapter::class);

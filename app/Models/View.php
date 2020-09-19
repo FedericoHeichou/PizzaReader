@@ -9,6 +9,11 @@ class View extends Model {
         'chapter_id', 'ip'
     ];
 
+    protected $casts = [
+        'id' => 'integer',
+        'chapter_id' => 'integer',
+    ];
+
     public function chapter() {
         return $this->belongsTo(Chapter::class);
     }

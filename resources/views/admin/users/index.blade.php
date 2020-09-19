@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-auto text-right pl-1">
                         @if(Auth::user()->hasPermission('manager') && !$user->hasPermission('manager'))
-                            <button href="#" class="btn btn-primary" onclick="assignComicsBox({'id': '{{ $user->id }}', 'name': '{{ $user->name }}'}, {{ $user->comicsMinimal }})">Assign</button>
+                            <button href="#" class="btn btn-primary" onclick="assignComicsBox({'id': {{ $user->id }}, 'name': '{{ $user->name }}'}, {{ $user->comicsMinimal }})">Assign</button>
                         @else
                             <a href="#" class="btn btn-secondary" title="You can't assign this user" onclick="event.preventDefault()">Assign</a>
                         @endif
