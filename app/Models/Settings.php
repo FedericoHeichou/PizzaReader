@@ -100,7 +100,7 @@ class Settings extends Model {
                 'type' => 'input_checkbox',
                 'parameters' => [
                     'field' => 'registration_enabled',
-                    'label' => 'User\'s registration',
+                    'label' => 'User registration',
                     'hint' => 'Check to enable the registration of new users',
                 ],
                 'values' => ['boolean'],

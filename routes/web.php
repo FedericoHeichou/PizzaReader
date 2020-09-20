@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 // The "+" near the role means "which has this privilege or more" [admin > manager > editor > checker > user]
 
 Route::prefix('admin')->group(function () {
-    Auth::routes();
+    Auth::routes(['register' => (bool) config('settings.registration_enabled')]);
 
     Route::name('admin.')->middleware('auth')->group(function () {
 

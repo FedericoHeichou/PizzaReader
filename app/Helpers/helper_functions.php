@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DuplicatedChapter extends Exception { }
@@ -46,4 +47,23 @@ function trimCommas($string) {
     $string = preg_replace('/\s*,\s*/', ',', $string);
     $string = preg_replace('/,+,+/', ',', $string);
     return trim($string, ',');
+}
+
+function createZip($files, $absolute_path, $zip_name) {
+    $zip_absolute_path = $absolute_path . '/' . $zip_name . '.zip';
+    $zip = new \ZipArchive();
+    $zip->open($zip_absolute_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+    foreach ($files as $file) {
+        $zip->addFile($absolute_path . '/' . $file, $zip_name . '/' . $file);
+    }
+    $zip->close();
+}
+
+function cleanDirectoryByExtension($path, $ext) {
+    $files = Storage::files($path);
+    foreach ($files as $key=>$value) {
+        if(!preg_match("/.$ext$/", $value)) unset($files[$key]);
+    }
+    Storage::delete($files);
 }

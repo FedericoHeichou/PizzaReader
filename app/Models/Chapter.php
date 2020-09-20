@@ -56,6 +56,10 @@ class Chapter extends Model {
         return $this->belongsTo(Team::class);
     }
 
+    public function download() {
+        return $this->hasOne(ChapterDownload::class);
+    }
+
     public static function slug($comic_id, $slug) {
         return Chapter::where([['slug', $slug], ['comic_id', $comic_id]])->first();
     }

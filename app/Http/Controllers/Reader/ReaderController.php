@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Reader;
 
+use App\Models\ChapterDownload;
 use App\Models\Comic;
 use App\Models\Chapter;
 use App\Models\Page;
 use App\Http\Controllers\Controller;
 use App\Models\View;
+use Illuminate\Support\Facades\Storage;
 
 class ReaderController extends Controller {
     public function comics() {
@@ -36,22 +38,10 @@ class ReaderController extends Controller {
 
     public function chapter($comic_slug, $language, $ch = null) {
         $response = ['comic' => null, 'chapter' => null];
+        $ch = $this->explodeCh($ch);
+        if(!$ch) return response()->json($response);
 
-        if ($ch) {
-            $ch = explode("/", $ch);
-            $length = count($ch);
-            if ($length % 2) {
-                return response()->json($response);
-            }
-            $temp = ['vol' => null, 'ch' => null, 'sub' => null];
-            for ($i = 0; $i < $length; $i += 2) {
-                if (in_array($ch[$i], ['vol', 'ch', 'sub'], true)) $temp[$ch[$i]] = $ch[$i + 1];
-            }
-            $ch = $temp;
-            unset($temp);
-        } else {
-            $ch = ['vol' => null, 'ch' => null, 'sub' => null];
-        }
+
         $comic = Comic::publicSlug($comic_slug);
         if (!$comic) {
             return response()->json($response);
@@ -91,5 +81,51 @@ class ReaderController extends Controller {
         $response['chapter']['next'] = Chapter::generateReaderArray($comic, $next_chapter);
 
         return response()->json($response);
+    }
+
+    public function download($comic_slug, $language, $ch = null) {
+        $comic = Comic::publicSlug($comic_slug);
+        if (!$comic) {
+            abort(404);
+        }
+
+        $ch = $this->explodeCh($ch);
+        $chapter = $comic->publicChapters()->where([
+            ['language', $language],
+            ['volume', $ch['vol']],
+            ['chapter', $ch['ch']],
+            ['subchapter', $ch['sub']],
+        ])->first();
+        if (!$chapter) {
+            $chapters = $comic->publicChapters()->where([
+                ['language', $language],
+                ['volume', $ch['vol']],
+            ])->get();
+            if($chapters->isEmpty()){
+                abort(404);
+            }
+            //TODO getDownload for comics
+            return response('Comic zip');
+        }
+        return Storage::download(ChapterDownload::getDownload($comic, $chapter));
+    }
+
+    private function explodeCh($ch) {
+        if ($ch) {
+            $ch = explode("/", $ch);
+            $length = count($ch);
+            if ($length % 2) {
+                return null;
+            }
+            $temp = ['vol' => null, 'ch' => null, 'sub' => null];
+            for ($i = 0; $i < $length; $i += 2) {
+                if (in_array($ch[$i], ['vol', 'ch', 'sub'], true)) $temp[$ch[$i]] = $ch[$i + 1];
+            }
+            $ch = $temp;
+            unset($temp);
+        } else {
+            $ch = ['vol' => null, 'ch' => null, 'sub' => null];
+        }
+        return $ch;
     }
 }

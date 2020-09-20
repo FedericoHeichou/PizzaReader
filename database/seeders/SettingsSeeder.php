@@ -64,6 +64,16 @@ class SettingsSeeder extends Seeder {
         $s->save();
 
         $s = new Settings();
+        $s->key = 'pdf_chapter';
+        $s->value = '1';
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'max_cache_pdf';
+        $s->value = '350';
+        $s->save();
+
+        $s = new Settings();
         $s->key = 'footer';
         $s->value = null;
         $s->save();

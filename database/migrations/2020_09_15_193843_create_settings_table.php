@@ -25,6 +25,8 @@ class CreateSettingsTable extends Migration {
             \Illuminate\Support\Facades\Artisan::call('storage:link');
         } catch (ErrorException $e) {
             // Some webservers can return 'symlink() has been disabled for security reasons'
+            // In this case the webmaster need to manually exec inside the public directory
+            // 'ln -s ../storage/app/public storage' using SSH or cronjob
         }
 
     }

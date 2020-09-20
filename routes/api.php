@@ -23,5 +23,6 @@ Route::name('reader.')->group(function () {
     Route::get('/comics/', [ReaderController::class, 'comics'])->name('comics');
     Route::get('/comics/{comic}', [ReaderController::class, 'comic'])->name('comic');
     Route::get('/read/{comic}/{language}/{ch?}', [ReaderController::class, 'chapter'])->name('read')->where('ch', '.*');
+    Route::get('/download/{comic}/{language}/{ch?}', [ReaderController::class, 'download'])->name('download')->where('ch', '.*');
     Route::get('/search/{search}', [ReaderController::class, 'search'])->name('search');
 });
