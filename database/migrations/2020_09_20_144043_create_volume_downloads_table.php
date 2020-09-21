@@ -22,8 +22,6 @@ class CreateVolumeDownloadsTable extends Migration {
 
             $table->unique(['comic_id', 'language', 'volume']);
             $table->foreign('comic_id')->references('id')->on('comics')->onDelete('cascade');
-            $table->foreign('language')->references('language')->on('chapters');
-            $table->foreign('volume')->references('volume')->on('chapters');
         });
     }
 
