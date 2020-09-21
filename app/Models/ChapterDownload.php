@@ -23,8 +23,8 @@ class ChapterDownload extends Model {
     }
 
     public static function name($comic, $chapter) {
-        $name = preg_replace('/[^a-zA-Z0-9]/', '_', $comic->name);
-        if($chapter->volume !== null) {
+        $name = preg_replace('/__+/', '_', preg_replace('/[^a-zA-Z0-9]/', '_', $comic->name));
+        if ($chapter->volume !== null) {
             $name .= '_v';
             if ($chapter->volume < 10) {
                 $name .= '00' . $chapter->volume;
@@ -34,7 +34,7 @@ class ChapterDownload extends Model {
                 $name .= $chapter->volume;
             }
         }
-        if($chapter->chapter !== null) {
+        if ($chapter->chapter !== null) {
             $name .= '_ch';
             if ($chapter->chapter < 10) {
                 $name .= '000' . $chapter->chapter;
@@ -45,15 +45,15 @@ class ChapterDownload extends Model {
             } else {
                 $name .= $chapter->chapter;
             }
-            if($chapter->subchapter !== null) {
+            if ($chapter->subchapter !== null) {
                 $name .= '.';
             }
         }
-        if($chapter->subchapter !== null) {
+        if ($chapter->subchapter !== null) {
             $name .= $chapter->subchapter;
         }
         $name .= '[' . strtoupper($chapter->language) . ']';
-        if($chapter->team_id !== null){
+        if ($chapter->team_id !== null) {
             $name .= '[' . Team::find($chapter->team_id)->name . ']';
         }
         return $name;
@@ -66,10 +66,10 @@ class ChapterDownload extends Model {
         $zip_path = $path . '/' . $zip_name . '.zip';
         $absolute_path = Chapter::absolutePath($comic, $chapter);
 
-        if(!$download){
+        if (!$download) {
             // Clear cache
             $max_cache = intval(config('settings.max_cache_download'));
-            while($max_cache > 0 && ChapterDownload::sum('size') > $max_cache) {
+            while ($max_cache > 0 && ChapterDownload::sum('size') > $max_cache) {
                 $download_to_delete = ChapterDownload::orderBy('last_download', 'asc')->first();
                 $ch = $download_to_delete->chapter;
                 $co = $ch->comic;
@@ -81,11 +81,11 @@ class ChapterDownload extends Model {
             createZip($pages, $absolute_path, $zip_name);
 
             $download = ChapterDownload::create([
-               'chapter_id' => $chapter->id,
-               'size' => intval(Storage::size($zip_path)/(1024*1024)),
+                'chapter_id' => $chapter->id,
+                'size' => intval(Storage::size($zip_path) / (1024 * 1024)),
             ]);
         }
-        if(!Storage::exists($zip_path)) {
+        if (!Storage::exists($zip_path)) {
             cleanDirectoryByExtension($path, 'zip');
             $download->delete();
             return ChapterDownload::download($comic, $chapter);
