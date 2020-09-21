@@ -40,7 +40,7 @@ class ReaderController extends Controller {
     public function chapter($comic_slug, $language, $ch = null) {
         $response = ['comic' => null, 'chapter' => null];
         $ch = $this->explodeCh($ch);
-        if(!$ch) return response()->json($response);
+        if (!$ch) return response()->json($response);
 
 
         $comic = Comic::publicSlug($comic_slug);
@@ -91,6 +91,7 @@ class ReaderController extends Controller {
         }
 
         $ch = $this->explodeCh($ch);
+        if (!$ch) abort(404);
         $chapter = $comic->publicChapters()->where([
             ['language', $language],
             ['volume', $ch['vol']],
@@ -104,7 +105,7 @@ class ReaderController extends Controller {
                 ['volume', $ch['vol']],
                 ['hidden', 0],
             ])->get();
-            if($chapters->isEmpty()){
+            if ($chapters->isEmpty()) {
                 abort(404);
             }
             return Storage::download(VolumeDownload::getDownload($comic, $language, $ch['vol']));
