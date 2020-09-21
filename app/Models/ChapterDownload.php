@@ -54,7 +54,7 @@ class ChapterDownload extends Model {
         }
         $name .= '[' . strtoupper($chapter->language) . ']';
         if ($chapter->team_id !== null) {
-            $name .= '[' . Team::find($chapter->team_id)->name . ']';
+            $name .= '[' . preg_replace('/__+/', '_', preg_replace('/[^a-zA-Z0-9]/', '_', Team::find($chapter->team_id)->name)) . ']';
         }
         return $name;
     }
