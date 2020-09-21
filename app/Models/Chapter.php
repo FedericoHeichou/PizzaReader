@@ -26,13 +26,15 @@ class Chapter extends Model {
     ];
 
     public function scopePublic() {
-        if(!Auth::check() || !Auth::user()->hasPermission('checker'))
+        if (!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $this->where('hidden', 0);
-        else if(Auth::user()->hasPermission('manager'))
+        else if (Auth::user()->hasPermission('manager'))
             return $this;
-        else{
+        else {
             $comics = Auth::user()->comics()->select('comic_id');
-            return $this->where(function($query) use ($comics) { $query->where('hidden', 0)->orWhereIn('comic_id', $comics); });
+            return $this->where(function ($query) use ($comics) {
+                $query->where('hidden', 0)->orWhereIn('comic_id', $comics);
+            });
         }
     }
 
@@ -58,6 +60,14 @@ class Chapter extends Model {
 
     public function download() {
         return $this->hasOne(ChapterDownload::class);
+    }
+
+    public static function volume_download($chapter) {
+        return VolumeDownload::where([
+            ['comic_id', $chapter->comic_id],
+            ['language', $chapter->language],
+            ['volume', $chapter->volume]
+        ])->first();
     }
 
     public static function slug($comic_id, $slug) {
@@ -332,7 +342,7 @@ class Chapter extends Model {
             ['subchapter', $fields['subchapter']],
             ['language', $fields['language']],
         ])->first();
-        if($duplicated_chapter) throw new \DuplicatedChapter('Chapter duplicated, there is already a chapter for this comic with this combination of language, volume, chapter and subchapter.');
+        if ($duplicated_chapter) throw new \DuplicatedChapter('Chapter duplicated, there is already a chapter for this comic with this combination of language, volume, chapter and subchapter.');
         return $fields;
     }
 

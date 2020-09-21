@@ -76,7 +76,7 @@ class Settings extends Model {
                 'parameters' => [
                     'field' => 'download_volume',
                     'label' => 'Download volume',
-                    'hint' => 'Check to enable the direct download of a volume',
+                    'hint' => 'Check to enable the direct download of a volume. [IMPORTANT: Max cache download need to be high if this option is enabled, else malformed volume zips can be generated]',
                 ],
                 'values' => ['boolean'],
             ], [
@@ -84,7 +84,7 @@ class Settings extends Model {
                 'parameters' => [
                     'field' => 'max_cache_download',
                     'label' => 'Max cache download (MB)',
-                    'hint' => 'When this limit is reached less downloaded ZIPs are deleted. 0 is infinite',
+                    'hint' => 'When this limit is reached less downloaded ZIPs are deleted. 0 is infinite. [IMPORTANT: if you enable download volume keep this number high]',
                     'pattern' => '[1-9]\d*|0',
                 ],
                 'values' => ['integer', 'min:0'],

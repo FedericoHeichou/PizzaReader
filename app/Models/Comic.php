@@ -46,6 +46,10 @@ class Comic extends Model {
             ->orderByDesc('language');
     }
 
+    public function volume_downloads() {
+        return $this->hasMany(VolumeDownload::class);
+    }
+
     public function publicChapters() {
         if(!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $this->chapters()->where('hidden', 0);
@@ -84,6 +88,10 @@ class Comic extends Model {
 
     public static function path($comic) {
         return 'public/' . Comic::buildPath($comic);
+    }
+
+    public static function absolutePath($comic) {
+        return public_path() . '/storage/' . Comic::buildPath($comic);
     }
 
     public static function getThumbnailUrl($comic) {

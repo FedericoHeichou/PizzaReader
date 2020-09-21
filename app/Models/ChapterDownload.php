@@ -74,7 +74,7 @@ class ChapterDownload extends Model {
                 ChapterDownload::cleanDownload($download_to_delete);
             }
 
-            $pages = Page::select('filename')->where('chapter_id', $chapter->id)->get()->pluck('filename');
+            $pages = $chapter->pages->pluck('filename');
             createZip($pages, $absolute_path, $zip_name);
 
             $download = ChapterDownload::create([
@@ -85,7 +85,7 @@ class ChapterDownload extends Model {
         if (!Storage::exists($zip_path)) {
             cleanDirectoryByExtension($path, 'zip');
             $download->delete();
-            return ChapterDownload::download($comic, $chapter);
+            return ChapterDownload::getDownload($comic, $chapter);
         }
         $download->last_download = Carbon::now();
         $download->save();
@@ -102,9 +102,8 @@ class ChapterDownload extends Model {
         // If $old_chapter is set it means we need to delete its (old) volume zip too
         // It doesn't really matter that $old_chapter is equals to $chapter because for example if we update pages
         // we still need to delete its volume
-        if($old_chapter) {
-            /*TODO clean volume*/
-            //TODO what if volume is null? This should be checked in volume zip too
+        if($old_chapter && !$old_chapter['hidden']) {
+            VolumeDownload::cleanDownload(Chapter::volume_download($old_chapter));
         }
     }
 

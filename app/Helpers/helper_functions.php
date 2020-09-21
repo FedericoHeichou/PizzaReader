@@ -55,7 +55,7 @@ function createZip($files, $absolute_path, $zip_name) {
     $zip->open($zip_absolute_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
     foreach ($files as $file) {
-        $zip->addFile($absolute_path . '/' . $file, $zip_name . '/' . $file);
+        $zip->addFile($absolute_path . '/' . $file, $zip_name . '/' . basename($file));
     }
     $zip->close();
 }

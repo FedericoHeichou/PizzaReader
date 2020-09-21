@@ -8,6 +8,7 @@ use App\Models\Chapter;
 use App\Models\Page;
 use App\Http\Controllers\Controller;
 use App\Models\View;
+use App\Models\VolumeDownload;
 use Illuminate\Support\Facades\Storage;
 
 class ReaderController extends Controller {
@@ -97,15 +98,16 @@ class ReaderController extends Controller {
             ['subchapter', $ch['sub']],
         ])->first();
         if (!$chapter) {
-            $chapters = $comic->publicChapters()->where([
+            // Volume download is only for real publicChapters
+            $chapters = $comic->chapters()->where([
                 ['language', $language],
                 ['volume', $ch['vol']],
+                ['hidden', 0],
             ])->get();
             if($chapters->isEmpty()){
                 abort(404);
             }
-            //TODO getDownload for comics
-            return response('Comic zip');
+            return Storage::download(VolumeDownload::getDownload($comic, $language, $ch['vol']));
         }
         return Storage::download(ChapterDownload::getDownload($comic, $chapter));
     }
