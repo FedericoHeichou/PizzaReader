@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\ChapterDownload;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -54,6 +55,7 @@ class PageController extends Controller {
                 'deleteType' => 'DELETE'
             ]);
         }
+        ChapterDownload::cleanDownload($chapter->download, $comic, $chapter, $chapter);
         return response()->json($response);
     }
 
@@ -72,6 +74,7 @@ class PageController extends Controller {
         }
         Storage::delete(Chapter::path($comic, $chapter) . '/' . $page->filename);
         Page::destroy($page_id);
+        ChapterDownload::cleanDownload($chapter->download, $comic, $chapter, $chapter);
         return response()->json(["message" => "success"]);
     }
 }

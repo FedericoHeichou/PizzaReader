@@ -71,10 +71,7 @@ class ChapterDownload extends Model {
             $max_cache = intval(config('settings.max_cache_download'));
             while ($max_cache > 0 && ChapterDownload::sum('size') > $max_cache) {
                 $download_to_delete = ChapterDownload::orderBy('last_download', 'asc')->first();
-                $ch = $download_to_delete->chapter;
-                $co = $ch->comic;
-                cleanDirectoryByExtension(Chapter::path($co, $ch), 'zip');
-                $download_to_delete->delete();
+                ChapterDownload::cleanDownload($download_to_delete);
             }
 
             $pages = Page::select('filename')->where('chapter_id', $chapter->id)->get()->pluck('filename');
@@ -93,6 +90,22 @@ class ChapterDownload extends Model {
         $download->last_download = Carbon::now();
         $download->save();
         return $zip_path;
+    }
+
+    public static function cleanDownload($download_to_delete, $comic = null, $chapter = null, $old_chapter = null) {
+        if($download_to_delete){
+            if(!$chapter) $chapter = $download_to_delete->chapter;
+            if(!$comic) $comic = $chapter->comic;
+            cleanDirectoryByExtension(Chapter::path($comic, $chapter), 'zip');
+            $download_to_delete->delete();
+        }
+        // If $old_chapter is set it means we need to delete its (old) volume zip too
+        // It doesn't really matter that $old_chapter is equals to $chapter because for example if we update pages
+        // we still need to delete its volume
+        if($old_chapter) {
+            /*TODO clean volume*/
+            //TODO what if volume is null? This should be checked in volume zip too
+        }
     }
 
 }

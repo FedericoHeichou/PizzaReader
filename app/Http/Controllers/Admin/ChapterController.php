@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\ChapterDownload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
@@ -110,6 +111,13 @@ class ChapterController extends Controller {
         if ($old_path !== $new_path) {
             Storage::move($old_path, $new_path);
         }
+
+        // Check if we need to delete its zips
+        if($chapter->language != $new_chapter->language || $chapter->volume != $new_chapter->volume ||
+            $chapter->chapter != $new_chapter->chapter || $chapter->subchapter != $new_chapter->subchapter) {
+            ChapterDownload::cleanDownload($chapter->download, $comic, $chapter, $chapter);
+        }
+
         unset($new_chapter);
 
         Chapter::where('id', $chapter_id)->update($fields);
@@ -125,8 +133,9 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
+        // TODO clean volume
         Storage::deleteDirectory(Chapter::path($comic, $chapter));
-        Chapter::destroy($chapter_id);
+        $chapter->delete();
         return redirect()->route('admin.comics.show', ['comic' => $comic->slug])->with('warning', 'Chapter "' . Chapter::name($comic, $chapter) . '" deleted');
     }
 }

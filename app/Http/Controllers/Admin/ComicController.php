@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\ChapterDownload;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -85,6 +86,14 @@ class ComicController extends Controller {
             $new_path = Comic::path($new_comic);
             Storage::move($old_path, $new_path);
             $comic->slug = $fields['slug'];
+        }
+
+
+        // Check if we need to delete its zips
+        if($comic->name != $fields['name']) {
+            foreach ($comic->chapters as $chapter) {
+                ChapterDownload::cleanDownload($chapter->download, $comic, $chapter, $chapter);
+            }
         }
 
         Comic::where('id', $comic->id)->update($fields);
