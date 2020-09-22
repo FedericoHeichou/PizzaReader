@@ -99,6 +99,9 @@ class ReaderController extends Controller {
             ['subchapter', $ch['sub']],
         ])->first();
         if (!$chapter) {
+            if($ch['vol'] === null || $ch['ch'] !== null || $ch['sub'] !== null) {
+                abort(404);
+            }
             // Volume download is only for real publicChapters
             $chapters = $comic->chapters()->where([
                 ['language', $language],
