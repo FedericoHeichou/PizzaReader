@@ -91,12 +91,40 @@ class Chapter extends Model {
         return public_path() . '/storage/' . Chapter::buildPath($comic, $chapter);
     }
 
-    public static function getUrl($comic, $chapter) {
-        $url = "/read/$comic->slug/$chapter->language";
+    public static function buildUri($comic, $chapter) {
+        $url = "/$comic->slug/$chapter->language";
         if ($chapter->volume !== null) $url .= "/vol/$chapter->volume";
         if ($chapter->chapter !== null) $url .= "/ch/$chapter->chapter";
         if ($chapter->subchapter !== null) $url .= "/sub/$chapter->subchapter";
         return $url;
+    }
+
+    public static function getUrl($comic, $chapter) {
+        return "/read" . Chapter::buildUri($comic, $chapter);
+    }
+
+    public static function getChapterDownload($comic, $chapter) {
+        if(Chapter::canChapterDownload($comic->id)){
+            return "/download" . Chapter::buildUri($comic, $chapter);
+        }
+        return null;
+    }
+
+    public static function getVolumeDownload($comic, $chapter) {
+        if(Chapter::canVolumeDownload($comic->id)){
+            $chapter->chapter = null;
+            $chapter->subchapter = null;
+            return "/download" . Chapter::buildUri($comic, $chapter);
+        }
+        return null;
+    }
+
+    public static function canChapterDownload($comic_id) {
+        return config('settings.download_chapter') || (Auth::check() && Auth::user()->canSee($comic_id));
+    }
+
+    public static function canVolumeDownload($comic_id) {
+        return config('settings.download_volume') || (Auth::check() && Auth::user()->canSee($comic_id));
     }
 
     public static function name($comic, $chapter) {
@@ -313,6 +341,8 @@ class Chapter extends Model {
             'published_on' => $chapter->published_on,
             'hidden' => $chapter['hidden'], // "->hidden" is the eloquent variable for hidden attributes
             'url' => Chapter::getUrl($comic, $chapter),
+            'chapter_download' => Chapter::getChapterDownload($comic, $chapter),
+            'volume_download' => Chapter::getVolumeDownload($comic, $chapter),
         ];
     }
 

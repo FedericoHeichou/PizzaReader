@@ -99,7 +99,7 @@ class ReaderController extends Controller {
             ['subchapter', $ch['sub']],
         ])->first();
         if (!$chapter) {
-            if($ch['vol'] === null || $ch['ch'] !== null || $ch['sub'] !== null) {
+            if ($ch['vol'] === null || $ch['ch'] !== null || $ch['sub'] !== null) {
                 abort(404);
             }
             // Volume download is only for real publicChapters
@@ -111,8 +111,14 @@ class ReaderController extends Controller {
             if ($chapters->isEmpty()) {
                 abort(404);
             }
+            if (!Chapter::canVolumeDownload($comic->id)) {
+                abort(403);
+            }
             $download = VolumeDownload::getDownload($comic, $language, $ch['vol']);
             return Storage::download($download['path'], $download['name']);
+        }
+        if (!Chapter::canChapterDownload($comic->id)) {
+            abort(403);
         }
         $download = ChapterDownload::getDownload($comic, $chapter);
         return Storage::download($download['path'], $download['name']);
