@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot() {
         Schema::defaultStringLength(191);
-        if (Schema::hasTable('settings')) {
+        if (getenv('APP_NAME') && Schema::hasTable('settings')) {
             $settings = Settings::whereNotNull('value')->where('value', '<>', '')->pluck('value', 'key')->toArray();
             $settings['logo_path_72'] = isset($settings['logo']) && $settings['logo'] ?
                 asset('storage/img/logo/' . substr($settings['logo'], 0, -4)) . '-72.png' :  asset('img/logo/PizzaReader.png');
