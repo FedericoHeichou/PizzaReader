@@ -21,10 +21,8 @@ class View extends Model {
     public static function incrementIfNew($chapter, $ip) {
         $chapter->views_list()->where('ip', $ip)->firstOr(function () use ($chapter, $ip) {
             View::create(['chapter_id' => $chapter->id, 'ip' => $ip]);
-            $chapter->views++;
             $chapter->timestamps = false;
-            $chapter->save();
-            $chapter->timestamps = true;
+            $chapter->increment('views');
         });
     }
 

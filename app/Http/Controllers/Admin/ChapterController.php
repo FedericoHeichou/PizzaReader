@@ -41,6 +41,7 @@ class ChapterController extends Controller {
 
         $fields['salt'] = Str::random();
         $fields['slug'] = Chapter::generateSlug($fields);
+        if($fields['views'] === null) $fields['views'] = 0;
         $chapter = Chapter::create($fields);
         $path = Chapter::path($comic, $chapter);
         Storage::makeDirectory($path);
@@ -99,7 +100,7 @@ class ChapterController extends Controller {
             unset($fields['slug']);
         }
 
-        if($fields['views'] === null && $chapter->views !== null) unset($fields['views']);
+        if($fields['views'] === null) unset($fields['views']);
 
         $new_chapter = new Chapter;
         $new_chapter->comic_id = $chapter->comic_id;
