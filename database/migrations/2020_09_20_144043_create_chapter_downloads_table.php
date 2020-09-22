@@ -15,6 +15,8 @@ class CreateChapterDownloadsTable extends Migration {
             $table->id();
             $table->bigInteger('chapter_id', false, true)->unique();
             $table->integer('size', false, true);
+            $table->string('name');
+            $table->string('filename');
             $table->timestamp('last_download')->nullable();
             $table->timestamps();
 

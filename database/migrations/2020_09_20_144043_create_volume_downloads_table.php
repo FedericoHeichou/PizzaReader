@@ -16,6 +16,8 @@ class CreateVolumeDownloadsTable extends Migration {
             $table->bigInteger('comic_id', false, true);
             $table->string('language', 2);
             $table->integer('volume', false, true);
+            $table->string('name');
+            $table->string('filename');
             $table->integer('size', false, true);
             $table->timestamp('last_download')->nullable();
             $table->timestamps();

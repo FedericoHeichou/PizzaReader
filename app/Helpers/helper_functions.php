@@ -49,13 +49,11 @@ function trimCommas($string) {
     return trim($string, ',');
 }
 
-function createZip($files, $absolute_path, $zip_name) {
-    $zip_absolute_path = $absolute_path . '/' . $zip_name . '.zip';
+function createZip($zip_absolute_path, $files) {
     $zip = new \ZipArchive();
     $zip->open($zip_absolute_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-
     foreach ($files as $file) {
-        $zip->addFile($absolute_path . '/' . $file, $zip_name . '/' . basename($file));
+        $zip->addFile($file['source'], $file['dest']);
     }
     $zip->close();
 }

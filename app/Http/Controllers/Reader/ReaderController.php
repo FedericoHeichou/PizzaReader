@@ -111,9 +111,11 @@ class ReaderController extends Controller {
             if ($chapters->isEmpty()) {
                 abort(404);
             }
-            return Storage::download(VolumeDownload::getDownload($comic, $language, $ch['vol']));
+            $download = VolumeDownload::getDownload($comic, $language, $ch['vol']);
+            return Storage::download($download['path'], $download['name']);
         }
-        return Storage::download(ChapterDownload::getDownload($comic, $chapter));
+        $download = ChapterDownload::getDownload($comic, $chapter);
+        return Storage::download($download['path'], $download['name']);
     }
 
     private function explodeCh($ch) {

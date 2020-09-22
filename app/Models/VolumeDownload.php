@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class VolumeDownload extends Model {
     protected $fillable = [
-        'comic_id', 'language', 'volume', 'size', 'last_download'
+        'comic_id', 'language', 'volume', 'name', 'filename', 'size', 'last_download'
     ];
 
     protected $casts = [
@@ -38,10 +39,7 @@ class VolumeDownload extends Model {
 
     public static function getDownload($comic, $language, $volume) {
         $download = VolumeDownload::where([['comic_id', $comic->id], ['language', $language], ['volume', $volume]])->first();
-        $zip_name = VolumeDownload::name($comic, $language, $volume);
         $path = Comic::path($comic);
-        $zip_path = $path . '/' . $zip_name . '.zip';
-        $absolute_path = Comic::absolutePath($comic);
 
         if (!$download) {
             // Clear cache
@@ -51,33 +49,46 @@ class VolumeDownload extends Model {
                 VolumeDownload::cleanDownload($download_to_delete, $comic);
             }
 
+            $absolute_path = Comic::absolutePath($comic);
+            $base_name = VolumeDownload::name($comic, $language, $volume);
+            $zip_name = Str::random() . '.zip';
+            $zip_absolute_path = "$absolute_path/$zip_name";
             $length_of_path = strlen($path . '/');
-            $chapters = [];
+            $files = [];
+
             foreach ($comic->chapters()->where('hidden', 0)->get() as $chapter) {
-                array_push($chapters, substr(ChapterDownload::getDownload($comic, $chapter), $length_of_path));
+                $chapter_download = ChapterDownload::getDownload($comic, $chapter);
+                array_push($files, [
+                    'source' => "$absolute_path/" . substr($chapter_download['path'], $length_of_path),
+                    'dest' => "$base_name/" . $chapter_download['name'],
+                ]);
             }
-            createZip($chapters, $absolute_path, $zip_name);
+            createZip($zip_absolute_path, $files);
+
             $download = VolumeDownload::create([
                 'comic_id' => $comic->id,
                 'language' => $language,
                 'volume' => $volume,
-                'size' => intval(Storage::size($zip_path) / (1024 * 1024)),
+                'name' => "$base_name.zip",
+                'filename' => $zip_name,
+                'size' => intval(Storage::size("$path/$zip_name") / (1024 * 1024)),
             ]);
         }
+        $zip_path = "$path/$download->filename";
         if (!Storage::exists($zip_path)) {
-            cleanDirectoryByExtension($path, 'zip');
-            $download->delete();
+            VolumeDownload::cleanDownload($download, $comic);
             return VolumeDownload::getDownload($comic, $language, $volume);
         }
+        $download->timestamps = false;
         $download->last_download = Carbon::now();
         $download->save();
-        return $zip_path;
+        return ['path' => $zip_path, 'name' => $download->name];
     }
 
     public static function cleanDownload($download_to_delete, $comic = null) {
         if (!$download_to_delete) return;
         if (!$comic) $comic = $download_to_delete->comic;
-        cleanDirectoryByExtension(Comic::path($comic), 'zip');
+        Storage::delete(Comic::path($comic) . '/' . $download_to_delete->filename);
         $download_to_delete->delete();
     }
 
