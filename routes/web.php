@@ -54,7 +54,7 @@ Route::prefix('admin')->group(function () {
                 Route::delete('chapters/{chapter}', [ChapterController::class, 'destroy'])->name('chapters.destroy')->middleware('auth.manager');
 
                 // Only editors+ can store and destroy pages
-                Route::resource('chapters/{chapter}/pages', PageController::class)->only(['store', 'destroy'])->names('chapters.pages')->middleware('can.edit');
+                Route::resource('chapters/{chapter}/pages', PageController::class)->only(['store', 'destroy', 'index'])->names('chapters.pages')->middleware('can.edit');
             });
         });
 

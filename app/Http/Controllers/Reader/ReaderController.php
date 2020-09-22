@@ -59,6 +59,7 @@ class ReaderController extends Controller {
         }
 
         View::incrementIfNew($chapter, request()->ip());
+
         $response['chapter'] = Chapter::generateReaderArray($comic, $chapter);
         $response['chapter']['pages'] = Page::getAllPagesForReader($comic, $chapter);
 
@@ -115,12 +116,18 @@ class ReaderController extends Controller {
                 abort(403);
             }
             $download = VolumeDownload::getDownload($comic, $language, $ch['vol']);
+            if(!$download) {
+                abort(404);
+            }
             return Storage::download($download['path'], $download['name']);
         }
         if (!Chapter::canChapterDownload($comic->id)) {
             abort(403);
         }
         $download = ChapterDownload::getDownload($comic, $chapter);
+        if(!$download) {
+            abort(404);
+        }
         return Storage::download($download['path'], $download['name']);
     }
 

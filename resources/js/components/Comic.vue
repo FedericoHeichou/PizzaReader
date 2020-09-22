@@ -146,7 +146,12 @@
             <div class="card-body">
 
                 <div class="row border-bottom py-1 d-sm-flex d-none">
-                    <div class="col-sm-auto text-center pr-0"><span class="fa fa-eye fa-fw" title="Read"></span></div>
+                    <div class="col-sm-auto text-center pr-0">
+                        <span class="fa fa-eye fa-fw" title="Read"></span>
+                        <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                        <span class="fa fa-cloud-download-alt fa-fw" title="External download"></span>
+                        <span class="fa fa-file-pdf fa-fw" title="PDF"></span>
+                    </div>
                     <div class="col-sm-5 text-left">Title</div>
                     <div class="col-sm-auto text-center">
                         <span class="fa fa-globe fa-fw" title="Language" style="width:24px"></span>
@@ -155,15 +160,27 @@
                         <span class="fa fa-users fa-fw" title="Team"></span>
                     </div>
                     <div class="col-sm-2 text-info text-right"><span class="fa fa-eye fa-fw" title="Views"></span></div>
-                    <div class="col-sm text-right pl-sm-0"><span class="fa fa-clock fa-fw" title="Publication date"></span></div>
+                    <div class="col-sm text-right pl-0"><span class="fa fa-clock fa-fw" title="Publication date"></span></div>
                 </div>
 
                 <div v-for="chapter in comic.chapters"
                      :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '')">
                     <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
                         <span class="fa fa-eye-slash fa-fw" title="You didn't read it"></span>
+                        <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
+                            <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                        </a>
+                        <span v-else class="fa fa-download fa-fw text-secondary pl-sm-1" title="Direct download unavailable"></span>
+                        <a v-if="chapter.download_link !== null" :href="chapter.download_link" target="_blank">
+                            <span class="fa fa-cloud-download-alt fa-fw" title="External download"></span>
+                        </a>
+                        <span v-else class="fa fa-cloud-download-alt fa-fw text-secondary" title="External download unavailable"></span>
+                        <a v-if="chapter.pdf !== null" :href="reader.API_BASE_URL + chapter.pdf">
+                            <span class="fa fa-file-pdf fa-fw" title="PDF"></span>
+                        </a>
+                        <span v-else class="fa fa-file-pdf fa-fw text-secondary" title="PDF unavailable"></span>
                     </div>
-                    <div class="col-sm-5 col-9 text-left order-2 overflow-hidden">
+                    <div class="col-sm-5 col-7 text-left order-2 overflow-hidden">
                         <span class="chapter">
                             <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
                                 <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
@@ -183,7 +200,7 @@
                         </template>
                     </div>
                     <div class="col-sm-2 col text-info text-right order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
-                    <div class="col text-right overflow-hidden order-sm-6 order-3 overflow-hidden" :title="new Date(chapter.published_on)">
+                    <div class="col text-right overflow-hidden order-sm-6 order-3 overflow-hidden pl-0" :title="new Date(chapter.published_on)">
                         {{ chapter.time }}
                     </div>
                 </div>

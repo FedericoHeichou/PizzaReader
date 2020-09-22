@@ -60,6 +60,18 @@
                         </div>
                     </div>
                     <div id="reader-controls-groups" class="no-gutters p-2 text-center font-weight-bold">
+                        <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
+                            <span class="fa fa-download fa-fw" title="Direct download"></span>
+                        </a>
+                        <span v-else class="fa fa-download fa-fw text-secondary" title="Direct download unavailable"></span>
+                        <a v-if="chapter.download_link !== null" :href="chapter.download_link" target="_blank">
+                            <span class="fa fa-cloud-download-alt fa-fw" title="External download"></span>
+                        </a>
+                        <span v-else class="fa fa-cloud-download-alt fa-fw text-secondary" title="External download unavailable"></span>
+                        <a v-if="chapter.pdf !== null" :href="reader.API_BASE_URL + chapter.pdf">
+                            <span class="fa fa-file-pdf fa-fw" title="PDF"></span>
+                        </a>
+                        <span v-else class="fa fa-file-pdf fa-fw text-secondary" title="PDF unavailable"></span>
                         <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
                             <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                         </a>

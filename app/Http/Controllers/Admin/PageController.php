@@ -12,6 +12,10 @@ use App\Models\Page;
 
 class PageController extends Controller {
 
+    public function index($comic_slug, $chapter_id) {
+        return response('OK');
+    }
+
     public function store(Request $request, $comic_slug, $chapter_id) {
         $comic = Comic::slug($comic_slug);
         if (!$comic) {

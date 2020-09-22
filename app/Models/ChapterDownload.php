@@ -75,6 +75,7 @@ class ChapterDownload extends Model {
             $absolute_path = Chapter::absolutePath($comic, $chapter);
             $base_name = ChapterDownload::name($comic, $chapter);
             $zip_name = Str::random() . '.zip';
+            $zip_path = "$path/$zip_name";
             $zip_absolute_path = "$absolute_path/$zip_name";
             $files = [];
             foreach ($chapter->pages as $page) {
@@ -84,12 +85,13 @@ class ChapterDownload extends Model {
                 ]);
             }
             createZip($zip_absolute_path, $files);
+            if(Storage::missing($zip_path)) return null;
 
             $download = ChapterDownload::create([
                 'chapter_id' => $chapter->id,
                 'name' => "$base_name.zip",
                 'filename' => $zip_name,
-                'size' => intval(Storage::size("$path/$zip_name") / (1024 * 1024)),
+                'size' => intval(Storage::size($zip_path) / (1024 * 1024)),
             ]);
         }
         $zip_path = "$path/$download->filename";

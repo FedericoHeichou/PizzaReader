@@ -76,9 +76,9 @@ class Chapter extends Model {
 
     public static function buildPath($comic, $chapter) {
         $lang = $chapter->language ?: "N";
-        $vol = intval($chapter->volume) ?: "N";
-        $ch = intval($chapter->chapter) ?: "N";
-        $sub = intval($chapter->subchapter) ?: "N";
+        $vol = $chapter->volume !== null ? $chapter->volume : "N";
+        $ch = $chapter->chapter !== null ? $chapter->chapter : "N";
+        $sub = $chapter->subchapter !== null ? $chapter->subchapter : "N";
         return Comic::buildPath($comic) . '/' . $lang . '-' . $vol . '-' . $ch . '-' . $sub . '-' . $chapter->slug
             . '_' . $chapter->salt;
     }
@@ -92,10 +92,10 @@ class Chapter extends Model {
     }
 
     public static function buildUri($comic, $chapter) {
-        $url = "/$comic->slug/$chapter->language";
-        if ($chapter->volume !== null) $url .= "/vol/$chapter->volume";
-        if ($chapter->chapter !== null) $url .= "/ch/$chapter->chapter";
-        if ($chapter->subchapter !== null) $url .= "/sub/$chapter->subchapter";
+        $url = "/$comic->slug/" . $chapter['language'];
+        if (isset($chapter['volume']) && $chapter['volume'] !== null) $url .= '/vol/' . $chapter['volume'];
+        if (isset($chapter['chapter']) && $chapter['chapter'] !== null) $url .= '/ch/' . $chapter['chapter'];
+        if (isset($chapter['subchapter']) && $chapter['subchapter'] !== null) $url .= '/sub/' . $chapter['subchapter'];
         return $url;
     }
 
@@ -104,17 +104,16 @@ class Chapter extends Model {
     }
 
     public static function getChapterDownload($comic, $chapter) {
-        if(Chapter::canChapterDownload($comic->id)){
+        if (Chapter::canChapterDownload($comic->id)) {
             return "/download" . Chapter::buildUri($comic, $chapter);
         }
         return null;
     }
 
     public static function getVolumeDownload($comic, $chapter) {
-        if(Chapter::canVolumeDownload($comic->id)){
-            $chapter->chapter = null;
-            $chapter->subchapter = null;
-            return "/download" . Chapter::buildUri($comic, $chapter);
+        if (Chapter::canVolumeDownload($comic->id)) {
+            $ch = ['language' => $chapter->language, 'volume' => $chapter->volume];
+            return "/download" . Chapter::buildUri($comic, $ch);
         }
         return null;
     }
@@ -343,6 +342,7 @@ class Chapter extends Model {
             'url' => Chapter::getUrl($comic, $chapter),
             'chapter_download' => Chapter::getChapterDownload($comic, $chapter),
             'volume_download' => Chapter::getVolumeDownload($comic, $chapter),
+            'pdf' => null,
         ];
     }
 

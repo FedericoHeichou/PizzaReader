@@ -52,6 +52,7 @@ class VolumeDownload extends Model {
             $absolute_path = Comic::absolutePath($comic);
             $base_name = VolumeDownload::name($comic, $language, $volume);
             $zip_name = Str::random() . '.zip';
+            $zip_path = "$path/$zip_name";
             $zip_absolute_path = "$absolute_path/$zip_name";
             $length_of_path = strlen($path . '/');
             $files = [];
@@ -64,6 +65,7 @@ class VolumeDownload extends Model {
                 ]);
             }
             createZip($zip_absolute_path, $files);
+            if(Storage::missing($zip_path)) return null;
 
             $download = VolumeDownload::create([
                 'comic_id' => $comic->id,
@@ -71,7 +73,7 @@ class VolumeDownload extends Model {
                 'volume' => $volume,
                 'name' => "$base_name.zip",
                 'filename' => $zip_name,
-                'size' => intval(Storage::size("$path/$zip_name") / (1024 * 1024)),
+                'size' => intval(Storage::size($zip_path) / (1024 * 1024)),
             ]);
         }
         $zip_path = "$path/$download->filename";

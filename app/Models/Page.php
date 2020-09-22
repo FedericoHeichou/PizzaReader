@@ -34,7 +34,7 @@ class Page extends Model {
         $page = Page::find($page_id);
         $chapter = Chapter::find($page->chapter_id);
         $comic = Comic::find($chapter->comic_id);
-        return self::getUrl($comic, $chapter, $page);
+        return Page::getUrl($comic, $chapter, $page);
     }
 
     public static function getAllPagesForFileUpload($comic, $chapter) {
