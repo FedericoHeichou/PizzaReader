@@ -1,6 +1,6 @@
 <!--suppress XmlDuplicatedId -->
 <template>
-    <div v-if="max_page > 0" id="reader"
+    <div v-if="chapter != null && max_page > 0" id="reader"
          :class="'row flex-column no-gutters layout-horizontal' + (hide_sidebar ? ' hide-sidebar' : '')"
          :data-renderer="renderingMode" :data-display="displayFit" :data-direction="direction">
         <div id="reader-controls-container" class="container">
@@ -286,13 +286,17 @@
             </div>
         </div>
     </div>
+    <div v-else ref="notfound"></div>
 </template>
 
 <script>
+import Vue from 'vue'
 import {mapGetters} from "vuex";
+import NotFound from './NotFound';
 
 export default {
     name: "Read",
+    components : { NotFound },
     mounted() {
         this.setupParams(this.$route.params)
         $('body').addClass('body-reader');
@@ -302,9 +306,14 @@ export default {
         if (this.hide_sidebar) this.hideSidebar();
         this.$store.dispatch('fetchChapter', this.$route.path)
             .then(() => {
-                if (this.$store.getters.chapter != null) {
+                if (this.$store.getters.chapter !== null) {
                     this.max_page = this.$store.getters.chapter.pages.length;
                     this.setPage(this.$route.hash);
+                } else {
+                    const ComponentClass = Vue.extend(NotFound);
+                    const instance = new ComponentClass();
+                    instance.$mount();
+                    if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el)
                 }
             });
     },

@@ -8,9 +8,9 @@ let actions = {
         })
     },
     fetchComic({commit}, route) {
-        axios.get(API_BASE_URL + route.path)
+        return axios.get(API_BASE_URL + route.path)
             .then(res => {
-                if (res.data['comic']['chapters'] != null) {
+                if (res.data['comic'] != null && res.data['comic']['chapters'] != null) {
                     res.data['comic']['chapters'].forEach(function (value, index) {
                         this[index]['time'] = timePassed(this[index]['published_on']);
                     }, res.data['comic']['chapters']);

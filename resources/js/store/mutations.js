@@ -9,7 +9,7 @@ let mutations = {
     },
     FETCH_CHAPTER(state, chapter) {
         state.chapter = chapter
-        if(chapter == null) {
+        if(chapter === null && state.comic !== null) {
             router.push(state.comic.url)
         }
     },

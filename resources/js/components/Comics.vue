@@ -1,6 +1,6 @@
 <template>
     <div class="row py-sm-4">
-        <div v-for="comic in comics" :class="'col-lg-6 my-1 border-bottom item' + (comic.hidden ? ' hidden' : '')">
+        <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
             <div class="thumbnail float-left mr-2">
                 <router-link :to="comic.url"><img :src="comic.thumbnail" class="rounded"></router-link>
             </div>

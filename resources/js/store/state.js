@@ -1,7 +1,7 @@
 let state = {
     comics: [],
-    comic: [],
-    chapter: [],
+    comic: null,
+    chapter: null,
 }
 
 export default state

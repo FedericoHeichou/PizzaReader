@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="comic != null" id="comic" class="py-sm-4">
+    <div v-if="comic != null" id="comic" class="py-sm-4">
         <div class="card">
             <div class="card-header">
                 <span class="fas fa-book fa-fw"></span>
@@ -208,19 +208,31 @@
             </div>
         </div>
     </div>
+    <div v-else ref="notfound"></div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import Vue from 'vue'
+import {mapGetters} from "vuex";
+import NotFound from './NotFound';
 
 export default {
     name: "Comic",
+    components : { NotFound },
     mounted() {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').show();
         $('#nav-filter').hide();
 
-        this.$store.dispatch('fetchComic', this.$route);
+        this.$store.dispatch('fetchComic', this.$route)
+            .then(() => {
+                if (this.$store.getters.comic === null) {
+                    const ComponentClass = Vue.extend(NotFound);
+                    const instance = new ComponentClass();
+                    instance.$mount();
+                    if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el)
+                }
+            });
     },
     data() {
         return {
