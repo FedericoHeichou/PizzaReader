@@ -78,12 +78,16 @@ class Chapter extends Model {
         return Chapter::where([['slug', $slug], ['comic_id', $comic_id]])->first();
     }
 
-    public static function buildPath($comic, $chapter) {
+    public static function slugLangVolChSub($chapter) {
         $lang = $chapter->language ?: "N";
         $vol = $chapter->volume !== null ? $chapter->volume : "N";
         $ch = $chapter->chapter !== null ? $chapter->chapter : "N";
         $sub = $chapter->subchapter !== null ? $chapter->subchapter : "N";
-        return Comic::buildPath($comic) . '/' . $lang . '-' . $vol . '-' . $ch . '-' . $sub . '-' . $chapter->slug
+        return $lang . '-' . $vol . '-' . $ch . '-' . $sub;
+    }
+
+    public static function buildPath($comic, $chapter) {
+        return Comic::buildPath($comic) . '/' . Chapter::slugLangVolChSub($chapter) . '-' . $chapter->slug
             . '_' . $chapter->salt;
     }
 
@@ -354,6 +358,7 @@ class Chapter extends Model {
             'updated_at' => $chapter->updated_at,
             'published_on' => $chapter->published_on,
             'hidden' => $chapter['hidden'], // "->hidden" is the eloquent variable for hidden attributes
+            'slug_lang_vol_ch_sub' => Chapter::slugLangVolChSub($chapter),
             'url' => Chapter::getUrl($comic, $chapter),
             'chapter_download' => Chapter::getChapterDownload($comic, $chapter),
             'volume_download' => Chapter::getVolumeDownload($comic, $chapter),

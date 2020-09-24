@@ -309,11 +309,12 @@ export default {
                 if (this.$store.getters.chapter !== null) {
                     this.max_page = this.$store.getters.chapter.pages.length;
                     this.setPage(this.$route.hash);
+                    this.updateViewChapter();
                 } else {
                     const ComponentClass = Vue.extend(NotFound);
                     const instance = new ComponentClass();
                     instance.$mount();
-                    if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el)
+                    if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
                 }
             });
     },
@@ -327,9 +328,10 @@ export default {
             this.needToRefresh = true;
             this.$store.dispatch('fetchChapter', to.path)
                 .then(() => {
-                    if (this.$store.getters.chapter != null) {
+                    if (this.$store.getters.chapter !== null) {
                         this.max_page = this.$store.getters.chapter.pages.length;
                         this.setPage(to.hash);
+                        this.updateViewChapter();
                     }
                 });
         } else {
@@ -360,17 +362,18 @@ export default {
     data() {
         return {
             reader: this.$root,
+            viewed: this.$root.getCookie('viewed') ? JSON.parse('' + this.$root.getCookie('viewed')) : {},
             page: 1,
             max_page: 0,
             hover_page: 1,
-            hide_header: parseInt(this.getCookie('hide-header') || 0),
-            hide_sidebar: parseInt(this.getCookie('hide-sidebar') || 0),
-            displayFit: this.getCookie('displayFit') || 'fit-width',
-            renderingMode: this.getCookie('renderingMode') || 'single-page',
-            direction: this.getCookie('direction') || 'ltr',
+            hide_header: parseInt(this.$root.getCookie('hide-header') || 0),
+            hide_sidebar: parseInt(this.$root.getCookie('hide-sidebar') || 0),
+            displayFit: this.$root.getCookie('displayFit') || 'fit-width',
+            renderingMode: this.$root.getCookie('renderingMode') || 'single-page',
+            direction: this.$root.getCookie('direction') || 'ltr',
             renderedPages: 1,
-            valueLeft: this.getCookie('direction') === 'rtl' ? 1 : -1,
-            valueRight: this.getCookie('direction') === 'rtl' ? -1 : 1,
+            valueLeft: this.$root.getCookie('direction') === 'rtl' ? 1 : -1,
+            valueRight: this.$root.getCookie('direction') === 'rtl' ? -1 : 1,
             animation: false,
             needToRefresh: true,
             images: [],
@@ -451,7 +454,7 @@ export default {
                 return;
             }
 
-            this.setCookie(setting, value, 1);
+            this.reader.setCookie(setting, value, 3650);
         },
         scrollTopOfPage() {
             if (this.max_page < 1) return;
@@ -489,7 +492,7 @@ export default {
                     $('.notch[data-page="' + page_number + '"]').addClass('loaded');
                     $('.reader-image-wrapper[data-page="' + page_number + '"]').html(this.images[page_number]);
                     if (page_number < this.max_page) {
-                        this.recursivePreload(page_number + 1, this.max_page)
+                        this.recursivePreload(page_number + 1, this.max_page);
                     }
                 }).catch((errorUrl) => {
                     // Nothing
@@ -500,26 +503,6 @@ export default {
             if (page_number == null) return;
             this.recursivePreload(page_number);
         },
-        setCookie(cname, cvalue, exdays) {
-            let d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            let expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        },
-        getCookie(cname) {
-            let name = cname + "=";
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) === 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        },
         clickPage(e){
             const pW = document.body.clientWidth - document.body.scrollWidth + $(e.target).closest('#reader-images').width();
             e.clientX < pW / 2 ? $('#turn-left').click() : $('#turn-right').click();
@@ -529,6 +512,15 @@ export default {
                 swipeLeft: function() {$('#turn-right').click()},
                 swipeRight: function() {$('#turn-left').click()},
             });
+        },
+        updateViewChapter() {
+            if(this.max_page > 0) {
+                if(typeof this.viewed[this.$store.getters.comic.slug] === 'undefined'){
+                    this.viewed[this.$store.getters.comic.slug] = {};
+                }
+                this.viewed[this.$store.getters.comic.slug][this.$store.getters.chapter.slug_lang_vol_ch_sub] = 1;
+                this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
+            }
         },
     },
     computed: {

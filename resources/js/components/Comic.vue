@@ -164,9 +164,10 @@
                 </div>
 
                 <div v-for="chapter in comic.chapters"
-                     :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '')">
+                     :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '') + (getViewed(chapter.slug_lang_vol_ch_sub) ? ' read text-secondary' : '')">
                     <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
-                        <span class="fa fa-eye-slash fa-fw" title="You didn't read it"></span>
+                        <span :class="'cursor-pointer fa fa-eye' + (getViewed(chapter.slug_lang_vol_ch_sub) ? '' : '-slash') + ' fa-fw'"
+                              title="Set as read/unread" @click="setViewed(chapter.slug_lang_vol_ch_sub)"></span>
                         <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
                             <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
                         </a>
@@ -230,16 +231,32 @@ export default {
                     const ComponentClass = Vue.extend(NotFound);
                     const instance = new ComponentClass();
                     instance.$mount();
-                    if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el)
+                    if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
                 }
             });
     },
     data() {
         return {
             reader: this.$root,
+            viewed: this.$root.getCookie('viewed') ? JSON.parse('' + this.$root.getCookie('viewed')) : {},
         }
     },
-    methods: {},
+    methods: {
+        getViewed(slug) {
+            if(typeof this.viewed[this.$store.getters.comic.slug] === 'undefined') {
+                return 0;
+            }
+            return this.viewed[this.$store.getters.comic.slug][slug] || 0;
+        },
+        setViewed(slug) {
+            if(typeof this.viewed[this.$store.getters.comic.slug] === 'undefined'){
+                this.viewed[this.$store.getters.comic.slug] = {};
+            }
+            this.viewed[this.$store.getters.comic.slug][slug] ^= 1;
+            this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
+            this.$forceUpdate();
+        },
+    },
     computed: {
         ...mapGetters([
             'comic'

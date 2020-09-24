@@ -51,7 +51,7 @@
 
 #results-box ul li {
     line-height: 1.1;
-    padding: 0px 13px;
+    padding: 0 13px;
     height: 50px;
     overflow: hidden;
 }
@@ -83,6 +83,10 @@
 
 .item.hidden {
     background-color: #ffcfcf;
+}
+
+.item.read:not(.hidden) {
+    background-color: #dedede;
 }
 
 .navbar-brand {
