@@ -46,9 +46,9 @@ class Chapter extends Model {
         return $this->hasMany(View::class);
     }
 
-    public function publicPages() {
+    /*public function publicPages() {
         return $this->pages()->where('hidden', 0);
-    }
+    }*/
 
     public function comic() {
         return $this->belongsTo(Comic::class);
@@ -60,6 +60,10 @@ class Chapter extends Model {
 
     public function download() {
         return $this->hasOne(ChapterDownload::class);
+    }
+
+    public function pdf() {
+        return $this->hasOne(ChapterPdf::class);
     }
 
     public static function volume_download($chapter) {
@@ -103,6 +107,13 @@ class Chapter extends Model {
         return "/read" . Chapter::buildUri($comic, $chapter);
     }
 
+    public static function getChapterPdf($comic, $chapter) {
+        if (Chapter::canChapterPdf($comic->id)) {
+            return "/pdf" . Chapter::buildUri($comic, $chapter);
+        }
+        return null;
+    }
+
     public static function getChapterDownload($comic, $chapter) {
         if (Chapter::canChapterDownload($comic->id)) {
             return "/download" . Chapter::buildUri($comic, $chapter);
@@ -116,6 +127,10 @@ class Chapter extends Model {
             return "/download" . Chapter::buildUri($comic, $ch);
         }
         return null;
+    }
+
+    public static function canChapterPdf($comic_id) {
+        return (config('settings.pdf_chapter') || (Auth::check() && Auth::user()->canSee($comic_id))) && class_exists('Imagick');
     }
 
     public static function canChapterDownload($comic_id) {
@@ -342,7 +357,7 @@ class Chapter extends Model {
             'url' => Chapter::getUrl($comic, $chapter),
             'chapter_download' => Chapter::getChapterDownload($comic, $chapter),
             'volume_download' => Chapter::getVolumeDownload($comic, $chapter),
-            'pdf' => null,
+            'pdf' => Chapter::getChapterPdf($comic, $chapter),
         ];
     }
 

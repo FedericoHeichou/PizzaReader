@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class DuplicatedChapter extends Exception { }
+class DuplicatedChapter extends Exception {
+}
 
 const forbidden_words = ['update', 'edit', 'create', 'show', 'store', 'destroy'];
 
@@ -58,10 +59,18 @@ function createZip($zip_absolute_path, $files) {
     $zip->close();
 }
 
+function createPdf($pdf_absolute_path, $files) {
+    // Sadly Intervention Image library doesn't support pdf...
+    if (empty($files)) return;
+    $pdf = new Imagick($files);
+    $pdf->setImageFormat("pdf");
+    $pdf->writeImages($pdf_absolute_path, true);
+}
+
 function cleanDirectoryByExtension($path, $ext) {
     $files = Storage::files($path);
-    foreach ($files as $key=>$value) {
-        if(!preg_match("/.$ext$/", $value)) unset($files[$key]);
+    foreach ($files as $key => $value) {
+        if (!preg_match("/.$ext$/", $value)) unset($files[$key]);
     }
     Storage::delete($files);
 }

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Settings;
-use Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class SettingsController extends Controller {
 
@@ -43,7 +44,9 @@ class SettingsController extends Controller {
                 Settings::where('key', $key)->update(['value' => $value]);
             }
         }
-        return back()->with('success', 'Settings updated');
+        Artisan::call('config:cache');
+        // Sadly this session message is not showed because config:cache clears sessions too
+        return back()->with('success', "Settings updated");
     }
 
     function convertAndStore($file, $path, $name, $old_name, $size) {

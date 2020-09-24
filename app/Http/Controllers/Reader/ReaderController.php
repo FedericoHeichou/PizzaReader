@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Reader;
 
 use App\Models\ChapterDownload;
+use App\Models\ChapterPdf;
 use App\Models\Comic;
 use App\Models\Chapter;
 use App\Models\Page;
@@ -41,7 +42,6 @@ class ReaderController extends Controller {
         $response = ['comic' => null, 'chapter' => null];
         $ch = $this->explodeCh($ch);
         if (!$ch) return response()->json($response);
-
 
         $comic = Comic::publicSlug($comic_slug);
         if (!$comic) {
@@ -86,13 +86,14 @@ class ReaderController extends Controller {
     }
 
     public function download($comic_slug, $language, $ch = null) {
+        $ch = $this->explodeCh($ch);
+        if (!$ch) abort(404);
+
         $comic = Comic::publicSlug($comic_slug);
         if (!$comic) {
             abort(404);
         }
 
-        $ch = $this->explodeCh($ch);
-        if (!$ch) abort(404);
         $chapter = $comic->publicChapters()->where([
             ['language', $language],
             ['volume', $ch['vol']],
@@ -129,6 +130,31 @@ class ReaderController extends Controller {
             abort(404);
         }
         return Storage::download($download['path'], $download['name']);
+    }
+
+    public function pdf($comic_slug, $language, $ch = null) {
+        $ch = $this->explodeCh($ch);
+        if (!$ch) abort(404);
+
+        $comic = Comic::publicSlug($comic_slug);
+        if (!$comic) {
+            abort(404);
+        }
+
+        $chapter = $comic->publicChapters()->where([
+            ['language', $language],
+            ['volume', $ch['vol']],
+            ['chapter', $ch['ch']],
+            ['subchapter', $ch['sub']],
+        ])->first();
+        if (!$chapter || !Chapter::canChapterPdf($comic->id)) {
+            abort(404);
+        }
+        $pdf = ChapterPdf::getPdf($comic, $chapter);
+        if(!$pdf) {
+            abort(404);
+        }
+        return Storage::download($pdf['path'], $pdf['name']);
     }
 
     private function explodeCh($ch) {

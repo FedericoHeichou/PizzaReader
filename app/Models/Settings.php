@@ -89,6 +89,23 @@ class Settings extends Model {
                 ],
                 'values' => ['integer', 'min:0'],
             ], [
+                'type' => 'input_checkbox',
+                'parameters' => [
+                    'field' => 'pdf_chapter',
+                    'label' => 'Download PDF of chapter',
+                    'hint' => 'Check to enable the direct download of a PDF of this chapter. [IMPORTANT: you must have Imagick PHP extension installed else this option will still be disabled even though this is checked]',
+                ],
+                'values' => ['boolean'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'max_cache_pdf',
+                    'label' => 'Max cache download for PDF (MB)',
+                    'hint' => 'When this limit is reached less downloaded PDFs are deleted. 0 is infinite.',
+                    'pattern' => '[1-9]\d*|0',
+                ],
+                'values' => ['integer', 'min:0'],
+            ], [
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'footer',

@@ -17,7 +17,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "ext-imagick": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

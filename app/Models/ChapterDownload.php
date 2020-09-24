@@ -112,6 +112,10 @@ class ChapterDownload extends Model {
             cleanDirectoryByExtension(Chapter::path($comic, $chapter), 'zip');
             $download_to_delete->delete();
         }
+        if($chapter) {
+            $pdf_to_delete = $chapter->pdf;
+            if($pdf_to_delete) ChapterPdf::cleanPdf($pdf_to_delete, $comic, $chapter);
+        }
         // If $old_chapter is set it means we need to delete its (old) volume zip too
         // It doesn't really matter that $old_chapter is equals to $chapter because for example if we update pages
         // we still need to delete its volume
