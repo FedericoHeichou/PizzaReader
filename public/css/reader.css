@@ -342,6 +342,39 @@ body.hide-header #hide-header-button {
     font-size: 30px;
 }
 
+.ratings {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    direction: rtl;
+    text-align: center;
+}
+
+.ratings .star {
+    position: relative;
+    line-height: 30px;
+    display: inline-block;
+    transition: color 0.2s ease;
+    color: #ebebeb;
+    cursor: pointer;
+}
+
+.ratings .star:before {
+    content: '\2605';
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+}
+
+.ratings .star:hover,
+.ratings .star.selected,
+.ratings .star:hover ~ .star,
+.ratings .star.selected ~ .star {
+    transition: color 0.8s ease;
+    color: black;
+}
+
 /* page track */
 
 #reader-page-bar {

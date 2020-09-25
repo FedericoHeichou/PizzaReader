@@ -17,6 +17,7 @@ class CreateViewsTable extends Migration {
             $table->string('ip');
             $table->timestamps();
 
+            $table->unique(['chapter_id', 'ip']);
             $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade');
         });
     }

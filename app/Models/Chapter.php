@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Chapter extends Model {
     protected $fillable = [
         'comic_id', 'team_id', 'team2_id', 'volume', 'chapter', 'subchapter', 'title', 'slug', 'salt', 'prefix',
-        'hidden', 'views', 'download_link', 'language', 'published_on'
+        'hidden', 'views', 'rating', 'download_link', 'language', 'published_on'
     ];
 
     protected $casts = [
@@ -22,6 +22,7 @@ class Chapter extends Model {
         'subchapter' => 'integer',
         'hidden' => 'integer',
         'views' => 'integer',
+        'rating' => 'decimal:2',
         'published_on' => 'datetime',
     ];
 
@@ -44,6 +45,10 @@ class Chapter extends Model {
 
     public function views_list() {
         return $this->hasMany(View::class);
+    }
+
+    public function ratings() {
+        return $this->hasMany(Rating::class);
     }
 
     /*public function publicPages() {
@@ -76,6 +81,15 @@ class Chapter extends Model {
 
     public static function slug($comic_id, $slug) {
         return Chapter::where([['slug', $slug], ['comic_id', $comic_id]])->first();
+    }
+
+    public static function publicFilterByCh($comic, $ch) {
+        return $comic->publicChapters()->where([
+            ['language', $ch['lang']],
+            ['volume', $ch['vol']],
+            ['chapter', $ch['ch']],
+            ['subchapter', $ch['sub']],
+        ])->first();
     }
 
     public static function slugLangVolChSub($chapter) {
@@ -351,6 +365,7 @@ class Chapter extends Model {
             'subchapter' => $chapter->subchapter,
             'full_chapter' => "[" . strtoupper($chapter->language) . "] " . Chapter::getVolChSub($chapter),
             'views' => $chapter->views ?: 0,
+            'rating' => $chapter->rating,
             'download_link' => $chapter->download_link,
             'language' => $chapter->language,
             'teams' => [Team::generateReaderArray(Team::find($chapter->team_id)),

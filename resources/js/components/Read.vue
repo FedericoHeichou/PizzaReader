@@ -60,6 +60,7 @@
                         </div>
                     </div>
                     <div id="reader-controls-groups" class="no-gutters p-2 text-center font-weight-bold">
+                        <p class="mb-1">{{ chapter.title ? chapter.title : chapter.full_title }}</p>
                         <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
                             <span class="fa fa-download fa-fw" title="Direct download"></span>
                         </a>
@@ -75,7 +76,14 @@
                         <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
                             <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                         </a>
-                        {{ chapter.title ? chapter.title : chapter.full_title }}
+                        <ul class="ratings">
+                            <li :class="'star' + (chapter.your_vote === 5 ? ' selected' : '')" data-vote="5" @click="sendVote"></li>
+                            <li :class="'star' + (chapter.your_vote === 4 ? ' selected' : '')" data-vote="4" @click="sendVote"></li>
+                            <li :class="'star' + (chapter.your_vote === 3 ? ' selected' : '')" data-vote="3" @click="sendVote"></li>
+                            <li :class="'star' + (chapter.your_vote === 2 ? ' selected' : '')" data-vote="2" @click="sendVote"></li>
+                            <li :class="'star' + (chapter.your_vote === 1 ? ' selected' : '')" data-vote="1" @click="sendVote"></li>
+                        </ul>
+                        Current rating: {{ chapter.rating || 'N/A' }}
                     </div>
                     <div id="reader-controls-actions" class="col-auto row no-gutters p-1">
                         <div class="col row no-gutters">
@@ -521,6 +529,24 @@ export default {
                 this.viewed[this.$store.getters.comic.slug][this.$store.getters.chapter.slug_lang_vol_ch_sub] = 1;
                 this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             }
+        },
+        sendVote(e) {
+            const vote = parseInt($(e.target).data('vote'));
+            $('.ratings .star.selected').each(function(){
+                $(this).removeClass('selected');
+            });
+            $(e.target).addClass('selected');
+            $.ajax({
+                type: 'POST',
+                url: this.reader.API_BASE_URL + '/vote' + this.$route.path.slice(5),
+                headers: {
+                    'X-CSRF-TOKEN': this.$store.getters.chapter.csrf_token,
+                },
+                data: {'vote': vote},
+                error: function (error) {
+                    console.log(error);
+                },
+            });
         },
     },
     computed: {

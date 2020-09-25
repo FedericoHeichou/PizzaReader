@@ -246,7 +246,7 @@ class Comic extends Model {
             'updated_at' => $comic->updated_at,
             'hidden' => $comic['hidden'], // "->hidden" is the eloquent variable for hidden attributes
             'views' => intval(Chapter::public()->where('comic_id', $comic->id)->sum('views')),
-            'rating' => 6.91, // TODO rating
+            'rating' => round(Chapter::public()->where('comic_id', $comic->id)->avg('rating'), 2),
             'url' => Comic::getUrl($comic),
             'slug' => $comic->slug,
             'last_chapter' => Chapter::generateReaderArray($comic, Chapter::where([['comic_id', $comic->id], ['hidden', 0]])
