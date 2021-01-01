@@ -27,8 +27,25 @@ class ReaderController extends Controller {
 
     public function search($search) {
         $response = ['comics' => []];
-
         $comics = Comic::publicSearch($search);
+        foreach ($comics as $comic) {
+            array_push($response['comics'], Comic::generateReaderArray($comic));
+        }
+        return response()->json($response);
+    }
+
+    public function targets($target) {
+        $response = ['comics' => []];
+        $comics = Comic::publicSearch($target, 'target');
+        foreach ($comics as $comic) {
+            array_push($response['comics'], Comic::generateReaderArray($comic));
+        }
+        return response()->json($response);
+    }
+
+    public function genres($genre) {
+        $response = ['comics' => []];
+        $comics = Comic::publicSearch($genre, 'genres');
         foreach ($comics as $comic) {
             array_push($response['comics'], Comic::generateReaderArray($comic));
         }

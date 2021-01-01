@@ -28,6 +28,14 @@ let actions = {
             }).catch(err => {
             console.log(err)
         })
+    },
+    fetchComicsFiltered({commit}, path) {
+        axios.get(API_BASE_URL + path)
+            .then(res => {
+                commit('FETCH_COMICS', res.data['comics'])
+            }).catch(err => {
+            console.log(err)
+        })
     }
 }
 

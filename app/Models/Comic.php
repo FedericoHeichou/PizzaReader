@@ -64,17 +64,20 @@ class Comic extends Model {
         return Comic::public()->where('slug', $slug)->first();
     }
 
-    public function scopeSearch($query, $search) {
+    public function scopeSearch($query, $search, $column='name') {
         $comic_name = preg_replace("/[^A-Za-z0-9]/", '_', $search);
-        return $query->where('name', 'LIKE', '%' . $comic_name . '%');
+        if(preg_match("/[A-Za-z0-9]{3,}/", $comic_name))
+            return $query->where($column, 'LIKE', '%' . $comic_name . '%');
+        else // Sorry mom
+            return $query->where(\DB::raw('1=2'));
     }
 
     public static function fullSearch($search) {
         return Comic::search($search)->get();
     }
 
-    public static function publicSearch($search) {
-        return Comic::public()->search($search)->get();
+    public static function publicSearch($search, $column='name') {
+        return Comic::public()->search($search, $column)->get();
     }
 
     public static function buildPath($comic) {

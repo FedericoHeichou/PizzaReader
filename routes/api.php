@@ -27,4 +27,6 @@ Route::name('reader.')->group(function () {
     Route::get('/pdf/{comic}/{language}/{ch?}', [ReaderController::class, 'pdf'])->name('pdf')->where('ch', '.*');
     Route::post('/vote/{comic}/{language}/{ch?}', [ReaderController::class, 'vote'])->name('vote')->where('ch', '.*')->middleware('web');
     Route::get('/search/{search}', [ReaderController::class, 'search'])->name('search');
+    Route::get('/targets/{target}', [ReaderController::class, 'targets'])->name('targets');
+    Route::get('/genres/{genre}', [ReaderController::class, 'genres'])->name('genres');
 });

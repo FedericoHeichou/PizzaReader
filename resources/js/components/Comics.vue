@@ -43,7 +43,17 @@ export default {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').hide();
         $('#nav-filter').show();
-        this.$store.dispatch('fetchComics');
+        if (this.$route.params.target !== undefined || this.$route.params.genre !== undefined)
+            this.$store.dispatch('fetchComicsFiltered', this.$route.path);
+        else
+            this.$store.dispatch('fetchComics');
+    },
+    beforeRouteUpdate(to, from, next) {
+        if (this.$route.params.target !== undefined || this.$route.params.genre !== undefined)
+            this.$store.dispatch('fetchComicsFiltered', this.$route.path);
+        else
+            this.$store.dispatch('fetchComics');
+        next();
     },
     data() {
         return {
