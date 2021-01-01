@@ -37,6 +37,10 @@ class VolumeDownload extends Model {
         return $name;
     }
 
+    // TODO se c'ho voglia:
+    // Known possible bug: if you programmed a chapter publication the cache keep serving the old zip until you perform
+    // a new update of a chapter changing important parameters (vol, ch, pages, etc) or parameters
+    // like hidden, publish_start or publish_end
     public static function getDownload($comic, $language, $volume) {
         $download = VolumeDownload::where([['comic_id', $comic->id], ['language', $language], ['volume', $volume]])->first();
         $path = Comic::path($comic);
@@ -57,7 +61,7 @@ class VolumeDownload extends Model {
             $length_of_path = strlen($path . '/');
             $files = [];
 
-            foreach ($comic->chapters()->where('hidden', 0)->get() as $chapter) {
+            foreach ($comic->chapters()->published()->get() as $chapter) {
                 $chapter_download = ChapterDownload::getDownload($comic, $chapter);
                 array_push($files, [
                     'source' => "$absolute_path/" . substr($chapter_download['path'], $length_of_path),

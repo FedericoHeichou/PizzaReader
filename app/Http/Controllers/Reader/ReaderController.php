@@ -104,8 +104,7 @@ class ReaderController extends Controller {
             $chapters = $comic->chapters()->where([
                 ['language', $language],
                 ['volume', $ch['vol']],
-                ['hidden', 0],
-            ])->get();
+            ])->published()->get();
             if ($chapters->isEmpty()) {
                 abort(404);
             }

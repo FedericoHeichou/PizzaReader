@@ -45,7 +45,9 @@ class ChapterController extends Controller {
         $chapter = Chapter::create($fields);
         $path = Chapter::path($comic, $chapter);
         Storage::makeDirectory($path);
-        if(!$chapter['hidden']) VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
+        $now = Carbon::now();
+        if(!$chapter['hidden'] && $now >= $chapter->publish_start && (!$chapter->publish_end || $now < $chapter->publish_end))
+            VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
         return redirect()->route('admin.comics.chapters.show', ['comic' => $comic_slug, 'chapter' => $chapter->id])->with('success', 'Chapter created');
     }
 
@@ -116,6 +118,8 @@ class ChapterController extends Controller {
         $new_chapter->salt = $chapter->salt;
         $new_chapter['hidden'] = isset($fields['hidden']) ? $fields['hidden'] : $chapter['hidden'];
         $new_chapter['team_id'] = isset($fields['team_id']) ? $fields['team_id'] : $chapter->team_id;
+        $new_chapter->publish_start = isset($fields['publish_start']) ? $fields['publish_start'] : $chapter->publish_start;
+        $new_chapter->publish_end = isset($fields['publish_end']) ? $fields['publish_end'] : $chapter->publish_end;
         $new_path = Chapter::path($comic, $new_chapter);
 
         // Check if we need to delete its zips
@@ -123,7 +127,8 @@ class ChapterController extends Controller {
             ChapterDownload::cleanDownload($chapter->download, $comic, $chapter, $chapter);
         }
         // If you are hiding or showing the chapter
-        if ($new_chapter['hidden'] != $chapter['hidden']) {
+        if ($new_chapter['hidden'] != $chapter['hidden'] ||
+            $new_chapter->publish_start != $chapter->publish_start || $new_chapter->publish_end != $chapter->publish_end) {
             VolumeDownload::cleanDownload(Chapter::volume_download($new_chapter), $comic);
         }
         // Check if has a new path, then rename it
