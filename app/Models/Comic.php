@@ -19,14 +19,16 @@ class Comic extends Model {
         'adult' => 'integer',
     ];
 
-    public function scopePublic() {
-        if(!Auth::check() || !Auth::user()->hasPermission('checker'))
-            return $this->where('hidden', 0);
-        else if(Auth::user()->hasPermission('manager'))
-            return $this;
-        else{
+    public function scopePublic($query) {
+        if (!Auth::check() || !Auth::user()->hasPermission('checker'))
+            return $query->where('hidden', 0);
+        else if (Auth::user()->hasPermission('manager'))
+            return $query;
+        else {
             $comics = Auth::user()->comics()->select('comic_id');
-            return $this->where(function($query) use ($comics) { $query->where('hidden', 0)->orWhereIn('id', $comics); });
+            return $query->where(function ($query) use ($comics) {
+                $query->where('hidden', 0)->orWhereIn('id', $comics);
+            });
         }
     }
 
@@ -51,14 +53,7 @@ class Comic extends Model {
     }
 
     public function publicChapters() {
-        if(!Auth::check() || !Auth::user()->hasPermission('checker'))
-            return $this->chapters()->where('hidden', 0);
-        else if(Auth::user()->hasPermission('manager'))
-            return $this->chapters();
-        else{
-            $comics = Auth::user()->comics()->select('comic_id');
-            return $this->chapters()->where(function($query) use ($comics) { $query->where('hidden', 0)->orWhereIn('comic_id', $comics); });
-        }
+        return $this->chapters()->public();
     }
 
     public static function slug($slug) {
@@ -121,7 +116,7 @@ class Comic extends Model {
                     'field' => 'slug',
                     'label' => 'URL slug',
                     'hint' => 'Automatically generated, use this if you want to have a custom URL slug',
-                    'disabled' => 'disabled',
+                    'disabled' => 1,
                     'max' => '48',
                 ],
                 'values' => ['max:48'],
@@ -228,7 +223,7 @@ class Comic extends Model {
         if (!$comic) return null;
         $genres = [];
         foreach (explode(',', $comic->genres) as $genre) {
-            if($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
+            if ($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
         }
         return [
             'id' => Auth::check() && Auth::user()->hasPermission('manager') ? $comic->id : null,
@@ -255,7 +250,7 @@ class Comic extends Model {
     }
 
     public static function generateReaderArrayWithChapters($comic) {
-        if(!$comic) return null;
+        if (!$comic) return null;
         $response = Comic::generateReaderArray($comic);
         $response['chapters'] = [];
         $chapters = $comic->publicChapters;

@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class Chapter extends Model {
     protected $fillable = [
         'comic_id', 'team_id', 'team2_id', 'volume', 'chapter', 'subchapter', 'title', 'slug', 'salt', 'prefix',
-        'hidden', 'views', 'rating', 'download_link', 'language', 'published_on'
+        'hidden', 'views', 'rating', 'download_link', 'language', 'published_on', 'publish_start', 'publish_end'
     ];
 
     protected $casts = [
@@ -24,17 +24,26 @@ class Chapter extends Model {
         'views' => 'integer',
         'rating' => 'decimal:2',
         'published_on' => 'datetime',
+        'publish_start' => 'datetime',
+        'publish_end' => 'datetime',
     ];
 
-    public function scopePublic() {
+    public function scopePublished($query) {
+        $now = Carbon::now();
+        return $query->where('hidden', 0)->where('publish_start', '<', $now)->where(function ($q) use ($now) {
+            $q->where('publish_end', '>', $now)->orWhereNull('publish_end');
+        });
+    }
+
+    public function scopePublic($query) {
         if (!Auth::check() || !Auth::user()->hasPermission('checker'))
-            return $this->where('hidden', 0);
+            return $query->published();
         else if (Auth::user()->hasPermission('manager'))
-            return $this;
+            return $query;
         else {
             $comics = Auth::user()->comics()->select('comic_id');
-            return $this->where(function ($query) use ($comics) {
-                $query->where('hidden', 0)->orWhereIn('comic_id', $comics);
+            return $query->where(function ($q) use ($comics) {
+                $q->published()->orWhereIn('comic_id', $comics);
             });
         }
     }
@@ -268,7 +277,7 @@ class Chapter extends Model {
                     'field' => 'prefix',
                     'label' => 'Prefix',
                     'hint' => 'If you want to a prefix to this specific chapter. If you want the same prefix for every chapter use "Custom chapter" of Comic [Example: "[Deluxe]", "[IT]", etc.]',
-                    'disabled' => 'disabled',
+                    'disabled' => 1,
                 ],
                 'values' => ['max:191'],
             ], [
@@ -278,6 +287,24 @@ class Chapter extends Model {
                     'label' => 'Published on',
                     'hint' => 'It won\'t be used to programs the publication but only for information purpose. If your browser (es. Firefox) doesn\'t show a data picker, please use as format yyyy-mm-ddTHH:MM [Example: 2020-09-10T19:34]',
                     'required' => 1,
+                ],
+                'values' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/'],
+            ], [
+                'type' => 'input_datetime_local',
+                'parameters' => [
+                    'field' => 'publish_start',
+                    'label' => 'Publish start',
+                    'hint' => 'It is used to programs the publication. If your browser (es. Firefox) doesn\'t show a data picker, please use as format yyyy-mm-ddTHH:MM [Example: 2020-09-10T19:34]',
+                    'required' => 1,
+                ],
+                'values' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/'],
+            ], [
+                'type' => 'input_datetime_local',
+                'parameters' => [
+                    'field' => 'publish_end',
+                    'label' => 'Publish end',
+                    'hint' => 'It is used to programs the publication. If your browser (es. Firefox) doesn\'t show a data picker, please use as format yyyy-mm-ddTHH:MM [Example: 2020-09-10T19:34]',
+                    'clear' => 1,
                 ],
                 'values' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/'],
             ], [
@@ -294,7 +321,7 @@ class Chapter extends Model {
                     'field' => 'views',
                     'label' => 'Views',
                     'hint' => 'The number of views of this chapter. This field is meant to be used when you want to recreate a chapter without starting the views from 0',
-                    'disabled' => 'disabled',
+                    'disabled' => 1,
                     'pattern' => '[1-9]\d*|0',
                 ],
                 'values' => ['integer', 'min:0'],
@@ -304,7 +331,7 @@ class Chapter extends Model {
                     'field' => 'download_link',
                     'label' => 'Download link',
                     'hint' => 'If you want to use a external download link use this field, else a zip is automatically generated (if is enabled in the options)',
-                    'disabled' => 'disabled',
+                    'disabled' => 1,
                 ],
                 'values' => ['max:191'],
             ], [
@@ -344,7 +371,7 @@ class Chapter extends Model {
                     'field' => 'slug',
                     'label' => 'URL slug',
                     'hint' => 'Automatically generated, use this if you want to have a custom URL slug',
-                    'disabled' => 'disabled',
+                    'disabled' => 1,
                     'max' => '48',
                 ],
                 'values' => ['max:48'],
@@ -355,6 +382,7 @@ class Chapter extends Model {
     }
 
     public static function generateReaderArray($comic, $chapter) {
+        $now = Carbon::now();
         if (!$comic || !$chapter || $comic->id !== $chapter->comic_id) return null;
         return [
             'id' => Auth::check() && Auth::user()->canEdit($comic->id) ? $chapter->id : null,
@@ -372,7 +400,8 @@ class Chapter extends Model {
                 Team::generateReaderArray(Team::find($chapter->team2_id)),],
             'updated_at' => $chapter->updated_at,
             'published_on' => $chapter->published_on,
-            'hidden' => $chapter['hidden'], // "->hidden" is the eloquent variable for hidden attributes
+            'hidden' => ($chapter['hidden'] || $chapter->publish_start > $now ||
+                ($chapter->publish_end && $chapter->publish_end < $now))? 1 : 0, // "->hidden" is the eloquent variable for hidden attributes
             'slug_lang_vol_ch_sub' => Chapter::slugLangVolChSub($chapter),
             'url' => Chapter::getUrl($comic, $chapter),
             'chapter_download' => Chapter::getChapterDownload($comic, $chapter),
@@ -387,7 +416,9 @@ class Chapter extends Model {
 
     public static function getFieldsFromRequest($request, $comic, $form_fields) {
         $fields = getFieldsFromRequest($request, $form_fields);
-        $fields['published_on'] = Carbon::createFromFormat('Y-m-d\TH:i', $fields['published_on'], $fields['timezone'])->tz('UTC');
+        $fields['published_on'] = convertToUTC($fields['published_on'], $fields['timezone']);
+        $fields['publish_start'] = convertToUTC($fields['publish_start'], $fields['timezone']);
+        if($fields['publish_end']) $fields['publish_end'] = convertToUTC($fields['publish_end'], $fields['timezone']);
         Auth::user()->update(['timezone' => $fields['timezone']]);
         unset($fields['timezone']);
         $fields['comic_id'] = $comic->id;

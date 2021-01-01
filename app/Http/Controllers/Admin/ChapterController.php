@@ -59,7 +59,9 @@ class ChapterController extends Controller {
             abort(404);
         }
         $chapter->url = Chapter::getUrl($comic, $chapter);
-        $chapter->published_on = Carbon::createFromFormat('Y-m-d H:i:s', $chapter->published_on, 'UTC')->tz(Auth::user()->timezone);
+        $chapter->published_on = convertToTimezone($chapter->published_on, Auth::user()->timezone);
+        $chapter->publish_start = convertToTimezone($chapter->publish_start, Auth::user()->timezone);
+        if($chapter->publish_end) $chapter->publish_end = convertToTimezone($chapter->publish_end, Auth::user()->timezone);
         return view('admin.comics.chapters.show')->with(['comic' => $comic, 'chapter' => $chapter, 'pages' => Page::getAllPagesForFileUpload($comic, $chapter)]);
     }
 
@@ -72,7 +74,9 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
-        $chapter->published_on = Carbon::createFromFormat('Y-m-d H:i:s', $chapter->published_on, 'UTC')->tz(Auth::user()->timezone);
+        $chapter->published_on = convertToTimezone($chapter->published_on, Auth::user()->timezone);
+        $chapter->publish_start = convertToTimezone($chapter->publish_start, Auth::user()->timezone);
+        if($chapter->publish_end) $chapter->publish_end = convertToTimezone($chapter->publish_end, Auth::user()->timezone);
         return view('admin.comics.chapters.edit')->with(['comic' => $comic, 'chapter' => $chapter]);
     }
 

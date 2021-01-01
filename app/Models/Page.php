@@ -18,8 +18,8 @@ class Page extends Model {
         'hidden' => 'integer',
     ];
 
-    public function scopePublic() {
-        return $this->where('hidden', 0);
+    public function scopePublic($query) {
+        return $query->where('hidden', 0);
     }
 
     public function chapter() {

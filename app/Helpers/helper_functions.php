@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -73,4 +74,12 @@ function cleanDirectoryByExtension($path, $ext) {
         if (!preg_match("/.$ext$/", $value)) unset($files[$key]);
     }
     Storage::delete($files);
+}
+
+function convertToTimezone($datetime, $timezone) {
+    return Carbon::createFromFormat('Y-m-d H:i:s', $datetime, 'UTC')->tz($timezone);
+}
+
+function convertToUTC($datetime, $timezone){
+    return Carbon::createFromFormat('Y-m-d\TH:i', $datetime, $timezone)->tz('UTC');
 }

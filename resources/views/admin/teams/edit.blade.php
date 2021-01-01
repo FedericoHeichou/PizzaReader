@@ -28,8 +28,8 @@
 
                 <div class="form-group form-row">
                     <label for="slug" class="col-sm-2 col-form-label required">Slug</label>
-                    <div class="col-sm-10 disabled">
-                        <input type="slug" maxlength="191" name="slug" id="slug" placeholder="Slug"
+                    <div class="col-sm-10 inline-components">
+                        <input type="text" maxlength="191" name="slug" id="slug" placeholder="Slug"
                                class="form-control @error('slug') is-invalid @enderror col-sm-10"
                                value="{{ old('slug', $team->slug ?? '' )}}" disabled>
                         <div class="btn btn-lg btn-success btn-block col-sm-2" onclick="event.preventDefault();$('#slug').prop('disabled', function(i, v) { return !v; });let text =$(this).text();$(this).text(text === 'Edit' ? 'Undo' : 'Edit').toggleClass('btn-success').toggleClass('btn-danger');">Edit</div>

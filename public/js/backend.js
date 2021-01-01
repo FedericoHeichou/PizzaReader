@@ -13,7 +13,7 @@ $('input[type="checkbox"]').on('change', function () {
 
 window.addEventListener('load', () => {
     $('#timezone').val(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    const input_time = $('.convert-timezone');
+    const input_time = $('.convert-timezone[required]');
     if (input_time.length && !input_time.val()) {
         let date;
         date = new Date();

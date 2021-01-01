@@ -29,6 +29,8 @@ class CreateChaptersTable extends Migration {
             $table->bigInteger('team_id', false, true)->nullable();
             $table->bigInteger('team2_id', false, true)->nullable();
             $table->timestamp('published_on')->useCurrent();
+            $table->timestamp('publish_start')->useCurrent();
+            $table->timestamp('publish_end')->nullable();
             $table->timestamps();
 
             // This is not very useful because multiple unique constraint with some values at NULL permits duplicates

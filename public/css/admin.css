@@ -67,12 +67,12 @@
     width: auto;
 }
 
-.disabled {
+.inline-components {
     display: flex;
     flex-wrap: wrap;
 }
 
-.disabled .btn {
+.inline-components .btn {
     padding: 5px 0 0 0;
 }
 
