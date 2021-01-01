@@ -19,23 +19,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Improvements to timezone management">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" afterDir="false" />
+    <list default="true" id="0bb9d1b9-1eb6-4b9b-bf89-87d78569a4f2" name="Default Changelist" comment="Added voting system via ip">
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AllowYourself.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AllowYourself.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateEditor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateEditor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AuthenticateManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanEdit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Chapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chapter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Comic.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/reader.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/form/input_checkbox.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/form/input_checkbox.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/broadcasting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cors.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_31_154654_create_chapters_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +50,7 @@
         <option value="composer.json" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -197,7 +194,6 @@
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
-      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
@@ -225,14 +221,12 @@
       <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
       <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
       <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
       <path value="$PROJECT_DIR$/vendor/symfony/mime" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation" />
@@ -264,7 +258,6 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
       <path value="$PROJECT_DIR$/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
@@ -272,6 +265,10 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
       <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
       <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/laravel/sail" />
     </include_path>
   </component>
   <component name="ProjectId" id="1grMR0CBvReGbPva8kcNPGgcHAq" />
@@ -282,26 +279,27 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Middleware" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Models" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/partials/form" />
       <recent name="$PROJECT_DIR$/app/Console/Commands" />
       <recent name="$PROJECT_DIR$/app/Models" />
       <recent name="$PROJECT_DIR$/resources/views/layouts" />
       <recent name="$PROJECT_DIR$/resources/views/admin/comics" />
-      <recent name="$PROJECT_DIR$/resources/views/admin/comics/chapters" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/Http/Middleware" />
-      <recent name="$PROJECT_DIR$/resources/views/partials/form" />
-      <recent name="$PROJECT_DIR$/resources/js/components" />
-      <recent name="$PROJECT_DIR$/public/js" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Reader" />
+      <recent name="$PROJECT_DIR$/app/Models" />
+      <recent name="$PROJECT_DIR$/database/migrations" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
+      <recent name="$PROJECT_DIR$/resources/views/admin" />
+      <recent name="$PROJECT_DIR$/database/seeders" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -327,168 +325,23 @@
       <workItem from="1599739426668" duration="36179000" />
       <workItem from="1599823289142" duration="37248000" />
       <workItem from="1599904215976" duration="7531000" />
-      <workItem from="1599935507424" duration="14040000" />
-    </task>
-    <task id="LOCAL-00001" summary="Added Laravel 7">
-      <created>1598872371225</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1598872371225</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Added Laravel 7">
-      <created>1598872625384</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1598872625384</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added some initials tables and views">
-      <created>1598923429237</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1598923429237</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Partials management of comics and chapters">
-      <created>1599009889423</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1599009889423</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added other tables columns, managed upload and delete of pages (actually not listed yet in upload form)">
-      <created>1599099861440</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1599099861440</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Bug fixes, added support of pages in the comics panel">
-      <created>1599150352686</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1599150352686</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Update LICENSE">
-      <created>1599150506754</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1599150506754</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Added API for VUE (comics list, show comic and read chapter), bug fixes and improvements">
-      <created>1599178789559</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1599178789559</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Created routes for Vue, bug fixes and improvements">
-      <created>1599263632973</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1599263632973</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Improvements to route of Read">
-      <created>1599329511584</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1599329511584</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Frontend implementations, improvements and bugfixes to the API">
-      <created>1599412920953</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1599412920953</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Implementation of 'search' in both frontend and backend, created partial reader, improvements and bugfixes">
-      <created>1599531479428</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1599531479428</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes">
-      <created>1599611254568</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1599611254568</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Reader quite full working, need to fix some scroll-up and history spam in long-strip render mode, improvements and bugfixes">
-      <created>1599697059126</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1599697059126</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Added published on field, bugfixes">
-      <created>1599760653535</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1599760653535</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Main update from Laravel 7.x to Laravel 8">
-      <created>1599764476617</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1599764476617</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Important bug fixes and improvements to path generation of chapters">
-      <created>1599766331761</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1599766331761</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Moved all Models inside app/Models, tiny frontend fix">
-      <created>1599768927957</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1599768927957</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php">
-      <created>1599774752862</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1599774752862</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements">
-      <created>1599776648419</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1599776648419</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Fixed spam of history with long-strip, added cookies to remember settings">
-      <created>1599833153032</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1599833153032</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel">
-      <created>1599841948715</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1599841948715</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Cronjob for clean IP in views table">
-      <created>1599844571958</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1599844571958</updated>
+      <workItem from="1599935507424" duration="14671000" />
+      <workItem from="1600004280011" duration="9089000" />
+      <workItem from="1600084462243" duration="12775000" />
+      <workItem from="1600174071495" duration="27490000" />
+      <workItem from="1600267416812" duration="1777000" />
+      <workItem from="1600275465081" duration="13672000" />
+      <workItem from="1600291593409" duration="5274000" />
+      <workItem from="1600352531547" duration="18655000" />
+      <workItem from="1600429590854" duration="15288000" />
+      <workItem from="1600510241540" duration="20510000" />
+      <workItem from="1600603499203" duration="17521000" />
+      <workItem from="1600690329625" duration="20854000" />
+      <workItem from="1600776442233" duration="19145000" />
+      <workItem from="1600862870894" duration="12873000" />
+      <workItem from="1600948033200" duration="16566000" />
+      <workItem from="1601038138543" duration="8967000" />
+      <workItem from="1609499660095" duration="2652000" />
     </task>
     <task id="LOCAL-00024" summary="Form improvements, fix to views reset when update chapter">
       <created>1599849797423</created>
@@ -511,11 +364,343 @@
       <option name="project" value="LOCAL" />
       <updated>1599911874420</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Added route user for public access, created main user panel, improvements and bug fixes">
+      <created>1599949562774</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1599949562774</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Fix default value">
+      <created>1600004681788</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1600004681788</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fix sidebar, changed some classes with ids">
+      <created>1600029980365</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1600029980365</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Using native validate for password, graphic fix">
+      <created>1600118522737</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1600118522737</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Handle duplicated chapter, restyling of small duplicated code using functions, added error alerts and bug fixes">
+      <created>1600125013763</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1600125013763</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Handle breadcrumb user's links">
+      <created>1600125346577</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1600125346577</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Remove warning from IDE">
+      <created>1600125545504</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1600125545504</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Implemented role &quot;checker&quot; and reading of non hidden chapters in frontend and API for authorized users">
+      <created>1600188569012</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1600188569012</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Array of fields can accept as parameters required and checked set to false">
+      <created>1600204094164</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1600204094164</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Implemented settings controller, migration and model, added settings and icons in some places in both frontend and backend">
+      <created>1600211314860</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1600211314860</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Improvements">
+      <created>1600269183394</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1600269183394</updated>
+    </task>
+    <task id="LOCAL-00038" summary="GUI new password">
+      <created>1600276739861</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1600276739861</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Improvements frontend route to handle 404 pages">
+      <created>1600279972367</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1600279972367</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Logo of website multiple sizes, added manifest and its keys in seeder">
+      <created>1600288311389</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1600288311389</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Mobile responsive admin panel">
+      <created>1600290659428</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1600290659428</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Mobile responsive frontend">
+      <created>1600296972328</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1600296972328</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Added assign comic to user">
+      <created>1600372300455</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1600372300455</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Fix redirect 404">
+      <created>1600430132596</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1600430132596</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Fix redirect 404">
+      <created>1600431151209</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1600431151209</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added swipe">
+      <created>1600434704713</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1600434704713</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Mobile improvements (swipe and settings)">
+      <created>1600436093421</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1600436093421</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Manage backwards compatibility with older versions of mysql + manage automatic seeding and directory installation">
+      <created>1600446139923</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1600446139924</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Manage backwards compatibility with older versions of mysql">
+      <created>1600447055787</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1600447055787</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Manage backwards compatibility with older versions of mysql">
+      <created>1600510836495</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1600510836496</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Added edit comic/chapter">
+      <created>1600517696912</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1600517696913</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Added jump page mobile">
+      <created>1600519086106</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1600519086106</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Indent">
+      <created>1600521975489</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1600521975489</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Miss type">
+      <created>1600530458851</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1600530458851</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Added teams management">
+      <created>1600530929408</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1600530929409</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Added download chapter's API">
+      <created>1600627899626</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1600627899627</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Remove consecutive __">
+      <created>1600691149838</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1600691149838</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Clean zip on update/delete of chapters pages and comics where required. Setup of volume downloads">
+      <created>1600695841899</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1600695841899</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Remove not useful foreign">
+      <created>1600696456731</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1600696456732</updated>
+    </task>
+    <task id="LOCAL-00060" summary="API download volume and chapters">
+      <created>1600711965087</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1600711965087</updated>
+    </task>
+    <task id="LOCAL-00061" summary="404 on malformed path">
+      <created>1600712163104</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1600712163104</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Remove forbidden chars">
+      <created>1600712499111</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1600712499112</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Using atomic increment">
+      <created>1600777396434</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1600777396434</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Misscheck">
+      <created>1600778200492</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1600778200493</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Hiding chapter and volume origin">
+      <created>1600784080975</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1600784080975</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Check for settings enabled">
+      <created>1600787636868</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1600787636868</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Download icons + bug fixes and improvements">
+      <created>1600793356880</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1600793356880</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Let composer works without db connection">
+      <created>1600796388572</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1600796388573</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Page 404 in frontend + small bug fixes and improvements">
+      <created>1600874113650</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1600874113651</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Added pdf upload and download in both frontend and backend + Bug fixes and improvements like caching of settings">
+      <created>1600957705647</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1600957705648</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Set chapter as read/unread cookies">
+      <created>1600965199362</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1600965199362</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Added voting system via ip">
+      <created>1601047445741</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1601047445741</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -530,32 +715,32 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Laravel 7" />
-    <MESSAGE value="Added some initials tables and views" />
-    <MESSAGE value="Partials management of comics and chapters" />
-    <MESSAGE value="Added other tables columns, managed upload and delete of pages (actually not listed yet in upload form)" />
-    <MESSAGE value="Bug fixes, added support of pages in the comics panel" />
-    <MESSAGE value="Update LICENSE" />
-    <MESSAGE value="Added API for VUE (comics list, show comic and read chapter), bug fixes and improvements" />
-    <MESSAGE value="Created routes for Vue, bug fixes and improvements" />
-    <MESSAGE value="Improvements to route of Read" />
-    <MESSAGE value="Frontend implementations, improvements and bugfixes to the API" />
-    <MESSAGE value="Implementation of 'search' in both frontend and backend, created partial reader, improvements and bugfixes" />
-    <MESSAGE value="Reader working a bit, still need improvements on preload and settings, improvements and bugfixes" />
-    <MESSAGE value="Reader quite full working, need to fix some scroll-up and history spam in long-strip render mode, improvements and bugfixes" />
-    <MESSAGE value="Added published on field, bugfixes" />
-    <MESSAGE value="Main update from Laravel 7.x to Laravel 8" />
-    <MESSAGE value="Important bug fixes and improvements to path generation of chapters" />
-    <MESSAGE value="Moved all Models inside app/Models, tiny frontend fix" />
-    <MESSAGE value="Complete update to Laravel 8. There are just a few differences, like still using scss and api.php is loaded before web.php" />
-    <MESSAGE value="Improvements to default (home) route, set prev and next chapter only if in the same language, reader improvements" />
-    <MESSAGE value="Fixed spam of history with long-strip, added cookies to remember settings" />
-    <MESSAGE value="Full implemented views counter, stripped filename of files, fixed seeders, added language flag of chapters to admin panel" />
-    <MESSAGE value="Cronjob for clean IP in views table" />
-    <MESSAGE value="Form improvements, fix to views reset when update chapter" />
-    <MESSAGE value="Implemented update and destroy of UserController, improvements and bug fixes" />
-    <MESSAGE value="Improvements to timezone management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvements to timezone management" />
+    <MESSAGE value="Manage backwards compatibility with older versions of mysql + manage automatic seeding and directory installation" />
+    <MESSAGE value="Manage backwards compatibility with older versions of mysql" />
+    <MESSAGE value="Added edit comic/chapter" />
+    <MESSAGE value="Added jump page mobile" />
+    <MESSAGE value="Indent" />
+    <MESSAGE value="Miss type" />
+    <MESSAGE value="Added teams management" />
+    <MESSAGE value="Added download chapter's API" />
+    <MESSAGE value="Remove consecutive __" />
+    <MESSAGE value="Clean zip on update/delete of chapters pages and comics where required. Setup of volume downloads" />
+    <MESSAGE value="Remove not useful foreign" />
+    <MESSAGE value="API download volume and chapters" />
+    <MESSAGE value="404 on malformed path" />
+    <MESSAGE value="Remove forbidden chars" />
+    <MESSAGE value="Using atomic increment" />
+    <MESSAGE value="Misscheck" />
+    <MESSAGE value="Hiding chapter and volume origin" />
+    <MESSAGE value="Check for settings enabled" />
+    <MESSAGE value="Download icons + bug fixes and improvements" />
+    <MESSAGE value="Let composer works without db connection" />
+    <MESSAGE value="Page 404 in frontend + small bug fixes and improvements" />
+    <MESSAGE value="Added pdf upload and download in both frontend and backend + Bug fixes and improvements like caching of settings" />
+    <MESSAGE value="Set chapter as read/unread cookies" />
+    <MESSAGE value="Added voting sistem via ip" />
+    <MESSAGE value="Added voting system via ip" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added voting system via ip" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="231" width="824" height="691" key="#CLI_Interpreters" timestamp="1598868476940">
@@ -574,18 +759,26 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="712" y="528" width="525" height="423" key="#com.intellij.ide.util.TreeClassChooserDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599158282209" />
-    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599935735588">
+    <state x="160" y="27" width="630" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600279797755">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599935735588" />
+    <state x="160" y="27" width="630" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1600279797755" />
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600786828629">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="729" y="311" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1600786828629" />
+    <state x="538" y="100" width="905" height="913" key="CommitChangelistDialog2" timestamp="1600430896811">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="538" y="100" width="905" height="913" key="CommitChangelistDialog2/72.27.1848.1053@72.27.1848.1053" timestamp="1600430896811" />
     <state x="729" y="436" width="523" height="281" key="ComposerInitDialogKey" timestamp="1598869698432">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="729" y="436" width="523" height="281" key="ComposerInitDialogKey/72.27.1848.1053@72.27.1848.1053" timestamp="1598869698432" />
-    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog" timestamp="1599474378087">
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog" timestamp="1600431590261">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599474378087" />
+    <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1600431590261" />
     <state x="773" y="317" width="424" height="520" key="FileChooserDialogImpl" timestamp="1599774839421">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -610,10 +803,14 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="619" y="452" width="721" height="568" key="NewPhpClassDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599158286064" />
-    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog" timestamp="1598884299065">
+    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog" timestamp="1600281933383">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1598884299065" />
+    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1600281933383" />
+    <state x="767" y="256" width="448" height="602" key="RollbackChangesDialog" timestamp="1600431049252">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="767" y="256" width="448" height="602" key="RollbackChangesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1600431049252" />
     <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1599748733257">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -622,26 +819,34 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/72.27.1848.1053@72.27.1848.1053" timestamp="1598967827425" />
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1599911881637">
+    <state width="584" height="446" key="SwitcherDM" timestamp="1600291723660">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1599911881637" />
-    <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598959387685">
+    <state width="584" height="446" key="SwitcherDM/72.27.1848.1053@72.27.1848.1053" timestamp="1600291723660" />
+    <state x="839" y="468" width="303" height="178" key="VCS.ChangelistChooser" timestamp="1600430912665">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1053@72.27.1848.1053" timestamp="1598959387685" />
-    <state x="660" y="252" key="run.anything.popup" timestamp="1599773272383">
+    <state x="839" y="468" width="303" height="178" key="VCS.ChangelistChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1600430912665" />
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601047479072">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599773272383" />
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1599646197917">
+    <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1601047479072" />
+    <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600119692647">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1599646197917" />
-    <state x="721" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1599835347014">
+    <state x="777" y="468" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1053@72.27.1848.1053" timestamp="1600119692647" />
+    <state x="660" y="252" key="run.anything.popup" timestamp="1600693098069">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="721" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1599835347014" />
+    <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1600693098069" />
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1600611405740">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1600611405740" />
+    <state x="721" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1600198792355">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="721" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1600198792355" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
