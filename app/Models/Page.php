@@ -27,7 +27,7 @@ class Page extends Model {
     }
 
     public static function getUrl($comic, $chapter, $page) {
-        return asset('storage/' . Chapter::buildPath($comic, $chapter) . '/' . urlencode($page->filename) . '?v=' . strtotime($page->updated_at));
+        return asset('storage/' . Chapter::buildPath($comic, $chapter) . '/' . rawurlencode($page->filename) . '?v=' . strtotime($page->updated_at));
     }
 
     public static function getUrlById($page_id) {
