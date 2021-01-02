@@ -13,7 +13,7 @@ function generateSlug($class, $fields) {
     $fields['slug'] = isset($fields['slug']) ? Str::slug($fields['slug']) : (isset($fields['name']) ? Str::slug($fields['name']) : Str::slug($fields['title']));
     if (!$fields['slug']) $fields['slug'] = "oneshot";
     $fields['slug'] = substr($fields['slug'], 0, 50);
-    $slug = $fields['slug'];
+    $slug = is_numeric($fields['slug']) ? "c-" . $fields['slug'] : $fields['slug'];
     $i = 2;
     while (in_array($slug, forbidden_words) || (isset($fields['comic_id']) ? $class::slug($fields['comic_id'], $slug) : $class::slug($slug))) {
         $slug = $fields['slug'] . '-' . $i;

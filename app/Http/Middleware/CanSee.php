@@ -8,7 +8,7 @@ use App\Models\Comic;
 
 class CanSee {
     public function handle($request, Closure $next) {
-        $comic = Comic::slug($request->route('comic'));
+        $comic = is_numeric($request->route('comic')) ? Comic::find($request->route('comic')) : Comic::slug($request->route('comic'));
         if(!Auth::check()){
             return redirect('login');
         } elseif (!Auth::user()->canSee($comic ? $comic->id : null)) {
