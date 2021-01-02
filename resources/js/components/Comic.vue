@@ -208,6 +208,41 @@
 
             </div>
         </div>
+
+        <div v-if="Object.keys(comic.volume_downloads).length" class="card mt-3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-12 pt-2">
+                        <span class="fas fa-book-reader fa-fw"></span>
+                        Volume downloads
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="row border-bottom py-1 d-sm-flex d-none">
+                    <div class="col-sm-auto text-center pr-0">
+                        <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                    </div>
+                    <div class="col-sm-5 text-left">Filename</div>
+                </div>
+
+                <div v-for="(download, volume) in comic.volume_downloads" class="row flex-sm-nowrap text-truncate border-bottom py-1 item">
+                    <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
+                        <a :href="reader.API_BASE_URL + download">
+                            <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                        </a>
+                    </div>
+                    <div class="col-sm-5 col-7 text-left order-2 overflow-hidden">
+                        <span class="chapter">
+                            <a :href="reader.API_BASE_URL + download">{{ volume }}</a>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
     <div v-else ref="notfound"></div>
 </template>
@@ -232,8 +267,8 @@ export default {
                     const instance = new ComponentClass();
                     instance.$mount();
                     if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
-                    filter_search();
                 }
+                filter_search();
             });
     },
     data() {

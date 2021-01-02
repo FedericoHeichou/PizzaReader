@@ -256,9 +256,15 @@ class Comic extends Model {
         if (!$comic) return null;
         $response = Comic::generateReaderArray($comic);
         $response['chapters'] = [];
+        $response['volume_downloads'] = [];
         $chapters = $comic->publicChapters;
         foreach ($chapters as $chapter) {
-            array_push($response['chapters'], Chapter::generateReaderArray($comic, $chapter));
+            $chapter_array = Chapter::generateReaderArray($comic, $chapter);
+            array_push($response['chapters'], $chapter_array);
+            if($chapter_array['volume_download']){
+                $download = VolumeDownload::where([['comic_id', $comic->id], ['language', $chapter->language], ['volume', $chapter->volume]])->first();
+                if($download) $response['volume_downloads'][$download->name] = $chapter_array['volume_download'];
+            }
         }
         return $response;
     }
