@@ -232,6 +232,7 @@ export default {
                     const instance = new ComponentClass();
                     instance.$mount();
                     if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
+                    filter_search();
                 }
             });
     },
