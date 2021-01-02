@@ -167,7 +167,7 @@
                      :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '') + (getViewed(chapter.slug_lang_vol_ch_sub) ? ' read text-secondary' : '')">
                     <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
                         <span :class="'cursor-pointer fa fa-eye' + (getViewed(chapter.slug_lang_vol_ch_sub) ? '' : '-slash') + ' fa-fw'"
-                              title="Set as read/unread" @click="setViewed(chapter.slug_lang_vol_ch_sub)"></span>
+                              :title="'Mark as ' + (getViewed(chapter.slug_lang_vol_ch_sub) ? 'unread' : 'read')" @click="setViewed(chapter.slug_lang_vol_ch_sub)"></span>
                         <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
                             <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
                         </a>
