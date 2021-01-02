@@ -39,6 +39,10 @@
 
 /* layout fixes */
 
+.body-reader footer {
+    display: none;
+}
+
 .body-reader {
     padding-top: 3.5rem;
     padding-bottom: 0;

@@ -119,5 +119,10 @@
             </router-view>
         </main>
     </div>
+    <footer>
+        <div class="footer-copyright text-center py-3 text-muted">
+            {{ config("settings.footer") }}
+        </div>
+    </footer>
 </body>
 </html>

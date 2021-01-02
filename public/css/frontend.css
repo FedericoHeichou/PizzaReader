@@ -1,3 +1,7 @@
+#app {
+    min-height: calc(100vh - 58px);
+}
+
 .thumbnail {
     width: 150px;
     height: 255px;

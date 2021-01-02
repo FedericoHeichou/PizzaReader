@@ -121,7 +121,7 @@ class Settings extends Model {
                     'hint' => 'Check to enable the registration of new users',
                 ],
                 'values' => ['boolean'],
-            ], [
+            /*], [
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'recaptcha_public',
@@ -160,7 +160,7 @@ class Settings extends Model {
                     'label' => 'AdSense banner bottom',
                     'hint' => 'Insert the code of your adsense banner (auto resizeable)',
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:191'],*/
             ],
         ];
     }
