@@ -23,8 +23,10 @@ use Illuminate\Support\Facades\Auth;
 
 // The "+" near the role means "which has this privilege or more" [admin > manager > editor > checker > user]
 
-Route::prefix('admin')->group(function () {
-    Auth::routes(['register' => (bool) config('settings.registration_enabled')]);
+Route::prefix('admin')->middleware("log.request")->group(function () {
+    Route::middleware("log.request")->group(function() {
+        Auth::routes(['register' => (bool) config('settings.registration_enabled')]);
+    });
 
     Route::name('admin.')->middleware('auth')->group(function () {
 
@@ -84,7 +86,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('user')->name('user.')->middleware('auth')->group(function() {
     Route::get('/edit', [UserController::class, 'editYourself'])->name('edit');
     Route::redirect('/', '/user/edit');
-    Route::patch('/update', [UserController::class, 'updateYourself'])->name('update');
+    Route::patch('/update', [UserController::class, 'updateYourself'])->name('update')->middleware("log.request");
 });
 
 // Frontend

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\LogRequest;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'can.see' => \App\Http\Middleware\CanSee::class,
         'can.edit' => \App\Http\Middleware\CanEdit::class,
         'auth.yourself' => \App\Http\Middleware\AllowYourself::class,
+        'log.request' => \App\Http\Middleware\LogRequest::class,
     ];
 }
