@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-md-4 text-center">
                         <div class="thumbnail-full float-lg-left">
-                            <img :src="comic.thumbnail" class="rounded">
+                            <img :src="comic.thumbnail" class="rounded" :alt="comic.title" :title="comic.title">
                         </div>
                     </div>
                     <div class="col-xl-9 col-md-8">

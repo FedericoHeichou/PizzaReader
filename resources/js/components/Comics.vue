@@ -2,7 +2,7 @@
     <div class="row py-sm-4">
         <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
             <div class="thumbnail float-left mr-2">
-                <router-link :to="comic.url"><img :src="comic.thumbnail" class="rounded"></router-link>
+                <router-link :to="comic.url"><img :src="comic.thumbnail" :alt="comic.title" :title="comic.title" class="rounded"></router-link>
             </div>
             <div class="text-truncate mb-1 d-flex flex-nowrap align-items-center">
                 <h5 class="font-weight-bold mb-0">
