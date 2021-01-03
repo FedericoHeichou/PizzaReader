@@ -27,7 +27,7 @@
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true"></span>
                         </router-link>
                         <div class="col py-2">
-                            <select class="form-control col" id="jump-chapter" name="jump-chapter">
+                            <select class="form-control col" id="jump-chapter" name="jump-chapter" @change="jumpChapter">
                                 <template v-for="other_ch in comic.chapters">
                                     <option v-if="other_ch.url !== chapter.url" :value="other_ch.url">
                                         {{ other_ch.full_chapter ? other_ch.full_chapter : other_ch.full_title }}
@@ -425,6 +425,10 @@ export default {
         jumpPage(e) {
             this.needToRefresh = true;
             this.setPage('#' + e.target.value);
+        },
+        jumpChapter(e) {
+            this.needToRefresh = true;
+            this.$router.push(e.target.value);
         },
         setNotch(page) {
             this.hover_page = page;
