@@ -1,0 +1,106 @@
+body.dark {
+    --white-10: #ffffff;
+    --white-6: #cfd2d6;
+    --white-5: #c4c8cc;
+    --black-0: #1e1e1e;
+    --black-1: #2d2d2d;
+    --black-2: #303030;
+    --black-3: #393939;
+    --black-6: #404345;
+    --red-0: #572f32;
+    background: var(--black-1);
+    color: #c4c8cc;
+}
+
+body.dark {
+    background: var(--black-1);
+    color: var(--white-5);
+}
+
+body.dark a:not(.btn), body.dark .close {
+    color: var(--white-6);
+}
+
+body.dark .bg-white, body.dark .breadcrumb {
+    background-color: var(--black-3) !important;
+}
+
+body.dark .breadcrumb-item.active {
+    color: var(--white-10);
+}
+
+body.dark .navbar-light .navbar-brand {
+    color: var(--white-10);
+}
+
+body.dark .navbar-light .navbar-nav .nav-link {
+    color: var(--white-5);
+}
+
+body.dark a:hover, body.dark .navbar-light .navbar-nav .nav-link:hover {
+    color: var(--white-10);
+}
+
+body.dark .hidden {
+    background-color: var(--red-0);
+}
+
+body.dark .read:not(.hidden) {
+    background-color: var(--black-2);
+}
+
+body.dark .form-control, body.dark .custom-file-label {
+    background-color: var(--black-1) !important;
+    color: var(--white-6);
+}
+
+body.dark .custom-file-label::after {
+    background-color: var(--black-0) !important;
+    color: var(--white-6);
+}
+
+body.dark #results-box, body.dark #results-box a {
+    background-color: var(--black-6);
+    color: var(--white-6);
+}
+
+body.dark .dropdown-menu {
+    background-color: var(--black-3);
+}
+
+body.dark .custom-select {
+    background-color: var(--black-3);
+    color: var(--white-6);
+    background: var(--black-3) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23cfd2d6' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px
+}
+
+body.dark .dropdown-item:hover {
+    background-color: var(--black-6);
+}
+
+body.dark .card-header {
+    background-color: var(--black-6);
+}
+
+body.dark .card {
+    background-color: var(--black-3);
+}
+
+body.dark .ratings .star {
+    color: var(--black-0);
+}
+
+body.dark .ratings .star:hover,
+body.dark .ratings .star.selected,
+body.dark .ratings .star:hover ~ .star,
+body.dark .ratings .star.selected ~ .star {
+    color: var(--white-6);
+}
+
+body.dark .table, body.dark .table-hover tbody tr:hover {
+    color: var(--white-5);
+}
+
+body.dark .modal-content {
+    background-color: var(--black-3);
+}

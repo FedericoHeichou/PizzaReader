@@ -60,6 +60,7 @@
     background-color: #e9ecef;
     border-left: inherit;
     border-radius: 0 0.25rem 0.25rem 0;
+    cursor: pointer;
 }
 
 .thumbnail {

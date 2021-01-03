@@ -15,6 +15,7 @@
     <script src="{{ asset('js/frontend.js') }}" defer></script>
     <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" defer></script>
     <script src="{{ asset('js/reader.js') }}" defer></script>
+    <script src="{{ asset('js/dark.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,6 +25,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reader.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
     <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="32x32"/>
@@ -32,7 +34,7 @@
     <meta name="msapplication-TileImage" content="{{ config('settings.logo_path_72') }}"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}" crossOrigin="use-credentials">
 </head>
-<body>
+<body class="{{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "dark" : "" }}">
     <div id="app">
         <nav id="header" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container px-lg-0">
@@ -63,6 +65,13 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto col-4 pr-0">
+                        <li class="nav-item">
+                            <div class="custom-control custom-switch p-2">
+                                <input type="checkbox" class="custom-control-input" id="dark-mode-switch"
+                                    {{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "checked" : "" }}>
+                                <label class="custom-control-label" for="dark-mode-switch">Dark</label>
+                            </div>
+                        </li>
                         <li class="nav-item" style="width: 100%">
                             <input id="nav-filter" class="form-control mr-sm-2 card-search"
                                    type="search" placeholder="Filter" aria-label="Filter" name="filter"

@@ -14,6 +14,7 @@
     <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
     <script src="{{ asset('js/backend.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
+    <script src="{{ asset('js/dark.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,6 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.fileupload-all.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
     <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="32x32"/>
@@ -31,7 +33,7 @@
     <meta name="msapplication-TileImage" content="{{ config('settings.logo_path_72') }}"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}" crossOrigin="use-credentials">
 </head>
-<body>
+<body class="{{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "dark" : "" }}">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container px-lg-0">
@@ -88,6 +90,13 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="custom-control custom-switch p-2">
+                                <input type="checkbox" class="custom-control-input" id="dark-mode-switch"
+                                    {{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "checked" : "" }}>
+                                <label class="custom-control-label" for="dark-mode-switch">Dark</label>
+                            </div>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
