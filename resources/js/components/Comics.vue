@@ -43,24 +43,26 @@ export default {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').hide();
         $('#nav-filter').show();
-        if (this.$route.params.target !== undefined || this.$route.params.genre !== undefined)
-            this.$store.dispatch('fetchComicsFiltered', this.$route.path);
-        else
-            this.$store.dispatch('fetchComics');
+        this.loadComics();
     },
-    beforeRouteUpdate(to, from, next) {
-        if (this.$route.params.target !== undefined || this.$route.params.genre !== undefined)
-            this.$store.dispatch('fetchComicsFiltered', this.$route.path);
-        else
-            this.$store.dispatch('fetchComics');
-        next();
+    updated() {
+        if(this.old_route_path !== this.$route.path) this.loadComics();
     },
     data() {
         return {
             reader: this.$root,
+            old_route_path: "",
         }
     },
-    methods: {},
+    methods: {
+        loadComics() {
+            if (this.$route.params.target !== undefined || this.$route.params.genre !== undefined)
+                this.$store.dispatch('fetchComicsFiltered', this.$route.path);
+            else
+                this.$store.dispatch('fetchComics');
+            this.old_route_path = this.$route.path;
+        }
+    },
     computed: {
         ...mapGetters([
             'comics',
