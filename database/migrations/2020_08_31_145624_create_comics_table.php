@@ -14,6 +14,7 @@ class CreateComicsTable extends Migration {
     public function up() {
         Schema::create('comics', function (Blueprint $table) {
             $table->id();
+            $table->float('order_index', 8, 3);
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('salt');

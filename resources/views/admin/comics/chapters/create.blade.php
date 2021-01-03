@@ -7,7 +7,7 @@
         if($field['type'] === 'input_checkbox'){
             $default = isset($field['parameters']['checked']) && $field['parameters']['checked'] ? 1 : 0;
         }else{
-            $default = '';
+            $default = isset($field['parameters']['default']) ? $field['parameters']['default'] : '';
         }
     ?>
     @section($field['parameters']['field'], old($field['parameters']['field'], $default))

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Comic extends Model {
     protected $fillable = [
         'name', 'slug', 'salt', 'hidden', 'author', 'artist', 'target', 'genres', 'status', 'description', 'thumbnail',
-        'custom_chapter', 'comic_format_id', 'adult',
+        'custom_chapter', 'comic_format_id', 'adult', 'order_index'
     ];
 
     protected $casts = [
@@ -17,9 +17,11 @@ class Comic extends Model {
         'hidden' => 'integer',
         'comic_format_id' => 'integer',
         'adult' => 'integer',
+        'order_index' => 'float',
     ];
 
     public function scopePublic($query) {
+        $query = $query->orderBy('order_index');
         if (!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $query->where('hidden', 0);
         else if (Auth::user()->hasPermission('manager'))
@@ -99,6 +101,11 @@ class Comic extends Model {
 
     public static function getUrl($comic) {
         return "/comics/$comic->slug";
+    }
+
+    public static function getNextOrderIndex(): int {
+        $max = Comic::max('order_index');
+        return intval(($max ? $max : 0) + 1);
     }
 
     public static function getFormFields() {
@@ -216,6 +223,17 @@ class Comic extends Model {
                     'pattern' => '.*\{(vol|num|tit|sub)\}.*',
                 ],
                 'values' => ['max:191', 'regex:/^.*{(vol|num|tit|sub)}.*$/'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'order_index',
+                    'label' => 'Order index',
+                    'hint' => 'It is used to order the chapters (crescent order). You can use negative and decimal values. If empty it set the comic as current last',
+                    'pattern' => '-?[0-9]+(?:\.[0-9]{1,3})?',
+                    'default' => Comic::getNextOrderIndex(),
+                    'required' => 1,
+                ],
+                'values' => ['numeric', 'regex:/^-?[0-9]+(?:\.[0-9]{1,3})?$/'],
             ],
 
         ];
