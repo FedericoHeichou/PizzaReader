@@ -83,3 +83,9 @@ function convertToTimezone($datetime, $timezone) {
 function convertToUTC($datetime, $timezone){
     return Carbon::createFromFormat('Y-m-d\TH:i', $datetime, $timezone)->tz('UTC');
 }
+
+function getNameFromId($array, $id): string {
+    $res = array_filter($array, function ($e) use (&$id) {return $e['id'] == $id;});
+    if(empty($res)) return "N/A";
+    else return array_pop($res)["name"];
+}
