@@ -22,6 +22,7 @@ class Comic extends Model {
 
     public function scopePublic($query, $ord="order_index") {
         $query = $query->orderBy($ord);
+        if ($ord !== 'name') $query = $query->orderBy('name');
         if (!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $query->where('hidden', 0);
         else if (Auth::user()->hasPermission('manager'))
@@ -104,8 +105,9 @@ class Comic extends Model {
     }
 
     public static function getNextOrderIndex(): int {
-        $max = Comic::max('order_index');
-        return intval(($max ? $max : 0) + 1);
+        /*$max = Comic::max('order_index');
+        return intval(($max ? $max : 0) + 1);*/
+        return 1;
     }
 
     public static function getFormFields() {
