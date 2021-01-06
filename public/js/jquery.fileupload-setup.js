@@ -3,10 +3,8 @@ $(function () {
     'use strict';
     fileupload.fileupload({
         url: fileupload.attr('action'),
-        disableImageResize: /Android(?!.*Chrome)|Opera/.test(
-            window.navigator.userAgent
-        ),
-        maxFileSize: 10485760,
+        disableImageResize: true,
+        maxFileSize: 104857600,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|webp)$/i
     });
 
