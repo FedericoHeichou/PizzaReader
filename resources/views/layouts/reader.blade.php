@@ -58,7 +58,12 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <router-link to="/comics" class="nav-link">
-                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> Comics
+                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> All Comics
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/alph" class="nav-link">
+                                <span aria-hidden="true" title="Alphabetical" class="fas fa-book fa-fw"></span> Alphabetical
                             </router-link>
                         </li>
                     </ul>

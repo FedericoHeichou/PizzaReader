@@ -14,6 +14,7 @@ const router = new VueRouter({
         {path: '/', redirect: '/comics'},
         {path: '/public/*', redirect: '/*'},
         {path: '/comics', component: Comics},
+        {path: '/alph', component: Comics},
         {path: '/comics/:slug', component: Comic},
         {path: '/targets/:target', component: Comics},
         {path: '/genres/:genre', component: Comics},

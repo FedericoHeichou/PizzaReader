@@ -1,6 +1,6 @@
 let actions = {
-    fetchComics({commit}) {
-        axios.get(API_BASE_URL + '/comics')
+    fetchComics({commit}, path) {
+        axios.get(API_BASE_URL + path)
             .then(res => {
                 commit('FETCH_COMICS', res.data['comics'])
             }).catch(err => {
@@ -25,14 +25,6 @@ let actions = {
             .then(res => {
                 commit('FETCH_COMIC', res.data['comic']);
                 commit('FETCH_CHAPTER', res.data['chapter']);
-            }).catch(err => {
-            console.log(err)
-        })
-    },
-    fetchComicsFiltered({commit}, path) {
-        axios.get(API_BASE_URL + path)
-            .then(res => {
-                commit('FETCH_COMICS', res.data['comics'])
             }).catch(err => {
             console.log(err)
         })

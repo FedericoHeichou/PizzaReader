@@ -56,10 +56,7 @@ export default {
     },
     methods: {
         loadComics() {
-            if (this.$route.params.target !== undefined || this.$route.params.genre !== undefined)
-                this.$store.dispatch('fetchComicsFiltered', this.$route.path);
-            else
-                this.$store.dispatch('fetchComics');
+            this.$store.dispatch('fetchComics', this.$route.path);
             this.old_route_path = this.$route.path;
         }
     },

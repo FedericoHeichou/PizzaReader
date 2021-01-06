@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::name('reader.')->group(function () {
     Route::get('/comics/', [ReaderController::class, 'comics'])->name('comics');
+    Route::get('/alph/', [ReaderController::class, 'alph'])->name('alph');
     Route::get('/comics/{comic}', [ReaderController::class, 'comic'])->name('comic');
     Route::get('/read/{comic}/{language}/{ch?}', [ReaderController::class, 'chapter'])->name('read')->where('ch', '.*');
     Route::get('/download/{comic}/{language}/{ch?}', [ReaderController::class, 'download'])->name('download')->where('ch', '.*');

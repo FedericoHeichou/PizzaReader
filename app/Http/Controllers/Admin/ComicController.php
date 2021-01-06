@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Auth;
 class ComicController extends Controller {
     public function index() {
         if (Auth::user()->hasPermission('manager')) {
-            $comics = Comic::all();
+            $comics = Comic::orderBy('name')->get();
         } else {
-            $comics = Auth::user()->comics;
+            $comics = Auth::user()->comics()->orderBy('name')->get();
         }
         return view('admin.comics.index')->with('comics', $comics);
     }

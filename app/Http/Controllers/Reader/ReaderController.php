@@ -15,14 +15,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ReaderController extends Controller {
+
     public function comics() {
+        return response()->json($this->getComics());
+    }
+
+    public function alph() {
+        return response()->json($this->getComics("alph"));
+    }
+
+    public function getComics($ord="") {
         $response = ['comics' => []];
 
-        $comics = Comic::public()->get();
+        $comics = Comic::public($ord)->get();
         foreach ($comics as $comic) {
             array_push($response['comics'], Comic::generateReaderArray($comic));
         }
-        return response()->json($response);
+        return $response;
     }
 
     public function search($search) {

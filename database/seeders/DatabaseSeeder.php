@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder {
             RoleSeeder::class,
             ComicFormatSeeder::class,
             SettingsSeeder::class,
-            TestSeeder::class, //TODO to remove
+            //TestSeeder::class, //TODO to remove
         ]);
     }
 }
