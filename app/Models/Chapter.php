@@ -267,7 +267,7 @@ class Chapter extends Model {
                     'field' => 'hidden',
                     'label' => 'Hidden',
                     'hint' => 'Check to hide this comic',
-                    'checked' => 1,
+                    'checked' => intval(config('settings.default_hidden_chapter')),
                     'required' => 1,
                 ],
                 'values' => ['boolean'],

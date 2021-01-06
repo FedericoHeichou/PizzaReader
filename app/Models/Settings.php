@@ -106,13 +106,13 @@ class Settings extends Model {
                 ],
                 'values' => ['integer', 'min:0'],
             ], [
-                'type' => 'input_text',
+                'type' => 'textarea',
                 'parameters' => [
                     'field' => 'footer',
                     'label' => 'Footer text',
                     'hint' => 'The text showed in the footer',
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:3000'],
             ], [
                 'type' => 'input_checkbox',
                 'parameters' => [
@@ -121,7 +121,23 @@ class Settings extends Model {
                     'hint' => 'Check to enable the registration of new users',
                 ],
                 'values' => ['boolean'],
-            /*], [
+            ], [
+                'type' => 'input_checkbox',
+                'parameters' => [
+                    'field' => 'default_hidden_comic',
+                    'label' => 'Set comics hidden as default',
+                    'hint' => 'Check to set the hidden checkbox checked as default in the comic\'s creation',
+                ],
+                'values' => ['boolean'],
+            ], [
+                'type' => 'input_checkbox',
+                'parameters' => [
+                    'field' => 'default_hidden_chapter',
+                    'label' => 'Set chapters hidden as default',
+                    'hint' => 'Check to set the hidden checkbox checked as default in the chapter\'s creation',
+                ],
+                'values' => ['boolean'],
+            ], /*[
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'recaptcha_public',
@@ -160,8 +176,8 @@ class Settings extends Model {
                     'label' => 'AdSense banner bottom',
                     'hint' => 'Insert the code of your adsense banner (auto resizeable)',
                 ],
-                'values' => ['max:191'],*/
-            ],
+                'values' => ['max:191'],
+            ],*/
         ];
     }
 

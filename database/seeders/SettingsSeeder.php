@@ -84,6 +84,16 @@ class SettingsSeeder extends Seeder {
         $s->save();
 
         $s = new Settings();
+        $s->key = 'default_hidden_comic';
+        $s->value = '1';
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'default_hidden_chapter';
+        $s->value = '1';
+        $s->save();
+
+        $s = new Settings();
         $s->key = 'recaptcha_public';
         $s->value = null;
         $s->save();
