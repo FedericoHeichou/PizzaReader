@@ -21,7 +21,7 @@ class ReaderController extends Controller {
     }
 
     public function alph() {
-        return response()->json($this->getComics("alph"));
+        return response()->json($this->getComics("name"));
     }
 
     public function getComics($ord="") {

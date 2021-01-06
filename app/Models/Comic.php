@@ -20,9 +20,8 @@ class Comic extends Model {
         'order_index' => 'float',
     ];
 
-    public function scopePublic($query, $ord="") {
-        if($ord === "alph") $query->orderBy('name');
-        else $query = $query->orderBy('order_index');
+    public function scopePublic($query, $ord="order_index") {
+        $query = $query->orderBy($ord);
         if (!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $query->where('hidden', 0);
         else if (Auth::user()->hasPermission('manager'))
