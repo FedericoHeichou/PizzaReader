@@ -24,7 +24,7 @@ class ReaderController extends Controller {
         return response()->json($this->getComics("name"));
     }
 
-    public function getComics($ord="") {
+    public function getComics($ord="order_index") {
         $response = ['comics' => []];
 
         $comics = Comic::public($ord)->get();
