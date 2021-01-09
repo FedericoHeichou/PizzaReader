@@ -474,7 +474,7 @@ body.hide-header #hide-header-button {
 /* load icon */
 
 .reader-image-wrapper {
-    background: transparent url('/public/img/loading.gif') center no-repeat;
+    background: transparent url(/img/loading.gif) center no-repeat;
     min-height: 128px;
 }
 

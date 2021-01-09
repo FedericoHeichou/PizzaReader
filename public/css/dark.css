@@ -8,12 +8,13 @@ body.dark {
     --black-3: #393939;
     --black-6: #404345;
     --red-0: #572f32;
-    background: var(--black-1);
+    --bkg: var(--black-1);
+    background: var(--bkg);
     color: #c4c8cc;
 }
 
 body.dark {
-    background: var(--black-1);
+    background: var(--bkg);
     color: var(--white-5);
 }
 
@@ -50,7 +51,7 @@ body.dark .read:not(.hidden) {
 }
 
 body.dark .form-control, body.dark .custom-file-label {
-    background-color: var(--black-1) !important;
+    background-color: var(--bkg) !important;
     color: var(--white-6);
 }
 

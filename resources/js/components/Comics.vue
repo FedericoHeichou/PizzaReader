@@ -26,10 +26,10 @@
                 </li>
                 <li v-if="comic.last_chapter != null" class="text-success">
                     <span class="fas fa-book-open fa-fw" aria-hidden="true" title="Last chapter"></span>
-                    <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold">{{ comic.last_chapter.full_title }}</router-link>
+                    <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold text-truncate">{{ comic.last_chapter.full_title }}</router-link>
                 </li>
             </ul>
-            <div class="description pre-formatted">{{ comic.description }}</div>
+            <div class="description pre-formatted pr-2 pr-lg-0">{{ comic.description }}</div>
         </div>
     </div>
 </template>
@@ -58,7 +58,7 @@ export default {
         loadComics() {
             this.$store.dispatch('fetchComics', this.$route.path);
             this.old_route_path = this.$route.path;
-        }
+        },
     },
     computed: {
         ...mapGetters([

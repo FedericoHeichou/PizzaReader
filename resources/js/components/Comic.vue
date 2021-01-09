@@ -181,18 +181,19 @@
                         </a>
                         <span v-else class="fa fa-file-pdf fa-fw text-secondary" title="PDF unavailable"></span>
                     </div>
-                    <div class="col-sm-5 col-7 text-left order-2 overflow-hidden">
+                    <div class="col-sm-5 col-7 text-left order-2 text-truncate">
                         <span class="chapter">
                             <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
                                 <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                             </a>
-                            <router-link :to="chapter.url" class="filter">{{ chapter.full_title }}</router-link>
+                            <router-link :to="chapter.url" class="filter" :title="chapter.full_title">{{ chapter.full_title }}</router-link>
                         </span>
                     </div>
                     <div class="col-auto text-sm-center pr-sm-3 pr-1 order-sm-3 order-4 overflow-hidden">
                         <span :class="'rounded flag flag-' + chapter.language" :title="chapter.language"></span>
                     </div>
-                    <div class="col-sm-2 col-7 text-success text-left pl-sm-3 pl-0 order-sm-4 order-5 overflow-hidden">
+                    <div class="col-sm-2 col-7 text-left pl-sm-3 pl-0 order-sm-4 order-5 text-truncate"
+                         :title="chapter.teams.filter(Boolean).map(function(el){return el.name;}).join(', ')">
                         <template v-if="chapter.teams[0] != null">
                             <a :href="chapter.teams[0].url" target="_blank">{{ chapter.teams[0].name }}</a>
                         </template>
@@ -201,7 +202,7 @@
                         </template>
                     </div>
                     <div class="col-sm-2 col text-info text-right order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
-                    <div class="col text-right overflow-hidden order-sm-6 order-3 overflow-hidden pl-0" :title="new Date(chapter.published_on)">
+                    <div class="col text-right overflow-hidden order-sm-6 order-3 pl-0" :title="new Date(chapter.published_on)">
                         {{ chapter.time }}
                     </div>
                 </div>

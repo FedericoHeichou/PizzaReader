@@ -1,6 +1,6 @@
 let actions = {
     fetchComics({commit}, path) {
-        axios.get(API_BASE_URL + path)
+        return axios.get(API_BASE_URL + path)
             .then(res => {
                 commit('FETCH_COMICS', res.data['comics'])
             }).catch(err => {
