@@ -476,6 +476,7 @@ body.hide-header #hide-header-button {
 .reader-image-wrapper {
     background: transparent url(/img/loading.gif) center no-repeat;
     min-height: 128px;
+    min-width: 128px;
 }
 
 .reader-image-wrapper > img {
