@@ -7,7 +7,20 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('settings.reader_name', 'PizzaReader') }}</title>
+    <title>Admin | {{ config('settings.reader_name') }}</title>
+
+    <!-- SEO -->
+    <link rel="canonical" href="{{ URL::current() }}" />
+    <meta name="description" content="{{ config('settings.description') }}"/>
+    <meta property="og:image" content="{{ asset(config('settings.cover_path')) }}" />
+    <meta property="og:image:secure_url" content="{{ asset(config('settings.cover_path')) }}" />
+    <?php $size = getimagesize(config('settings.cover_path')); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
+    <meta property="og:image:height" content="{{ $size[1] ?? 0 }}" />
+    <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ config('settings.reader_name_long') }}" />
+    <meta property="og:description" content="{{ config('settings.description') }}" />
+    <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,10 +40,11 @@
     <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
-    <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="32x32"/>
-    <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="192x192"/>
-    <link rel="apple-touch-icon" href="{{ config('settings.logo_path_72') }}"/>
-    <meta name="msapplication-TileImage" content="{{ config('settings.logo_path_72') }}"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_32') }}" sizes="32x32"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_72') }}" sizes="72x72"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_192') }}" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="{{ config('settings.logo_asset_72') }}"/>
+    <meta name="msapplication-TileImage" content="{{ config('settings.logo_asset_72') }}"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}" crossOrigin="use-credentials">
 </head>
 <body class="{{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "dark" : "" }}">
@@ -41,7 +55,7 @@
                     @if(config('settings.logo'))
                         <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
                              title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
-                             class="logo" src="{{ config('settings.logo_path_72') }}">
+                             class="logo" src="{{ config('settings.logo_asset_72') }}">
                     @endif
                     {{ config('settings.reader_name', 'PizzaReader') }}
                 </a>

@@ -45,6 +45,15 @@ class Settings extends Model {
                 ],
                 'values' => ['file', 'mimes:png', 'max:10240'],
             ], [
+                'type' => 'input_file',
+                'parameters' => [
+                    'field' => 'cover',
+                    'label' => 'Cover',
+                    'hint' => 'Insert the cover of the reader. It could be used as preview in other websites',
+                    'accept' => '.jpg,.jpeg,.png,.gif,.webp'
+                ],
+                'values' => ['file', 'mimes:jpg,jpeg,png,gif,webp', 'max:10240'],
+            ], [
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'home_link',
@@ -191,6 +200,11 @@ class Settings extends Model {
             $fields['logo'] = preg_replace("/%/", "", $request->file('logo')->getClientOriginalName());
         } else {
             unset($fields['logo']);
+        }
+        if (isset($fields['cover']) && $fields['cover']) {
+            $fields['cover'] = preg_replace("/%/", "", $request->file('cover')->getClientOriginalName());
+        } else {
+            unset($fields['cover']);
         }
         return $fields;
     }

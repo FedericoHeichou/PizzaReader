@@ -24,22 +24,24 @@ class SettingsController extends Controller {
         $settings = Settings::all()->pluck('value', 'key')->toArray();
         foreach ($fields as $key => $value) {
             if ($settings[$key] !== $fields[$key] || ($key === 'logo' && $value)) {
-                if ($key === 'logo' && $value) {
-                    $path = '/public/img/logo';
+                if (($key === 'logo' || $key === 'cover') && $value) {
+                    $path = "/public/img/$key";
                     Storage::makeDirectory($path);
 
                     // Original
-                    Storage::delete($path . '/' . $settings['logo']);
-                    $request->file('logo')->storeAs($path, $value);
+                    Storage::delete($path . '/' . $settings[$key]);
+                    $request->file($key)->storeAs($path, $value);
 
-                    // Only png are supported
-                    $name = substr($value, 0, -4);
-                    $old_name = substr($settings['logo'], 0, -4);
-                    $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 72);
-                    $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 96);
-                    $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 128);
-                    $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 192);
-                    $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 256);
+                    if ($key === 'logo') {
+                        // Only png are supported
+                        $name = substr($value, 0, -4);
+                        $old_name = substr($settings['logo'], 0, -4);
+                        $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 72);
+                        $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 96);
+                        $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 128);
+                        $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 192);
+                        $this->convertAndStore($request->file('logo'), $path, $name, $old_name, 256);
+                    }
                 }
                 Settings::where('key', $key)->update(['value' => $value]);
             }

@@ -268,6 +268,10 @@ export default {
                     const instance = new ComponentClass();
                     instance.$mount();
                     if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
+                } else {
+                    const title = this.$store.getters.comic.title + " | " + this.reader.SITE_NAME;
+                    $('title').html(title);
+                    $('meta[property="og:title"]').html(title);
                 }
                 filter_search();
             });

@@ -535,6 +535,9 @@ export default {
                 this.viewed[this.$store.getters.comic.slug][this.$store.getters.chapter.slug_lang_vol_ch_sub] = 1;
                 this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             }
+            const title = this.$store.getters.chapter.full_title + " | " + this.$store.getters.comic.title + " | " + this.reader.SITE_NAME;
+            $('title').html(title);
+            $('meta[property="og:title"]').html(title);
         },
         sendVote(e) {
             const vote = parseInt($(e.target).data('vote'));

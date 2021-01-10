@@ -34,7 +34,12 @@ class SettingsSeeder extends Seeder {
 
         $s = new Settings();
         $s->key = 'logo';
-        $s->value = null;
+        $s->value = 'PizzaReader.png';
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'cover';
+        $s->value = 'cover.png';
         $s->save();
 
         $s = new Settings();

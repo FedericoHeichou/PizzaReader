@@ -3,12 +3,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('settings.reader_name', 'PizzaReader') }}</title>
+<?php
+    $title = request()->segment(2);
+    $pre = "";
+    if(request()->segment(1) === "read") {
+        $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
+        $ch = \App\Http\Controllers\Reader\ReaderController::explodeCh(request()->segment(3), $ch_uri);
+        $chapter = new \App\Models\Chapter();
+        $chapter->volume = $ch['vol'];
+        $chapter->chapter = $ch['ch'];
+        $chapter->subhapter = $ch['sub'];
+        $pre = \App\Models\Chapter::getVolChSub($chapter) . " | ";
+    }
+    $title = $pre . ($title ? ucwords(str_replace("-", " ", $title)) . " | " . config('settings.reader_name') : config('settings.reader_name_long'));
+?>
+    <title>{{ $title }}</title>
+
+    <!-- SEO -->
+    <link rel="canonical" href="{{ URL::current() }}" />
+    <meta name="description" content="{{ config('settings.description') }}"/>
+    <meta property="og:image" content="{{ asset(config('settings.cover_path')) }}" />
+    <meta property="og:image:secure_url" content="{{ asset(config('settings.cover_path')) }}" />
+    <?php $size = getimagesize(config('settings.cover_path')); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
+    <meta property="og:image:height" content="{{ $size[1] ?? 0 }}" />
+    <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ $title }}" />
+    <meta property="og:description" content="{{ config('settings.description') }}" />
+    <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
     <script type="text/javascript">
         const BASE_URL = "{{ substr(config('app.url'), -1) === '/' ? config('app.url') : config('app.url') . '/' }}"
         const API_BASE_URL = BASE_URL + 'api';
+        const SITE_NAME = "{{ config('settings.reader_name') }}";
+        const SITE_NAME_FULL = "{{ config('settings.reader_name_long') }}";
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
@@ -28,10 +57,11 @@
     <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
-    <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="32x32"/>
-    <link rel="icon" href="{{ config('settings.logo_path_72') }}" sizes="192x192"/>
-    <link rel="apple-touch-icon" href="{{ config('settings.logo_path_72') }}"/>
-    <meta name="msapplication-TileImage" content="{{ config('settings.logo_path_72') }}"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_32') }}" sizes="32x32"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_72') }}" sizes="72x72"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_192') }}" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="{{ config('settings.logo_asset_72') }}"/>
+    <meta name="msapplication-TileImage" content="{{ config('settings.logo_asset_72') }}"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}" crossOrigin="use-credentials">
 </head>
 <body class="{{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "dark" : "" }}">
@@ -42,7 +72,7 @@
                     @if(config('settings.logo'))
                         <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
                              title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
-                             class="logo" src="{{ config('settings.logo_path_72') }}">
+                             class="logo" src="{{ config('settings.logo_asset_72') }}">
                     @endif
                     {{ config('settings.reader_name', 'PizzaReader') }}
                 </a>

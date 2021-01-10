@@ -43,6 +43,8 @@ export default {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').hide();
         $('#nav-filter').show();
+        $('title').html(this.reader.SITE_NAME_FULL);
+        $('meta[property="og:title"]').html(this.reader.SITE_NAME_FULL);
         this.loadComics();
     },
     updated() {

@@ -28,7 +28,7 @@ body {
     text-align: justify;
 }
 
-.description:after {
+.item:not(.hidden) .description:after {
     content: "";
     position: absolute;
     bottom: 0;

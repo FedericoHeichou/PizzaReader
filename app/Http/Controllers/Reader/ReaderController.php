@@ -201,7 +201,7 @@ class ReaderController extends Controller {
         return response()->json(['rating' => $chapter->rating]);
     }
 
-    private function explodeCh($language, $ch) {
+    static function explodeCh($language, $ch) {
         if ($ch) {
             $ch = explode("/", $ch);
             $length = count($ch);
