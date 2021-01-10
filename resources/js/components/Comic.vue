@@ -256,7 +256,7 @@ import NotFound from './NotFound';
 export default {
     name: "Comic",
     components : { NotFound },
-    mounted() {
+    beforeMount() {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').show();
         $('#nav-filter').hide();

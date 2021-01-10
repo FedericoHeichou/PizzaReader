@@ -305,7 +305,7 @@ import NotFound from './NotFound';
 export default {
     name: "Read",
     components : { NotFound },
-    mounted() {
+    beforeMount() {
         this.setupParams(this.$route.params)
         $('body').addClass('body-reader');
         $('#nav-search').show();
@@ -520,9 +520,11 @@ export default {
             e.clientX < pW / 2 ? $('#turn-left').click() : $('#turn-right').click();
         },
         swipeInit() {
-            $("#reader-images").swipe( {
-                swipeLeft: function() {$('#turn-right').click()},
-                swipeRight: function() {$('#turn-left').click()},
+            $(document).ready(function(){
+                $("#reader-images").swipe( {
+                    swipeLeft: function() {$('#turn-right').click()},
+                    swipeRight: function() {$('#turn-left').click()},
+                });
             });
         },
         updateViewChapter() {

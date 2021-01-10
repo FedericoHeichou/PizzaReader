@@ -39,7 +39,7 @@ import {mapGetters} from 'vuex';
 
 export default {
     name: "Comics",
-    mounted() {
+    beforeMount() {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').hide();
         $('#nav-filter').show();
