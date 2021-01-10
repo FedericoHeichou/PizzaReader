@@ -57,7 +57,7 @@
     <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
-    <link rel="icon" href="{{ config('settings.logo_asset_32') }}" sizes="32x32"/>
+    <link rel="icon" href="{{ config('settings.logo_asset_72') }}" sizes="32x32"/>
     <link rel="icon" href="{{ config('settings.logo_asset_72') }}" sizes="72x72"/>
     <link rel="icon" href="{{ config('settings.logo_asset_192') }}" sizes="192x192"/>
     <link rel="apple-touch-icon" href="{{ config('settings.logo_asset_72') }}"/>
