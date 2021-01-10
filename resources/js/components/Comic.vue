@@ -122,7 +122,7 @@
                             <div class="col-md-2 font-weight-bold">
                                 <label class="mb-0">Description:</label>
                             </div>
-                            <div class="col-md-10 pre-formatted">{{ comic.description }}</div>
+                            <div class="col-md-10 text-pre text-justify">{{ comic.description }}</div>
                         </div>
 
                     </div>

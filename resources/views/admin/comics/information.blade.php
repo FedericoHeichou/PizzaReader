@@ -40,7 +40,7 @@
                             @if($field['type'] === 'input_checkbox') <span>{{ $value ? "Yes" : "No" }}</span>
                             @elseif($field['type'] === 'input_file' && $value) <img src="{{ \App\Models\Comic::getThumbnailUrl($comic) }}" class="img-thumbnail thumbnail">
                             @elseif($field['type'] === 'select') <span>{{ !is_int($value) && $value !== null ? $value : ($value > 0 ? getNameFromId($field['parameters']['options']->toArray(), $value) : 'N/A') }}</span>
-                            @elseif($field['type'] === 'textarea') <span class="pre-formatted">{{ $value ?? 'N/A' }}</span>
+                            @elseif($field['type'] === 'textarea') <span class="text-pre">{{ $value ?? 'N/A' }}</span>
                             @elseif($field['type'] === 'input_datetime_local') <span class="convert-timezone">{{ $value ?? 'N/A' }}</span>
                             @else <span>{{ $value ?? 'N/A' }}</span>
                             @endif

@@ -4,7 +4,7 @@
     border-bottom: 1px solid #ddd;
 }
 
-.pre-formatted {
+.text-pre {
     white-space: pre-line;
     line-height: 1.3;
 }

@@ -38,7 +38,7 @@ body {
     background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--bkg) 80%);
 }
 
-.pre-formatted {
+.text-pre {
     white-space: pre-line;
     line-height: 1.3;
 }

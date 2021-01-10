@@ -29,7 +29,7 @@
                     <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold">{{ comic.last_chapter.full_title }}</router-link>
                 </li>
             </ul>
-            <div class="description pre-formatted pr-2 pr-lg-0">{{ comic.description }}</div>
+            <div class="description text-pre pr-2 pr-lg-0">{{ comic.description }}</div>
         </div>
     </div>
 </template>
