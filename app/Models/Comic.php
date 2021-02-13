@@ -249,7 +249,9 @@ class Comic extends Model {
     public static function generateReaderArray($comic) {
         if (!$comic) return null;
         $genres = [];
-        foreach (explode(',', $comic->genres) as $genre) {
+        $exploded_genres = explode(',', $comic->genres);
+        sort($exploded_genres);
+        foreach ($exploded_genres as $genre) {
             if ($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
         }
         return [
