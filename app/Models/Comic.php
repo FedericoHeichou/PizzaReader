@@ -59,6 +59,10 @@ class Comic extends Model {
         return $this->chapters()->public();
     }
 
+    public function lastPublishedChapter() {
+        return $this->chapters()->published()->first();
+    }
+
     public static function slug($slug) {
         return Comic::where('slug', $slug)->first();
     }
@@ -267,8 +271,7 @@ class Comic extends Model {
             'rating' => round(Chapter::public()->where('comic_id', $comic->id)->avg('rating'), 2),
             'url' => Comic::getUrl($comic),
             'slug' => $comic->slug,
-            'last_chapter' => Chapter::generateReaderArray($comic, Chapter::where([['comic_id', $comic->id], ['hidden', 0]])
-                ->orderByDesc('created_at')->first()), // I want only the last truly public chapter
+            'last_chapter' => Chapter::generateReaderArray($comic, $comic->lastPublishedChapter()), // I want only the last truly public chapter
         ];
     }
 
