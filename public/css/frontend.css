@@ -62,6 +62,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 350px;
+    max-width: 300px;
 }
 
 #results-box ul {

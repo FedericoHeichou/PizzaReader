@@ -305,7 +305,7 @@ import NotFound from './NotFound';
 export default {
     name: "Read",
     components : { NotFound },
-    beforeMount() {
+    mounted() {
         this.setupParams(this.$route.params)
         $('body').addClass('body-reader');
         $('#nav-search').show();
