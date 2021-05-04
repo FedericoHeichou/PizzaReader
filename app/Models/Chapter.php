@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 class Chapter extends Model {
     protected $fillable = [
@@ -225,6 +226,7 @@ class Chapter extends Model {
 
     public static function getFormFields() {
         $teams = Team::all();
+        $id_teams = $teams->pluck('id');
         return [
             [
                 'type' => 'input_text',
@@ -354,7 +356,7 @@ class Chapter extends Model {
                     'options' => $teams,
                     'required' => 1,
                 ],
-                'values' => ['integer', 'between:1,' . $teams->count()],
+                'values' => ['integer', Rule::in($id_teams)],
             ], [
                 'type' => 'select',
                 'parameters' => [
@@ -364,7 +366,7 @@ class Chapter extends Model {
                     'options' => $teams,
                     'nullable' => 'nullable',
                 ],
-                'values' => ['integer', 'between:0,' . $teams->count()],
+                'values' => ['integer', Rule::in($id_teams) . ',"0"'],
             ], [
                 'type' => 'input_text',
                 'parameters' => [
