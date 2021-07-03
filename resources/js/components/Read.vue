@@ -300,7 +300,7 @@
 <script>
 import Vue from 'vue'
 import {mapGetters} from "vuex";
-import NotFound from './NotFound';
+import NotFound from './NotFound.vue';
 
 export default {
     name: "Read",

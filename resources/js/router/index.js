@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Comics from "../components/Comics";
-import Comic from "../components/Comic";
-import Read from "../components/Read";
-import NotFound from "../components/NotFound";
+import Comics from "../components/Comics.vue";
+import Comic from "../components/Comic.vue";
+import Read from "../components/Read.vue";
+import NotFound from "../components/NotFound.vue";
 
 Vue.use(VueRouter)
 
