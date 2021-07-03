@@ -17,7 +17,7 @@ cd public; ln -s ../storage/app/public storage
 sed -i 's/RewriteEngine On/RewriteEngine On\n    RewriteCond %{HTTP_HOST} ^\(.+\)\\.reader\\.pizzareader\\.local$   [NC]\n    RewriteRule ^\(.*\)$ https:\/\/reader\\.pizzareader\\.local%{REQUEST_URI} [R=301,QSA,NC,L]/g' .htaccess
 cd ..
 
-php composer.phar install
+php composer.phar install --no-dev
 cp .env.example .env
 sed -i 's/^\(APP_NAME=\).*$/\1PizzaReader/' .env
 sed -i "s,^\(APP_URL=\).*$,\1https:\/\/reader.pizzareader.local," .env
