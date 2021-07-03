@@ -252,21 +252,20 @@
             <div @click="clickPage" id="reader-images"
                 class="col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
                 <template v-if="renderingMode === 'single-page'">
-                    <div :data-page="page" :style="'order: ' + page + ';'"
+                    <div :data-page="page" :style="'order: ' + page + ';'" :rendering="renderingMode"
                          class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
                     </div>
                 </template>
                 <template v-else-if="renderingMode === 'double-page'">
-                    <div :data-page="page" :style="'order: ' + page + ';'"
+                    <div :data-page="page" :style="'order: ' + page + ';'" :rendering="renderingMode"
                          class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
                     </div>
-                    <div v-if="chapter.pages[page] != null" :data-page="page+1" :style="'order: ' + (page+1) + ';'"
+                    <div v-if="chapter.pages[page] != null" :data-page="page+1" :style="'order: ' + (page+1) + ';'" :rendering="renderingMode"
                          class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
                     </div>
                 </template>
                 <template v-else>
-                    <div v-for="(ch_page, index) in chapter.pages" :data-page="index+1"
-                         :style="'order: ' + (index+1) + ';'"
+                    <div v-for="(ch_page, index) in chapter.pages" :data-page="index+1" :style="'order: ' + (index+1) + ';'" :rendering="renderingMode"
                          class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
                     </div>
                 </template>
@@ -274,9 +273,9 @@
             <div id="reader-page-bar" class="col-auto d-none d-lg-flex directional">
                 <div id="track" class="cursor-pointer row no-gutters">
                     <div id="trail" class="position-absolute h-100 noevents"
-                         :style="'width: ' + ((page+renderedPages-1)/max_page*100) + '%;'">
+                         :style="'width: ' + (page === max_page ? 100*page/max_page : (100*(page+renderedPages-1)/max_page)) + '%;'">
                         <div id="thumb" class="h-100"
-                             :style="'width: calc(' + (100/page*renderedPages) + '% - ' + (renderedPages*3-2) +'px);'"></div>
+                             :style="'width: ' + (page === max_page ? 100/page : (100/(page+renderedPages-1)*renderedPages)) + '%;'"></div>
                     </div>
                     <div id="notches" class="row no-gutters h-100 w-100 directional">
                         <template v-for="(ch_page, index) in chapter.pages">
@@ -365,6 +364,10 @@ export default {
             }
             this.scrollTopOfPage();
             this.needToRefresh = false;
+        } else if (this.firstLoad && this.page > 1 && this.renderingMode === 'long-strip') {
+            this.animation = true;
+            this.scrollTopOfPage();
+            this.firstLoad = false;
         }
     },
     data() {
@@ -379,12 +382,13 @@ export default {
             displayFit: this.$root.getCookie('displayFit') || 'fit-width',
             renderingMode: this.$root.getCookie('renderingMode') || 'single-page',
             direction: this.$root.getCookie('direction') || 'ltr',
-            renderedPages: 1,
+            renderedPages: this.$root.getCookie('renderingMode') === 'double-page' ? 2 : 1,
             valueLeft: this.$root.getCookie('direction') === 'rtl' ? 1 : -1,
             valueRight: this.$root.getCookie('direction') === 'rtl' ? -1 : 1,
             animation: false,
             needToRefresh: true,
             images: [],
+            firstLoad: true,
         }
     },
     methods: {
@@ -413,11 +417,12 @@ export default {
                 page = isNaN(parseInt(requested_page)) || parseInt(requested_page) < 1 ? 1 : parseInt(requested_page);
             }
             this.page = page;
-            if (location.hash !== '#' + page) {
+            let target_hash = '#' + page
+            if (location.hash !== target_hash) {
                 if (history.pushState) {
-                    history.pushState(null, null, '#' + page);
+                    history.pushState(null, null, target_hash);
                 } else {
-                    location.hash = '#' + page;
+                    location.hash = target_hash;
                 }
             }
             this.preloadImagesFrom(page);
@@ -469,9 +474,9 @@ export default {
             this.reader.setCookie(setting, value, 3650);
         },
         scrollTopOfPage() {
-            if (this.max_page < 1) return;
+            if (this.max_page < 1 || !this.animation) return;
             let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
-            if (this.renderingMode === 'long-strip' && this.animation) {
+            if (this.renderingMode === 'long-strip') {
                 canChange = false;
                 $('html,body').animate({scrollTop: $('.reader-image-wrapper[data-page="' + this.page + '"]').offset().top - offset}, 400, function () {
                     canChange = true;
@@ -538,6 +543,7 @@ export default {
             const title = this.$store.getters.chapter.full_title + " | " + this.$store.getters.comic.title + " | " + this.reader.SITE_NAME;
             $('title').html(title);
             $('meta[property="og:title"]').html(title);
+            this.firstLoad = true;
         },
         sendVote(e) {
             const vote = parseInt($(e.target).data('vote'));

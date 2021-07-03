@@ -2,16 +2,18 @@ import router from '../router/index'
 
 let mutations = {
     FETCH_COMICS(state, comics) {
-        return state.comics = comics
+        return state.comics = comics;
     },
     FETCH_COMIC(state, comic) {
-        return state.comic = comic
+        return state.comic.push(comic);
     },
     FETCH_CHAPTER(state, chapter) {
-        state.chapter = chapter
-        if(chapter === null && state.comic !== null) {
-            router.push(state.comic.url)
+        let comic = router.app.$store.getters.comic
+        if(chapter === null && comic !== null) {
+            router.push(comic.url);
         }
+        return state.chapter.push(chapter);
     },
-}
+};
+
 export default mutations

@@ -4,32 +4,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
-    $title = request()->segment(2);
+    use App\Http\Controllers\Reader\ReaderController;
+    use App\Models\Comic;
+    use App\Models\Chapter;
+
+    $comic_slug = request()->segment(2);
+    $comic_title = "";
     $pre = "";
-    if(request()->segment(1) === "read") {
-        $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
-        $ch = \App\Http\Controllers\Reader\ReaderController::explodeCh(request()->segment(3), $ch_uri);
-        $chapter = new \App\Models\Chapter();
-        $chapter->volume = $ch['vol'];
-        $chapter->chapter = $ch['ch'];
-        $chapter->subhapter = $ch['sub'];
-        $pre = \App\Models\Chapter::getVolChSub($chapter) . " | ";
+    $meta_description = config('settings.description');
+    $meta_image = config('settings.cover_path');
+
+    if(strpos(strtolower(request()->userAgent()), 'bot') !== false && $comic_slug){
+        $comic = Comic::publicSlug($comic_slug);
+        if($comic) {
+            $comic_title = $comic->name;
+            $meta_description = $comic->description;
+            $meta_image = 'storage/' . Comic::buildPath($comic) . '/' . urlencode($comic->thumbnail);
+            if(request()->segment(1) === "read") {
+                $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
+                $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
+                $chapter = Chapter::publicFilterByCh($comic, $ch);
+                if($chapter) {
+                    $pre = Chapter::getVolChSub($chapter) . " | ";
+                    $meta_image = 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
+                }
+            }
+        }
+    } else {
+        $comic_title = ucwords(str_replace("-", " ", $comic_slug));
+        if(request()->segment(1) === "read") {
+            $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
+            $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
+            $chapter = new Chapter();
+            $chapter->volume = $ch['vol'];
+            $chapter->chapter = $ch['ch'];
+            $chapter->subhapter = $ch['sub'];
+            $pre = Chapter::getVolChSub($chapter) . " | ";
+        }
     }
-    $title = $pre . ($title ? ucwords(str_replace("-", " ", $title)) . " | " . config('settings.reader_name') : config('settings.reader_name_long'));
+    $title = $pre . ($comic_title ? $comic_title . " | " . config('settings.reader_name') : config('settings.reader_name_long'));
 ?>
     <title>{{ $title }}</title>
 
     <!-- SEO -->
     <link rel="canonical" href="{{ URL::current() }}" />
-    <meta name="description" content="{{ config('settings.description') }}"/>
-    <meta property="og:image" content="{{ asset(config('settings.cover_path')) }}" />
-    <meta property="og:image:secure_url" content="{{ asset(config('settings.cover_path')) }}" />
-    <?php $size = getimagesize(config('settings.cover_path')); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
+    <meta name="description" content="{{ $meta_description }}"/>
+    <meta property="og:image" content="{{ asset($meta_image) }}" />
+    <meta property="og:image:secure_url" content="{{ asset($meta_image) }}" />
+    <?php $size = getimagesize($meta_image); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
     <meta property="og:image:height" content="{{ $size[1] ?? 0 }}" />
     <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ $title }}" />
-    <meta property="og:description" content="{{ config('settings.description') }}" />
+    <meta property="og:description" content="{{ $meta_description }}" />
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
@@ -94,6 +121,11 @@
                         <li class="nav-item">
                             <router-link to="/alph" class="nav-link">
                                 <span aria-hidden="true" title="Alphabetical" class="fas fa-book fa-fw"></span> Alphabetical
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/last" class="nav-link">
+                                <span aria-hidden="true" title="Last Releases" class="fas fa-book fa-fw"></span> Last Releases
                             </router-link>
                         </li>
                     </ul>

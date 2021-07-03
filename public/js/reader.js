@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     $(document).bind('scroll',function(e){
         let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
-        $('.reader-image-wrapper').each(function(){
+        $('.reader-image-wrapper[rendering=long-strip]').each(function(){
             if ($(this).offset().top < window.pageYOffset + offset + 10 &&
                 $(this).offset().top + $(this).height() > window.pageYOffset + offset &&
                 window.location.hash !== '#' + $(this).attr('data-page') &&

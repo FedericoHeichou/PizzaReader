@@ -1,7 +1,7 @@
 let state = {
     comics: [],
-    comic: null,
-    chapter: null,
-}
+    comic: [],
+    chapter: [],
+};
 
-export default state
+export default state;

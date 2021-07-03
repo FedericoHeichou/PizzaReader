@@ -275,6 +275,7 @@ export default {
                 }
                 filter_search();
             });
+        $('html,body').scrollTop(0);
     },
     data() {
         return {

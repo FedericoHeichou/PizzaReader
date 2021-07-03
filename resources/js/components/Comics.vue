@@ -1,7 +1,7 @@
 <template>
     <div class="row py-sm-4">
         <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
-            <div class="thumbnail float-left mr-2">
+            <div class="thumbnail float-left mr-3">
                 <router-link :to="comic.url"><img :src="comic.thumbnail" :alt="comic.title" :title="comic.title" class="rounded"></router-link>
             </div>
             <div class="text-truncate mb-1 d-flex flex-nowrap align-items-center">
@@ -45,22 +45,12 @@ export default {
         $('#nav-filter').show();
         $('title').html(this.reader.SITE_NAME_FULL);
         $('meta[property="og:title"]').html(this.reader.SITE_NAME_FULL);
-        this.loadComics();
-    },
-    updated() {
-        if(this.old_route_path !== this.$route.path) this.loadComics();
+        this.$store.dispatch('fetchComics', '/comics');
     },
     data() {
         return {
             reader: this.$root,
-            old_route_path: "",
         }
-    },
-    methods: {
-        loadComics() {
-            this.$store.dispatch('fetchComics', this.$route.path);
-            this.old_route_path = this.$route.path;
-        },
     },
     computed: {
         ...mapGetters([
