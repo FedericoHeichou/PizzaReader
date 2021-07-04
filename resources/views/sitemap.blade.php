@@ -16,9 +16,8 @@ $comics = Comic::published()->get();
 $last_chapter = Chapter::published()->select('published_on')->max('published_on');
 $lastmod = $last_chapter ? date(DATE_ATOM, strtotime($last_chapter)) : date(DATE_ATOM, time());
 ob_start();
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/xsl\" href=\"" . asset('/storage/default.xsl') . "\"?>\n";
 ?>
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="{{asset('/storage/default.xsl')}}"?>
 <urlset
     xmlns="https://www.sitemaps.org/schemas/sitemap/0.9/"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
