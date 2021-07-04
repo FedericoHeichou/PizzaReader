@@ -20,6 +20,10 @@ class Comic extends Model {
         'order_index' => 'float',
     ];
 
+    public function scopePublished($query) {
+        return $query->where('hidden', 0);
+    }
+
     public function scopePublic($query, $ord="order_index") {
         $query = $query->orderBy($ord);
         if ($ord !== 'name') $query = $query->orderBy('name');
@@ -53,6 +57,10 @@ class Comic extends Model {
 
     public function volume_downloads() {
         return $this->hasMany(VolumeDownload::class);
+    }
+
+    public function publishedChapters() {
+        return $this->chapters()->published();
     }
 
     public function publicChapters() {
