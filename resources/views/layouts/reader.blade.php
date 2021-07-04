@@ -14,7 +14,9 @@
     $meta_description = config('settings.description');
     $meta_image = config('settings.cover_path');
 
-    if(strpos(strtolower(request()->userAgent()), 'bot') !== false && $comic_slug){
+    $user_agent = strtolower(request()->userAgent());
+
+    if((strpos($user_agent, 'bot') !== false || strpos($user_agent, 'facebook') !== false) && $comic_slug){
         $comic = Comic::publicSlug($comic_slug);
         if($comic) {
             $comic_title = $comic->name;
