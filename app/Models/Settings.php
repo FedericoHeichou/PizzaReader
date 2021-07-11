@@ -9,6 +9,10 @@ class Settings extends Model {
         'value',
     ];
 
+    public static function getSocials() {
+        return Settings::where('key', 'like', 'social_%')->whereNotNull('value')->get();
+    }
+
     public static function getFormFields() {
         return [
             [
@@ -146,6 +150,62 @@ class Settings extends Model {
                     'hint' => 'Check to set the hidden checkbox checked as default in the chapter\'s creation',
                 ],
                 'values' => ['boolean'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_facebook',
+                    'label' => 'Facebook',
+                    'hint' => 'Insert the URL of your Facebook page',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_instagram',
+                    'label' => 'Instagram',
+                    'hint' => 'Insert the URL of your Instagram page',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_twitter',
+                    'label' => 'Twitter',
+                    'hint' => 'Insert the URL of your Twitter account',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_telegram_channel',
+                    'label' => 'Telegram channel',
+                    'hint' => 'Insert the URL of your Telegram channel',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_telegram_group',
+                    'label' => 'Telegram group',
+                    'hint' => 'Insert the URL of your Telegram group',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_telegram_bot',
+                    'label' => 'Telegram bot',
+                    'hint' => 'Insert the URL of your Telegram bot',
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'social_discord',
+                    'label' => 'Discord',
+                    'hint' => 'Insert the URL of your Discord server',
+                ],
+                'values' => ['max:191'],
             ], /*[
                 'type' => 'input_text',
                 'parameters' => [

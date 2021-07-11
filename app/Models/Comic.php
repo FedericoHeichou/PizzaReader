@@ -119,7 +119,7 @@ class Comic extends Model {
     public static function getNextOrderIndex(): int {
         /*$max = Comic::max('order_index');
         return intval(($max ? $max : 0) + 1);*/
-        return 1;
+        return 0;
     }
 
     public static function getFormFields() {
@@ -241,8 +241,8 @@ class Comic extends Model {
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'order_index',
-                    'label' => 'Order index',
-                    'hint' => 'It is used to order the chapters (crescent order). You can use negative and decimal values. If empty it set the comic as current last',
+                    'label' => 'Recommended index',
+                    'hint' => 'Set it different from 0 to show the comic in the "Recommended" tab. It is used to order the chapters (crescent order) in "Recommended" tab. You can use negative and decimal values',
                     'pattern' => '-?[0-9]+(?:\.[0-9]{1,3})?',
                     'default' => Comic::getNextOrderIndex(),
                     'required' => 1,
@@ -281,6 +281,7 @@ class Comic extends Model {
             'rating' => round(Chapter::public()->where('comic_id', $comic->id)->avg('rating'), 2),
             'url' => Comic::getUrl($comic),
             'slug' => $comic->slug,
+            'recommended' => $comic->order_index,
             'last_chapter' => Chapter::generateReaderArray($comic, $comic->lastPublishedChapter()), // I want only the last truly public chapter
         ];
     }

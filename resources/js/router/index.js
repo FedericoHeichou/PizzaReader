@@ -11,11 +11,10 @@ const router = new VueRouter({
     mode: 'history',
     base: __dirname,
     routes: [
-        {path: '/', redirect: '/comics'},
         {path: '/public/*', redirect: '/*'},
+        {path: '/', component: Comics},
         {path: '/comics', component: Comics},
-        {path: '/alph', component: Comics},
-        {path: '/last', component: Comics},
+        {path: '/recommended', component: Comics},
         {path: '/comics/:slug', component: Comic},
         {path: '/targets/:target', component: Comics},
         {path: '/genres/:genre', component: Comics},

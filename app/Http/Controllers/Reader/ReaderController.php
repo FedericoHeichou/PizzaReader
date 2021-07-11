@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reader;
 use App\Models\ChapterDownload;
 use App\Models\ChapterPdf;
 use App\Models\Comic;
+use App\Models\Settings;
 use App\Models\Chapter;
 use App\Models\Page;
 use App\Http\Controllers\Controller;
@@ -16,15 +17,29 @@ use Illuminate\Support\Facades\Storage;
 
 class ReaderController extends Controller {
 
+    public function info() {
+        $response = ['socials' => []];
+        $socials = Settings::getSocials();
+
+        $n = strlen('social_');
+        foreach($socials as $social) {
+            array_push($response['socials'], [
+                'name' => str_replace('_', ' ', ucfirst(substr($social->key, $n))),
+                'url' => $social->value
+            ]);
+        }
+        return response()->json(["info" => $response]);
+    }
+
     public function comics() {
-        return response()->json($this->getComics());
+        return response()->json($this->getComics('name'));
     }
 
-    public function alph() {
-        return response()->json($this->getComics("name"));
+    public function recommended() {
+        return response()->json($this->getComics('order_index'));
     }
 
-    public function getComics($ord="order_index") {
+    public function getComics($ord) {
         $response = ['comics' => []];
 
         $comics = Comic::public($ord)->get();

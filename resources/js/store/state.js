@@ -1,4 +1,5 @@
 let state = {
+    info: null,
     comics: [],
     comic: [],
     chapter: [],

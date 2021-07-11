@@ -47,7 +47,6 @@ class SettingsSeeder extends Seeder {
         $s->value = null;
         $s->save();
 
-
         $s = new Settings();
         $s->key = 'default_language';
         $s->value = 'en';
@@ -96,6 +95,41 @@ class SettingsSeeder extends Seeder {
         $s = new Settings();
         $s->key = 'default_hidden_chapter';
         $s->value = '1';
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_facebook';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_instagram';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_twitter';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_telegram_channel';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_telegram_group';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_telegram_bot';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'social_discord';
+        $s->value = null;
         $s->save();
 
         $s = new Settings();

@@ -30,28 +30,16 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/x
         <priority><![CDATA[1.0]]></priority>
     </url>
     <url>
-        <loc><![CDATA[{{$base_url}}]]></loc>
+        <loc><![CDATA[{{$base_url}}/recommended]]></loc>
         <lastmod><![CDATA[{{$lastmod}}]]></lastmod>
         <changefreq><![CDATA[always]]></changefreq>
-        <priority><![CDATA[1.0]]></priority>
+        <priority><![CDATA[0.9]]></priority>
     </url>
     <url>
         <loc><![CDATA[{{$base_url}}/comics]]></loc>
         <lastmod><![CDATA[{{$lastmod}}]]></lastmod>
         <changefreq><![CDATA[always]]></changefreq>
-        <priority><![CDATA[0.9]]></priority>
-    </url>
-    <url>
-        <loc><![CDATA[{{$base_url}}/alph]]></loc>
-        <lastmod><![CDATA[{{$lastmod}}]]></lastmod>
-        <changefreq><![CDATA[always]]></changefreq>
-        <priority><![CDATA[0.9]]></priority>
-    </url>
-    <url>
-        <loc><![CDATA[{{$base_url}}/last]]></loc>
-        <lastmod><![CDATA[{{$lastmod}}]]></lastmod>
-        <changefreq><![CDATA[always]]></changefreq>
-        <priority><![CDATA[0.9]]></priority>
+        <priority><![CDATA[0.8]]></priority>
     </url>
 @foreach($comics as $comic)
 <?php $last_published = $comic->created_at; ?>

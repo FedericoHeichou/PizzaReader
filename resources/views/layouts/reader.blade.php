@@ -116,18 +116,18 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <router-link to="/" class="nav-link">
+                                <span aria-hidden="true" title="Last Releases" class="fas fa-list-alt fa-fw"></span> Last Releases
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/recommended" class="nav-link">
+                                <span aria-hidden="true" title="Recommended" class="fas fa-star fa-fw"></span> Recommended
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link to="/comics" class="nav-link">
                                 <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> All Comics
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/alph" class="nav-link">
-                                <span aria-hidden="true" title="Alphabetical" class="fas fa-book fa-fw"></span> Alphabetical
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/last" class="nav-link">
-                                <span aria-hidden="true" title="Last Releases" class="fas fa-book fa-fw"></span> Last Releases
                             </router-link>
                         </li>
                     </ul>
@@ -202,5 +202,6 @@
             {{ config("settings.footer") }}
         </div>
     </footer>
+    <div id="loader" class="lds-ring" style="display: none;"><div></div><div></div><div></div><div></div></div>
 </body>
 </html>

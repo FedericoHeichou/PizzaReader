@@ -1,6 +1,9 @@
 import router from '../router/index'
 
 let mutations = {
+    FETCH_INFO(state, info) {
+        return state.info = info;
+    },
     FETCH_COMICS(state, comics) {
         return state.comics = comics;
     },
