@@ -10,7 +10,7 @@ let getters = {
     comics: state => {
         switch (router.app.$route.path) {
             case '/':
-                return _.sortBy(state.comics.filter(comic => comic.last_chapter !== null), 'last_chapter.published_on').reverse();
+                return _.sortBy(state.comics.filter(comic => comic.last_chapter !== null).slice(0, 10), 'last_chapter.published_on').reverse();
             case '/recommended':
                 return _.sortBy(state.comics.filter(comic => comic.recommended !== 0), 'recommended');
             case '/comics':
