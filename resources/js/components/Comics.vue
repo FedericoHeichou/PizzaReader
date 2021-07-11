@@ -35,9 +35,9 @@
         </div>
         <div v-if="reader.$route.path === '/' && socials.length">
             <h2 class="text-center">Socials:</h2>
-            <div class="socials text-justify">
-                <a v-for="social in socials" :href="social.url">
-                    <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw mx-1'" aria-hidden="true" title="Last chapter"></span> {{ social.name }}
+            <div class="socials text-center d-xl-flex">
+                <a v-for="social in socials" :href="social.url" class="mx-2 d-inline-block">
+                    <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" title="Last chapter"></span>{{ social.name }}
                 </a>
             </div>
         </div>
