@@ -6,6 +6,10 @@ body {
     min-height: calc(100vh - 58px);
 }
 
+.navbar-light .navbar-nav .nav-link.router-link-exact-active {
+    color: rgba(0,0,0,.7);
+}
+
 .thumbnail {
     width: 150px;
     height: 255px;

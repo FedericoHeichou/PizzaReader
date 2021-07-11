@@ -38,7 +38,9 @@ body.dark .navbar-light .navbar-nav .nav-link {
     color: var(--white-5);
 }
 
-body.dark a:hover, body.dark .navbar-light .navbar-nav .nav-link:hover {
+body.dark a:hover,
+body.dark .navbar-light .navbar-nav .nav-link:hover,
+body.dark .navbar-light .navbar-nav .nav-link.router-link-exact-active {
     color: var(--white-10);
 }
 
