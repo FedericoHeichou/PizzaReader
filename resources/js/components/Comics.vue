@@ -33,7 +33,7 @@
                 <div class="description text-pre pr-2 pr-lg-0">{{ comic.description }}</div>
             </div>
         </div>
-        <div v-if="reader.$route.path === '/' && socials.length">
+        <div v-if="reader.$route.path === '/' && socials.length" class="mt-2">
             <h2 class="text-center">Socials:</h2>
             <div class="socials text-center d-xl-flex">
                 <a v-for="social in socials" :href="social.url" class="mx-2 d-inline-block">
