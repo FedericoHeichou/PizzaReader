@@ -36,7 +36,7 @@
         <div v-if="reader.$route.path === '/' && socials.length" class="mt-2">
             <h2 class="text-center">Socials:</h2>
             <div class="socials text-center d-xl-flex">
-                <a v-for="social in socials" :href="social.url" class="mx-2 d-inline-block">
+                <a v-for="social in socials" :href="social.url" class="mx-2 d-inline-block" target="_blank">
                     <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" title="Last chapter"></span>{{ social.name }}
                 </a>
             </div>
