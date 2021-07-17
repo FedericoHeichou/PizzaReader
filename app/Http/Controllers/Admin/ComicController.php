@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ComicController extends Controller {
     public function index() {
@@ -35,6 +36,7 @@ class ComicController extends Controller {
         Storage::makeDirectory($path);
         if (isset($fields['thumbnail'])) {
             $request->file('thumbnail')->storeAs($path, $comic->thumbnail);
+            $this->storeSmall($request->file('thumbnail'), $path, $comic->thumbnail);
         }
         return redirect()->route('admin.comics.show', $comic->slug)->with('success', 'Comic created');
     }
@@ -75,7 +77,10 @@ class ComicController extends Controller {
         // If has a new thumbnail delete the old one and store the new
         if (isset($fields['thumbnail'])) {
             Storage::delete($old_path . '/' . $comic->thumbnail);
-            $request->file('thumbnail')->storeAs(Comic::path($comic), $fields['thumbnail']);
+            Storage::delete($old_path . '/' . getSmallThumbnail($comic->thumbnail));
+            $path = Comic::path($comic);
+            $request->file('thumbnail')->storeAs($path, $fields['thumbnail']);
+            $this->storeSmall($request->file('thumbnail'), $path, $fields['thumbnail']);
         }
 
         // If has a new slug rename the directory
@@ -87,7 +92,6 @@ class ComicController extends Controller {
             Storage::move($old_path, $new_path);
             $comic->slug = $fields['slug'];
         }
-
 
         // Check if we need to delete its zips
         if($comic->name != $fields['name']) {
@@ -118,5 +122,18 @@ class ComicController extends Controller {
             array_push($response['comics'], ['id' => $comic->id, 'name' => $comic->name]);
         }
         return response()->json($response);
+    }
+
+    public static function storeSmall($file, $path, $name, $new_width=150, $new_height=213) {
+        $height = Image::make($file)->height();
+        $width = Image::make($file)->width();
+        if ($width > $height) $new_width = null;
+        else $new_height = null;
+        $file = Image::make($file)->resize($new_width, $new_height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $file->encode('jpg');
+        $new_name = getSmallThumbnail($name);
+        $file->save(storage_path("app/$path/$new_name"));
     }
 }

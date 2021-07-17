@@ -262,10 +262,12 @@ class Comic extends Model {
         foreach ($exploded_genres as $genre) {
             if ($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
         }
+        $thumbnail = Comic::getThumbnailUrl($comic) ?: config('app.url') . 'public/img/noimg.jpg'; // TODO setting api
         return [
             'id' => Auth::check() && Auth::user()->hasPermission('manager') ? $comic->id : null,
             'title' => $comic->name,
-            'thumbnail' => Comic::getThumbnailUrl($comic) ?: config('app.url') . 'public/img/noimg.jpg', // TODO setting api
+            'thumbnail' => $thumbnail,
+            'thumbnail_small' => getSmallThumbnail($thumbnail),
             'description' => $comic->description,
             'author' => $comic->author,
             'artist' => $comic->artist,
@@ -278,7 +280,7 @@ class Comic extends Model {
             'updated_at' => $comic->updated_at,
             'hidden' => $comic['hidden'], // "->hidden" is the eloquent variable for hidden attributes
             'views' => intval(Chapter::public()->where('comic_id', $comic->id)->sum('views')),
-            'rating' => round(Chapter::public()->where('comic_id', $comic->id)->avg('rating'), 2),
+            'rating' => round(Chapter::public()->where('comic_id', $comic->id)->whereNotNull('rating')->avg('rating'), 2) ?: null,
             'url' => Comic::getUrl($comic),
             'slug' => $comic->slug,
             'recommended' => $comic->order_index,

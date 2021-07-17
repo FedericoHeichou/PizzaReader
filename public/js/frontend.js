@@ -7,21 +7,23 @@ function escapeHtml(unsafe) {
         .replace(/'/g, '&#039;');
 }
 
-function timePassed(date) {
+const plural = (is_plural) => { return is_plural ? 's' : ''; }
+
+function timePassed(date, short=false) {
     let diff = new Date().getTime() - new Date(date).getTime();
     if(diff < 0) return 'In the future';
     diff = parseInt(diff / 1000);
-    if (diff < 60) return diff + ' s';
+    if (diff < 60) return diff + (short ? ' second' + plural(diff !== 1) + ' ago' : ' s');
     diff = parseInt(diff / 60);
-    if (diff < 60) return diff + ' m';
+    if (diff < 60) return diff + (short ? ' minute' + plural(diff !== 1) + '  ago' : ' m');
     diff = parseInt(diff / 60);
-    if (diff < 24) return diff + ' h';
+    if (diff < 24) return diff + (short ? ' hour' + plural(diff !== 1) + ' ago' : ' h');
     diff = parseInt(diff / 24);
-    if (diff < 30) return diff + ' d';
+    if (diff < 30) return diff + (short ? ' day' + plural(diff !== 1) + '  ago' : ' d');
     diff = parseInt(diff / 30);
-    if (diff < 12) return diff + ' mo';
+    if (diff < 12) return diff + (short ? ' month' + plural(diff !== 1) + '  ago' : ' mo');
     diff = parseInt(diff / 12);
-    return diff + ' y ago';
+    return diff + (short ? ' year' + plural(diff !== 1) + ' ago' : ' y');
 }
 
 window.timePassed = timePassed;

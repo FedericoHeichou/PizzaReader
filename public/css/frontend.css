@@ -32,13 +32,16 @@ body {
     text-align: justify;
 }
 
-.item:not(.hidden) .description:after {
+.item .description:after {
     content: "";
     position: absolute;
     bottom: 0;
     right: 0;
     width: 20%;
-    height: 1.3em;
+    height: 1.60em;
+}
+
+.item:not(.hidden) .description:after {
     background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--bkg) 80%);
 }
 

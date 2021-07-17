@@ -89,3 +89,7 @@ function getNameFromId($array, $id): string {
     if(empty($res)) return "N/A";
     else return array_pop($res)["name"];
 }
+
+function getSmallThumbnail($thumbnail) {
+    return substr_replace($thumbnail, "-small.jpg", strrpos($thumbnail , '.', -1));
+}

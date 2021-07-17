@@ -2,26 +2,35 @@
     <div>
         <div class="row py-sm-4">
             <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
-                <div class="thumbnail float-left mr-3">
-                    <router-link :to="comic.url"><img :src="comic.thumbnail" :alt="comic.title" :title="comic.title" class="rounded"></router-link>
+                <div class="thumbnail float-left mr-3 ml-1">
+                    <router-link :to="comic.url"><img :src="comic.thumbnail_small" :onerror="'this.onerror=null;this.src=\'' + comic.thumbnail +'\';'" :alt="comic.title" :title="comic.title" class="rounded"></router-link>
                 </div>
                 <div class="text-truncate mb-1 d-flex flex-nowrap align-items-center">
-                    <h5 class="font-weight-bold mb-0">
+                    <h5 class="font-weight-bold mb-0 mr-1">
                         <a v-if="comic.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug" target="_blank">
                             <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                         </a>
-                        <router-link class="ml-1 text-truncate filter" :title="comic.title" :to="comic.url">
+                        <router-link class="ml-1 text-wrap filter" :title="comic.title" :to="comic.url">
                             {{ comic.title }}
                         </router-link>
                     </h5>
                 </div>
                 <ul class="list-inline m-1">
-                    <li class="list-inline-item text-primary">
+                    <li v-if="reader.$route.path === '/'" class="list-inline-item text-primary">
+                        <span class="fas fa-star fa-fw" aria-hidden="true" title="Rating"></span>
+                        <span v-if="comic.last_chapter != null && comic.last_chapter.rating != null" title="vote">{{ comic.last_chapter.rating }}</span>
+                        <span v-else title="vote">--.-</span>
+                    </li>
+                    <li v-else class="list-inline-item text-primary">
                         <span class="fas fa-star fa-fw" aria-hidden="true" title="Rating"></span>
                         <span v-if="comic.rating != null" title="vote">{{ comic.rating }}</span>
                         <span v-else title="vote">--.-</span>
                     </li>
-                    <li class="list-inline-item text-info">
+                    <li v-if="reader.$route.path === '/'" class="list-inline-item text-info">
+                        <span class="fas fa-eye fa-fw" aria-hidden="true" title="Views"></span>
+                        <span>{{ comic.last_chapter ? comic.last_chapter.views : 0 }}</span>
+                    </li>
+                    <li v-else class="list-inline-item text-info">
                         <span class="fas fa-eye fa-fw" aria-hidden="true" title="Views"></span>
                         <span>{{ comic.views }}</span>
                     </li>
@@ -30,7 +39,10 @@
                         <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold">{{ comic.last_chapter.full_title }}</router-link>
                     </li>
                 </ul>
-                <div class="description text-pre pr-2 pr-lg-0">{{ comic.description }}</div>
+                <div v-if="reader.$route.path !== '/'" class="description text-pre pr-2 pr-lg-0">{{ comic.description }}</div>
+                <div v-else class="" :title="new Date(comic.last_chapter.published_on)">
+                    <span title="Publication date" class="fa fa-clock fa-fw"></span> {{ comic.last_chapter.time }}
+                </div>
             </div>
         </div>
         <div v-if="reader.$route.path === '/' && socials.length" class="mt-2">
@@ -51,12 +63,20 @@ export default {
     name: "Comics",
     mounted() {
         $('body').removeClass('body-reader hide-header');
-        $('#nav-search').hide();
-        $('#nav-filter').show();
+
         $('title').html(this.reader.SITE_NAME_FULL);
         $('meta[property="og:title"]').html(this.reader.SITE_NAME_FULL);
         this.$store.dispatch('fetchInfo', '/info');
         this.$store.dispatch('fetchComics', '/comics');
+    },
+    updated() {
+        if (this.reader.$route.path === '/comics') {
+            $('#nav-search').hide();
+            $('#nav-filter').show();
+        } else {
+            $('#nav-search').show();
+            $('#nav-filter').hide();
+        }
     },
     data() {
         return {

@@ -54,11 +54,11 @@ class SettingsController extends Controller {
     function convertAndStore($file, $path, $name, $old_name, $size) {
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
-        $newWidth = $size;
-        $newHeight = $size;
-        if ($width > $height) $newWidth = null;
-        else $newHeight = null;
-        $file = Image::make($file)->resize($newWidth, $newHeight, function ($constraint) {
+        $new_width = $size;
+        $new_height = $size;
+        if ($width > $height) $new_width = null;
+        else $new_height = null;
+        $file = Image::make($file)->resize($new_width, $new_height, function ($constraint) {
             $constraint->aspectRatio();
         });
         $file->crop($size, $size);
