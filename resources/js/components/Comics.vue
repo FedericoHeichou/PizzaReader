@@ -81,7 +81,7 @@ export default {
             $('#nav-search').show();
             $('#nav-filter').hide();
         }
-        if (this.reader.$route.name === 'Last Releases') {
+        if (this.reader.$route.name === 'Last Releases' && this.comics.length) {
             $('#homepage_html').html(homepage_html_placeholder);
         }
     },
