@@ -217,6 +217,6 @@
         </div>
     </footer>
     <div id="loader" class="lds-ring" style="display: none;"><div></div><div></div><div></div><div></div></div>
-    <script>const homepage_html_placeholder = "{!! substr(json_encode(config('settings.homepage_html')), 1, -1) !!}"</script>
+    <script>const homepage_html_placeholder = "{!! substr(json_encode(config('settings.homepage_html', '')), 1, -1) !!}"</script>
 </body>
 </html>
