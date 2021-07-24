@@ -206,6 +206,24 @@ class Settings extends Model {
                     'hint' => 'Insert the URL of your Discord server',
                 ],
                 'values' => ['max:191'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'homepage_html',
+                    'label' => 'Homepage HTML',
+                    'hint' => 'It is showed on the right side of the homepage. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'menu',
+                    'label' => 'Menu tabs',
+                    'hint' => 'Each line is an additional menu tab. [Format: Name=css,url (Project=fab fa-github fa-fw,https://github.com/FedericoHeichou/PizzaReader)]',
+                ],
+                'values' => ['max:3000'],
             ], /*[
                 'type' => 'input_text',
                 'parameters' => [

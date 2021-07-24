@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Hamcrest\Core\Set;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Settings;
@@ -129,6 +130,11 @@ class SettingsSeeder extends Seeder {
 
         $s = new Settings();
         $s->key = 'social_discord';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'homepage_html';
         $s->value = null;
         $s->save();
 

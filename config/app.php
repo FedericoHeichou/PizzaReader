@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -230,5 +230,18 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable Edit of Custom HTML
+    |--------------------------------------------------------------------------
+    |
+    | Enable the setting to edit the custom HTML resources.
+    | I suggest to enable this setting, edit the resources then disable it back,
+    | because it can cause XSS.
+    |
+    */
+
+    'edit_custom_html' => (bool) env('EDIT_CUSTOM_HTML', false),
 
 ];

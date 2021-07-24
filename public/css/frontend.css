@@ -16,10 +16,19 @@ body {
 }
 
 .thumbnail img {
-    /*max-width: 150px;
-    max-height: 255px;*/
     width: 150px;
     height: 213px;
+}
+
+@media (min-width: 1200px) {
+    .thumbnail.small {
+        width: 110px;
+        height: 204px;
+    }
+    .thumbnail.small img {
+        width: 120px;
+        height: 170px;
+    }
 }
 
 .thumbnail-full img {
@@ -131,7 +140,7 @@ body {
 }
 
 .socials {
-    font-size: 1.5em;
+    font-size: 1.4em;
     justify-content: space-between;
 }
 

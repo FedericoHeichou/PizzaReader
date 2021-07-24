@@ -12,9 +12,9 @@ const router = new VueRouter({
     base: __dirname,
     routes: [
         {path: '/public/*', redirect: '/*'},
-        {path: '/', component: Comics},
-        {path: '/comics', component: Comics},
-        {path: '/recommended', component: Comics},
+        {path: '/', component: Comics, name: 'Last Releases'},
+        {path: '/comics', component: Comics, name: 'All Comics'},
+        {path: '/recommended', component: Comics, name: 'Recommended'},
         {path: '/comics/:slug', component: Comic},
         {path: '/targets/:target', component: Comics},
         {path: '/genres/:genre', component: Comics},

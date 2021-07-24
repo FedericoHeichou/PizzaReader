@@ -31,6 +31,9 @@ function getFormFieldsForValidation($fields) {
         } else {
             array_push($values, 'nullable');
         }
+        if (isset($field['parameters']['prohibited']) && $field['parameters']['prohibited']) {
+            array_push($values, 'prohibited');
+        }
         $form_fields[$field['parameters']['field']] = $values;
     }
     return $form_fields;

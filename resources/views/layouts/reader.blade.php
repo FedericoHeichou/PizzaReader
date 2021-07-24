@@ -130,6 +130,20 @@
                                 <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> All Comics
                             </router-link>
                         </li>
+                    @foreach(parse_ini_string(config('settings.menu')) as $k => $v)
+                        <?php
+                            $a = explode(",", $v);
+                            $css = count($a) ? $a[0] : null;
+                            $url = count($a) > 1 ? $a[1] : null;
+                        ?>
+                        @if($url !== null && $css !== null)
+                        <li class="nav-item">
+                            <a href="{{ $url }}" class="nav-link" target="_blank">
+                                @if($css)<span aria-hidden="true" title="Comics" class="{{ $css }}"></span>@endif {{ $k }}
+                            </a>
+                        </li>
+                        @endif
+                    @endforeach
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -203,5 +217,6 @@
         </div>
     </footer>
     <div id="loader" class="lds-ring" style="display: none;"><div></div><div></div><div></div><div></div></div>
+    <script>const homepage_html_placeholder = "{!! substr(json_encode(config('settings.homepage_html')), 1, -1) !!}"</script>
 </body>
 </html>
