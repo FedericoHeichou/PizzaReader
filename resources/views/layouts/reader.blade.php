@@ -38,7 +38,6 @@
             $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
             $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
             if (is_array($ch) && ($ch['vol'] !== null || $ch['ch'] !== null || $ch['sub'] !== null)) {
-                var_dump($ch);
                 $chapter = new Chapter();
                 $chapter->volume = $ch['vol'];
                 $chapter->chapter = $ch['ch'];

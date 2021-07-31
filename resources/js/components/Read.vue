@@ -578,7 +578,6 @@ export default {
         },
         showPopup() {
             $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
-            console.log($('#modal-container'))
         },
     },
     computed: {
