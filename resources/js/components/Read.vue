@@ -487,6 +487,7 @@ export default {
             this.reader.setCookie(setting, value, 3650);
         },
         scrollTopOfPage() {
+            $('button[data-target="#navbarSupportedContent"][aria-expanded="true"]').click();
             if (this.max_page < 1 || !this.animation) return;
             let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
             if (this.renderingMode === 'long-strip') {
