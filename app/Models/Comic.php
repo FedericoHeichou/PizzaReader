@@ -28,13 +28,13 @@ class Comic extends Model {
         $query = $query->orderBy($ord);
         if ($ord !== 'name') $query = $query->orderBy('name');
         if (!Auth::check() || !Auth::user()->hasPermission('checker'))
-            return $query->where('hidden', 0);
+            return $query->published();
         else if (Auth::user()->hasPermission('manager'))
             return $query;
         else {
             $comics = Auth::user()->comics()->select('comic_id');
-            return $query->where(function ($query) use ($comics) {
-                $query->where('hidden', 0)->orWhereIn('id', $comics);
+            return $query->where(function ($q) use ($comics) {
+                $q->published()->orWhereIn('id', $comics);
             });
         }
     }
@@ -299,8 +299,7 @@ class Comic extends Model {
             $chapter_array = Chapter::generateReaderArray($comic, $chapter);
             array_push($response['chapters'], $chapter_array);
             if($chapter_array['volume_download']){
-                $download = VolumeDownload::where([['comic_id', $comic->id], ['language', $chapter->language], ['volume', $chapter->volume]])->first();
-                if($download) $response['volume_downloads'][$download->name] = $chapter_array['volume_download'];
+                $response['volume_downloads'][VolumeDownload::name($comic, $chapter->language, $chapter->volume)] = $chapter_array['volume_download'];
             }
         }
         return $response;

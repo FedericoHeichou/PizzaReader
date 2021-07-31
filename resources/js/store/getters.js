@@ -21,13 +21,13 @@ let getters = {
         }
     },
     getComic: state => (slug) => {
-        return state.comic.find(comic => comic.slug === slug) || null;
+        return state.comic.find(comic => comic && comic.slug === slug) || null;
     },
     comic: (state, getters) => {
         return getters.getComic(router.app.$route.path.split('/', 3)[2]) || null;
     },
     getChapter: state => (path) => {
-        return state.chapter.find(chapter => chapter.url === path) || null;
+        return state.chapter.find(chapter => chapter && chapter.url === path) || null;
     },
     chapter: (state, getters) => {
         return getters.getChapter(router.app.$route.path) || null;

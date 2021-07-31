@@ -292,18 +292,20 @@
                 </div>
             </div>
         </div>
+        <popup :popupData="popupData"></popup>
     </div>
-    <div v-else ref="notfound"></div>
+    <div v-else ref="notfound"><popup :popupData="popupData"></popup></div>
 </template>
 
 <script>
 import Vue from 'vue'
 import {mapGetters} from "vuex";
 import NotFound from './NotFound.vue';
+import Popup from'./Popup.vue';
 
 export default {
     name: "Read",
-    components : { NotFound },
+    components : { NotFound, Popup },
     mounted() {
         this.setupParams(this.$route.params)
         $('body').addClass('body-reader');
@@ -322,6 +324,9 @@ export default {
                     const instance = new ComponentClass();
                     instance.$mount();
                     if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
+                    const title = 'Error 404' + " | " + this.reader.SITE_NAME;
+                    $('title').html(title);
+                    $('meta[property="og:title"]').html(title);
                 }
             });
     },
@@ -369,6 +374,9 @@ export default {
             this.scrollTopOfPage();
             this.firstLoad = false;
         }
+        if(this.firstLoad && this.$store.getters.chapter && this.$store.getters.chapter.licensed) {
+            this.showPopup();
+        }
     },
     data() {
         return {
@@ -389,6 +397,11 @@ export default {
             needToRefresh: true,
             images: [],
             firstLoad: true,
+            popupData : {
+                "header" : "Chapter licensed",
+                "body" : "This chapter is licensed and you can't read it.",
+                "button" : "Ok",
+            }
         }
     },
     methods: {
@@ -562,6 +575,10 @@ export default {
                     console.log(error);
                 },
             });
+        },
+        showPopup() {
+            $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
+            console.log($('#modal-container'))
         },
     },
     computed: {

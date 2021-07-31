@@ -46,7 +46,7 @@ class ChapterController extends Controller {
         $path = Chapter::path($comic, $chapter);
         Storage::makeDirectory($path);
         $now = Carbon::now();
-        if(!$chapter['hidden'] && $now >= $chapter->publish_start && (!$chapter->publish_end || $now < $chapter->publish_end))
+        if(!$chapter['hidden'] && !$chapter['licensed'] && $now >= $chapter->publish_start && (!$chapter->publish_end || $now < $chapter->publish_end))
             VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
         return redirect()->route('admin.comics.chapters.show', ['comic' => $comic_slug, 'chapter' => $chapter->id])->with('success', 'Chapter created');
     }
@@ -117,6 +117,7 @@ class ChapterController extends Controller {
         $new_chapter->subchapter = isset($fields['subchapter']) ? $fields['subchapter'] : null;
         $new_chapter->salt = $chapter->salt;
         $new_chapter['hidden'] = isset($fields['hidden']) ? $fields['hidden'] : $chapter['hidden'];
+        $new_chapter['licensed'] = isset($fields['licensed']) ? $fields['licensed'] : $chapter['licensed'];
         $new_chapter['team_id'] = isset($fields['team_id']) ? $fields['team_id'] : $chapter->team_id;
         $new_chapter->publish_start = isset($fields['publish_start']) ? $fields['publish_start'] : $chapter->publish_start;
         $new_chapter->publish_end = isset($fields['publish_end']) ? $fields['publish_end'] : $chapter->publish_end;
@@ -128,6 +129,7 @@ class ChapterController extends Controller {
         }
         // If you are hiding or showing the chapter
         if ($new_chapter['hidden'] != $chapter['hidden'] ||
+            $new_chapter['licensed'] != $chapter['licensed'] ||
             $new_chapter->publish_start != $chapter->publish_start || $new_chapter->publish_end != $chapter->publish_end) {
             VolumeDownload::cleanDownload(Chapter::volume_download($new_chapter), $comic);
         }
@@ -151,7 +153,7 @@ class ChapterController extends Controller {
         if (!$chapter || $chapter->comic_id !== $comic->id) {
             abort(404);
         }
-        if(!$chapter['hidden']) VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
+        if(!$chapter['hidden'] && !$chapter['licensed']) VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
         Storage::deleteDirectory(Chapter::path($comic, $chapter));
         $chapter->delete();
         return redirect()->route('admin.comics.show', ['comic' => $comic->slug])->with('warning', 'Chapter "' . Chapter::name($comic, $chapter) . '" deleted');

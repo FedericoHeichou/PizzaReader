@@ -97,10 +97,12 @@ class ReaderController extends Controller {
             return response()->json($response);
         }
 
-        View::incrementIfNew($chapter, request()->ip());
+        if(!$chapter->licensed) {
+            View::incrementIfNew($chapter, request()->ip());
+        }
 
         $response['chapter'] = Chapter::generateReaderArray($comic, $chapter);
-        $response['chapter']['pages'] = Page::getAllPagesForReader($comic, $chapter);
+        $response['chapter']['pages'] = Chapter::isLicensed($chapter) ? [asset('/img/404.gif')] : Page::getAllPagesForReader($comic, $chapter);
 
         $previous_chapter = null;
         $next_chapter = null;
@@ -145,11 +147,12 @@ class ReaderController extends Controller {
             $chapters = $comic->chapters()->where([
                 ['language', $language],
                 ['volume', $ch['vol']],
+                ['licensed', 0],
             ])->published()->get();
             if ($chapters->isEmpty()) {
                 abort(404);
             }
-            if (!Chapter::canVolumeDownload($comic->id)) {
+            if (!Chapter::canVolumeDownload($comic)) {
                 abort(403);
             }
             $download = VolumeDownload::getDownload($comic, $language, $ch['vol']);
@@ -158,7 +161,7 @@ class ReaderController extends Controller {
             }
             return Storage::download($download['path'], $download['name']);
         }
-        if (!Chapter::canChapterDownload($comic->id)) {
+        if (!Chapter::canChapterDownload($chapter)) {
             abort(403);
         }
         $download = ChapterDownload::getDownload($comic, $chapter);
@@ -176,10 +179,13 @@ class ReaderController extends Controller {
         if (!$comic) {
             abort(404);
         }
-
         $chapter = Chapter::publicFilterByCh($comic, $ch);
-        if (!$chapter || !Chapter::canChapterPdf($comic->id)) {
+        if (!$chapter){
             abort(404);
+        }
+
+        if(!Chapter::canChapterPdf($chapter)) {
+            abort(403);
         }
         $pdf = ChapterPdf::getPdf($comic, $chapter);
         if (!$pdf) {
@@ -203,6 +209,9 @@ class ReaderController extends Controller {
         $chapter = Chapter::publicFilterByCh($comic, $ch);
         if (!$chapter) {
             abort(404);
+        }
+        if (Chapter::isLicensed($chapter)) {
+            abort(403);
         }
 
         Rating::updateOrCreate(

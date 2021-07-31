@@ -119,7 +119,7 @@ class ChapterDownload extends Model {
         // If $old_chapter is set it means we need to delete its (old) volume zip too
         // It doesn't really matter that $old_chapter is equals to $chapter because for example if we update pages
         // we still need to delete its volume
-        if ($old_chapter && !$old_chapter['hidden']) {
+        if ($old_chapter && !$old_chapter['hidden'] && !$old_chapter['licensed']) {
             VolumeDownload::cleanDownload(Chapter::volume_download($old_chapter));
         }
     }

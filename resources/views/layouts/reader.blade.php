@@ -28,7 +28,7 @@
                 $chapter = Chapter::publicFilterByCh($comic, $ch);
                 if($chapter) {
                     $pre = Chapter::getVolChSub($chapter) . " | ";
-                    $meta_image = 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
+                    $meta_image = $chapter->thumbnail ?: 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
                 }
             }
         }
@@ -37,25 +37,32 @@
         if(request()->segment(1) === "read") {
             $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
             $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
-            $chapter = new Chapter();
-            $chapter->volume = $ch['vol'];
-            $chapter->chapter = $ch['ch'];
-            $chapter->subhapter = $ch['sub'];
-            $pre = Chapter::getVolChSub($chapter) . " | ";
+            if (is_array($ch) && ($ch['vol'] !== null || $ch['ch'] !== null || $ch['sub'] !== null)) {
+                var_dump($ch);
+                $chapter = new Chapter();
+                $chapter->volume = $ch['vol'];
+                $chapter->chapter = $ch['ch'];
+                $chapter->subchapter = $ch['sub'];
+                $pre = Chapter::getVolChSub($chapter) . " | ";
+            } else {
+                $pre = "Error 404 | ";
+                $comic_title = "";
+            }
         }
     }
     $title = $pre . ($comic_title ? $comic_title . " | " . config('settings.reader_name') : config('settings.reader_name_long'));
+    $isImageLink = substr($meta_image, 0, 4) === 'http';
 ?>
     <title>{{ $title }}</title>
 
     <!-- SEO -->
     <link rel="canonical" href="{{ URL::current() }}" />
     <meta name="description" content="{{ $meta_description }}"/>
-    <meta property="og:image" content="{{ asset($meta_image) }}" />
-    <meta property="og:image:secure_url" content="{{ asset($meta_image) }}" />
-    <?php $size = getimagesize($meta_image); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
+    <meta property="og:image" content="{{ $isImageLink ? $meta_image : asset($meta_image) }}" />
+    <meta property="og:image:secure_url" content="{{ $isImageLink ? $meta_image : asset($meta_image) }}" />
+    @if(!$isImageLink)<?php $size = getimagesize($meta_image); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
     <meta property="og:image:height" content="{{ $size[1] ?? 0 }}" />
-    <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
+    @endif<meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:description" content="{{ $meta_description }}" />

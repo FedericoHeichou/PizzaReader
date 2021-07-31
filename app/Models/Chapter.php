@@ -10,7 +10,8 @@ use Illuminate\Validation\Rule;
 class Chapter extends Model {
     protected $fillable = [
         'comic_id', 'team_id', 'team2_id', 'volume', 'chapter', 'subchapter', 'title', 'slug', 'salt', 'prefix',
-        'hidden', 'views', 'rating', 'download_link', 'language', 'published_on', 'publish_start', 'publish_end'
+        'hidden', 'licensed', 'views', 'rating', 'download_link', 'thumbnail', 'language', 'published_on',
+        'publish_start', 'publish_end'
     ];
 
     protected $casts = [
@@ -22,6 +23,7 @@ class Chapter extends Model {
         'chapter' => 'integer',
         'subchapter' => 'integer',
         'hidden' => 'integer',
+        'licensed' => 'integer',
         'views' => 'integer',
         'rating' => 'decimal:2',
         'published_on' => 'datetime',
@@ -31,9 +33,11 @@ class Chapter extends Model {
 
     public function scopePublished($query) {
         $now = Carbon::now();
-        return $query->where('hidden', 0)->where('publish_start', '<', $now)->where(function ($q) use ($now) {
-            $q->where('publish_end', '>', $now)->orWhereNull('publish_end');
-        });
+        return $query->where('hidden', 0)->where('publish_start', '<', $now)->where(
+            function ($q) use ($now) {
+                $q->where('publish_end', '>', $now)->orWhereNull('publish_end');
+            }
+        );
     }
 
     public function scopePublic($query) {
@@ -102,6 +106,10 @@ class Chapter extends Model {
         ])->first();
     }
 
+    public static function isLicensed($chapter) {
+        return $chapter->licensed && (!Auth::check() || !Auth::user()->canSee($chapter->comid_id));
+    }
+
     public static function slugLangVolChSub($chapter) {
         $lang = $chapter->language ?: "N";
         $vol = $chapter->volume !== null ? $chapter->volume : "N";
@@ -136,37 +144,37 @@ class Chapter extends Model {
     }
 
     public static function getChapterPdf($comic, $chapter) {
-        if (Chapter::canChapterPdf($comic->id)) {
+        if (Chapter::canChapterPdf($chapter)) {
             return "/pdf" . Chapter::buildUri($comic, $chapter);
         }
         return null;
     }
 
     public static function getChapterDownload($comic, $chapter) {
-        if (Chapter::canChapterDownload($comic->id)) {
+        if (Chapter::canChapterDownload($chapter)) {
             return "/download" . Chapter::buildUri($comic, $chapter);
         }
         return null;
     }
 
     public static function getVolumeDownload($comic, $chapter) {
-        if (Chapter::canVolumeDownload($comic->id)) {
+        if (Chapter::canVolumeDownload($comic)) {
             $ch = ['language' => $chapter->language, 'volume' => $chapter->volume];
             return "/download" . Chapter::buildUri($comic, $ch);
         }
         return null;
     }
 
-    public static function canChapterPdf($comic_id) {
-        return (config('settings.pdf_chapter') || (Auth::check() && Auth::user()->canSee($comic_id))) && class_exists('Imagick');
+    public static function canChapterPdf($chapter) {
+        return class_exists('Imagick') && ((config('settings.pdf_chapter') && !$chapter->licensed) || (Auth::check() && Auth::user()->canSee($chapter->comic_id)));
     }
 
-    public static function canChapterDownload($comic_id) {
-        return config('settings.download_chapter') || (Auth::check() && Auth::user()->canSee($comic_id));
+    public static function canChapterDownload($chapter) {
+        return (config('settings.download_chapter') && !$chapter->licensed) || (Auth::check() && Auth::user()->canSee($chapter->comic_id));
     }
 
-    public static function canVolumeDownload($comic_id) {
-        return config('settings.download_volume') || (Auth::check() && Auth::user()->canSee($comic_id));
+    public static function canVolumeDownload($comic) {
+        return config('settings.download_volume') || (Auth::check() && Auth::user()->canSee($comic->id));
     }
 
     public static function name($comic, $chapter) {
@@ -268,8 +276,18 @@ class Chapter extends Model {
                 'parameters' => [
                     'field' => 'hidden',
                     'label' => 'Hidden',
-                    'hint' => 'Check to hide this comic',
+                    'hint' => 'Check to hide this chapter',
                     'checked' => intval(config('settings.default_hidden_chapter')),
+                    'required' => 1,
+                ],
+                'values' => ['boolean'],
+            ], [
+                'type' => 'input_checkbox',
+                'parameters' => [
+                    'field' => 'licensed',
+                    'label' => 'Licensed',
+                    'hint' => 'Check to mark this chapter as licensed (it will be not accessible)',
+                    'checked' => 0,
                     'required' => 1,
                 ],
                 'values' => ['boolean'],
@@ -335,6 +353,16 @@ class Chapter extends Model {
                     'field' => 'download_link',
                     'label' => 'Download link',
                     'hint' => 'If you want to use a external download link use this field, else a zip is automatically generated (if is enabled in the options)',
+                    'disabled' => true,
+                    'edit' => true,
+                ],
+                'values' => ['max:191'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'thumbnail',
+                    'label' => 'Thumbnail link',
+                    'hint' => 'Link of the thumbnail used in the socials. If empty, the first page of the chapter will be used',
                     'disabled' => true,
                     'edit' => true,
                 ],
@@ -408,6 +436,7 @@ class Chapter extends Model {
             'published_on' => $chapter->published_on,
             'hidden' => ($chapter['hidden'] || $chapter->publish_start > $now ||
                 ($chapter->publish_end && $chapter->publish_end < $now))? 1 : 0, // "->hidden" is the eloquent variable for hidden attributes
+            'licensed' => $chapter->licensed,
             'slug_lang_vol_ch_sub' => Chapter::slugLangVolChSub($chapter),
             'url' => Chapter::getUrl($comic, $chapter),
             'chapter_download' => Chapter::getChapterDownload($comic, $chapter),

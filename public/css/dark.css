@@ -8,6 +8,7 @@ body.dark {
     --black-3: #393939;
     --black-6: #404345;
     --red-0: #572f32;
+    --blue-0: #2b3c5a;
     --bkg: var(--black-1);
     background: var(--bkg);
     color: #c4c8cc;
@@ -18,7 +19,9 @@ body.dark {
     color: var(--white-5);
 }
 
-body.dark a:not(.btn), body.dark .close {
+body.dark a:not(.btn),
+body.dark .close,
+body.dark .item.licensed .chapter .filter {
     color: var(--white-6);
 }
 
@@ -40,15 +43,20 @@ body.dark .navbar-light .navbar-nav .nav-link {
 
 body.dark a:hover,
 body.dark .navbar-light .navbar-nav .nav-link:hover,
-body.dark .navbar-light .navbar-nav .nav-link.router-link-exact-active {
+body.dark .navbar-light .navbar-nav .nav-link.router-link-exact-active,
+body.dark .item.licensed .chapter .filter:hover {
     color: var(--white-10);
 }
 
-body.dark .hidden {
+body.dark .item.hidden {
     background-color: var(--red-0);
 }
 
-body.dark .read:not(.hidden) {
+body.dark .item.licensed {
+    background-color: var(--blue-0);
+}
+
+body.dark .item.read:not(.hidden, .licensed) {
     background-color: var(--black-2);
 }
 

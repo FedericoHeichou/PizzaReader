@@ -22,13 +22,32 @@ body {
 
 @media (min-width: 1200px) {
     .thumbnail.small {
-        width: 110px;
-        height: 204px;
+        width: 120px;
+        height: 180px;
     }
     .thumbnail.small img {
         width: 120px;
         height: 170px;
     }
+}
+
+.badge-status {
+    background-color: var(--blue);
+}
+
+.badge-status[data-status^="finish"],
+.badge-status[data-status^="concl"],
+.badge-status[data-status^="compl"] {
+    background-color: var(--green);
+}
+
+.badge-status[data-status^="suspen"],
+.badge-status[data-status^="dropp"],
+.badge-status[data-status^="on break"],
+.badge-status[data-status^="on hiatus"],
+.badge-status[data-status^="in pausa"],
+.badge-status[data-status^="paus"] {
+    background-color: var(--red);
 }
 
 .thumbnail-full img {
@@ -120,10 +139,25 @@ body {
 }
 
 .item.hidden {
-    background-color: #ffcfcf;
+    background-color: #eca5a5;
 }
 
-.item.read:not(.hidden) {
+.item.licensed {
+    background-color: #b1ccfd;
+}
+
+.item.licensed .chapter .filter {
+    color: #3490dc;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.item.licensed .chapter .filter:hover {
+    color: #1d68a7;
+    text-decoration: underline;
+}
+
+.item.read:not(.hidden, .licensed) {
     background-color: #dedede;
 }
 

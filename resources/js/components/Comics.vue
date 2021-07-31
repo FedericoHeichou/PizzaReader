@@ -36,6 +36,9 @@
                             <span class="fas fa-eye fa-fw" aria-hidden="true" title="Views"></span>
                             <span>{{ comic.views }}</span>
                         </li>
+                        <li class="list-inline-item text-info">
+                            <span style="margin-top: 2px;" class="badge badge-status p-1 text-white align-top" title="Status" :data-status="comic.status ? comic.status.toLowerCase() : ''">{{ comic.status }}</span>
+                        </li>
                         <li v-if="comic.last_chapter != null" class="text-success">
                             <span class="fas fa-book-open fa-fw" aria-hidden="true" title="Last chapter"></span>
                             <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold">{{ comic.last_chapter.full_title }}</router-link>

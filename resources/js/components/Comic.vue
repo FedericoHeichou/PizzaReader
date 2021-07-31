@@ -114,7 +114,7 @@
                                 <label class="mb-0">Status:</label>
                             </div>
                             <div class="col-md-10">
-                                {{ comic.status }}
+                                <span class="badge badge-status p-2 text-white" title="Status" :data-status="comic.status ? comic.status.toLowerCase() : ''">{{ comic.status }}</span>
                             </div>
                         </div>
 
@@ -164,7 +164,7 @@
                 </div>
 
                 <div v-for="chapter in comic.chapters"
-                     :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '') + (getViewed(chapter.slug_lang_vol_ch_sub) ? ' read text-secondary' : '')">
+                     :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '') + (chapter.licensed ? ' licensed' : '') + (getViewed(chapter.slug_lang_vol_ch_sub) ? ' read text-secondary' : '')">
                     <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
                         <span :class="'cursor-pointer fa fa-eye' + (getViewed(chapter.slug_lang_vol_ch_sub) ? '' : '-slash') + ' fa-fw'"
                               :title="'Mark as ' + (getViewed(chapter.slug_lang_vol_ch_sub) ? 'unread' : 'read')" @click="setViewed(chapter.slug_lang_vol_ch_sub)"></span>
@@ -186,7 +186,8 @@
                             <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
                                 <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                             </a>
-                            <router-link :to="chapter.url" class="filter" :title="chapter.full_title">{{ chapter.full_title }}</router-link>
+                            <router-link v-if="!chapter.licensed || chapter.id !== null" :to="chapter.url" class="filter" :title="chapter.full_title">{{ chapter.full_title }}</router-link>
+                            <span v-else @click="showPopup" class="filter" :title="chapter.full_title + ' [LICENSED]'">{{ chapter.full_title }}</span>
                         </span>
                     </div>
                     <div class="col-auto text-sm-center pr-sm-3 pr-1 order-sm-3 order-4 overflow-hidden">
@@ -243,7 +244,7 @@
 
             </div>
         </div>
-
+        <popup :popupData="popupData" ></popup>
     </div>
     <div v-else ref="notfound"></div>
 </template>
@@ -252,10 +253,11 @@
 import Vue from 'vue'
 import {mapGetters} from "vuex";
 import NotFound from './NotFound.vue';
+import Popup from'./Popup.vue';
 
 export default {
     name: "Comic",
-    components : { NotFound },
+    components : { NotFound, Popup },
     mounted() {
         $('body').removeClass('body-reader hide-header');
         $('#nav-search').show();
@@ -268,6 +270,9 @@ export default {
                     const instance = new ComponentClass();
                     instance.$mount();
                     if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
+                    const title = 'Error 404' + " | " + this.reader.SITE_NAME;
+                    $('title').html(title);
+                    $('meta[property="og:title"]').html(title);
                 } else {
                     const title = this.$store.getters.comic.title + " | " + this.reader.SITE_NAME;
                     $('title').html(title);
@@ -281,6 +286,11 @@ export default {
         return {
             reader: this.$root,
             viewed: this.$root.getCookie('viewed') ? JSON.parse('' + this.$root.getCookie('viewed')) : {},
+            popupData : {
+                "header" : "Chapter licensed",
+                "body" : "This chapter is licensed and you can't read it.",
+                "button" : "Ok",
+            }
         }
     },
     methods: {
@@ -297,6 +307,9 @@ export default {
             this.viewed[this.$store.getters.comic.slug][slug] ^= 1;
             this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             this.$forceUpdate();
+        },
+        showPopup() {
+            $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
         },
     },
     computed: {
