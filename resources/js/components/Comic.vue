@@ -226,7 +226,7 @@
                     <div class="col-sm-auto text-center pr-0">
                         <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
                     </div>
-                    <div class="col-sm-5 text-left">Filename</div>
+                    <div class="col-10 text-left">Filename</div>
                 </div>
 
                 <div v-for="(download, volume) in comic.volume_downloads" class="row flex-sm-nowrap text-truncate border-bottom py-1 item">
@@ -235,7 +235,7 @@
                             <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
                         </a>
                     </div>
-                    <div class="col-sm-5 col-7 text-left order-2 overflow-hidden">
+                    <div class="col-10 text-left order-2 overflow-hidden">
                         <span class="chapter">
                             <a :href="reader.API_BASE_URL + download">{{ volume }}</a>
                         </span>
