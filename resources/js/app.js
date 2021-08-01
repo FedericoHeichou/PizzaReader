@@ -21,6 +21,7 @@ const app = new Vue({
             API_BASE_URL: typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : '/api',
             SITE_NAME: typeof SITE_NAME !== 'undefined' ? SITE_NAME : 'PizzaReader',
             SITE_NAME_FULL: typeof SITE_NAME_FULL !== 'undefined' ? SITE_NAME_FULL : 'PizzaReader - Read manga online',
+            homepage_html: null,
         }
     },
     methods: {

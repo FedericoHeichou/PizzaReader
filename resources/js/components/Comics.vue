@@ -52,13 +52,13 @@
             </div>
         </div>
         <div v-if="reader.$route.name === 'Last Releases' && socials.length" class="mt-2 py-xl-4 mt-xl-0 col-12 col-xl-4">
-            <h2 class="text-center pb-sm-2">Socials:</h2>
-            <div class="socials text-center">
-                <a v-for="social in socials" :href="social.url" class="mx-1 d-inline-block" target="_blank">
-                    <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" :title="social.name"></span>{{ social.name }}
+            <h2 class="text-center pb-sm-1">Socials:</h2>
+            <div class="socials text-center row">
+                <a v-for="social in socials" :href="social.url" class="col-3 mb-2" target="_blank">
+                    <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" :title="social.name"></span>
                 </a>
             </div>
-            <div id="homepage_html"></div>
+            <div id="homepage_html" class="text-center"></div>
         </div>
     </div>
 </template>
@@ -75,6 +75,9 @@ export default {
         $('meta[property="og:title"]').html(this.reader.SITE_NAME_FULL);
         this.$store.dispatch('fetchInfo', '/info');
         this.$store.dispatch('fetchComics', '/comics');
+        if (this.reader.$route.name === 'Last Releases' && this.comics.length) {
+            this.updateHomepageHTML();
+        }
     },
     updated() {
         if (this.reader.$route.path === '/comics') {
@@ -85,12 +88,35 @@ export default {
             $('#nav-filter').hide();
         }
         if (this.reader.$route.name === 'Last Releases' && this.comics.length) {
-            $('#homepage_html').html(homepage_html_placeholder);
+            this.updateHomepageHTML();
         }
     },
     data() {
         return {
             reader: this.$root,
+        }
+    },
+    methods: {
+        updateHomepageHTML() {
+            const homepage_html_selector = $('#homepage_html');
+            if(this.reader.homepage_html === null) {
+                homepage_html_selector.html(homepage_html_placeholder);
+                this.observeSelector('#homepage_html');
+            } else {
+                homepage_html_selector.html(this.reader.homepage_html)
+            }
+        },
+        observeSelector(selector) {
+            const targetNode = document.querySelector(selector);
+            if(targetNode) {
+                const config = {attributes: true, childList: true, subtree: true};
+                const reader = this.reader;
+                const callback = function (mutationsList, observer) {
+                    reader.homepage_html = targetNode.innerHTML;
+                };
+                const observer = new MutationObserver(callback);
+                observer.observe(targetNode, config);
+            }
         }
     },
     computed: {
