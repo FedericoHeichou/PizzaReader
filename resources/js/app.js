@@ -45,5 +45,6 @@ const app = new Vue({
             }
             return "";
         },
+        __(message) { return typeof lang_messages !== 'undefined' && lang_messages[message] || message; },
     }
 });

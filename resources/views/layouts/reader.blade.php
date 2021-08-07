@@ -74,7 +74,9 @@
         const SITE_NAME = "{{ config('settings.reader_name') }}";
         const SITE_NAME_FULL = "{{ config('settings.reader_name_long') }}";
     </script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<?php $locale_filename = str_replace(['\\', '/', '.'], '', \App::currentLocale()) . '.js'; ?>
+    @if(\File::exists('js/lang/' . $locale_filename))<script src="{{ asset('js/lang/' . $locale_filename) }}" defer></script>
+    @endif<script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
     <script src="{{ asset('js/frontend.js') }}" defer></script>
     <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" defer></script>
@@ -123,17 +125,17 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <router-link to="/" class="nav-link">
-                                <span aria-hidden="true" title="Last Releases" class="fas fa-list-alt fa-fw"></span> Last Releases
+                                <span aria-hidden="true" title="Last Releases" class="fas fa-list-alt fa-fw"></span> {{ __('Last Releases') }}
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/recommended" class="nav-link">
-                                <span aria-hidden="true" title="Recommended" class="fas fa-star fa-fw"></span> Recommended
+                                <span aria-hidden="true" title="Recommended" class="fas fa-star fa-fw"></span> {{ __('Recommended') }}
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/comics" class="nav-link">
-                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> All Comics
+                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> {{ __('All Comics') }}
                             </router-link>
                         </li>
                     @foreach(parse_ini_string(config('settings.menu')) as $k => $v)
@@ -158,14 +160,14 @@
                             <div class="custom-control custom-switch p-2 ml-4">
                                 <input type="checkbox" class="custom-control-input" id="dark-mode-switch"
                                     {{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "checked" : "" }}>
-                                <label class="custom-control-label" for="dark-mode-switch">Dark</label>
+                                <label class="custom-control-label" for="dark-mode-switch">{{ __('Dark') }}</label>
                             </div>
                         </li>
                         <li class="nav-item" style="width: 100%">
                             <input id="nav-filter" class="form-control mr-sm-2 card-search"
-                                   type="search" placeholder="Filter" aria-label="Filter" name="filter"
+                                   type="search" placeholder="{{ __('Filter') }}" aria-label="Filter" name="filter"
                                    style="display: none" autocomplete="off">
-                            <input id="nav-search" type="search" placeholder="Search comic" aria-label="Search comic"
+                            <input id="nav-search" type="search" placeholder="{{ __('Search comic') }}" aria-label="Search comic"
                                    name="search" class="form-control mr-sm-2"
                                    style="display: none" autocomplete="off">
                             <div id="results-box" style="display: none"></div>
@@ -179,11 +181,11 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->hasPermission('checker'))
                                         <a class="dropdown-item" href="{{ route('admin.comics.index') }}">
-                                            <span aria-hidden="true" title="Admin panel" class="fas fa-wrench fa-fw"></span> Admin panel
+                                            <span aria-hidden="true" title="Admin panel" class="fas fa-wrench fa-fw"></span> {{ __('Admin panel') }}
                                         </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('user.edit') }}">
-                                        <span aria-hidden="true" title="Profile" class="fas fa-user fa-fw"></span> Edit profile
+                                        <span aria-hidden="true" title="Profile" class="fas fa-user fa-fw"></span> {{ __('Edit profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -211,7 +213,7 @@
                                  src="{{ (config('settings.logo') ? '/storage/img/logo/' . substr(config('settings.logo'), 0, -4) : '/img/logo/PizzaReader') . '-128.png' }}">
                         @endif
                         <h4 style="margin-top:6px;font-weight:700;text-shadow:0 0 12px black">{{ config('settings.reader_name_long', 'PizzaReader') }}</h4>
-                        <p style="font-weight:700;text-shadow:0 0 6px black">Loading</p>
+                        <p style="font-weight:700;text-shadow:0 0 6px black">{{ __('Loading') }}</p>
                     </div>
                 </div>
             </router-view>

@@ -1,7 +1,7 @@
 <template>
     <div :class="reader.$route.name === 'Last Releases' ? 'row' : ''">
         <div :class="'py-sm-4' + (reader.$route.name === 'Last Releases' ? ' col-12 col-xl-8' : '')">
-            <h2 class="text-center pt-sm-0 pt-2 pb-sm-2">{{ reader.$route.name }}</h2>
+            <h2 class="text-center pt-sm-0 pt-2 pb-sm-2">{{ reader.__(reader.$route.name) }}</h2>
             <div class="row">
                 <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
                     <div :class="'thumbnail float-left mr-3 ml-1' + (reader.$route.name === 'Last Releases' ? ' small' : '')">
@@ -36,7 +36,7 @@
                             <span class="fas fa-eye fa-fw" aria-hidden="true" title="Views"></span>
                             <span>{{ comic.views }}</span>
                         </li>
-                        <li class="list-inline-item text-info">
+                        <li v-if="reader.$route.name !== 'Last Releases'" class="list-inline-item text-info">
                             <span style="margin-top: 2px;" class="badge badge-status p-1 text-white align-top" title="Status" :data-status="comic.status ? comic.status.toLowerCase() : ''">{{ comic.status }}</span>
                         </li>
                         <li v-if="comic.last_chapter != null" class="text-success">
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div v-if="reader.$route.name === 'Last Releases' && socials.length" class="mt-2 py-xl-4 mt-xl-0 col-12 col-xl-4">
-            <h2 class="text-center pb-sm-1">Socials:</h2>
+            <h2 class="text-center pb-sm-1">{{ reader.__('Socials') }}:</h2>
             <div class="socials text-center row">
                 <a v-for="social in socials" :href="social.url" class="col-3 mb-2" target="_blank">
                     <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" :title="social.name"></span>

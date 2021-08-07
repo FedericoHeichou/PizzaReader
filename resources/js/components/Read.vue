@@ -83,7 +83,7 @@
                             <li :class="'star' + (chapter.your_vote === 2 ? ' selected' : '')" data-vote="2" @click="sendVote"></li>
                             <li :class="'star' + (chapter.your_vote === 1 ? ' selected' : '')" data-vote="1" @click="sendVote"></li>
                         </ul>
-                        Current rating: {{ chapter.rating || 'N/A' }}
+                        {{ reader.__('Current rating') }}: {{ chapter.rating || 'N/A' }}
                     </div>
                     <div id="reader-controls-actions" class="col-auto row no-gutters p-1">
                         <div class="col row no-gutters">
@@ -96,99 +96,99 @@
                                 <span class="far fa-window-maximize fa-fw" :data-value="hide_header^1"
                                       data-setting="hide-header"></span>
                                 <span class="d-none d-lg-inline" :data-value="hide_header^1"
-                                      data-setting="hide-header"> Hide header</span>
+                                      data-setting="hide-header"> {{ reader.__('Hide header') }}</span>
                             </a>
                         </div>
                     </div>
                     <div id="reader-controls-mode"
                          class="col-auto d-lg-flex d-none flex-column align-items-start row no-gutters p-2">
-                        <div class="col text-center font-weight-bold">Fit display to</div>
+                        <div class="col text-center font-weight-bold">{{ reader.__('Fit display to') }}</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="displayFit === 'fit-both'" class="btn btn-secondary col-3 active">
                                 <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Both
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Both') }}
                             </label>
                             <label v-else class="btn btn-secondary col-3">
                                 <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Both
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Both') }}
                             </label>
                             <label v-if="displayFit === 'fit-width'" class="btn btn-secondary col-3 active">
                                 <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Width
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Width') }}
                             </label>
                             <label v-else class="btn btn-secondary col-3">
                                 <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Width
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Width') }}
                             </label>
                             <label v-if="displayFit === 'fit-height'" class="btn btn-secondary col-3 active">
                                 <input type="radio" data-value="fit-height" data-setting="displayFit"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Height
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Height') }}
                             </label>
                             <label v-else class="btn btn-secondary col-3">
                                 <input type="radio" data-value="fit-height" data-setting="displayFit"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Height
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Height') }}
                             </label>
                             <label v-if="displayFit === 'no-resize'" class="btn btn-secondary col-3 active">
                                 <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Full
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Full') }}
                             </label>
                             <label v-else class="btn btn-secondary col-3">
                                 <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Full
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Full') }}
                             </label>
                         </div>
-                        <div class="col text-center font-weight-bold mt-2">Page rendering</div>
+                        <div class="col text-center font-weight-bold mt-2">{{ reader.__('Page rendering') }}</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="renderingMode === 'double-page'" class="btn btn-secondary col-4 active">
                                 <input type="radio" data-value="double-page" data-setting="renderingMode"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Double
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Double') }}
                             </label>
                             <label v-else class="btn btn-secondary col-4">
                                 <input type="radio" data-value="double-page" data-setting="renderingMode"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Double
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Double') }}
                             </label>
                             <label v-if="renderingMode === 'single-page'" class="btn btn-secondary col-4 active">
                                 <input type="radio" data-value="single-page" data-setting="renderingMode"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Single
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Single') }}
                             </label>
                             <label v-else class="btn btn-secondary col-4">
                                 <input type="radio" data-value="single-page" data-setting="renderingMode"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Single
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Single') }}
                             </label>
                             <label v-if="renderingMode === 'long-strip'" class="btn btn-secondary col-4 active">
                                 <input type="radio" data-value="long-strip" data-setting="renderingMode"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Long Strip
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Long Strip') }}
                             </label>
                             <label v-else class="btn btn-secondary col-4">
                                 <input type="radio" data-value="long-strip" data-setting="renderingMode"
                                        @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Long Strip
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Long Strip') }}
                             </label>
                         </div>
-                        <div class="col text-center font-weight-bold mt-2">Direction</div>
+                        <div class="col text-center font-weight-bold mt-2">{{ reader.__('Direction') }}</div>
                         <div class="col btn-group btn-group-toggle" data-toggle="buttons">
                             <label v-if="direction === 'ltr'" class="btn btn-secondary col-6 active">
                                 <input type="radio" data-value="ltr" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Left to right
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Left to right') }}
                             </label>
                             <label v-else class="btn btn-secondary col-6">
                                 <input type="radio" data-value="ltr" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Left to right
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Left to right') }}
                             </label>
                             <label v-if="direction === 'rtl'" class="btn btn-secondary col-6 active">
                                 <input type="radio" data-value="rtl" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>Right to left
+                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Right to left') }}
                             </label>
                             <label v-else class="btn btn-secondary col-6">
                                 <input type="radio" data-value="rtl" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">Right to left
+                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Right to left') }}
                             </label>
                         </div>
                     </div>
@@ -219,7 +219,7 @@
                         </router-link>
 
                         <div id="reader-controls-page-text" class="col text-center cursor-pointer">
-                            Page <span class="current-page">{{ page }}</span> /
+                            {{ reader.__('Page') }} <span class="current-page">{{ page }}</span> /
                             <span class="total-pages"> {{ max_page }} </span>
                         </div>
 

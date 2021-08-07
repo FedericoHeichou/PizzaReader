@@ -19,7 +19,7 @@
 
                         <div v-if="comic.last_chapter != null" class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Last chapter:</label>
+                                <label class="mb-0">{{ reader.__('Last chapter') }}:</label>
                             </div>
                             <div class="col-md-10 text-success">
                                 <span class="fas fa-book-open fa-fw" aria-hidden="true" title="Last chapter"></span>
@@ -31,7 +31,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Author:</label>
+                                <label class="mb-0">{{ reader.__('Author') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 {{ comic.author }}
@@ -40,7 +40,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Artist:</label>
+                                <label class="mb-0">{{ reader.__('Artist') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 {{ comic.artist }}
@@ -49,7 +49,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Target:</label>
+                                <label class="mb-0">{{ reader.__('Target') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <router-link v-if="comic.target != null" :to="'/targets/' + comic.target.toLowerCase()"
@@ -61,7 +61,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Genres:</label>
+                                <label class="mb-0">{{ reader.__('Genres') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <template v-for="genre in comic.genres">
@@ -74,7 +74,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Format:</label>
+                                <label class="mb-0">{{ reader.__('Format') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 {{ comic.format_id === 1 ? 'Manga' : 'Long Strip (Web Toons)' }}
@@ -83,7 +83,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Adult:</label>
+                                <label class="mb-0">{{ reader.__('Adult') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 {{ comic.adult ? 'Yes' : 'No' }}
@@ -92,7 +92,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Stats:</label>
+                                <label class="mb-0">{{ reader.__('Stats') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <ul class="list-inline my-0">
@@ -111,7 +111,7 @@
 
                         <div class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Status:</label>
+                                <label class="mb-0">{{ reader.__('Status') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <span class="badge badge-status p-2 text-white" title="Status" :data-status="comic.status ? comic.status.toLowerCase() : ''">{{ comic.status }}</span>
@@ -120,7 +120,7 @@
 
                         <div class="row py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">Description:</label>
+                                <label class="mb-0">{{ reader.__('Description') }}:</label>
                             </div>
                             <div class="col-md-10 text-pre text-justify">{{ comic.description }}</div>
                         </div>
@@ -135,11 +135,11 @@
                 <div class="row">
                     <div class="col-sm-9 pt-2">
                         <span class="fas fa-book-open fa-fw"></span>
-                        Chapters
+                        {{ reader.__('Chapters') }}
                     </div>
                     <div class="col-sm-3">
                         <input class="form-control mr-sm-2 ui-autocomplete-input card-search" type="search"
-                               placeholder="Filter chapters" aria-label="Filter" name="filter" autocomplete="off">
+                               :placeholder="reader.__('Filter chapters')" aria-label="Filter" name="filter" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                         <span class="fa fa-cloud-download-alt fa-fw" title="External download"></span>
                         <span class="fa fa-file-pdf fa-fw" title="PDF"></span>
                     </div>
-                    <div class="col-sm-5 text-left">Title</div>
+                    <div class="col-sm-5 text-left">{{ reader.__('Title') }}</div>
                     <div class="col-sm-auto text-center">
                         <span class="fa fa-globe fa-fw" title="Language" style="width:24px"></span>
                     </div>
@@ -216,7 +216,7 @@
                 <div class="row">
                     <div class="col-sm-12 pt-2">
                         <span class="fas fa-book-reader fa-fw"></span>
-                        Volume downloads
+                        {{ reader.__('Volume downloads') }}
                     </div>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                     <div class="col-sm-auto text-center pr-0">
                         <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
                     </div>
-                    <div class="col-10 text-left">Filename</div>
+                    <div class="col-10 text-left">{{ reader.__('Filename') }}</div>
                 </div>
 
                 <div v-for="(download, volume) in comic.volume_downloads" class="row flex-sm-nowrap text-truncate border-bottom py-1 item">
@@ -287,8 +287,8 @@ export default {
             reader: this.$root,
             viewed: this.$root.getCookie('viewed') ? JSON.parse('' + this.$root.getCookie('viewed')) : {},
             popupData : {
-                "header" : "Chapter licensed",
-                "body" : "This chapter is licensed and you can't read it.",
+                "header" : this.$root.__('Chapter licensed'),
+                "body" : this.$root.__('This chapter is licensed and you can\'t read it.'),
                 "button" : "Ok",
             }
         }

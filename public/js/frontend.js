@@ -9,21 +9,23 @@ function escapeHtml(unsafe) {
 
 const plural = (is_plural) => { return is_plural ? 's' : ''; }
 
+const __ = (message) => { return typeof lang_messages !== 'undefined' && lang_messages[message] || message; }
+
 function timePassed(date, short=false) {
     let diff = new Date().getTime() - new Date(date).getTime();
     if(diff < 0) return 'In the future';
     diff = parseInt(diff / 1000);
-    if (diff < 60) return diff + (short ? ' second' + plural(diff !== 1) + ' ago' : ' s');
+    if (diff < 60) return diff + (short ? __(' second' + plural(diff !== 1) + ' ago') : ' s');
     diff = parseInt(diff / 60);
-    if (diff < 60) return diff + (short ? ' minute' + plural(diff !== 1) + '  ago' : ' m');
+    if (diff < 60) return diff + (short ? __(' minute' + plural(diff !== 1) + ' ago') : ' m');
     diff = parseInt(diff / 60);
-    if (diff < 24) return diff + (short ? ' hour' + plural(diff !== 1) + ' ago' : ' h');
+    if (diff < 24) return diff + (short ? __(' hour' + plural(diff !== 1) + ' ago') : ' h');
     diff = parseInt(diff / 24);
-    if (diff < 30) return diff + (short ? ' day' + plural(diff !== 1) + '  ago' : ' d');
+    if (diff < 30) return diff + (short ? __(' day' + plural(diff !== 1) + ' ago') : ' d');
     diff = parseInt(diff / 30);
-    if (diff < 12) return diff + (short ? ' month' + plural(diff !== 1) + '  ago' : ' mo');
+    if (diff < 12) return diff + (short ? __(' month' + plural(diff !== 1) + ' ago') : ' mo');
     diff = parseInt(diff / 12);
-    return diff + (short ? ' year' + plural(diff !== 1) + ' ago' : ' y');
+    return diff + (short ? __(' year' + plural(diff !== 1) + ' ago') : ' y');
 }
 
 window.timePassed = timePassed;
