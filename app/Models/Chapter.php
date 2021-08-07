@@ -355,8 +355,9 @@ class Chapter extends Model {
                     'hint' => 'If you want to use a external download link use this field, else a zip is automatically generated (if is enabled in the options)',
                     'disabled' => true,
                     'edit' => true,
+                    'max' => 512,
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:512'],
             ], [
                 'type' => 'input_text',
                 'parameters' => [
@@ -365,8 +366,9 @@ class Chapter extends Model {
                     'hint' => 'Link of the thumbnail used in the socials. If empty, the first page of the chapter will be used',
                     'disabled' => true,
                     'edit' => true,
+                    'max' => 512,
                 ],
-                'values' => ['max:191'],
+                'values' => ['max:512'],
             ], [
                 'type' => 'select',
                 'parameters' => [

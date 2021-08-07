@@ -25,7 +25,7 @@ class CreateChaptersTable extends Migration {
             $table->boolean('hidden')->default(0);
             $table->bigInteger('views', false, true)->default(0);
             $table->decimal('rating', 4, 2, true)->nullable()->default(null);
-            $table->string('download_link')->nullable();
+            $table->string('download_link', 512)->nullable();
             $table->bigInteger('team_id', false, true)->nullable();
             $table->bigInteger('team2_id', false, true)->nullable();
             $table->timestamp('published_on')->useCurrent();

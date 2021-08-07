@@ -13,7 +13,7 @@ class UpdateChaptersTable extends Migration {
     public function up() {
         Schema::table('chapters', function (Blueprint $table) {
             $table->boolean('licensed')->default(0);
-            $table->string('thumbnail')->nullable()->default(null);
+            $table->string('thumbnail', 512)->nullable()->default(null);
         });
     }
 
