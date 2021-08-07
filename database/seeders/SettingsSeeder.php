@@ -139,6 +139,11 @@ class SettingsSeeder extends Seeder {
         $s->save();
 
         $s = new Settings();
+        $s->key = 'menu';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
         $s->key = 'recaptcha_public';
         $s->value = null;
         $s->save();
