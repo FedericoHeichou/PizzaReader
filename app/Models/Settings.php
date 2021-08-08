@@ -292,6 +292,9 @@ class Settings extends Model {
         } else {
             unset($fields['cover']);
         }
+        if (array_key_exists('homepage_html', $fields) && !config('app.edit_custom_html')) {
+            unset($fields['homepage_html']);
+        }
         return $fields;
     }
 
