@@ -151,6 +151,14 @@ class Settings extends Model {
                 ],
                 'values' => ['boolean'],
             ], [
+                'type' => 'input_checkbox',
+                'parameters' => [
+                    'field' => 'default_chapter_thumbnail',
+                    'label' => 'Set first page as default chapter thumbnail',
+                    'hint' => 'The thumbnail showed when a chapter is linked in socials. If unchecked the comic\'s thumbnail is used',
+                ],
+                'values' => ['boolean'],
+            ], [
                 'type' => 'input_text',
                 'parameters' => [
                     'field' => 'social_facebook',

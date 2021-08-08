@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class Comic extends Model {
     protected $fillable = [
@@ -84,7 +86,7 @@ class Comic extends Model {
         if(preg_match("/[A-Za-z0-9]{3,}/", $comic_name))
             return $query->where($column, 'LIKE', '%' . $comic_name . '%');
         else // Sorry mom
-            return $query->where(\DB::raw('1=2'));
+            return $query->where(DB::raw('1=2'));
     }
 
     public static function fullSearch($search) {
@@ -109,7 +111,8 @@ class Comic extends Model {
 
     public static function getThumbnailUrl($comic) {
         if ($comic->thumbnail === null || $comic->thumbnail === '') return null;
-        return asset('storage/' . Comic::buildPath($comic) . '/' . urlencode($comic->thumbnail));
+        $thumbnail_path = 'storage/' . Comic::buildPath($comic) . '/' . rawurlencode($comic->thumbnail);
+        return File::exists($thumbnail_path) ? asset($thumbnail_path) : null;
     }
 
     public static function getUrl($comic) {
@@ -263,7 +266,7 @@ class Comic extends Model {
         foreach ($exploded_genres as $genre) {
             if ($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
         }
-        $thumbnail = Comic::getThumbnailUrl($comic) ?: config('app.url') . 'public/img/noimg.jpg'; // TODO setting api
+        $thumbnail = Comic::getThumbnailUrl($comic) ?: asset(config('settings.cover_path'));
         return [
             'id' => Auth::check() && Auth::user()->hasPermission('manager') ? $comic->id : null,
             'title' => $comic->name,

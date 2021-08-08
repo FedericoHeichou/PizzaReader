@@ -12,29 +12,29 @@
     $comic_title = "";
     $pre = "";
     $meta_description = config('settings.description');
-    $meta_image = config('settings.cover_path');
+    $meta_image = asset(config('settings.cover_path'));
 
     $user_agent = strtolower(request()->userAgent());
 
-    if((strpos($user_agent, 'bot') !== false || strpos($user_agent, 'facebook') !== false) && $comic_slug){
+    if ((strpos($user_agent, 'bot') !== false || strpos($user_agent, 'facebook') !== false) && $comic_slug) {
         $comic = Comic::publicSlug($comic_slug);
-        if($comic) {
+        if ($comic) {
             $comic_title = $comic->name;
             $meta_description = $comic->description;
-            $meta_image = 'storage/' . Comic::buildPath($comic) . '/' . urlencode($comic->thumbnail);
-            if(request()->segment(1) === "read") {
+            $meta_image = Comic::getThumbnailUrl($comic);
+            if (request()->segment(1) === "read") {
                 $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
                 $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
                 $chapter = Chapter::publicFilterByCh($comic, $ch);
-                if($chapter) {
+                if ($chapter) {
                     $pre = Chapter::getVolChSub($chapter) . " | ";
-                    $meta_image = $chapter->thumbnail ?: 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
+                    $meta_image = Chapter::getThumbnailUrl($comic, $chapter);
                 }
             }
         }
     } else {
         $comic_title = ucwords(str_replace("-", " ", $comic_slug));
-        if(request()->segment(1) === "read") {
+        if (request()->segment(1) === "read") {
             $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
             $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
             if (is_array($ch) && ($ch['vol'] !== null || $ch['ch'] !== null || $ch['sub'] !== null)) {
@@ -50,18 +50,15 @@
         }
     }
     $title = $pre . ($comic_title ? $comic_title . " | " . config('settings.reader_name') : config('settings.reader_name_long'));
-    $isImageLink = substr($meta_image, 0, 4) === 'http';
 ?>
     <title>{{ $title }}</title>
 
     <!-- SEO -->
     <link rel="canonical" href="{{ URL::current() }}" />
     <meta name="description" content="{{ $meta_description }}"/>
-    <meta property="og:image" content="{{ $isImageLink ? $meta_image : asset($meta_image) }}" />
-    <meta property="og:image:secure_url" content="{{ $isImageLink ? $meta_image : asset($meta_image) }}" />
-    @if(!$isImageLink)<?php $size = getimagesize($meta_image); ?><meta property="og:image:width" content="{{ $size[0] ?? 0 }}" />
-    <meta property="og:image:height" content="{{ $size[1] ?? 0 }}" />
-    @endif<meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
+    <meta property="og:image" content="{{ $meta_image }}" />
+    <meta property="og:image:secure_url" content="{{ $meta_image }}" />
+    <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:description" content="{{ $meta_description }}" />

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 
 class Chapter extends Model {
@@ -163,6 +164,13 @@ class Chapter extends Model {
             return "/download" . Chapter::buildUri($comic, $ch);
         }
         return null;
+    }
+
+    public static function getThumbnailUrl($comic, $chapter) {
+        if ($chapter->thumbnail) return $chapter->thumbnail;
+        if (!config('settings.default_chapter_thumbnail')) return Comic::getThumbnailUrl($comic);
+        $thumbnail_path = 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
+        return File::exists($thumbnail_path) ? asset($thumbnail_path) : null;
     }
 
     public static function canChapterPdf($chapter) {
