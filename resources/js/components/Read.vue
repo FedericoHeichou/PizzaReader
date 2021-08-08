@@ -249,7 +249,7 @@
                     JavaScript is required for this reader to work.
                 </div>
             </noscript>
-            <div @click="clickPage" id="reader-images"
+            <div @click="clickPage" id="reader-images" :rendering="renderingMode"
                 class="col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
                 <template v-if="renderingMode === 'single-page'">
                     <div :data-page="page" :style="'order: ' + page + ';'" :rendering="renderingMode"
@@ -540,9 +540,9 @@ export default {
         },
         swipeInit() {
             $(document).ready(function(){
-                $("#reader-images").swipe( {
-                    swipeLeft: function() {$('#turn-right').click()},
-                    swipeRight: function() {$('#turn-left').click()},
+                $('#reader-images').swipe( {
+                    swipeLeft: function() {$('#reader-images:not([rendering=long-strip])').length && $('html,body').scrollTop() > 150 && $('#turn-right').click()},
+                    swipeRight: function() {$('#reader-images:not([rendering=long-strip])').length && $('html,body').scrollTop() > 150 && $('#turn-left').click()},
                 });
             });
         },
