@@ -541,8 +541,8 @@ export default {
         swipeInit() {
             $(document).ready(function(){
                 $('#reader-images').swipe( {
-                    swipeLeft: function() {$('#reader-images:not([rendering=long-strip])').length && $('html,body').scrollTop() > 150 && $('#turn-right').click()},
-                    swipeRight: function() {$('#reader-images:not([rendering=long-strip])').length && $('html,body').scrollTop() > 150 && $('#turn-left').click()},
+                    swipeLeft: function() {$('#reader-images:not([rendering=long-strip])').length && $('html,body').scrollTop() > 200 && $('#turn-right').click()},
+                    swipeRight: function() {$('#reader-images:not([rendering=long-strip])').length && $('html,body').scrollTop() > 200 && $('#turn-left').click()},
                 });
             });
         },
