@@ -111,8 +111,8 @@ class Comic extends Model {
 
     public static function getThumbnailUrl($comic) {
         if ($comic->thumbnail === null || $comic->thumbnail === '') return null;
-        $thumbnail_path = 'storage/' . Comic::buildPath($comic) . '/' . rawurlencode($comic->thumbnail);
-        return File::exists($thumbnail_path) ? asset($thumbnail_path) : null;
+        $thumbnail_path = 'storage/' . Comic::buildPath($comic) . '/';
+        return File::exists($thumbnail_path . $comic->thumbnail) ? asset($thumbnail_path . rawurlencode($comic->thumbnail)) : null;
     }
 
     public static function getUrl($comic) {
