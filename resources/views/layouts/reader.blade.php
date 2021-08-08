@@ -12,7 +12,7 @@
     $comic_title = "";
     $pre = "";
     $meta_description = config('settings.description');
-    $meta_image = asset(config('settings.cover_path'));
+    $meta_image = null;
 
     $user_agent = strtolower(request()->userAgent());
 
@@ -56,8 +56,8 @@
     <!-- SEO -->
     <link rel="canonical" href="{{ URL::current() }}" />
     <meta name="description" content="{{ $meta_description }}"/>
-    <meta property="og:image" content="{{ $meta_image }}" />
-    <meta property="og:image:secure_url" content="{{ $meta_image }}" />
+    <meta property="og:image" content="{{ $meta_image ?: asset(config('settings.cover_path')) }}" />
+    <meta property="og:image:secure_url" content="{{ $meta_image ?: asset(config('settings.cover_path')) }}" />
     <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ $title }}" />
