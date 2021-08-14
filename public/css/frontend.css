@@ -50,6 +50,12 @@ body {
     background-color: var(--red);
 }
 
+@media (max-width: 767px) {
+    .badge {
+        margin-bottom: 3px;
+    }
+}
+
 .thumbnail-full img {
     max-width: 250px;
 }

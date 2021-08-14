@@ -115,3 +115,7 @@ body.dark .table, body.dark .table-hover tbody tr:hover {
 body.dark .modal-content {
     background-color: var(--black-3);
 }
+
+body.dark .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")
+}
