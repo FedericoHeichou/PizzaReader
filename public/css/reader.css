@@ -130,6 +130,7 @@ body.hide-header {
 
 #reader-controls-mode label {
     overflow: hidden;
+    font-size: .85rem;
 }
 
 /* reader */
@@ -606,7 +607,7 @@ body.hide-header #hide-header-button {
         bottom: 0;
         right: 0;
         left: auto;
-        width: 20vw;
+        width: 23vw;
     }
 
     body.hide-header #reader.layout-horizontal #reader-controls-wrapper {
@@ -635,7 +636,7 @@ body.hide-header #hide-header-button {
         position: fixed;
         bottom: 0;
         left: 0;
-        right: 20vw;
+        right: 23vw;
         width: auto;
     }
 
@@ -662,7 +663,7 @@ body.hide-header #hide-header-button {
     }
 
     #reader.layout-horizontal #reader-images {
-        padding-right: 20vw !important;
+        padding-right: 23vw !important;
     }
 
     #reader.layout-horizontal.hide-sidebar #reader-images {
