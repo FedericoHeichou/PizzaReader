@@ -12,7 +12,7 @@
                             <a v-if="comic.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug" target="_blank">
                                 <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                             </a>
-                            <router-link class="ml-1 text-wrap filter" :title="comic.title" :to="comic.url">
+                            <router-link class="text-wrap filter" :title="comic.title" :to="comic.url">
                                 {{ comic.title }}
                             </router-link>
                         </h5>
