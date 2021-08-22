@@ -61,7 +61,7 @@ class VolumeDownload extends Model {
             $length_of_path = strlen($path . '/');
             $files = [];
 
-            foreach ($comic->chapters()->published()->where('licensed', 0)->get() as $chapter) {
+            foreach ($comic->chapters()->published()->where('licensed', 0)->where('volume', $volume)->get() as $chapter) {
                 $chapter_download = ChapterDownload::getDownload($comic, $chapter);
                 array_push($files, [
                     'source' => "$absolute_path/" . substr($chapter_download['path'], $length_of_path),
