@@ -144,7 +144,7 @@
                         @if($url !== null && $css !== null)
                         <li class="nav-item">
                             <a href="{{ $url }}" class="nav-link" target="_blank">
-                                @if($css)<span aria-hidden="true" title="Comics" class="{{ $css }}"></span>@endif {{ $k }}
+                                @if($css)<span aria-hidden="true" title="{{ $k }}" class="{{ $css }}"></span>@endif {{ $k }}
                             </a>
                         </li>
                         @endif
