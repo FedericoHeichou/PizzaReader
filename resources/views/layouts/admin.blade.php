@@ -11,13 +11,13 @@
 
     <!-- SEO -->
     <link rel="canonical" href="{{ URL::current() }}" />
-    <meta name="description" content="{{ $meta_description }}"/>
-    <meta property="og:image" content="{{ $meta_image ?: asset(config('settings.cover_path')) }}" />
-    <meta property="og:image:secure_url" content="{{ $meta_image ?: asset(config('settings.cover_path')) }}" />
+    <meta name="description" content="{{ config('settings.description') }}"/>
+    <meta property="og:image" content="{{ asset(config('settings.cover_path')) }}" />
+    <meta property="og:image:secure_url" content="{{ asset(config('settings.cover_path')) }}" />
     <meta property="og:site_name" content="{{ config('settings.reader_name') }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{ $title }}" />
-    <meta property="og:description" content="{{ $meta_description }}" />
+    <meta property="og:title" content="{{ config('settings.reader_name_long') }}" />
+    <meta property="og:description" content="{{ config('settings.description') }}" />
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
