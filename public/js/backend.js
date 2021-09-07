@@ -111,7 +111,7 @@ function assignComicsBuild() {
     let assigned_comics_html = '<div class="comics">';
     for(let i=1; i < assignedComics.length; i++) {
         if(assignedComics[i] !== undefined) assigned_comics_html += '<span data-comic="' + i +
-            '" class="comic badge badge-info p-2 text-white mr-2 cursor-pointer" onclick="deleteComic(' + i + ')">' +
+            '" class="comic badge badge-info p-2 text-white mr-2 mt-1 cursor-pointer" onclick="deleteComic(' + i + ')">' +
             assignedComics[i] + ' <span class="fas fa-times-circle fa-fw"></span></span>';
     }
     assigned_comics_html += '</div>';
