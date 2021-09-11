@@ -662,11 +662,15 @@ body.hide-header #hide-header-button {
         height: 100%;
     }
 
-    #reader.layout-horizontal #reader-images {
+    #reader.layout-horizontal #reader-images,
+    #reader.layout-horizontal #banner_top,
+    #reader.layout-horizontal #banner_bottom {
         padding-right: 23vw !important;
     }
 
-    #reader.layout-horizontal.hide-sidebar #reader-images {
+    #reader.layout-horizontal.hide-sidebar #reader-images,
+    #reader.layout-horizontal.hide-sidebar #banner_top,
+    #reader.layout-horizontal.hide-sidebar #banner_bottom {
         padding-right: 34px !important;
     }
 

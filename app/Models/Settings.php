@@ -217,6 +217,14 @@ class Settings extends Model {
             ], [
                 'type' => 'textarea',
                 'parameters' => [
+                    'field' => 'menu',
+                    'label' => 'Menu tabs',
+                    'hint' => 'Each line is an additional menu tab. [Format: Name=css,url (Project=fab fa-github fa-fw,https://github.com/FedericoHeichou/PizzaReader)]',
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
                     'field' => 'homepage_html',
                     'label' => 'Homepage HTML',
                     'hint' => 'It is showed on the right side of the homepage. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
@@ -227,9 +235,81 @@ class Settings extends Model {
             ], [
                 'type' => 'textarea',
                 'parameters' => [
-                    'field' => 'menu',
-                    'label' => 'Menu tabs',
-                    'hint' => 'Each line is an additional menu tab. [Format: Name=css,url (Project=fab fa-github fa-fw,https://github.com/FedericoHeichou/PizzaReader)]',
+                    'field' => 'all_comics_top_html',
+                    'label' => 'All Comics top HTML',
+                    'hint' => 'It is showed above the list of comics in the "All Comics" tab. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'all_comics_bottom_html',
+                    'label' => 'All Comics bottom HTML',
+                    'hint' => 'It is showed below the list of comics in the "All Comics" tab. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'comic_top_html',
+                    'label' => 'Comic top HTML',
+                    'hint' => 'It is showed above "Chapters" in the Comic tab. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'comic_bottom_html',
+                    'label' => 'Comic bottom HTML',
+                    'hint' => 'It is showed below "Chapters" in the Comic tab. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'reader_html',
+                    'label' => 'Reader HTML',
+                    'hint' => 'It is showed below reader\'s controllers. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'banner_top',
+                    'label' => 'Banner top',
+                    'hint' => 'It is showed above a scan. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'banner_bottom',
+                    'label' => 'Banner bottom',
+                    'hint' => 'It is showed below a scan. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
+                ],
+                'values' => ['max:3000'],
+            ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'footer_html',
+                    'label' => 'Footer HTML',
+                    'hint' => 'It is showed to the bottom of every page. [IMPORTANT: enable (and disable back) this option from your .env file (remember to purge the cache)]',
+                    'disabled' => !config('app.edit_custom_html'),
+                    'prohibited' => !config('app.edit_custom_html'),
                 ],
                 'values' => ['max:3000'],
             ], /*[
@@ -256,22 +336,6 @@ class Settings extends Model {
                     'hint' => 'Usually starts with "pub" or "ca-pub". If this is empty your reader will be ad-free',
                 ],
                 'values' => ['max:191'],
-            ], [
-                'type' => 'input_text',
-                'parameters' => [
-                    'field' => 'banner_top',
-                    'label' => 'AdSense banner top',
-                    'hint' => 'Insert the code of your adsense banner (auto resizeable)',
-                ],
-                'values' => ['max:191'],
-            ], [
-                'type' => 'input_text',
-                'parameters' => [
-                    'field' => 'banner_bottom',
-                    'label' => 'AdSense banner bottom',
-                    'hint' => 'Insert the code of your adsense banner (auto resizeable)',
-                ],
-                'values' => ['max:191'],
             ],*/
         ];
     }
@@ -292,8 +356,15 @@ class Settings extends Model {
         } else {
             unset($fields['cover']);
         }
-        if (array_key_exists('homepage_html', $fields) && !config('app.edit_custom_html')) {
-            unset($fields['homepage_html']);
+
+        $custom_html_fields = [
+            'homepage_html', 'all_comics_top_html', 'all_comics_bottom_html', 'comic_top_html', 'comic_bottom_html',
+            'reader_html', 'banner_top', 'banner_bottom', 'footer_html',
+        ];
+        foreach ($custom_html_fields as $field) {
+            if (array_key_exists($field, $fields) && !config('app.edit_custom_html')) {
+                unset($fields[$field]);
+            }
         }
         return $fields;
     }

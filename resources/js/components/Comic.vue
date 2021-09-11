@@ -130,6 +130,8 @@
             </div>
         </div>
 
+        <div id="comic_top_html" class="text-center"></div>
+
         <div class="card mt-3">
             <div class="card-header">
                 <div class="row">
@@ -211,6 +213,8 @@
             </div>
         </div>
 
+        <div id="comic_bottom_html" class="text-center"></div>
+
         <div v-if="Object.keys(comic.volume_downloads).length" class="card mt-3">
             <div class="card-header">
                 <div class="row">
@@ -280,7 +284,11 @@ export default {
                 }
                 filter_search();
             });
+        this.comic != null && this.updateCustomHTML();
         $('html,body').scrollTop(0);
+    },
+    updated() {
+        this.comic != null && this.updateCustomHTML();
     },
     data() {
         return {
@@ -310,6 +318,10 @@ export default {
         },
         showPopup() {
             $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
+        },
+        updateCustomHTML() {
+            this.reader.updateCustomHTML('comic_top_html');
+            this.reader.updateCustomHTML('comic_bottom_html');
         },
     },
     computed: {

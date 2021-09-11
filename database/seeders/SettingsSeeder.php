@@ -99,6 +99,11 @@ class SettingsSeeder extends Seeder {
         $s->save();
 
         $s = new Settings();
+        $s->key = 'default_chapter_thumbnail';
+        $s->value = '1';
+        $s->save();
+
+        $s = new Settings();
         $s->key = 'social_facebook';
         $s->value = null;
         $s->save();
@@ -134,32 +139,37 @@ class SettingsSeeder extends Seeder {
         $s->save();
 
         $s = new Settings();
-        $s->key = 'homepage_html';
-        $s->value = null;
-        $s->save();
-
-        $s = new Settings();
         $s->key = 'menu';
         $s->value = null;
         $s->save();
 
         $s = new Settings();
-        $s->key = 'default_chapter_thumbnail';
-        $s->value = '1';
-        $s->save();
-
-        $s = new Settings();
-        $s->key = 'recaptcha_public';
+        $s->key = 'homepage_html';
         $s->value = null;
         $s->save();
 
         $s = new Settings();
-        $s->key = 'recaptcha_private';
+        $s->key = 'all_comics_top_html';
         $s->value = null;
         $s->save();
 
         $s = new Settings();
-        $s->key = 'adsense_publisher';
+        $s->key = 'all_comics_bottom_html';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'comic_top_html';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'comic_bottom_html';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'reader_html';
         $s->value = null;
         $s->save();
 
@@ -170,6 +180,11 @@ class SettingsSeeder extends Seeder {
 
         $s = new Settings();
         $s->key = 'banner_bottom';
+        $s->value = null;
+        $s->save();
+
+        $s = new Settings();
+        $s->key = 'footer_html';
         $s->value = null;
         $s->save();
     }

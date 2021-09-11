@@ -3,7 +3,7 @@ body {
 }
 
 #app {
-    min-height: calc(100vh - 58px);
+    min-height: calc(100vh - 86px);
 }
 
 .navbar-light .navbar-nav .nav-link.router-link-exact-active {

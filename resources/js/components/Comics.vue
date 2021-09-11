@@ -2,6 +2,7 @@
     <div :class="reader.$route.name === 'Last Releases' ? 'row' : ''">
         <div :class="'py-sm-4' + (reader.$route.name === 'Last Releases' ? ' col-12 col-xl-8' : '')">
             <h2 class="text-center pt-sm-0 pt-2 pb-sm-2">{{ reader.__(reader.$route.name) }}</h2>
+            <div v-if="reader.$route.name === 'All Comics'" id="all_comics_top_html" class="text-center"></div>
             <div class="row">
                 <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
                     <div :class="'thumbnail float-left mr-3 ml-1' + (reader.$route.name === 'Last Releases' ? ' small' : '')">
@@ -50,6 +51,7 @@
                     </div>
                 </div>
             </div>
+            <div v-if="reader.$route.name === 'All Comics'" id="all_comics_bottom_html" class="text-center"></div>
         </div>
         <div v-if="reader.$route.name === 'Last Releases' && socials.length" class="mt-2 py-xl-4 mt-xl-0 col-12 col-xl-4">
             <h2 class="text-center pb-sm-1">{{ reader.__('Socials') }}:</h2>
@@ -75,9 +77,7 @@ export default {
         $('meta[property="og:title"]').html(this.reader.SITE_NAME_FULL);
         this.$store.dispatch('fetchInfo', '/info');
         this.$store.dispatch('fetchComics', '/comics');
-        if (this.reader.$route.name === 'Last Releases' && this.comics.length) {
-            this.updateHomepageHTML();
-        }
+        this.comics.length && this.updateCustomHTML();
     },
     updated() {
         if (this.reader.$route.path === '/comics') {
@@ -87,9 +87,7 @@ export default {
             $('#nav-search').show();
             $('#nav-filter').hide();
         }
-        if (this.reader.$route.name === 'Last Releases' && this.comics.length) {
-            this.updateHomepageHTML();
-        }
+        this.comics.length && this.updateCustomHTML();
     },
     data() {
         return {
@@ -97,27 +95,11 @@ export default {
         }
     },
     methods: {
-        updateHomepageHTML() {
-            const homepage_html_selector = $('#homepage_html');
-            if(this.reader.homepage_html === null) {
-                homepage_html_selector.html(homepage_html_placeholder);
-                this.observeSelector('#homepage_html');
-            } else {
-                homepage_html_selector.html(this.reader.homepage_html)
-            }
+        updateCustomHTML() {
+            this.reader.$route.name === 'Last Releases' && this.reader.updateCustomHTML('homepage_html');
+            this.reader.$route.name === 'All Comics' && this.reader.updateCustomHTML('all_comics_top_html');
+            this.reader.$route.name === 'All Comics' && this.reader.updateCustomHTML('all_comics_bottom_html');
         },
-        observeSelector(selector) {
-            const targetNode = document.querySelector(selector);
-            if(targetNode) {
-                const config = {attributes: true, childList: true, subtree: true};
-                const reader = this.reader;
-                const callback = function (mutationsList, observer) {
-                    reader.homepage_html = targetNode.innerHTML;
-                };
-                const observer = new MutationObserver(callback);
-                observer.observe(targetNode, config);
-            }
-        }
     },
     computed: {
         ...mapGetters([

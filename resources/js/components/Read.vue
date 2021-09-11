@@ -192,6 +192,9 @@
                             </label>
                         </div>
                     </div>
+
+                    <div id="reader_html" class="text-center d-none d-lg-block"></div>
+
                     <div id="reader-controls-footer" class="col-auto mt-auto d-none d-lg-flex justify-content-center">
                         <div
                             class="text-muted text-center text-truncate row flex-wrap justify-content-center p-2 no-gutters">
@@ -249,6 +252,7 @@
                     JavaScript is required for this reader to work.
                 </div>
             </noscript>
+            <div id="banner_top" class="text-center"></div>
             <div @click="clickPage" id="reader-images" :rendering="renderingMode"
                 class="col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
                 <template v-if="renderingMode === 'single-page'">
@@ -270,6 +274,7 @@
                     </div>
                 </template>
             </div>
+            <div id="banner_bottom" class="text-center"></div>
             <div id="reader-page-bar" class="col-auto d-none d-lg-flex directional">
                 <div id="track" class="cursor-pointer row no-gutters">
                     <div id="trail" class="position-absolute h-100 noevents"
@@ -329,6 +334,7 @@ export default {
                     $('meta[property="og:title"]').html(title);
                 }
             });
+        this.chapter != null && this.updateCustomHTML();
     },
     beforeRouteUpdate(to, from, next) {
         if (from.path !== to.path) {
@@ -377,6 +383,8 @@ export default {
         if(this.firstLoad && this.$store.getters.chapter && this.$store.getters.chapter.licensed) {
             this.showPopup();
         }
+
+        if (this.chapter != null && (this.needToRefresh || this.firstLoad)) this.updateCustomHTML();
     },
     data() {
         return {
@@ -579,6 +587,11 @@ export default {
         },
         showPopup() {
             $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
+        },
+        updateCustomHTML() {
+            this.reader.updateCustomHTML('banner_top');
+            this.reader.updateCustomHTML('banner_bottom');
+            this.reader.updateCustomHTML('reader_html');
         },
     },
     computed: {

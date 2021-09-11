@@ -21,7 +21,16 @@ const app = new Vue({
             API_BASE_URL: typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : '/api',
             SITE_NAME: typeof SITE_NAME !== 'undefined' ? SITE_NAME : 'PizzaReader',
             SITE_NAME_FULL: typeof SITE_NAME_FULL !== 'undefined' ? SITE_NAME_FULL : 'PizzaReader - Read manga online',
-            homepage_html: null,
+            custom_html: {
+                'homepage_html': null,
+                'all_comics_top_html': null,
+                'all_comics_bottom_html': null,
+                'comic_top_html': null,
+                'comic_bottom_html': null,
+                'reader_html': null,
+                'banner_top': null,
+                'banner_bottom': null,
+            },
         }
     },
     methods: {
@@ -46,5 +55,26 @@ const app = new Vue({
             return "";
         },
         __(message) { return typeof lang_messages !== 'undefined' && lang_messages[message] || message; },
+        updateCustomHTML(id) {
+            const custom_html_selector = $(`#${id}`);
+            if (this.custom_html[id] === null) {
+                custom_html_selector.html(custom_html_placeholder[id]);
+                this.observeSelector(id);
+            } else {
+                custom_html_selector.html(this.custom_html[id])
+            }
+        },
+        observeSelector(id) {
+            const targetNode = document.querySelector(`#${id}`);
+            if (targetNode) {
+                const config = {attributes: true, childList: true, subtree: true};
+                const reader = this;
+                const callback = function (mutationsList, observer) {
+                    reader.custom_html[id] = targetNode.innerHTML;
+                };
+                const observer = new MutationObserver(callback);
+                observer.observe(targetNode, config);
+            }
+        },
     }
 });

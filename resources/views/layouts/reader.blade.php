@@ -217,11 +217,23 @@
         </main>
     </div>
     <footer>
-        <div class="footer-copyright text-center py-3 text-muted">
+        <div class="footer-copyright text-center py-3 text-muted text-pre">
             {{ config("settings.footer") }}
         </div>
     </footer>
     <div id="loader" class="lds-ring" style="display: none;"><div></div><div></div><div></div><div></div></div>
-    <script>const homepage_html_placeholder = "{!! substr(json_encode(config('settings.homepage_html', '')), 1, -1) !!}";</script>
+    <script>
+        const custom_html_placeholder = {
+            'homepage_html': "{!! substr(json_encode(config('settings.homepage_html', '')), 1, -1) !!}",
+            'all_comics_top_html': "{!! substr(json_encode(config('settings.all_comics_top_html', '')), 1, -1) !!}",
+            'all_comics_bottom_html': "{!! substr(json_encode(config('settings.all_comics_bottom_html', '')), 1, -1) !!}",
+            'comic_top_html': "{!! substr(json_encode(config('settings.comic_top_html', '')), 1, -1) !!}",
+            'comic_bottom_html': "{!! substr(json_encode(config('settings.comic_bottom_html', '')), 1, -1) !!}",
+            'reader_html': "{!! substr(json_encode(config('settings.reader_html', '')), 1, -1) !!}",
+            'banner_top': "{!! substr(json_encode(config('settings.banner_top', '')), 1, -1) !!}",
+            'banner_bottom': "{!! substr(json_encode(config('settings.banner_bottom', '')), 1, -1) !!}",
+        };
+    </script>
+    {!! config('settings.footer_html', '') !!}
 </body>
 </html>
