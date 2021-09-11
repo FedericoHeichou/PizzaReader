@@ -23,7 +23,7 @@ class SettingsController extends Controller {
         $fields = Settings::getFieldsIfValid($request);
         $settings = Settings::all()->pluck('value', 'key')->toArray();
         foreach ($fields as $key => $value) {
-            if (key_exists($key, $settings)) {
+            if (array_key_exists($key, $settings)) {
                 if ($settings[$key] !== $fields[$key] || ($key === 'logo' && $value) || ($key === 'cover' && $value)) {
                     if (($key === 'logo' || $key === 'cover') && $value) {
                         $path = "/public/img/$key";
