@@ -53,13 +53,15 @@
             </div>
             <div v-if="reader.$route.name === 'All Comics'" id="all_comics_bottom_html" class="text-center"></div>
         </div>
-        <div v-if="reader.$route.name === 'Last Releases' && socials.length" class="mt-2 py-xl-4 mt-xl-0 col-12 col-xl-4">
-            <h2 class="text-center pb-sm-1">{{ reader.__('Socials') }}:</h2>
-            <div class="socials text-center row">
-                <a v-for="social in socials" :href="social.url" class="col-3 mb-2" target="_blank">
-                    <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" :title="social.name"></span>
-                </a>
-            </div>
+        <div v-if="reader.$route.name === 'Last Releases'" class="mt-2 py-xl-4 mt-xl-0 col-12 col-xl-4">
+            <template v-if="socials.length">
+                <h2 class="text-center pb-sm-1">{{ reader.__('Socials') }}:</h2>
+                <div class="socials text-center row">
+                    <a v-for="social in socials" :href="social.url" class="col-3 mb-2" target="_blank">
+                        <span :class="'fab fa-' + social.name.toLowerCase().split(' ', 1)[0] + ' fa-fw'" aria-hidden="true" :title="social.name"></span>
+                    </a>
+                </div>
+            </template>
             <div id="homepage_html" class="text-center"></div>
         </div>
     </div>
@@ -79,6 +81,20 @@ export default {
         this.$store.dispatch('fetchComics', '/comics');
         this.comics.length && this.updateCustomHTML();
     },
+    beforeRouteLeave(to, from, next) {
+        if(from.path !== to.path) {
+            switch(from.path) {
+                case '/':
+                    this.reader.clearCustomHTML('homepage_html');
+                    break;
+                case '/comics':
+                    this.reader.clearCustomHTML('all_comics_top_html');
+                    this.reader.clearCustomHTML('all_comics_bottom_html');
+                    break;
+            }
+        }
+        next();
+    },
     updated() {
         if (this.reader.$route.path === '/comics') {
             $('#nav-search').hide();
@@ -96,10 +112,14 @@ export default {
     },
     methods: {
         updateCustomHTML() {
-            this.reader.$route.name === 'Last Releases' && this.reader.updateCustomHTML('homepage_html');
-            this.reader.$route.name === 'All Comics' && this.reader.updateCustomHTML('all_comics_top_html');
-            this.reader.$route.name === 'All Comics' && this.reader.updateCustomHTML('all_comics_bottom_html');
+            if(this.reader.$route.name === 'Last Releases') {
+                this.reader.updateCustomHTML('homepage_html');
+            } else if (this.reader.$route.name === 'All Comics') {
+                this.reader.updateCustomHTML('all_comics_top_html');
+                this.reader.updateCustomHTML('all_comics_bottom_html');
+            }
         },
+
     },
     computed: {
         ...mapGetters([

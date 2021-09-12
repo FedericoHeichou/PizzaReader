@@ -31,6 +31,7 @@ const app = new Vue({
                 'banner_top': null,
                 'banner_bottom': null,
             },
+            custom_html_observer: {},
         }
     },
     methods: {
@@ -59,9 +60,10 @@ const app = new Vue({
             const custom_html_selector = $(`#${id}`);
             if (this.custom_html[id] === null) {
                 custom_html_selector.html(custom_html_placeholder[id]);
-                this.observeSelector(id);
+                this.custom_html_observer[id] = this.observeSelector(id);
             } else {
-                custom_html_selector.html(this.custom_html[id])
+                custom_html_selector.html(this.custom_html[id]);
+                //this.custom_html_observer[id].observe();
             }
         },
         observeSelector(id) {
@@ -70,10 +72,21 @@ const app = new Vue({
                 const config = {attributes: true, childList: true, subtree: true};
                 const reader = this;
                 const callback = function (mutationsList, observer) {
+                    console.log("callback: ", targetNode.innerHTML);
                     reader.custom_html[id] = targetNode.innerHTML;
                 };
+                console.log("inner: ", targetNode.innerHTML);
                 const observer = new MutationObserver(callback);
                 observer.observe(targetNode, config);
+                return observer;
+            }
+        },
+        clearCustomHTML(id) {
+            const custom_html_selector = $(`#${id}`);
+            if (custom_html_selector.length) {
+                console.log(this.custom_html_observer);
+                this.custom_html_observer[id].disconnect();
+                custom_html_selector.html('');
             }
         },
     }
