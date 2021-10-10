@@ -161,7 +161,7 @@
                     <div class="col-sm-2 text-success text-left pl-3">
                         <span class="fa fa-users fa-fw" title="Team"></span>
                     </div>
-                    <div class="col-sm-2 text-info text-right"><span class="fa fa-eye fa-fw" title="Views"></span></div>
+                    <div class="col-md-2 col text-info text-right"><span class="fa fa-eye fa-fw" title="Views"></span></div>
                     <div class="col-sm text-right pl-0"><span class="fa fa-clock fa-fw" title="Publication date"></span></div>
                 </div>
 
@@ -204,8 +204,8 @@
                             <a :href="chapter.teams[1].url" target="_blank">{{ chapter.teams[1].name }}</a>
                         </template>
                     </div>
-                    <div class="col-sm-2 col text-info text-right order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
-                    <div class="col text-right overflow-hidden order-sm-6 order-3 pl-0" :title="new Date(chapter.published_on)">
+                    <div class="col-md-2 col text-info text-right order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
+                    <div class="col text-right overflow-hidden order-sm-6 order-3 pl-0 ch-time" :title="new Date(chapter.published_on)">
                         {{ chapter.time }}
                     </div>
                 </div>
