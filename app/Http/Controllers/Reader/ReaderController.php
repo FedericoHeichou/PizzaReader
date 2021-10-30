@@ -157,7 +157,7 @@ class ReaderController extends Controller {
             }
             $download = VolumeDownload::getDownload($comic, $language, $ch['vol']);
             if (!$download) {
-                abort(404);
+                abort(507, "A chapter is empty or the server has no space left. Try again later or report this error to us");
             }
             return Storage::download($download['path'], $download['name']);
         }
@@ -166,7 +166,7 @@ class ReaderController extends Controller {
         }
         $download = ChapterDownload::getDownload($comic, $chapter);
         if (!$download) {
-            abort(404);
+            abort(507, "The chapter is empty or the server has no space left. Try again later or report this error to us");
         }
         return Storage::download($download['path'], $download['name']);
     }
@@ -189,7 +189,7 @@ class ReaderController extends Controller {
         }
         $pdf = ChapterPdf::getPdf($comic, $chapter);
         if (!$pdf) {
-            abort(404);
+            abort(507, "The chapter is empty or the server has no space left. Try again later or report this error to us");
         }
         return Storage::download($pdf['path'], $pdf['name']);
     }
