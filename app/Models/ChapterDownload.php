@@ -63,7 +63,39 @@ class ChapterDownload extends Model {
     public static function getDownload($comic, $chapter, $excluded_chapter_ids=[]) {
         $download = ChapterDownload::where('chapter_id', $chapter->id)->first();
         $path = Chapter::path($comic, $chapter);
+
+        // Check if it is a dead download
+        if ($download && $download->size === 0 && $download->created_at < Carbon::now()->subMinutes(15)) {
+            ChapterDownload::cleanDownload($download);
+            $download = null;
+        }
+
+        // If another user is creating the zip wait some seconds
+        $tries = 0;
+        while ($download && $download->size === 0) {
+            sleep(1);
+            $tries++;
+            if ($tries > 25) return null;
+            $download = ChapterDownload::where('chapter_id', $chapter->id)->first();
+        }
+
+        // If doesn't exists or the creating zip of other user failed
         if (!$download) {
+            $absolute_path = Chapter::absolutePath($comic, $chapter);
+            $base_name = ChapterDownload::name($comic, $chapter);
+            $zip_name = Str::random() . '.zip';
+            $zip_path = "$path/$zip_name";
+            $zip_absolute_path = "$absolute_path/$zip_name";
+            $files = [];
+
+            // Lock the zip creation
+            $download = ChapterDownload::create([
+                'chapter_id' => $chapter->id,
+                'name' => "$base_name.zip",
+                'filename' => $zip_name,
+                'size' => 0,
+            ]);
+
             // Clear cache
             $max_cache = intval(config('settings.max_cache_download'));
             while ($max_cache > 0 && ChapterDownload::whereNotIn('chapter_id', $excluded_chapter_ids)->sum('size') > $max_cache) {
@@ -71,12 +103,6 @@ class ChapterDownload extends Model {
                 ChapterDownload::cleanDownload($download_to_delete);
             }
 
-            $absolute_path = Chapter::absolutePath($comic, $chapter);
-            $base_name = ChapterDownload::name($comic, $chapter);
-            $zip_name = Str::random() . '.zip';
-            $zip_path = "$path/$zip_name";
-            $zip_absolute_path = "$absolute_path/$zip_name";
-            $files = [];
             foreach ($chapter->pages as $page) {
                 array_push($files, [
                     'source' => "$absolute_path/$page->filename",
@@ -84,20 +110,24 @@ class ChapterDownload extends Model {
                 ]);
             }
             createZip($zip_absolute_path, $files);
-            if (Storage::missing($zip_path)) return null;
+            if (Storage::missing($zip_path)) {
+                $download->delete();
+                return null;
+            }
 
-            $download = ChapterDownload::create([
-                'chapter_id' => $chapter->id,
-                'name' => "$base_name.zip",
-                'filename' => $zip_name,
-                'size' => intval(Storage::size($zip_path) / (1024 * 1024)),
-            ]);
+            // Unlock the zip creation
+            $download->size = 1 + intval(Storage::size($zip_path) / (1024 * 1024));
+            $download->save();
         }
+
+        // If the zip doesn't exist
         $zip_path = "$path/$download->filename";
         if (Storage::missing($zip_path)) {
             ChapterDownload::cleanDownload($download, $comic, $chapter);
             return ChapterDownload::getDownload($comic, $chapter);
         }
+
+        // Refresh download
         $download->timestamps = false;
         $download->last_download = Carbon::now();
         $download->save();
