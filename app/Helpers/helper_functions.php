@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -55,12 +56,18 @@ function trimCommas($string) {
 }
 
 function createZip($zip_absolute_path, $files) {
+    if (empty($files)) return;
     $zip = new \ZipArchive();
     $zip->open($zip_absolute_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
     foreach ($files as $file) {
         $zip->addFile($file['source'], $file['dest']);
     }
-    $zip->close();
+    try {
+        $zip->close();
+    } catch (\ErrorException $exception) {
+        Log::error("createZip", ['download' => $zip_absolute_path, 'files' => $files]);
+        Log::error($exception);
+    }
 }
 
 function createPdf($pdf_absolute_path, $files) {
@@ -68,7 +75,12 @@ function createPdf($pdf_absolute_path, $files) {
     if (empty($files)) return;
     $pdf = new Imagick($files);
     $pdf->setImageFormat("pdf");
-    $pdf->writeImages($pdf_absolute_path, true);
+    try {
+        $pdf->writeImages($pdf_absolute_path, true);
+    } catch (\ErrorException $exception) {
+        Log::error("createPdf", ['download' => $pdf_absolute_path, 'files' => $files]);
+        Log::error($exception);
+    }
 }
 
 function cleanDirectoryByExtension($path, $ext) {
