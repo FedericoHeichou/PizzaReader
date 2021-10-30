@@ -60,15 +60,14 @@ class ChapterDownload extends Model {
         return $name;
     }
 
-    public static function getDownload($comic, $chapter) {
+    public static function getDownload($comic, $chapter, $excluded_chapter_ids=[]) {
         $download = ChapterDownload::where('chapter_id', $chapter->id)->first();
         $path = Chapter::path($comic, $chapter);
-
         if (!$download) {
             // Clear cache
             $max_cache = intval(config('settings.max_cache_download'));
-            while ($max_cache > 0 && ChapterDownload::sum('size') > $max_cache) {
-                $download_to_delete = ChapterDownload::orderBy('last_download', 'asc')->first();
+            while ($max_cache > 0 && ChapterDownload::whereNotIn('chapter_id', $excluded_chapter_ids)->sum('size') > $max_cache) {
+                $download_to_delete = ChapterDownload::whereNotIn('chapter_id', $excluded_chapter_ids)->orderBy('last_download', 'asc')->first();
                 ChapterDownload::cleanDownload($download_to_delete);
             }
 
@@ -85,7 +84,7 @@ class ChapterDownload extends Model {
                 ]);
             }
             createZip($zip_absolute_path, $files);
-            if(Storage::missing($zip_path)) return null;
+            if (Storage::missing($zip_path)) return null;
 
             $download = ChapterDownload::create([
                 'chapter_id' => $chapter->id,
@@ -95,7 +94,7 @@ class ChapterDownload extends Model {
             ]);
         }
         $zip_path = "$path/$download->filename";
-        if (!Storage::exists($zip_path)) {
+        if (Storage::missing($zip_path)) {
             ChapterDownload::cleanDownload($download, $comic, $chapter);
             return ChapterDownload::getDownload($comic, $chapter);
         }
