@@ -61,12 +61,20 @@ class Comic extends Model {
         return $this->hasMany(VolumeDownload::class);
     }
 
+    public function related() {
+        return $this->belongsToMany(Comic::class, 'comic_relations', 'comic_id', 'comic_id_related');
+    }
+
     public function publishedChapters() {
         return $this->chapters()->published();
     }
 
     public function publicChapters() {
         return $this->chapters()->public();
+    }
+
+    public function publicRelated() {
+        return $this->related()->public();
     }
 
     public function lastPublishedChapter() {
@@ -267,6 +275,14 @@ class Comic extends Model {
                     'required' => 1,
                 ],
                 'values' => ['numeric', 'regex:/^-?[0-9]+(?:\.[0-9]{1,3})?$/'],
+            ], [
+                'type' => 'input_search',
+                'parameters' => [
+                    'field' => 'related',
+                    'label' => 'Related comics',
+                    'hint' => 'Search related comics',
+                ],
+                'values' => ['max:191'],
             ],
 
         ];
@@ -320,6 +336,12 @@ class Comic extends Model {
             if($chapter_array['volume_download']){
                 $response['volume_downloads'][VolumeDownload::name($comic, $chapter->language, $chapter->volume)] = $chapter_array['volume_download'];
             }
+        }
+        $response['related'] = [];
+        $related = $comic->publicRelated()->get();
+        foreach ($related as $r) { // FIXME: SELECT ONLY SOME DATA
+            $comic_array = Comic::generateReaderArray($r);
+            array_push($response['related'], $comic_array);
         }
         return $response;
     }
