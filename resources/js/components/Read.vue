@@ -580,8 +580,8 @@ export default {
                     'X-CSRF-TOKEN': this.$store.getters.chapter.csrf_token,
                 },
                 data: {'vote': vote},
-                error: function (error) {
-                    console.log(error);
+                error: function (err) {
+                    console.log(err);
                 },
             });
         },
