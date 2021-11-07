@@ -44,7 +44,7 @@ class Chapter extends Model {
     public function scopePublic($query) {
         if (!Auth::check() || !Auth::user()->hasPermission('checker'))
             return $query->published();
-        else if (Auth::user()->hasPermission('manager'))
+        else if (Auth::user()->hasPermission('manager') || Auth::user()->all_comics)
             return $query;
         else {
             $comics = Auth::user()->comics()->select('comic_id');
