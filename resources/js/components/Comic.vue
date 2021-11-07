@@ -29,7 +29,18 @@
                             </div>
                         </div>
 
-                        <div class="row border-bottom py-1">
+                        <div v-if="comic.alt_titles.length" class="row border-bottom py-1">
+                            <div class="col-md-2 font-weight-bold">
+                                <label class="mb-0 label-badge">{{ reader.__('Alternative titles') }}:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <template v-for="alt_title in comic.alt_titles">
+                                    <span class="badge badge-success p-2 text-white">{{ alt_title }}</span>&nbsp;
+                                </template>
+                            </div>
+                        </div>
+
+                        <div v-if="comic.author" class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
                                 <label class="mb-0">{{ reader.__('Author') }}:</label>
                             </div>
@@ -38,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="row border-bottom py-1">
+                        <div v-if="comic.artist" class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
                                 <label class="mb-0">{{ reader.__('Artist') }}:</label>
                             </div>
@@ -47,9 +58,9 @@
                             </div>
                         </div>
 
-                        <div class="row border-bottom py-1">
+                        <div v-if="comic.target" class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">{{ reader.__('Target') }}:</label>
+                                <label class="mb-0 label-badge">{{ reader.__('Target') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <router-link v-if="comic.target != null" :to="'/targets/' + comic.target.toLowerCase()"
@@ -59,9 +70,9 @@
                             </div>
                         </div>
 
-                        <div class="row border-bottom py-1">
+                        <div v-if="comic.genres.length" class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">{{ reader.__('Genres') }}:</label>
+                                <label class="mb-0 label-badge">{{ reader.__('Genres') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <template v-for="genre in comic.genres">
@@ -109,16 +120,16 @@
                             </div>
                         </div>
 
-                        <div class="row border-bottom py-1">
+                        <div v-if="comic.status" class="row border-bottom py-1">
                             <div class="col-md-2 font-weight-bold">
-                                <label class="mb-0">{{ reader.__('Status') }}:</label>
+                                <label class="mb-0 label-badge">{{ reader.__('Status') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <span class="badge badge-status p-2 text-white" title="Status" :data-status="comic.status ? comic.status.toLowerCase() : ''">{{ comic.status }}</span>
                             </div>
                         </div>
 
-                        <div class="row py-1">
+                        <div v-if="comic.description" class="row py-1">
                             <div class="col-md-2 font-weight-bold">
                                 <label class="mb-0">{{ reader.__('Description') }}:</label>
                             </div>

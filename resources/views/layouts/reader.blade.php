@@ -20,7 +20,7 @@
         $comic = Comic::publicSlug($comic_slug);
         if ($comic) {
             $comic_title = $comic->name;
-            $meta_description = $comic->description;
+            $meta_description = $comic->alt_titles . "\n" . $comic->description;
             $meta_image = Comic::getThumbnailUrl($comic);
             if (request()->segment(1) === "read") {
                 $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);

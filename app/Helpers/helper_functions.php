@@ -49,10 +49,11 @@ function getFieldsFromRequest($request, $form_fields) {
     return $fields;
 }
 
-function trimCommas($string) {
-    $string = preg_replace('/\s*,\s*/', ',', $string);
-    $string = preg_replace('/,+,+/', ',', $string);
-    return trim($string, ',');
+function trimChar($string, $char) {
+    $c = $char[0];
+    $string = preg_replace('/\s*' . $c . '\s*/', $c, $string);
+    $string = preg_replace('/' . $c . '+' . $c . '+/', $c, $string);
+    return trim($string, ' ' . $c);
 }
 
 function createZip($zip_absolute_path, $files) {

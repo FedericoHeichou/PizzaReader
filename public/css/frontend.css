@@ -54,6 +54,9 @@ body {
     .badge {
         margin-bottom: 3px;
     }
+    .label-badge {
+        padding-top: 2px;
+    }
 }
 
 .thumbnail-full img {

@@ -4,6 +4,7 @@ const lang_messages = {
     "Last Releases": "Ultime uscite",
     "Socials": "Social",
     "Last chapter": "Ultimo capitolo",
+    "Alternative titles": "Titoli alternativi",
     "Author": "Autore",
     "Artist": "Disegnatore",
     "Genres": "Genere",

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Comic extends Model {
     protected $fillable = [
         'name', 'slug', 'salt', 'hidden', 'author', 'artist', 'target', 'genres', 'status', 'description', 'thumbnail',
-        'custom_chapter', 'comic_format_id', 'adult', 'order_index'
+        'custom_chapter', 'comic_format_id', 'adult', 'order_index', 'alt_titles',
     ];
 
     protected $casts = [
@@ -83,10 +83,17 @@ class Comic extends Model {
 
     public function scopeSearch($query, $search, $column='name') {
         $comic_name = preg_replace("/[^A-Za-z0-9]/", '_', $search);
-        if(preg_match("/[A-Za-z0-9]{3,}/", $comic_name))
-            return $query->where($column, 'LIKE', '%' . $comic_name . '%');
-        else // Sorry mom
+        if(preg_match("/[A-Za-z0-9]{3,}/", $comic_name)) {
+            if ($column === 'name') {
+                return $query->where(function ($q) use ($comic_name) {
+                    $q->where('name', 'LIKE', '%' . $comic_name . '%')->orWhere('alt_titles', 'LIKE', '%' . $comic_name . '%');
+                });
+            } else {
+                return $query->where($column, 'LIKE', '%' . $comic_name . '%');
+            }
+        } else { // Sorry mom
             return $query->where(DB::raw('1=2'));
+        }
     }
 
     public static function fullSearch($search) {
@@ -207,6 +214,14 @@ class Comic extends Model {
                 ],
                 'values' => ['max:3000'],
             ], [
+                'type' => 'textarea',
+                'parameters' => [
+                    'field' => 'alt_titles',
+                    'label' => 'Alternative titles',
+                    'hint' => 'Insert alternative titles (one per line)',
+                ],
+                'values' => ['max:3000'],
+            ], [
                 'type' => 'input_file',
                 'parameters' => [
                     'field' => 'thumbnail',
@@ -273,6 +288,7 @@ class Comic extends Model {
             'thumbnail' => $thumbnail,
             'thumbnail_small' => getSmallThumbnail($thumbnail),
             'description' => $comic->description,
+            'alt_titles' => $comic->alt_titles ? array_filter(explode("\n", $comic->alt_titles), 'strlen') : [],
             'author' => $comic->author,
             'artist' => $comic->artist,
             'target' => $comic->target,
@@ -320,7 +336,10 @@ class Comic extends Model {
             unset($fields['thumbnail']);
         }
         if (isset($fields['genres']) && $fields['genres']) {
-            $fields['genres'] = trimCommas($fields['genres']);
+            $fields['genres'] = trimChar($fields['genres'], ",");
+        }
+        if (isset($fields['alt_titles']) && $fields['alt_titles']) {
+            $fields['alt_titles'] = trimChar($fields['alt_titles'], "\n");
         }
         return $fields;
     }
