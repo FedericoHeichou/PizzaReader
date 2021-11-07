@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-auto text-right pl-1">
                         @if(Auth::user()->hasPermission('manager') && !$user->hasPermission('manager'))
-                            <button href="#" class="btn btn-primary" onclick="assignComicsBox({'id': {{ $user->id }}, 'name': '{{ $user->name }}'}, {{ $user->comicsMinimal }})">Assign</button>
+                            <button href="#" class="btn btn-primary" onclick="assignComicsBox({'id': {{ $user->id }}, 'name': '{{ $user->name }}', 'all_comics': '{{ $user->all_comics }}'}, {{ $user->comicsMinimal }})">Assign</button>
                         @else
                             <a href="#" class="btn btn-secondary" title="You can't assign this user" onclick="event.preventDefault()">Assign</a>
                         @endif
@@ -77,6 +77,11 @@
                             aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="all_comics">
+                        <label class="form-check-label" for="all_comics">Assign all comics</label><br>
+                        <small>If checked, the list below is not used</small>
+                    </div>
                     <input id="comic-search" type="search" placeholder="Search comic" aria-label="Search comic"
                            name="search" class="form-control mr-sm-2" autocomplete="off">
                     <div id="results-box" style="display: none"></div>

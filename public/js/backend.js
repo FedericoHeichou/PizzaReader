@@ -54,13 +54,14 @@ $('#generate-password').on('click', function () {
 
 
 // Assign comics to user section
-var assignedComics = [];
+let assignedComics = [];
 
 function assignComics() {
-    let user_id = $("#modal-assign h4").data('user');
-    let comics = $('#assigned-comics .comics .comic').map(function () {
+    const user_id = $("#modal-assign h4").data('user');
+    const comics = $('#assigned-comics .comics .comic').map(function () {
         return $(this).data('comic');
     }).get();
+    const all_comics = $('#all_comics').prop('checked') ? 1 : 0;
 
     $.ajax({
         type: 'PATCH',
@@ -68,7 +69,7 @@ function assignComics() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
-        data: {'comics': comics},
+        data: {'comics': comics, 'all_comics': all_comics},
         success: function (data) {
             console.log(data);
         },
@@ -77,9 +78,9 @@ function assignComics() {
         },
         complete: function () {
             $("#modal-assign").modal('hide');
+            location.reload();
         }
     });
-    location.reload();
 }
 
 function pushComic(comic_id, comic_name) {
@@ -97,6 +98,7 @@ function assignComicsBox(user, comics) {
     event.preventDefault();
     let modalContainer = $("#modal-assign");
     modalContainer.find('h4').html('Assign comics to ' + user.name).attr('data-user', user.id);
+    modalContainer.find('#all_comics').prop('checked', user.all_comics);
     assignedComics = [];
     if (comics.length) {
         comics.forEach(function (comic) {
@@ -117,7 +119,6 @@ function assignComicsBuild() {
     assigned_comics_html += '</div>';
     $('#assigned-comics').html(assigned_comics_html);
 }
-
 
 
 $(document).ready(function () {

@@ -16,7 +16,7 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'role_id', 'name', 'email', 'password', 'last_login', 'timezone',
+        'role_id', 'name', 'email', 'password', 'last_login', 'timezone', 'all_comics',
     ];
 
     /**
@@ -38,6 +38,7 @@ class User extends Authenticatable {
         'role_id' => 'integer',
         'email_verified_at' => 'datetime',
         'last_login' => 'datetime',
+        'all_comics' => 'boolean'
     ];
 
     public function role() {
@@ -58,7 +59,8 @@ class User extends Authenticatable {
     }
 
     public function canAccess($comic_id, $role) {
-        return $this->hasPermission('manager') || ($this->hasPermission($role) && (bool)$this->comics()->where('comic_id', $comic_id)->first());
+        return $this->hasPermission('manager') || ($this->hasPermission($role) &&
+                ($this->all_comics || (bool)$this->comics()->where('comic_id', $comic_id)->first()));
     }
 
     public function canSee($comic_id): bool {

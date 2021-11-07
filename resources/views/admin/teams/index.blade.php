@@ -54,6 +54,11 @@
                             aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="all_comics">
+                        <label class="form-check-label" for="all_comics">Assign all comics</label><br>
+                        <small>If checked, the list below is not used</small>
+                    </div>
                     <input id="comic-search" type="search" placeholder="Search comic" aria-label="Search comic"
                            name="search" class="form-control mr-sm-2" autocomplete="off">
                     <div id="results-box" style="display: none"></div>

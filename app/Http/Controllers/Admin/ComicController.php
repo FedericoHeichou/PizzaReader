@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 
 class ComicController extends Controller {
     public function index() {
-        if (Auth::user()->hasPermission('manager')) {
+        if (Auth::user()->hasPermission('manager') || Auth::user()->all_comics) {
             $comics = Comic::orderBy('name')->get();
         } else {
             $comics = Auth::user()->comics()->orderBy('name')->get();

@@ -86,8 +86,11 @@ class UserController extends Controller {
         $request->validate([
             'comics' => ['array'],
             'comics.*' => ['integer', 'min:1'],
+            'all_comics' => ['boolean'],
         ]);
         $user->comics()->sync($request->comics);
+        $user->all_comics = $request->all_comics;
+        $user->save();
         return response()->json(['message' => 'success']);
     }
 }
