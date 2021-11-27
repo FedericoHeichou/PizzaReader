@@ -16,11 +16,15 @@
 
     $user_agent = strtolower(request()->userAgent());
 
-    if ((strpos($user_agent, 'bot') !== false || strpos($user_agent, 'facebook') !== false) && $comic_slug) {
+    if ((strpos($user_agent, 'bot') !== false || strpos($user_agent, 'facebook') !== false || strpos($user_agent, 'slurp') !== false) && $comic_slug) {
         $comic = Comic::publicSlug($comic_slug);
         if ($comic) {
             $comic_title = $comic->name;
-            $meta_description = $comic->alt_titles . "\n" . $comic->description;
+            if (strpos($user_agent, 'googlebot') !== false || strpos($user_agent, 'bingbot') !== false || strpos($user_agent, 'slurp') !== false || strpos($user_agent, 'duckduckbot') !== false) {
+                $meta_description = $comic->alt_titles . "\n" . $comic->description;
+            } else {
+                $meta_description = $comic->description;
+            }
             $meta_image = Comic::getThumbnailUrl($comic);
             if (request()->segment(1) === "read") {
                 $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
