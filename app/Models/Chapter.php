@@ -132,6 +132,10 @@ class Chapter extends Model {
         return public_path() . '/storage/' . Chapter::buildPath($comic, $chapter);
     }
 
+    public static function storagePath($comic, $chapter) {
+        return storage_path("app/" . Chapter::path($comic, $chapter));
+    }
+
     public static function buildUri($comic, $chapter) {
         $url = "/$comic->slug/" . $chapter['language'];
         if (isset($chapter['volume']) && $chapter['volume'] !== null) $url .= '/vol/' . $chapter['volume'];

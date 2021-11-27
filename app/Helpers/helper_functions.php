@@ -84,12 +84,13 @@ function createPdf($pdf_absolute_path, $files) {
     }
 }
 
-function cleanDirectoryByExtension($path, $ext) {
+function cleanDirectoryByExtension($path, $ext, $exclusions=[], $dry_run=false) {
     $files = Storage::files($path);
     foreach ($files as $key => $value) {
-        if (!preg_match("/.$ext$/", $value)) unset($files[$key]);
+        if (!preg_match("/.$ext$/", $value) || in_array($value, $exclusions)) unset($files[$key]);
     }
-    Storage::delete($files);
+    if (!$dry_run) Storage::delete($files);
+    return $files;
 }
 
 function convertToTimezone($datetime, $timezone) {

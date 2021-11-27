@@ -116,6 +116,10 @@ class Comic extends Model {
         return public_path() . '/storage/' . Comic::buildPath($comic);
     }
 
+    public static function storagePath($comic) {
+        return storage_path("app/" . Comic::path($comic));
+    }
+
     public static function getThumbnailUrl($comic) {
         if ($comic->thumbnail === null || $comic->thumbnail === '') return null;
         $thumbnail_path = 'storage/' . Comic::buildPath($comic) . '/';
