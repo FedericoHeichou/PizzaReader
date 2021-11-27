@@ -38,7 +38,7 @@ class ClearMissingDownloads extends Command {
             echo "\n";
             foreach ($deleted_zips as $file) { echo "$file\n"; }
         }
-        echo "zip=" . count($deleted_zips) . "\n";
+        echo count($deleted_zips) . "\n";
     }
 
     private function clearChapter($comic, $chapter) {
