@@ -304,7 +304,7 @@ export default {
     data() {
         return {
             reader: this.$root,
-            viewed: this.$root.getCookie('viewed') ? JSON.parse('' + this.$root.getCookie('viewed')) : {},
+            viewed: this.$root.getSetting('viewed') ? JSON.parse('' + this.$root.getSetting('viewed')) : {},
             popupData : {
                 "header" : this.$root.__('Chapter licensed'),
                 "body" : this.$root.__('This chapter is licensed and you can\'t read it.'),
@@ -324,7 +324,8 @@ export default {
                 this.viewed[this.$store.getters.comic.slug] = {};
             }
             this.viewed[this.$store.getters.comic.slug][slug] ^= 1;
-            this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
+            localStorage.setItem('viewed', JSON.stringify(this.viewed));
+            //this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             this.$forceUpdate();
         },
         showPopup() {

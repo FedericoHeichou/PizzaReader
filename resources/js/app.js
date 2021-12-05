@@ -55,6 +55,17 @@ const app = new Vue({
             }
             return "";
         },
+        getSetting(setting) {
+            // Legacy compatibility
+            const val = localStorage.getItem(setting);
+            if (val !== null) return val;
+            const cookie = this.getCookie(setting);
+            if (cookie !== '') {
+                localStorage.setItem(setting, cookie);
+                this.setCookie(setting, cookie, -1);
+            }
+            return cookie;
+        },
         __(message) { return typeof lang_messages !== 'undefined' && lang_messages[message] || message; },
         updateCustomHTML(id) {
             const custom_html_selector = $(`#${id}`);

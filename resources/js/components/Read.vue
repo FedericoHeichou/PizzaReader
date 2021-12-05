@@ -389,18 +389,18 @@ export default {
     data() {
         return {
             reader: this.$root,
-            viewed: this.$root.getCookie('viewed') ? JSON.parse('' + this.$root.getCookie('viewed')) : {},
+            viewed: this.$root.getSetting('viewed') ? JSON.parse('' + this.$root.getSetting('viewed')) : {},
             page: 1,
             max_page: 0,
             hover_page: 1,
-            hide_header: parseInt(this.$root.getCookie('hide-header') || 0),
-            hide_sidebar: parseInt(this.$root.getCookie('hide-sidebar') || 0),
-            displayFit: this.$root.getCookie('displayFit') || 'fit-width',
-            renderingMode: this.$root.getCookie('renderingMode') || 'single-page',
-            direction: this.$root.getCookie('direction') || 'ltr',
-            renderedPages: this.$root.getCookie('renderingMode') === 'double-page' ? 2 : 1,
-            valueLeft: this.$root.getCookie('direction') === 'rtl' ? 1 : -1,
-            valueRight: this.$root.getCookie('direction') === 'rtl' ? -1 : 1,
+            hide_header: parseInt(this.$root.getSetting('hide-header') || 0),
+            hide_sidebar: parseInt(this.$root.getSetting('hide-sidebar') || 0),
+            displayFit: this.$root.getSetting('displayFit') || 'fit-width',
+            renderingMode: this.$root.getSetting('renderingMode') || 'single-page',
+            direction: this.$root.getSetting('direction') || 'ltr',
+            renderedPages: this.$root.getSetting('renderingMode') === 'double-page' ? 2 : 1,
+            valueLeft: this.$root.getSetting('direction') === 'rtl' ? 1 : -1,
+            valueRight: this.$root.getSetting('direction') === 'rtl' ? -1 : 1,
             animation: false,
             needToRefresh: true,
             images: [],
@@ -491,8 +491,8 @@ export default {
             } else {
                 return;
             }
-
-            this.reader.setCookie(setting, value, 3650);
+            localStorage.setItem(setting, value);
+            //this.reader.setCookie(setting, value, 3650);
         },
         scrollTopOfPage() {
             $('button[data-target="#navbarSupportedContent"][aria-expanded="true"]').click();
@@ -560,7 +560,8 @@ export default {
                     this.viewed[this.$store.getters.comic.slug] = {};
                 }
                 this.viewed[this.$store.getters.comic.slug][this.$store.getters.chapter.slug_lang_vol_ch_sub] = 1;
-                this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
+                localStorage.setItem('viewed', JSON.stringify(this.viewed));
+                //this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             }
             const title = this.$store.getters.chapter.full_title + " | " + this.$store.getters.comic.title + " | " + this.reader.SITE_NAME;
             $('title').html(title);
