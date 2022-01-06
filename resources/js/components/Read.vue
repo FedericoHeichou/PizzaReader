@@ -77,11 +77,11 @@
                             <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
                         </a>
                         <ul class="ratings">
-                            <li :class="'star' + (chapter.your_vote === 5 ? ' selected' : '')" data-vote="5" @click="sendVote"></li>
-                            <li :class="'star' + (chapter.your_vote === 4 ? ' selected' : '')" data-vote="4" @click="sendVote"></li>
-                            <li :class="'star' + (chapter.your_vote === 3 ? ' selected' : '')" data-vote="3" @click="sendVote"></li>
-                            <li :class="'star' + (chapter.your_vote === 2 ? ' selected' : '')" data-vote="2" @click="sendVote"></li>
-                            <li :class="'star' + (chapter.your_vote === 1 ? ' selected' : '')" data-vote="1" @click="sendVote"></li>
+                            <li :class="'star' + (vote(chapter.vote_id) === 5 ? ' selected' : '')" data-vote="5" @click="sendVote"></li>
+                            <li :class="'star' + (vote(chapter.vote_id) === 4 ? ' selected' : '')" data-vote="4" @click="sendVote"></li>
+                            <li :class="'star' + (vote(chapter.vote_id) === 3 ? ' selected' : '')" data-vote="3" @click="sendVote"></li>
+                            <li :class="'star' + (vote(chapter.vote_id) === 2 ? ' selected' : '')" data-vote="2" @click="sendVote"></li>
+                            <li :class="'star' + (vote(chapter.vote_id) === 1 ? ' selected' : '')" data-vote="1" @click="sendVote"></li>
                         </ul>
                         {{ reader.__('Current rating') }}: {{ chapter.rating || 'N/A' }}
                     </div>
@@ -555,18 +555,21 @@ export default {
             });
         },
         updateViewChapter() {
+            const comic = this.$store.getters.comic;
+            const chapter = this.$store.getters.chapter;
             if(this.max_page > 0) {
-                if(typeof this.viewed[this.$store.getters.comic.slug] === 'undefined'){
-                    this.viewed[this.$store.getters.comic.slug] = {};
+                if(typeof this.viewed[comic.slug] === 'undefined'){
+                    this.viewed[comic.slug] = {};
                 }
-                this.viewed[this.$store.getters.comic.slug][this.$store.getters.chapter.slug_lang_vol_ch_sub] = 1;
+                this.viewed[comic.slug][chapter.slug_lang_vol_ch_sub] = 1;
                 localStorage.setItem('viewed', JSON.stringify(this.viewed));
                 //this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             }
-            const title = this.$store.getters.chapter.full_title + " | " + this.$store.getters.comic.title + " | " + this.reader.SITE_NAME;
+            const title = chapter.full_title + " | " + comic.title + " | " + this.reader.SITE_NAME;
             $('title').html(title);
             $('meta[property="og:title"]').html(title);
             this.firstLoad = true;
+            this.$store.dispatch('fetchVote', chapter.vote_id);
         },
         sendVote(e) {
             const vote = parseInt($(e.target).data('vote'));
@@ -578,7 +581,7 @@ export default {
                 type: 'POST',
                 url: this.reader.API_BASE_URL + '/vote' + this.$route.path.slice(5),
                 headers: {
-                    'X-CSRF-TOKEN': this.$store.getters.chapter.csrf_token,
+                    'X-CSRF-TOKEN': this.$store.getters.csrf_token,
                 },
                 data: {'vote': vote},
                 error: function (err) {
@@ -599,6 +602,8 @@ export default {
         ...mapGetters([
             'comic',
             'chapter',
+            'vote',
+            'csrf_token'
         ])
     }
 }

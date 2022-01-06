@@ -167,3 +167,22 @@ $(document).ready(function () {
     });
 
 });
+
+function purgeChapter(url) {
+    const init = {
+        method: 'GET',
+        cache: 'no-cache',
+        credentials: 'omit',
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        },
+        redirect: 'follow'
+    }
+    fetch(`/api${url}`, init);
+    const ch_slug = url.split('/', 3)[2];
+    fetch(`/api/comics/${ch_slug}`, init);
+    fetch(`/api/comics`, init);
+    fetch(`/api/recommended`, init);
+    fetch(`/api/info`, init);
+}

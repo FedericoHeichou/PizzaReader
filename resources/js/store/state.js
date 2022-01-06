@@ -3,6 +3,8 @@ let state = {
     comics: [],
     comic: [],
     chapter: [],
+    votes: {},
+    csrf_token: null,
 };
 
 export default state;

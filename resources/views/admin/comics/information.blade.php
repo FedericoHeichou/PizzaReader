@@ -8,6 +8,9 @@
                     <a href="@yield('reader_url')" target="_blank" class="btn btn-success ml-sm-3">Read</a>
                     @if($is_chapter)
                     <a href="{{ route('admin.comics.chapters.edit', ['comic' => $comic->slug, 'chapter' => $chapter->id]) }}" class="btn btn-success ml-1">Edit</a>
+                    @if(config('settings.cache_proxy_enabled'))
+                    <button class="btn btn-warning ml-1" onclick="purgeChapter('@yield('reader_url')')">Purge cache</button>
+                    @endif
                     @endif
                     @if(Auth::user()->hasPermission("manager"))
                         @if(!$is_chapter)

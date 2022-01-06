@@ -49,6 +49,14 @@ let actions = {
             }).finally(
                 () => loader.hide()
             );
+    },
+    fetchVote({commit}, vote_id) {
+        return axios.get(`${API_BASE_URL}/vote/${vote_id}`)
+            .then(res => {
+                commit('FETCH_VOTE', res.data);
+            }).catch(err => {
+                console.log(err);
+            });
     }
 }
 

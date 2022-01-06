@@ -312,6 +312,14 @@ class Settings extends Model {
                     'prohibited' => !config('app.edit_custom_html'),
                 ],
                 'values' => ['max:3000'],
+            ], [
+                'type' => 'input_checkbox',
+                'parameters' => [
+                    'field' => 'cache_proxy_enabled',
+                    'label' => 'Cache proxy',
+                    'hint' => 'Permits to proxies to cache some endpoints [BETA]',
+                ],
+                'values' => ['boolean'],
             ], /*[
                 'type' => 'input_text',
                 'parameters' => [

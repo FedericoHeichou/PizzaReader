@@ -14,88 +14,86 @@ use App\Models\View;
 use App\Models\VolumeDownload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReaderController extends Controller {
 
-    public function info() {
+    public function info(): JsonResponse {
         $response = ['socials' => []];
         $socials = Settings::getSocials();
 
         $n = strlen('social_');
         foreach($socials as $social) {
-            array_push($response['socials'], [
+            $response['socials'][] = [
                 'name' => str_replace('_', ' ', ucfirst(substr($social->key, $n))),
                 'url' => $social->value
-            ]);
+            ];
         }
         return response()->json(["info" => $response]);
     }
 
-    public function comics() {
+    public function comics(): JsonResponse {
         return response()->json($this->getComics('name'));
     }
 
-    public function recommended() {
+    public function recommended(): JsonResponse {
         return response()->json($this->getComics('order_index'));
     }
 
-    public function getComics($ord) {
+    public function getComics($ord): array {
         $response = ['comics' => []];
 
         $comics = Comic::public($ord)->get();
         foreach ($comics as $comic) {
-            array_push($response['comics'], Comic::generateReaderArray($comic));
+            $response['comics'][] = Comic::generateReaderArray($comic);
         }
         return $response;
     }
 
-    public function search($search) {
+    public function search($search): JsonResponse {
         $response = ['comics' => []];
         $comics = Comic::publicSearch($search);
         foreach ($comics as $comic) {
-            array_push($response['comics'], Comic::generateReaderArray($comic));
+            $response['comics'][] = Comic::generateReaderArray($comic);
         }
         return response()->json($response);
     }
 
-    public function targets($target) {
+    public function targets($target): JsonResponse {
         $response = ['comics' => []];
         $comics = Comic::publicSearch($target, 'target');
         foreach ($comics as $comic) {
-            array_push($response['comics'], Comic::generateReaderArray($comic));
+            $response['comics'][] = Comic::generateReaderArray($comic);
         }
         return response()->json($response);
     }
 
-    public function genres($genre) {
+    public function genres($genre): JsonResponse {
         $response = ['comics' => []];
         $comics = Comic::publicSearch($genre, 'genres');
         foreach ($comics as $comic) {
-            array_push($response['comics'], Comic::generateReaderArray($comic));
+            $response['comics'][] = Comic::generateReaderArray($comic);
         }
         return response()->json($response);
     }
 
-    public function comic($comic_slug) {
+    public function comic($comic_slug): JsonResponse {
         $comic = Comic::publicSlug($comic_slug);
-        return response()->json(['comic' => Comic::generateReaderArrayWithChapters($comic)]);
+        return response()->json(['comic' => Comic::generateReaderArrayWithChapters($comic)], $comic ? 200 : 404);
     }
 
-    public function chapter($comic_slug, $language, $ch = null) {
+    public function chapter($comic_slug, $language, $ch = null): JsonResponse {
         $response = ['comic' => null, 'chapter' => null];
         $ch = $this->explodeCh($language, $ch);
-        if (!$ch) return response()->json($response);
+        if (!$ch) return response()->json($response, 404);
 
         $comic = Comic::publicSlug($comic_slug);
-        if (!$comic) {
-            return response()->json($response);
-        }
+        if (!$comic) return response()->json($response, 404);
         $response['comic'] = Comic::generateReaderArrayWithChapters($comic);
 
         $chapter = Chapter::publicFilterByCh($comic, $ch);
-        if (!$chapter) {
-            return response()->json($response);
-        }
+        if (!$chapter) return response()->json($response, 404);
 
         if(!$chapter->licensed) {
             View::incrementIfNew($chapter, request()->ip());
@@ -120,16 +118,14 @@ class ReaderController extends Controller {
             }
             $last = $c;
         }
+        $response['chapter']['vote_id'] = $chapter->id;
         $response['chapter']['previous'] = Chapter::generateReaderArray($comic, $previous_chapter);
         $response['chapter']['next'] = Chapter::generateReaderArray($comic, $next_chapter);
 
-        $response['chapter']['csrf_token'] = csrf_token();
-        $your_vote = Rating::where([['chapter_id', $chapter->id], ['ip', request()->ip()]])->first();
-        $response['chapter']['your_vote'] = $your_vote ? $your_vote->rating : null;
         return response()->json($response);
     }
 
-    public function download($comic_slug, $language, $ch = null) {
+    public function download($comic_slug, $language, $ch = null): StreamedResponse {
         $ch = $this->explodeCh($language, $ch);
         if (!$ch) abort(404);
 
@@ -171,7 +167,7 @@ class ReaderController extends Controller {
         return Storage::download($download['path'], $download['name']);
     }
 
-    public function pdf($comic_slug, $language, $ch = null) {
+    public function pdf($comic_slug, $language, $ch = null): StreamedResponse {
         $ch = $this->explodeCh($language, $ch);
         if (!$ch) abort(404);
 
@@ -194,25 +190,29 @@ class ReaderController extends Controller {
         return Storage::download($pdf['path'], $pdf['name']);
     }
 
-    public function vote(Request $request, $comic_slug, $language, $ch = null) {
+    public function get_vote($chapter_id): JsonResponse {
+        $your_vote = Rating::where([['chapter_id', $chapter_id], ['ip', request()->ip()]])->first();
+        $response = [
+            'vote_id' => $chapter_id,
+            'csrf_token' => csrf_token(),
+            'your_vote' => $your_vote ? $your_vote->rating : null
+        ];
+        return response()->json($response);
+    }
+
+    public function vote(Request $request, $comic_slug, $language, $ch = null): JsonResponse {
         $request->validate([
             'vote' => ['integer', 'min:1', 'max:5', 'required'],
         ]);
         $ch = $this->explodeCh($language, $ch);
-        if (!$ch) abort(404);
+        if (!$ch) response()->json(['error' => 'chapter not found'], 404);
 
         $comic = Comic::publicSlug($comic_slug);
-        if (!$comic) {
-            abort(404);
-        }
+        if (!$comic) response()->json(['error' => 'comic not found'], 404);
 
         $chapter = Chapter::publicFilterByCh($comic, $ch);
-        if (!$chapter) {
-            abort(404);
-        }
-        if (Chapter::isLicensed($chapter)) {
-            abort(403);
-        }
+        if (!$chapter) response()->json(['error' => 'chapter not found'], 404);
+        if (Chapter::isLicensed($chapter)) response()->json(['error' => 'chapter licensed'], 403);
 
         Rating::updateOrCreate(
             ['chapter_id' => $chapter->id, 'ip' => request()->ip()],
@@ -225,7 +225,7 @@ class ReaderController extends Controller {
         return response()->json(['rating' => $chapter->rating]);
     }
 
-    static function explodeCh($language, $ch) {
+    static function explodeCh($language, $ch): ?array {
         if ($ch) {
             $ch = explode("/", $ch);
             $length = count($ch);

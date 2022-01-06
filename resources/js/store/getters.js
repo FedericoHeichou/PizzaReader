@@ -32,6 +32,12 @@ let getters = {
     chapter: (state, getters) => {
         return getters.getChapter(router.app.$route.path) || null;
     },
+    vote: state => (vote_id) => {
+        return state.votes[vote_id] || 0;
+    },
+    csrf_token: state => {
+        return state.csrf_token || null;
+    },
 };
 
 export default getters;
