@@ -1,8 +1,4 @@
 import router from '../router/index'
-import axios from 'axios';
-
-axios.defaults.withCredentials = false;
-axios.defaults.headers.common['X-Logged-In'] = LOGGED_IN;
 
 let actions = {
     fetchInfo({commit}) {
