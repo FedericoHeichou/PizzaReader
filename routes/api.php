@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::name('reader.')->group(function () {
-    $cache_str = config('settings.cache_proxy_enabled') && !isset($_COOKIE[config('session.cookie')]) ? 'cache.headers:public;max_age=3600;etag' : 'cache.headers:private;no_cache';
+    // Security: use only with not private endpoints
+    $cache_str = config('settings.cache_proxy_enabled') && (!isset($_COOKIE[config('session.cookie')]) || request()->header('X-Logged-In', '1') === '0') ? 'cache.headers:public;max_age=3600;etag' : 'cache.headers:private;no_cache';
     Route::middleware($cache_str)->group(function () {
         Route::get('/comics/', [ReaderController::class, 'comics'])->name('comics');
         Route::get('/recommended/', [ReaderController::class, 'recommended'])->name('recommended');
