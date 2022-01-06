@@ -282,7 +282,7 @@ body.hide-header #hide-header-button {
 #reader[data-display="fit-both"] #reader-images,
 #reader[data-display="fit-both"] .reader-image-wrapper,
 #reader[data-display="fit-both"] #reader-images img {
-    max-height: 100%;
+    max-height: 100vh;
 }
 
 #reader[data-display="fit-height"]:not([data-renderer="long-strip"]) #reader-images,

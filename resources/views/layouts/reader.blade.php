@@ -91,7 +91,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/reader.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/reader.css?ver=0.1.0') }}" rel="stylesheet">
     <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
