@@ -4,7 +4,7 @@ let state = {
     comic: [],
     chapter: [],
     votes: {},
-    csrf_token: null,
+    vote_token: null,
 };
 
 export default state;

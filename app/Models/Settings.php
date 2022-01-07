@@ -316,10 +316,20 @@ class Settings extends Model {
                 'type' => 'input_checkbox',
                 'parameters' => [
                     'field' => 'cache_proxy_enabled',
-                    'label' => 'Cache proxy',
-                    'hint' => 'Permits to proxies to cache some endpoints [BETA]',
+                    'label' => 'Proxy cache',
+                    'hint' => 'Permits to the proxy to cache some endpoints [BETA].',
                 ],
                 'values' => ['boolean'],
+            ], [
+                'type' => 'input_text',
+                'parameters' => [
+                    'field' => 'cache_proxy_max_age',
+                    'label' => 'Max age of proxy cache',
+                    'hint' => 'Duration of the cache in seconds (used only with proxy cache enabled).',
+                    'pattern' => '[1-9]\d*|0',
+                    'default' => '3600',
+                ],
+                'values' => ['integer', 'min:0'],
             ], /*[
                 'type' => 'input_text',
                 'parameters' => [

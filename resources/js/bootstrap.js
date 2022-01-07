@@ -24,4 +24,3 @@ window.axios = require('axios');
 
 //window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.withCredentials = false;
-window.axios.defaults.headers.common['X-Logged-In'] = LOGGED_IN;

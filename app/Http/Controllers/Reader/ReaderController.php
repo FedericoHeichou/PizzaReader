@@ -190,11 +190,20 @@ class ReaderController extends Controller {
         return Storage::download($pdf['path'], $pdf['name']);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function get_vote($chapter_id): JsonResponse {
         $your_vote = Rating::where([['chapter_id', $chapter_id], ['ip', request()->ip()]])->first();
+        if (!isset($_COOKIE['vote_token'])) {
+            $vote_token = bin2hex(random_bytes(32));
+            setcookie('vote_token', $vote_token, array('expires' => time() + 36000, 'path' => '/', 'samesite' => 'lax'));
+        } else {
+            $vote_token = $_COOKIE['vote_token'];
+        }
         $response = [
             'vote_id' => $chapter_id,
-            'csrf_token' => csrf_token(),
+            'vote_token' => $vote_token,
             'your_vote' => $your_vote ? $your_vote->rating : null
         ];
         return response()->json($response);
@@ -204,6 +213,7 @@ class ReaderController extends Controller {
         $request->validate([
             'vote' => ['integer', 'min:1', 'max:5', 'required'],
         ]);
+        if (!isset($_COOKIE['vote_token']) || $_COOKIE['vote_token'] !== $request->vote_token) response()->json(['error' => 'missing or invalid vote_token'], 403);
         $ch = $this->explodeCh($language, $ch);
         if (!$ch) response()->json(['error' => 'chapter not found'], 404);
 

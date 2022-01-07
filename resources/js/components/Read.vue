@@ -580,10 +580,7 @@ export default {
             $.ajax({
                 type: 'POST',
                 url: this.reader.API_BASE_URL + '/vote' + this.$route.path.slice(5),
-                headers: {
-                    'X-CSRF-TOKEN': this.$store.getters.csrf_token,
-                },
-                data: {'vote': vote},
+                data: {'vote': vote, 'vote_token': this.$store.getters.vote_token},
                 error: function (err) {
                     console.log(err);
                 },
@@ -603,7 +600,7 @@ export default {
             'comic',
             'chapter',
             'vote',
-            'csrf_token'
+            'vote_token'
         ])
     }
 }

@@ -24,7 +24,7 @@ let mutations = {
         return state.chapter.push(chapter);
     },
     FETCH_VOTE(state, vote) {
-        state.csrf_token = vote['csrf_token'];
+        state.vote_token = vote['vote_token'];
         return state.votes = {...state.votes, [vote.vote_id]: vote.your_vote};
     }
 };

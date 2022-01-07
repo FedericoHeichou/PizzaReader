@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TeamController;
-use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Admin\ComicController;
 use App\Http\Controllers\Admin\PageController;
@@ -88,8 +87,3 @@ Route::prefix('user')->name('user.')->middleware('auth')->group(function() {
     Route::redirect('/', '/user/edit');
     Route::patch('/update', [UserController::class, 'updateYourself'])->name('update')->middleware("log.request");
 });
-
-// Frontend
-Route::get('/manifest.json', function () { return response(view('manifest'))->header('Content-Type', 'application/json; charset=UTF-8'); });
-Route::get('/sitemap.xml', function () { return response(view('sitemap'))->header('Content-Type', 'text/xml; charset=UTF-8'); });
-Route::get('/{frontend?}', FrontendController::class)->name('home')->where('frontend', '(comics|read|targets|genres|recommended).*');

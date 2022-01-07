@@ -35,8 +35,8 @@ let getters = {
     vote: state => (vote_id) => {
         return state.votes[vote_id] || 0;
     },
-    csrf_token: state => {
-        return state.csrf_token || null;
+    vote_token: state => {
+        return state.vote_token || null;
     },
 };
 
