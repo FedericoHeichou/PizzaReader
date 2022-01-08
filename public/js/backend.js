@@ -175,7 +175,8 @@ function purgeChapter(url) {
         credentials: 'omit',
         headers: {
             'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            'Pragma': 'no-cache',
+            'X-Requested-With': 'Axios',
         },
         redirect: 'follow'
     }

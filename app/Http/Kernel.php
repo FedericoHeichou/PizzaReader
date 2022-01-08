@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
         'can.edit' => \App\Http\Middleware\CanEdit::class,
         'auth.yourself' => \App\Http\Middleware\AllowYourself::class,
         'log.request' => \App\Http\Middleware\LogRequest::class,
+        'enforce.html' => \App\Http\Middleware\EnforceHtml::class,
     ];
 
 }

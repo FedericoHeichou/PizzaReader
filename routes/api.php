@@ -31,7 +31,7 @@ if (!function_exists('cacheable_routes')) {
 Route::name('reader.')->group(function () {
     if (config('settings.cache_proxy_enabled') && !isset($_COOKIE[config('session.cookie')])) {
         Route::middleware('cache.headers:public;max_age=' . intval(config('settings.cache_proxy_max_age', 3600)) . ';etag')->group(function () {
-            cacheable_routes();
+            Route::middleware('enforce.html')->group(function () { cacheable_routes(); });
         });
     } else {
         cacheable_routes();
