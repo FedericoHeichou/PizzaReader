@@ -77,7 +77,7 @@
     </script>
 <?php $locale_filename = str_replace(['\\', '/', '.'], '', \App::currentLocale()) . '.js'; ?>
     @if(\File::exists('js/lang/' . $locale_filename))<script src="{{ asset('js/lang/' . $locale_filename) }}" defer></script>
-    @endif<script src="{{ asset('js/app.js?ver=0.1.0') }}" defer></script>
+    @endif<script src="{{ asset('js/app.js?ver=0.1.1') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
     <script src="{{ asset('js/frontend.js') }}" defer></script>
     <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" defer></script>
