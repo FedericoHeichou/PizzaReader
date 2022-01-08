@@ -21,7 +21,7 @@
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js?ver=0.1.1') }}" defer></script>
+    <script src="{{ asset('js/app.js?ver=0.1.2') }}" defer></script>
     <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
     <script src="{{ asset('js/backend.js?ver=0.1.0') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>

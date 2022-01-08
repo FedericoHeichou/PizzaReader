@@ -74,10 +74,11 @@
         const API_BASE_URL = BASE_URL + 'api';
         const SITE_NAME = "{{ config('settings.reader_name') }}";
         const SITE_NAME_FULL = "{{ config('settings.reader_name_long') }}";
+        const LOGGED_IN = {{\Illuminate\Support\Facades\Auth::check() ? 'true' : 'false'}};
     </script>
 <?php $locale_filename = str_replace(['\\', '/', '.'], '', \App::currentLocale()) . '.js'; ?>
     @if(\File::exists('js/lang/' . $locale_filename))<script src="{{ asset('js/lang/' . $locale_filename) }}" defer></script>
-    @endif<script src="{{ asset('js/app.js?ver=0.1.1') }}" defer></script>
+    @endif<script src="{{ asset('js/app.js?ver=0.1.2') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
     <script src="{{ asset('js/frontend.js') }}" defer></script>
     <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" defer></script>
