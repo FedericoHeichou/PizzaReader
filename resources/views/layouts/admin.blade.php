@@ -21,9 +21,9 @@
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js?ver=0.1.0') }}" defer></script>
     <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
-    <script src="{{ asset('js/backend.js') }}" defer></script>
+    <script src="{{ asset('js/backend.js?ver=0.1.0') }}" defer></script>
     <script src="{{ asset('js/card-search.js') }}" defer></script>
     <script src="{{ asset('js/dark.js') }}" defer></script>
 
@@ -34,7 +34,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.fileupload-all.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css?ver=0.1.0') }}" rel="stylesheet">
     <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
@@ -158,6 +158,7 @@
         </main>
     </div>
     @include('partials.confirmbox')
+    <div id="notification-zone"></div>
     @yield('script')
 </body>
 </html>

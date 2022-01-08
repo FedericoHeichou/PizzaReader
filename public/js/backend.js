@@ -179,10 +179,19 @@ function purgeChapter(url) {
         },
         redirect: 'follow'
     }
-    fetch(`/api${url}`, init);
+    showNotification('Running purge...', 'warning');
+    fetch(`/api${url}`, init).then(res => showNotification('Reader purged:', res.status === 200 ? 'success' : 'error'));
     const ch_slug = url.split('/', 3)[2];
-    fetch(`/api/comics/${ch_slug}`, init);
-    fetch(`/api/comics`, init);
-    fetch(`/api/recommended`, init);
-    fetch(`/api/info`, init);
+    fetch(`/api/comics/${ch_slug}`, init).then(res => showNotification('Comic purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`/api/comics`, init).then(res => showNotification('Comics purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`/api/recommended`, init).then(res => showNotification('Recommended purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`/api/info`, init).then(res => showNotification('Info purged:', res.status === 200 ? 'success' : 'error'));
+}
+
+async function showNotification(msg, status) {
+    msg += ` ${status}`;
+    const id = parseInt(''+ (window.performance.now() * 10000));
+    $('#notification-zone').append(`<div id="notification-${id}" class="notification ${status}">${msg}</div>`);
+    await new Promise(r => setTimeout(r, 5000));
+    $(`#notification-${id}`).remove();
 }

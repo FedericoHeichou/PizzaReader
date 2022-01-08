@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::prefix('api')
-                ->middleware('api')
+                ->middleware(isset($_COOKIE[config('session.cookie')]) ? 'web': 'api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
@@ -38,15 +38,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
-            if (isset($_COOKIE[config('session.cookie')])) {
-                Route::middleware('web')
-                    ->namespace($this->namespace)
-                    ->group(base_path('routes/fe.php'));
-            } else {
-                Route::middleware('fe')
-                    ->namespace($this->namespace)
-                    ->group(base_path('routes/fe.php'));
-            }
+            Route::middleware(isset($_COOKIE[config('session.cookie')]) ? 'web' : 'api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/fe.php'));
         });
     }
 

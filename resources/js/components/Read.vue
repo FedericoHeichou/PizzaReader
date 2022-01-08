@@ -577,14 +577,7 @@ export default {
                 $(this).removeClass('selected');
             });
             $(e.target).addClass('selected');
-            $.ajax({
-                type: 'POST',
-                url: this.reader.API_BASE_URL + '/vote' + this.$route.path.slice(5),
-                data: {'vote': vote, 'vote_token': this.$store.getters.vote_token},
-                error: function (err) {
-                    console.log(err);
-                },
-            });
+            window.axios.post(this.reader.API_BASE_URL + '/vote' + this.$route.path.slice(5), {'vote': vote, 'vote_token': this.$store.getters.vote_token});
         },
         showPopup() {
             $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
