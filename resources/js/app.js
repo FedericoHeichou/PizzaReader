@@ -92,7 +92,7 @@ const app = new Vue({
         },
         clearCustomHTML(id) {
             const custom_html_selector = $(`#${id}`);
-            if (custom_html_selector.length) {
+            if (custom_html_selector.length && typeof this.custom_html_observer[id] !== 'undefined') {
                 this.custom_html_observer[id].disconnect();
                 custom_html_selector.html('');
             }
