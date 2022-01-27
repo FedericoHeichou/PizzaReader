@@ -41,7 +41,7 @@ class ChapterController extends Controller {
 
         $fields['salt'] = Str::random();
         $fields['slug'] = Chapter::generateSlug($fields);
-        if($fields['views'] === null) $fields['views'] = 0;
+        if(!isset($fields['views'])) $fields['views'] = 0;
         $chapter = Chapter::create($fields);
         $path = Chapter::path($comic, $chapter);
         Storage::makeDirectory($path);
@@ -106,21 +106,19 @@ class ChapterController extends Controller {
             unset($fields['slug']);
         }
 
-        if($fields['views'] === null) unset($fields['views']);
-
         $new_chapter = new Chapter;
         $new_chapter->comic_id = $chapter->comic_id;
-        $new_chapter->slug = isset($fields['slug']) ? $fields['slug'] : $chapter->slug;
-        $new_chapter->language = isset($fields['language']) ? $fields['language'] : null;
-        $new_chapter->volume = isset($fields['volume']) ? $fields['volume'] : null;
-        $new_chapter->chapter = isset($fields['chapter']) ? $fields['chapter'] : null;
-        $new_chapter->subchapter = isset($fields['subchapter']) ? $fields['subchapter'] : null;
+        $new_chapter->slug = $fields['slug'] ?? $chapter->slug;
+        $new_chapter->language = $fields['language'] ?? null;
+        $new_chapter->volume = $fields['volume'] ?? null;
+        $new_chapter->chapter = $fields['chapter'] ?? null;
+        $new_chapter->subchapter = $fields['subchapter'] ?? null;
         $new_chapter->salt = $chapter->salt;
-        $new_chapter['hidden'] = isset($fields['hidden']) ? $fields['hidden'] : $chapter['hidden'];
-        $new_chapter['licensed'] = isset($fields['licensed']) ? $fields['licensed'] : $chapter['licensed'];
-        $new_chapter['team_id'] = isset($fields['team_id']) ? $fields['team_id'] : $chapter->team_id;
-        $new_chapter->publish_start = isset($fields['publish_start']) ? $fields['publish_start'] : $chapter->publish_start;
-        $new_chapter->publish_end = isset($fields['publish_end']) ? $fields['publish_end'] : $chapter->publish_end;
+        $new_chapter['hidden'] = $fields['hidden'] ?? $chapter['hidden'];
+        $new_chapter['licensed'] = $fields['licensed'] ?? $chapter['licensed'];
+        $new_chapter['team_id'] = $fields['team_id'] ?? $chapter->team_id;
+        $new_chapter->publish_start = $fields['publish_start'] ?? $chapter->publish_start;
+        $new_chapter->publish_end = $fields['publish_end'] ?? $chapter->publish_end;
         $new_path = Chapter::path($comic, $new_chapter);
 
         // Check if we need to delete its zips

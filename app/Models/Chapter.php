@@ -463,8 +463,12 @@ class Chapter extends Model {
         return getFormFieldsForValidation(Chapter::getFormFields());
     }
 
+    public static function getFieldsToUnsetIfNull(): array {
+        return getFieldsToUnsetIfNull(Chapter::getFormFields());
+    }
+
     public static function getFieldsFromRequest($request, $comic, $form_fields) {
-        $fields = getFieldsFromRequest($request, $form_fields);
+        $fields = getFieldsFromRequest($request, $form_fields, Chapter::getFieldsToUnsetIfNull());
         $fields['published_on'] = convertToUTC($fields['published_on'], $fields['timezone']);
         $fields['publish_start'] = convertToUTC($fields['publish_start'], $fields['timezone']);
         if($fields['publish_end']) $fields['publish_end'] = convertToUTC($fields['publish_end'], $fields['timezone']);

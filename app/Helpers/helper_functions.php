@@ -40,10 +40,19 @@ function getFormFieldsForValidation($fields) {
     return $form_fields;
 }
 
-function getFieldsFromRequest($request, $form_fields) {
+function getFieldsToUnsetIfNull($fields): array {
+    $array_fields = [];
+    foreach ($fields as $field) {
+        if(isset($field['parameters']['edit']) && $field['parameters']['edit']) $array_fields[] = $field['parameters']['field'];
+    }
+    return $array_fields;
+}
+
+function getFieldsFromRequest($request, $form_fields, $to_unset_if_null=[]) {
     $fields = [];
     foreach ($form_fields as $key => $value) {
         if ($request->$key != null) $fields[$key] = $request->$key;
+        elseif ($request->$key === null && in_array($key, $to_unset_if_null)) unset($fields[$key]);
         else $fields[$key] = null;
     }
     return $fields;
