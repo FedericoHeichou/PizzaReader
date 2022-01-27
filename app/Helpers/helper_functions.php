@@ -52,7 +52,7 @@ function getFieldsFromRequest($request, $form_fields, $to_unset_if_null=[]) {
     $fields = [];
     foreach ($form_fields as $key => $value) {
         if ($request->$key != null) $fields[$key] = $request->$key;
-        elseif ($request->$key === null && in_array($key, $to_unset_if_null)) unset($fields[$key]);
+        elseif (!$request->has($key) && in_array($key, $to_unset_if_null)) unset($fields[$key]);
         else $fields[$key] = null;
     }
     return $fields;
