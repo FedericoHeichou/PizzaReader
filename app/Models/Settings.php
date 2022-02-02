@@ -317,7 +317,7 @@ class Settings extends Model {
                 'parameters' => [
                     'field' => 'cache_proxy_enabled',
                     'label' => 'Proxy cache',
-                    'hint' => 'Permits to the proxy to cache some endpoints [BETA].',
+                    'hint' => 'Permits to the proxy to cache some endpoints [BETA, IMPORTANT: Tachiyomi may not increment the views counter].',
                 ],
                 'values' => ['boolean'],
             ], [

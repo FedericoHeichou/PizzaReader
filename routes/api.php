@@ -25,6 +25,8 @@ if (!function_exists('cacheable_routes')) {
         Route::get('/recommended/', [ReaderController::class, 'recommended'])->name('recommended');
         Route::get('/comics/{comic}', [ReaderController::class, 'comic'])->name('comic');
         Route::get('/info/', [ReaderController::class, 'info'])->name('info');
+        // if you cache this you will increment the views using the "vote" route, but it won't work with the current Tachiyomi extension
+        Route::get('/read/{comic}/{language}/{ch?}', [ReaderController::class, 'chapter'])->name('read')->where('ch', '.*');
     }
 }
 
@@ -37,8 +39,6 @@ Route::name('reader.')->group(function () {
         cacheable_routes();
     }
 
-    // TODO if you want to cache this, you need to handle the increment views using the "vote" route, but it won't work with the current Tachiyomi extension
-    Route::get('/read/{comic}/{language}/{ch?}', [ReaderController::class, 'chapter'])->name('read')->where('ch', '.*');
     Route::get('/download/{comic}/{language}/{ch?}', [ReaderController::class, 'download'])->name('download')->where('ch', '.*');
     Route::get('/pdf/{comic}/{language}/{ch?}', [ReaderController::class, 'pdf'])->name('pdf')->where('ch', '.*');
     Route::get('/vote/{chapter_id}', [ReaderController::class, 'get_vote'])->name('get_vote')->where('ch', '.*');

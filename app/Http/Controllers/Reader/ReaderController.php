@@ -206,6 +206,12 @@ class ReaderController extends Controller {
             'vote_token' => $vote_token,
             'your_vote' => $your_vote ? $your_vote->rating : null
         ];
+        // If the cache is enabled maybe you need to use this not-cached endpoint to increment views
+        if(config('settings.cache_proxy_enabled')) {
+            $chapter = new Chapter;
+            $chapter->id = $chapter_id;
+            View::incrementIfNew($chapter, request()->ip());
+        }
         return response()->json($response);
     }
 
