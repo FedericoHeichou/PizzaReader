@@ -208,8 +208,7 @@ class ReaderController extends Controller {
         ];
         // If the cache is enabled maybe you need to use this not-cached endpoint to increment views
         if(config('settings.cache_proxy_enabled')) {
-            $chapter = new Chapter;
-            $chapter->id = $chapter_id;
+            $chapter = Chapter::find($chapter_id);
             View::incrementIfNew($chapter, request()->ip());
         }
         return response()->json($response);
