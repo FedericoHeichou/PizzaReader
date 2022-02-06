@@ -242,7 +242,9 @@ class ReaderController extends Controller {
 
     static function explodeCh($language, $ch): ?array {
         if ($ch) {
-            $ch = explode("/", $ch);
+            $ch = array_values(array_filter(explode("/", $ch), function ($value) {
+                return $value !== '';
+            }));
             $length = count($ch);
             if ($length % 2) {
                 return null;

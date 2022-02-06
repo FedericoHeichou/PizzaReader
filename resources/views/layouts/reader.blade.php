@@ -47,7 +47,7 @@
                 $chapter->chapter = $ch['ch'];
                 $chapter->subchapter = $ch['sub'];
                 $pre = Chapter::getVolChSub($chapter) . " | ";
-            } elseif ($ch['lang'] !== null) {
+            } elseif (is_array($ch) && $ch['lang'] !== null) {
                 $pre = "$comic_title | ";
             } else {
                 $pre = "Error 404 | ";
