@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -21,11 +22,11 @@ class VolumeDownload extends Model {
         'last_download' => 'datetime',
     ];
 
-    public function comic() {
+    public function comic(): BelongsTo {
         return $this->belongsTo(Comic::class);
     }
 
-    public static function name($comic, $language, $volume) {
+    public static function name($comic, $language, $volume): string {
         $name = preg_replace('/__+/', '_', preg_replace('/[^a-zA-Z0-9]/', '_', $comic->name)) . '_Volume_';
         if ($volume < 10) {
             $name .= '00' . $volume;
@@ -42,7 +43,7 @@ class VolumeDownload extends Model {
     // Known possible bug: if you programmed a chapter publication the cache keep serving the old zip until you perform
     // a new update of a chapter changing important parameters (vol, ch, pages, etc) or parameters
     // like hidden, licensed, publish_start or publish_end
-    public static function getDownload($comic, $language, $volume) {
+    public static function getDownload($comic, $language, $volume): ?array {
         $download = VolumeDownload::where([['comic_id', $comic->id], ['language', $language], ['volume', $volume]])->first();
         $path = Comic::path($comic);
 
@@ -99,10 +100,10 @@ class VolumeDownload extends Model {
                     $download->delete();
                     return null;
                 }
-                array_push($files, [
+                $files[] = [
                     'source' => "$absolute_path/" . substr($chapter_download['path'], $length_of_path),
                     'dest' => "$base_name/" . $chapter_download['name'],
-                ]);
+                ];
             }
             createZip($zip_absolute_path, $files);
             if(Storage::missing($zip_path)) {

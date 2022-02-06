@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use DuplicatedChapter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -54,35 +58,37 @@ class Chapter extends Model {
         }
     }
 
-    public function pages() {
+    public function pages(): HasMany {
         return $this->hasMany(Page::class)->orderBy('filename', 'asc')->orderBy('id', 'asc');
     }
 
-    public function views_list() {
+    public function views_list(): HasMany {
         return $this->hasMany(View::class);
     }
 
-    public function ratings() {
+    public function ratings(): HasMany {
         return $this->hasMany(Rating::class);
     }
 
-    /*public function publicPages() {
-        return $this->pages()->where('hidden', 0);
-    }*/
+    /*
+     * public function publicPages() {
+     *   return $this->pages()->where('hidden', 0);
+     * }
+     */
 
-    public function comic() {
+    public function comic(): BelongsTo {
         return $this->belongsTo(Comic::class);
     }
 
-    public function teams() {
+    public function teams(): BelongsTo {
         return $this->belongsTo(Team::class);
     }
 
-    public function download() {
+    public function download(): HasOne {
         return $this->hasOne(ChapterDownload::class);
     }
 
-    public function pdf() {
+    public function pdf(): HasOne {
         return $this->hasOne(ChapterPdf::class);
     }
 
@@ -107,11 +113,11 @@ class Chapter extends Model {
         ])->first();
     }
 
-    public static function isLicensed($chapter) {
+    public static function isLicensed($chapter): bool {
         return $chapter->licensed && (!Auth::check() || !Auth::user()->canSee($chapter->comid_id));
     }
 
-    public static function slugLangVolChSub($chapter) {
+    public static function slugLangVolChSub($chapter): string {
         $lang = $chapter->language ?: "N";
         $vol = $chapter->volume !== null ? $chapter->volume : "N";
         $ch = $chapter->chapter !== null ? $chapter->chapter : "N";
@@ -119,50 +125,50 @@ class Chapter extends Model {
         return $lang . '-' . $vol . '-' . $ch . '-' . $sub;
     }
 
-    public static function buildPath($comic, $chapter) {
+    public static function buildPath($comic, $chapter): string {
         return Comic::buildPath($comic) . '/' . Chapter::slugLangVolChSub($chapter) . '-' . $chapter->slug
             . '_' . $chapter->salt;
     }
 
-    public static function path($comic, $chapter) {
+    public static function path($comic, $chapter): string {
         return 'public/' . Chapter::buildPath($comic, $chapter);
     }
 
-    public static function absolutePath($comic, $chapter) {
+    public static function absolutePath($comic, $chapter): string {
         return public_path() . '/storage/' . Chapter::buildPath($comic, $chapter);
     }
 
-    public static function storagePath($comic, $chapter) {
+    public static function storagePath($comic, $chapter): string {
         return storage_path("app/" . Chapter::path($comic, $chapter));
     }
 
-    public static function buildUri($comic, $chapter) {
+    public static function buildUri($comic, $chapter): string {
         $url = "/$comic->slug/" . $chapter['language'];
-        if (isset($chapter['volume']) && $chapter['volume'] !== null) $url .= '/vol/' . $chapter['volume'];
-        if (isset($chapter['chapter']) && $chapter['chapter'] !== null) $url .= '/ch/' . $chapter['chapter'];
-        if (isset($chapter['subchapter']) && $chapter['subchapter'] !== null) $url .= '/sub/' . $chapter['subchapter'];
+        if (isset($chapter['volume'])) $url .= '/vol/' . $chapter['volume'];
+        if (isset($chapter['chapter'])) $url .= '/ch/' . $chapter['chapter'];
+        if (isset($chapter['subchapter'])) $url .= '/sub/' . $chapter['subchapter'];
         return $url;
     }
 
-    public static function getUrl($comic, $chapter) {
+    public static function getUrl($comic, $chapter): string {
         return "/read" . Chapter::buildUri($comic, $chapter);
     }
 
-    public static function getChapterPdf($comic, $chapter) {
+    public static function getChapterPdf($comic, $chapter): ?string {
         if (Chapter::canChapterPdf($chapter)) {
             return "/pdf" . Chapter::buildUri($comic, $chapter);
         }
         return null;
     }
 
-    public static function getChapterDownload($comic, $chapter) {
+    public static function getChapterDownload($comic, $chapter): ?string {
         if (Chapter::canChapterDownload($chapter)) {
             return "/download" . Chapter::buildUri($comic, $chapter);
         }
         return null;
     }
 
-    public static function getVolumeDownload($comic, $chapter) {
+    public static function getVolumeDownload($comic, $chapter): ?string {
         if (Chapter::canVolumeDownload($comic)) {
             $ch = ['language' => $chapter->language, 'volume' => $chapter->volume];
             return "/download" . Chapter::buildUri($comic, $ch);
@@ -170,22 +176,22 @@ class Chapter extends Model {
         return null;
     }
 
-    public static function getThumbnailUrl($comic, $chapter) {
+    public static function getThumbnailUrl($comic, $chapter): ?string {
         if ($chapter->thumbnail) return $chapter->thumbnail;
         if (!config('settings.default_chapter_thumbnail')) return Comic::getThumbnailUrl($comic);
         $thumbnail_path = 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
         return File::exists($thumbnail_path) ? asset($thumbnail_path) : null;
     }
 
-    public static function canChapterPdf($chapter) {
+    public static function canChapterPdf($chapter): bool {
         return class_exists('Imagick') && ((config('settings.pdf_chapter') && !$chapter->licensed) || (Auth::check() && Auth::user()->canSee($chapter->comic_id)));
     }
 
-    public static function canChapterDownload($chapter) {
+    public static function canChapterDownload($chapter): bool {
         return (config('settings.download_chapter') && !$chapter->licensed) || (Auth::check() && Auth::user()->canSee($chapter->comic_id));
     }
 
-    public static function canVolumeDownload($comic) {
+    public static function canVolumeDownload($comic): bool {
         return config('settings.download_volume') || (Auth::check() && Auth::user()->canSee($comic->id));
     }
 
@@ -236,7 +242,7 @@ class Chapter extends Model {
         return $name;
     }
 
-    public static function getVolChSub($chapter) {
+    public static function getVolChSub($chapter): string {
         $name = "";
         if ($chapter->volume !== null) $name .= "Vol.$chapter->volume ";
         if ($chapter->chapter !== null) $name .= "Ch.$chapter->chapter";
@@ -244,7 +250,7 @@ class Chapter extends Model {
         return $name;
     }
 
-    public static function getFormFields() {
+    public static function getFormFields(): array {
         $teams = Team::all();
         $id_teams = $teams->pluck('id');
         return [
@@ -429,7 +435,7 @@ class Chapter extends Model {
 
     }
 
-    public static function generateReaderArray($comic, $chapter) {
+    public static function generateReaderArray($comic, $chapter): ?array {
         $now = Carbon::now();
         if (!$comic || !$chapter || $comic->id !== $chapter->comic_id) return null;
         return [
@@ -459,7 +465,7 @@ class Chapter extends Model {
         ];
     }
 
-    public static function getFormFieldsForValidation() {
+    public static function getFormFieldsForValidation(): array {
         return getFormFieldsForValidation(Chapter::getFormFields());
     }
 
@@ -467,7 +473,7 @@ class Chapter extends Model {
         return getFieldsToUnsetIfNull(Chapter::getFormFields());
     }
 
-    public static function getFieldsFromRequest($request, $comic, $form_fields) {
+    public static function getFieldsFromRequest($request, $comic, $form_fields): array {
         $fields = getFieldsFromRequest($request, $form_fields, Chapter::getFieldsToUnsetIfNull());
         $fields['published_on'] = convertToUTC($fields['published_on'], $fields['timezone']);
         $fields['publish_start'] = convertToUTC($fields['publish_start'], $fields['timezone']);
@@ -479,7 +485,10 @@ class Chapter extends Model {
         return $fields;
     }
 
-    public static function getFieldsIfValid($comic, $request) {
+    /**
+     * @throws DuplicatedChapter
+     */
+    public static function getFieldsIfValid($comic, $request): array {
         $form_fields = Chapter::getFormFieldsForValidation();
         $request->validate($form_fields);
         $fields = Chapter::getFieldsFromRequest($request, $comic, $form_fields);
@@ -491,7 +500,7 @@ class Chapter extends Model {
             ['subchapter', $fields['subchapter']],
             ['language', $fields['language']],
         ])->first();
-        if ($duplicated_chapter) throw new \DuplicatedChapter('Chapter duplicated, there is already a chapter for this comic with this combination of language, volume, chapter and subchapter.');
+        if ($duplicated_chapter) throw new DuplicatedChapter('Chapter duplicated, there is already a chapter for this comic with this combination of language, volume, chapter and subchapter.');
         return $fields;
     }
 
