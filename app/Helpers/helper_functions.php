@@ -23,17 +23,17 @@ function generateSlug($class, $fields) {
     return $slug;
 }
 
-function getFormFieldsForValidation($fields) {
+function getFormFieldsForValidation($fields): array {
     $form_fields = [];
     foreach ($fields as $field) {
         $values = $field['values'];
         if (isset($field['parameters']['required']) && $field['parameters']['required']) {
-            array_push($values, 'required');
+            $values[] = 'required';
         } else {
-            array_push($values, 'nullable');
+            $values[] = 'nullable';
         }
         if (isset($field['parameters']['prohibited']) && $field['parameters']['prohibited']) {
-            array_push($values, 'prohibited');
+            $values[] = 'prohibited';
         }
         $form_fields[$field['parameters']['field']] = $values;
     }
@@ -48,7 +48,7 @@ function getFieldsToUnsetIfNull($fields): array {
     return $array_fields;
 }
 
-function getFieldsFromRequest($request, $form_fields, $to_unset_if_null=[]) {
+function getFieldsFromRequest($request, $form_fields, $to_unset_if_null=[]): array {
     $fields = [];
     foreach ($form_fields as $key => $value) {
         if ($request->$key != null) $fields[$key] = $request->$key;
@@ -58,7 +58,7 @@ function getFieldsFromRequest($request, $form_fields, $to_unset_if_null=[]) {
     return $fields;
 }
 
-function trimChar($string, $char) {
+function trimChar($string, $char): string {
     $c = $char[0];
     $string = preg_replace('/\s*' . $c . '\s*/', $c, $string);
     $string = preg_replace('/' . $c . '+' . $c . '+/', $c, $string);
@@ -67,14 +67,18 @@ function trimChar($string, $char) {
 
 function createZip($zip_absolute_path, $files) {
     if (empty($files)) return;
-    $zip = new \ZipArchive();
-    $zip->open($zip_absolute_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+    $zip = new ZipArchive();
+    $res = $zip->open($zip_absolute_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    if (!$res) {
+        Log::error("createZip", ['download' => $zip_absolute_path, 'files' => $files]);
+        Log::error("ZipArchive::open failed with code", $res);
+    }
     foreach ($files as $file) {
         $zip->addFile($file['source'], $file['dest']);
     }
     try {
         $zip->close();
-    } catch (\ErrorException $exception) {
+    } catch (Exception $exception) {
         Log::error("createZip", ['download' => $zip_absolute_path, 'files' => $files]);
         Log::error($exception);
     }
@@ -83,17 +87,17 @@ function createZip($zip_absolute_path, $files) {
 function createPdf($pdf_absolute_path, $files) {
     // Sadly Intervention Image library doesn't support pdf...
     if (empty($files)) return;
-    $pdf = new Imagick($files);
-    $pdf->setImageFormat("pdf");
     try {
+        $pdf = new Imagick($files);
+        $pdf->setImageFormat("pdf");
         $pdf->writeImages($pdf_absolute_path, true);
-    } catch (\ErrorException $exception) {
+    } catch (ImagickException $exception) {
         Log::error("createPdf", ['download' => $pdf_absolute_path, 'files' => $files]);
         Log::error($exception);
     }
 }
 
-function cleanDirectoryByExtension($path, $ext, $exclusions=[], $dry_run=false) {
+function cleanDirectoryByExtension($path, $ext, $exclusions=[], $dry_run=false): array {
     $files = Storage::files($path);
     foreach ($files as $key => $value) {
         if (!preg_match("/.$ext$/", $value) || in_array($value, $exclusions)) unset($files[$key]);
