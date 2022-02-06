@@ -110,7 +110,7 @@
                                     <li class="list-inline-item text-primary">
                                         <span class="fas fa-star fa-fw" aria-hidden="true" title="Rating"></span>
                                         <span v-if="comic.rating != null" title="vote">{{ comic.rating }}</span>
-                                        <span v-else title="vote">--.-</span>
+                                        <span v-else title="vote">-.--</span>
                                     </li>
                                     <li class="list-inline-item text-info">
                                         <span class="fas fa-eye fa-fw" aria-hidden="true" title="Views"></span>

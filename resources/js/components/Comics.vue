@@ -22,12 +22,12 @@
                         <li v-if="reader.$route.name === 'Last Releases'" class="list-inline-item text-primary">
                             <span class="fas fa-star fa-fw" aria-hidden="true" title="Rating"></span>
                             <span v-if="comic.last_chapter != null && comic.last_chapter.rating != null" title="vote">{{ comic.last_chapter.rating }}</span>
-                            <span v-else title="vote">--.-</span>
+                            <span v-else title="vote">-.--</span>
                         </li>
                         <li v-else class="list-inline-item text-primary">
                             <span class="fas fa-star fa-fw" aria-hidden="true" title="Rating"></span>
                             <span v-if="comic.rating != null" title="vote">{{ comic.rating }}</span>
-                            <span v-else title="vote">--.-</span>
+                            <span v-else title="vote">-.--</span>
                         </li>
                         <li v-if="reader.$route.name === 'Last Releases'" class="list-inline-item text-info">
                             <span class="fas fa-eye fa-fw" aria-hidden="true" title="Views"></span>
