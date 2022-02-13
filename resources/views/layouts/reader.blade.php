@@ -80,22 +80,16 @@
     </script>
 <?php $locale_filename = str_replace(['\\', '/', '.'], '', \App::currentLocale()) . '.js'; ?>
     @if(\File::exists('js/lang/' . $locale_filename))<script src="{{ asset('js/lang/' . $locale_filename) }}" defer></script>
-    @endif<script src="{{ asset('js/app.js?ver=0.1.2') }}" defer></script>
-    <script src="{{ asset('js/card-search.js') }}" defer></script>
-    <script src="{{ asset('js/frontend.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" defer></script>
-    <script src="{{ asset('js/reader.js') }}" defer></script>
-    <script src="{{ asset('js/dark.js') }}" defer></script>
+    @endif<script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/reader.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/reader.css?ver=0.1.0') }}" rel="stylesheet">
-    <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/reader.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
     <link rel="icon" href="{{ config('settings.logo_asset_72') }}" sizes="32x32"/>

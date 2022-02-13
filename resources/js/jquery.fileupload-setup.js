@@ -1,5 +1,6 @@
 $(function () {
     let fileupload = $('#fileupload');
+    if (!fileupload.length) return;
     'use strict';
     fileupload.fileupload({
         url: fileupload.attr('action'),

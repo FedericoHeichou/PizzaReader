@@ -21,11 +21,8 @@
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js?ver=0.1.2') }}" defer></script>
-    <script src="{{ asset('js/bscustomfile.min.js') }}" defer></script>
-    <script src="{{ asset('js/backend.js?ver=0.1.0') }}" defer></script>
-    <script src="{{ asset('js/card-search.js') }}" defer></script>
-    <script src="{{ asset('js/dark.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/admin.js') }}" defer></script>
     <script type="text/javascript">
         const LOGGED_IN = true;
     </script>
@@ -35,10 +32,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery.fileupload-all.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css?ver=0.1.0') }}" rel="stylesheet">
-    <link href="{{ asset('css/dark.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
 
     <!-- Browser info -->
     <link rel="icon" href="{{ config('settings.logo_asset_72') }}" sizes="32x32"/>

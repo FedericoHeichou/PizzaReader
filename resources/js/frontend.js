@@ -11,7 +11,7 @@ const plural = (is_plural) => { return is_plural ? 's' : ''; }
 
 const __ = (message) => { return typeof lang_messages !== 'undefined' && lang_messages[message] || message; }
 
-function timePassed(date, short=false) {
+const timePassed = function (date, short=false) {
     let diff = new Date().getTime() - new Date(date).getTime();
     if(diff < 0) return 'In the future';
     diff = parseInt(diff / 1000);

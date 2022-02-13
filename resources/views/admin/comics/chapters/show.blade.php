@@ -134,6 +134,4 @@
     <script type="text/javascript">
         let old_files = @json($pages);
     </script>
-    <script src="{{ asset('js/jquery.fileupload-all.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.fileupload-setup.js') }}" defer></script>
 @endsection

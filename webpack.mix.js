@@ -11,10 +11,24 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.version();
+
 mix.js('resources/js/app.js', 'public/js').vue()
     .sass('resources/sass/app.scss', 'public/css').sourceMaps();
 
 mix.scripts([
+    'resources/js/card-search.js',
+    'resources/js/frontend.js',
+    'resources/js/reader.js',
+    'resources/js/dark.js',
+    'node_modules/jquery-touchswipe/jquery.touchSwipe.min.js',
+], 'public/js/reader.js');
+
+mix.scripts([
+    'resources/js/card-search.js',
+    'resources/js/bscustomfile.min.js',
+    'resources/js/backend.js',
+    'resources/js/dark.js',
     'node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js',
     'node_modules/blueimp-load-image/js/load-image.all.min.js',
     'node_modules/blueimp-tmpl/js/tmpl.min.js',
@@ -22,13 +36,22 @@ mix.scripts([
     'node_modules/blueimp-file-upload/js/jquery.fileupload-process.js',
     'node_modules/blueimp-file-upload/js/jquery.fileupload-image.js',
     'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js',
-    ], 'public/js/jquery.fileupload-all.js');
+    'resources/js/jquery.fileupload-setup.js',
+], 'public/js/admin.js');
+
+mix.styles([
+    'resources/css/frontend.css',
+    'resources/css/reader.css',
+    'resources/css/dark.css',
+], 'public/css/reader.css');
 
 mix.styles([
     'node_modules/blueimp-file-upload/css/jquery.fileupload.css',
     'node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css',
-], 'public/css/jquery.fileupload-all.css');
+    'resources/css/admin.css',
+    'resources/css/dark.css',
+], 'public/css/admin.css');
 
 mix.copyDirectory('node_modules/blueimp-file-upload/img', 'public/img');
+mix.copyDirectory('resources/js/lang', 'public/js/lang');
 mix.copy('node_modules/blueimp-tmpl/js/tmpl.min.js.map', 'public/js');
-mix.copy('node_modules/jquery-touchswipe/jquery.touchSwipe.min.js', 'public/js');

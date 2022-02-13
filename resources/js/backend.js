@@ -56,7 +56,7 @@ $('#generate-password').on('click', function () {
 // Assign comics to user section
 let assignedComics = [];
 
-function assignComics() {
+const assignComics = function () {
     const user_id = $("#modal-assign h4").data('user');
     const comics = $('#assigned-comics .comics .comic').map(function () {
         return $(this).data('comic');
@@ -83,18 +83,18 @@ function assignComics() {
     });
 }
 
-function pushComic(comic_id, comic_name) {
+const pushComic = function (comic_id, comic_name) {
     $('#comic-search').val('');
     assignedComics[comic_id] = comic_name;
     assignComicsBuild();
 }
 
-function deleteComic(comic_id) {
+const deleteComic = function (comic_id) {
     delete(assignedComics[comic_id]);
     assignComicsBuild();
 }
 
-function assignComicsBox(user, comics) {
+const assignComicsBox = function (user, comics) {
     event.preventDefault();
     let modalContainer = $("#modal-assign");
     modalContainer.find('h4').html('Assign comics to ' + user.name).attr('data-user', user.id);
@@ -168,7 +168,7 @@ $(document).ready(function () {
 
 });
 
-function purgeChapter(url) {
+const purgeChapter = function (url) {
     const init = {
         method: 'GET',
         cache: 'no-cache',
