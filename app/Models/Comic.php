@@ -117,7 +117,7 @@ class Comic extends Model {
     }
 
     public static function storagePath($comic) {
-        return storage_path("app/" . Comic::path($comic));
+        return storage_path('app/' . Comic::path($comic));
     }
 
     public static function getThumbnailUrl($comic) {
@@ -283,7 +283,7 @@ class Comic extends Model {
         $exploded_genres = explode(',', $comic->genres);
         sort($exploded_genres);
         foreach ($exploded_genres as $genre) {
-            if ($genre != null) array_push($genres, ["name" => $genre, "slug" => Str::slug($genre)]);
+            if ($genre != null) $genres[] = ['name' => $genre, 'slug' => Str::slug($genre)];
         }
         $thumbnail = Comic::getThumbnailUrl($comic) ?: asset(config('settings.cover_path'));
         return [
