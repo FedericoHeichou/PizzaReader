@@ -320,7 +320,7 @@ class Comic extends Model {
         $chapters = $comic->publicChapters;
         foreach ($chapters as $chapter) {
             $chapter_array = Chapter::generateReaderArray($comic, $chapter);
-            array_push($response['chapters'], $chapter_array);
+            $response['chapters'][] = $chapter_array;
             if($chapter_array['volume_download']){
                 $response['volume_downloads'][VolumeDownload::name($comic, $chapter->language, $chapter->volume)] = $chapter_array['volume_download'];
             }

@@ -450,8 +450,8 @@ class Chapter extends Model {
             'rating' => $chapter->rating,
             'download_link' => $chapter->download_link,
             'language' => $chapter->language,
-            'teams' => [Team::generateReaderArray(Team::find($chapter->team_id)),
-                Team::generateReaderArray(Team::find($chapter->team2_id)),],
+            'teams' => [Team::generateReaderArray(Team::getTeamById($chapter->team_id)),
+                Team::generateReaderArray(Team::getTeamById($chapter->team2_id)),],
             'updated_at' => $chapter->updated_at,
             'published_on' => $chapter->published_on,
             'hidden' => ($chapter['hidden'] || $chapter->publish_start > $now ||

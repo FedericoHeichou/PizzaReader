@@ -35,4 +35,15 @@ class Team extends Model {
         $fields['slug'] = $request->slug;
         return generateSlug(new Team, $fields);
     }
+
+    public static function getTeamById($team_id) {
+        if ($team_id === null) return null;
+        $k = "teams.$team_id";
+        $team = config($k);
+        if (!$team) {
+            $team = Team::find($team_id);
+            config([$k => $team]);
+        }
+        return $team;
+    }
 }
