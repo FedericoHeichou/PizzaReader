@@ -50,10 +50,12 @@ body {
     background-color: var(--red);
 }
 
+.badge {
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
 @media (max-width: 767px) {
-    .badge {
-        margin-bottom: 3px;
-    }
     .label-badge {
         padding-top: 2px;
     }
