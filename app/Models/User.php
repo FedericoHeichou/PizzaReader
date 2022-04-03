@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -45,9 +44,12 @@ class User extends Authenticatable {
         return $this->belongsTo(Role::class);
     }
 
-    public function hasPermission($roleName): bool {
-        $role = Role::where('name', $roleName)->first();
-        return ($this->role_id <= $role->id);
+    public function hasPermission($role_name): bool {
+        if (!config('roles')) {
+            $roles = Role::all('id', 'name')->pluck('id', 'name');
+            config(['roles' => $roles]);
+        }
+        return ($this->role_id <= config("roles.$role_name"));
     }
 
     public function comics() {
