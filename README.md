@@ -1,11 +1,20 @@
-# PizzaReader
+# <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
+<p align="center">
+    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.0.0-blue">
+    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D7.4-blue">
+    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E8.0-lime">
+    <img alt="License" src="https://img.shields.io/badge/license-Apache 2-green"></p>
+
+# About PizzaReader
 A Manga and Comics reader written in Laravel
 
-# Important
+# Installation
+## Important
 If you get forbidden 403 with images perform manually `cd public; ln -s ../storage/app/public storage`
 
-# Installation
+## How to
 ```bash
+# If you want you can specify a tag
 git clone https://github.com/FedericoHeichou/PizzaReader.git pizzareader
 cd pizzareader
 
