@@ -1,12 +1,12 @@
 {
-    "/js/app.js": "/js/app.js?id=299c27d0c8fb0d6be654",
-    "/css/app.css": "/css/app.css?id=e2a14e62497a0834bb35",
-    "/js/reader.js": "/js/reader.js?id=a1392e34bc3b07460d6e",
-    "/js/admin.js": "/js/admin.js?id=87bc477f55dd18413d69",
-    "/css/reader.css": "/css/reader.css?id=03af57f040a9b84341a3",
-    "/css/admin.css": "/css/admin.css?id=efc6c3c50bf0917757f1",
-    "/img/loading.gif": "/img/loading.gif?id=eece9c4dc7d9152b3712",
-    "/img/progressbar.gif": "/img/progressbar.gif?id=ab1b062224823ba0fbf5",
-    "/js/lang/it.js": "/js/lang/it.js?id=ad44fd82b230d7c2dd83",
-    "/js/tmpl.min.js.map": "/js/tmpl.min.js.map?id=8978b8386845147646d4"
+    "/js/app.js": "/js/app.js?id=299c27d0c8fb0d6be65427243ca8b3a1",
+    "/css/app.css": "/css/app.css?id=a9128f257f19ef92a5fbee20c9fb5fad",
+    "/js/reader.js": "/js/reader.js?id=a1392e34bc3b07460d6e274d270c5919",
+    "/js/admin.js": "/js/admin.js?id=87bc477f55dd18413d6994a59d0d532c",
+    "/css/reader.css": "/css/reader.css?id=03af57f040a9b84341a36ffd88e38a83",
+    "/css/admin.css": "/css/admin.css?id=efc6c3c50bf0917757f1181f9f48167e",
+    "/img/loading.gif": "/img/loading.gif?id=eece9c4dc7d9152b3712237c02d92323",
+    "/img/progressbar.gif": "/img/progressbar.gif?id=ab1b062224823ba0fbf5ef32e72f4b86",
+    "/js/lang/it.js": "/js/lang/it.js?id=ad44fd82b230d7c2dd83e95450efe427",
+    "/js/tmpl.min.js.map": "/js/tmpl.min.js.map?id=8978b8386845147646d4cedca5dc2668"
 }
