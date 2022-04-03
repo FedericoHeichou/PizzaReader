@@ -49,12 +49,12 @@ class Comic extends Model {
         return $this->belongsToMany(User::class);
     }
 
-    public function chapters() {
-        return $this->hasMany(Chapter::class)
+    public function chapters($order=true) {
+        return $order ? $this->hasMany(Chapter::class)
             ->orderByDesc('volume')
             ->orderByDesc('chapter')
             ->orderByDesc('subchapter')
-            ->orderByDesc('language');
+            ->orderByDesc('language') : $this->hasMany(Chapter::class);
     }
 
     public function volume_downloads() {
@@ -70,7 +70,7 @@ class Comic extends Model {
     }
 
     public function lastPublishedChapter() {
-        return $this->chapters()->published()->first();
+        return $this->chapters(false)->published()->orderBy('published_on', 'desc')->first();
     }
 
     public static function slug($slug) {
