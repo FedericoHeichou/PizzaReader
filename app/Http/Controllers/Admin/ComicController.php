@@ -76,8 +76,10 @@ class ComicController extends Controller {
 
         // If has a new thumbnail delete the old one and store the new
         if (isset($fields['thumbnail'])) {
-            Storage::delete($old_path . '/' . $comic->thumbnail);
-            Storage::delete($old_path . '/' . getSmallThumbnail($comic->thumbnail));
+            if ($comic->thumbnail) {
+                Storage::delete($old_path . '/' . $comic->thumbnail);
+                Storage::delete($old_path . '/' . getSmallThumbnail($comic->thumbnail));
+            }
             $path = Comic::path($comic);
             $request->file('thumbnail')->storeAs($path, $fields['thumbnail']);
             $this->storeSmall($request->file('thumbnail'), $path, $fields['thumbnail']);
