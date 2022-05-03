@@ -121,5 +121,6 @@ function getNameFromId($array, $id): string {
 }
 
 function getSmallThumbnail($thumbnail) {
-    return substr_replace($thumbnail, "-small.jpg", strrpos($thumbnail , '.', -1));
+    if (!$thumbnail) return null;
+    return substr_replace($thumbnail, "-small.jpg", strrpos($thumbnail, '.', -1));
 }
