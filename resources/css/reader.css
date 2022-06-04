@@ -276,19 +276,15 @@ body.hide-header #hide-header-button {
     border-color: #4e555b;
 }
 
-#reader[data-display="fit-height"] #reader-images,
 #reader[data-display="fit-height"] .reader-image-wrapper,
 #reader[data-display="fit-height"] #reader-images img,
-#reader[data-display="fit-both"] #reader-images,
 #reader[data-display="fit-both"] .reader-image-wrapper,
 #reader[data-display="fit-both"] #reader-images img {
     max-height: calc(100vh - 3.5rem);
 }
 
-body.hide-header #reader[data-display="fit-height"] #reader-images,
 body.hide-header #reader[data-display="fit-height"] .reader-image-wrapper,
 body.hide-header #reader[data-display="fit-height"] #reader-images img,
-body.hide-header #reader[data-display="fit-both"] #reader-images,
 body.hide-header #reader[data-display="fit-both"] .reader-image-wrapper,
 body.hide-header #reader[data-display="fit-both"] #reader-images img {
     max-height: 100vh;
