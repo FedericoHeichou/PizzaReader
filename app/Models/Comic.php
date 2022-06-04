@@ -312,13 +312,14 @@ class Comic extends Model {
         ];
     }
 
-    public static function generateReaderArrayWithChapters($comic) {
+    public static function generateReaderArrayWithChapters($comic, $show_licensed=true) {
         if (!$comic) return null;
         $response = Comic::generateReaderArray($comic);
         $response['chapters'] = [];
         $response['volume_downloads'] = [];
         $chapters = $comic->publicChapters;
         foreach ($chapters as $chapter) {
+            if (!$show_licensed && Chapter::isLicensed($chapter)) continue;
             $chapter_array = Chapter::generateReaderArray($comic, $chapter);
             $response['chapters'][] = $chapter_array;
             if($chapter_array['volume_download']){

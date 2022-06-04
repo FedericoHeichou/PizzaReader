@@ -80,7 +80,8 @@ class ReaderController extends Controller {
 
     public function comic($comic_slug): JsonResponse {
         $comic = Comic::publicSlug($comic_slug);
-        return response()->json(['comic' => Comic::generateReaderArrayWithChapters($comic)], $comic ? 200 : 404);
+        $show_licensed = filter_var(request()->query('licensed'), FILTER_VALIDATE_BOOLEAN);
+        return response()->json(['comic' => Comic::generateReaderArrayWithChapters($comic, $show_licensed)], $comic ? 200 : 404);
     }
 
     public function chapter($comic_slug, $language, $ch = null): JsonResponse {

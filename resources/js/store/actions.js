@@ -27,7 +27,7 @@ let actions = {
         if(router.app.$store.getters.comic !== null) return;
         const loader = $('#loader');
         loader.show();
-        return axios.get(API_BASE_URL + route.path)
+        return axios.get(API_BASE_URL + route.path, { params: { licensed: true } })
             .then(res => {
                 commit('FETCH_COMIC', res.data['comic']);
             }).catch(err => {
