@@ -97,7 +97,7 @@ Thumbnail with a small size will be regenerated.
 Usually there should be already resized thumbnail, but comics created in a very old version of the reader could not have it.
 
 ## Manually clear views table
-If your views table is very bug, it means you are not running a [cron](#cron).  
+If your views table is very big, it means you are not running a [cron](#cron).  
 Anyway you can manually clear views table:
 ```bash
 /usr/bin/php artisan views:clear
