@@ -12,7 +12,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Rating;
 use App\Models\View;
 use App\Models\VolumeDownload;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -230,13 +232,50 @@ class ReaderController extends Controller {
         if (!$chapter) response()->json(['error' => 'chapter not found'], 404);
         if (Chapter::isLicensed($chapter)) response()->json(['error' => 'chapter licensed'], 403);
 
-        Rating::updateOrCreate(
-            ['chapter_id' => $chapter->id, 'ip' => request()->ip()],
-            ['rating' => $request->vote]
-        );
-
-        $chapter->rating = $chapter->ratings()->avg('rating') * 2;
-        $chapter->save();
+        $sum_inc;
+        $count_inc;
+        $fallback = false;
+        $old_rating = Rating::where([['chapter_id', $chapter->id], ['ip', request()->ip()]])->first();
+        if ($old_rating === null) {
+            $sum_inc = $request->vote;
+            $count_inc = 1;
+            Rating::create(['chapter_id' => $chapter->id, 'ip' => request()->ip(), 'rating' => $request->vote]);
+        } else {
+            $sum_inc = $request->vote - $old_rating->rating;
+            $count_inc = 0;
+            $old_rating->rating = $request->vote;
+            $old_rating->save();
+        }
+        if ($chapter->rating_count) {
+            // Don't care if "rating" is race-conditioned
+            try {
+                Chapter::where('id', $chapter->id)->update([
+                    'rating_sum' => DB::raw('`rating_sum` + ' . $sum_inc),
+                    'rating_count' => DB::raw('`rating_count` + ' . $count_inc),
+                    'rating' => ($chapter->rating_sum+$sum_inc)/($chapter->rating_count+$count_inc) * 2,
+                ]);
+                $chapter->refresh();
+            } catch (QueryException $ex) {
+                $fallback = true;
+            }
+        } else {
+            // If first view fallback
+            $fallback = true;
+        }
+        
+        if ($fallback) {
+            // Calculate from rating table
+            $ratings = $chapter->ratings()->selectRaw('COUNT(*) as rating_count, SUM(`rating`) as rating_sum')->first();
+            if ($ratings->rating_count) {
+                $chapter->timestamps = false;
+                $chapter->rating_count = $ratings->rating_count;
+                $chapter->rating_sum = $ratings->rating_sum;
+                $chapter->rating = $ratings->rating_sum/$ratings->rating_count * 2;
+                $chapter->save();
+            }
+            // After this it should be aligned
+            // SELECT `pr_chapters`.`id` as chapter_id, `rating_sum`, `rating_count`, `pr_chapters`.`rating`, avg(`pr_ratings`.`rating`)*2 as real_avg FROM `pr_chapters` join `pr_ratings` on `pr_chapters`.`id` = `chapter_id` group by `chapter_id`
+        }
 
         return response()->json(['rating' => $chapter->rating]);
     }
