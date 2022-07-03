@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Comic;
 use App\Models\Chapter;
 
-class ClearMissingDownloads extends Command {
+class DownloadsClear extends Command {
 
     protected $signature = 'downloads:clear {--dry-run}';
     protected $description = 'Clear all dangling zips and pdfs which are not in the database';

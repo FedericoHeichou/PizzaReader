@@ -13,9 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\CronCleanViews::class,
+        Commands\DownloadsClear::class,
+        Commands\RatingsClear::class,
         Commands\ThumbnailResize::class,
-        Commands\ClearMissingDownloads::class,
+        Commands\ViewsClear::class,
     ];
 
     /**
@@ -26,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('views:clear')->weekly();
     }
 
     /**

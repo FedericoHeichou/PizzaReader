@@ -5,9 +5,9 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\View;
 
-class CronCleanViews extends Command {
+class ViewsClear extends Command {
 
-    protected $signature = 'cron:clean-views';
+    protected $signature = 'views:clear';
     protected $description = 'Delete IPs older than 1 week in views table';
 
     function __construct() {
