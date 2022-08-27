@@ -28,6 +28,7 @@ class SettingsController extends Controller {
                     if (($key === 'logo' || $key === 'cover') && $value) {
                         $path = "/public/img/$key";
                         Storage::makeDirectory($path);
+                        Storage::setVisibility($path, 'public');
 
                         // Original
                         Storage::delete($path . '/' . $settings[$key]);

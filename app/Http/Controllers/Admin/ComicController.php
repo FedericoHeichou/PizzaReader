@@ -34,6 +34,7 @@ class ComicController extends Controller {
         $comic = Comic::create($fields);
         $path = Comic::path($comic);
         Storage::makeDirectory($path);
+        Storage::setVisibility($path, 'public');
         if (isset($fields['thumbnail'])) {
             $request->file('thumbnail')->storeAs($path, $comic->thumbnail);
             $this->storeSmall($request->file('thumbnail'), $path, $comic->thumbnail);
