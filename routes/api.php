@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 if (!function_exists('cacheable_routes')) {
     function cacheable_routes() {
         Route::get('/comics/', [ReaderController::class, 'comics'])->name('comics');
