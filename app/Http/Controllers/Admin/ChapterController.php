@@ -45,6 +45,7 @@ class ChapterController extends Controller {
         $chapter = Chapter::create($fields);
         $path = Chapter::path($comic, $chapter);
         Storage::makeDirectory($path);
+        Storage::setVisibility($path, 'public');
         $now = Carbon::now();
         if(!$chapter['hidden'] && !$chapter['licensed'] && $now >= $chapter->publish_start && (!$chapter->publish_end || $now < $chapter->publish_end))
             VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
