@@ -1,12 +1,23 @@
 # <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
 <p align="center">
-    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.0.2-blue">
-    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D7.4-blue">
-    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E8.0-lime">
+    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.1.0-blue">
+    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.0-blue">
+    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E9.19-lime">
     <img alt="License" src="https://img.shields.io/badge/license-Apache 2-green"></p>
 
 # About PizzaReader
 A Manga and Comics reader written in Laravel
+
+# Current version
+The `master` version sometimes is unstable because I immediately push commits or merge pull requests.  
+If you see my last commit is old, you can consider the `master` branch stable, I just forgot to tag.
+
+The current stable version is `v1.0.2`, based on Laravel 8 with PHP >=7.4.  
+The latest version is `v1.1.0`, based on Laravel 9 with PHP >=8.0.  
+I recently updated the code and dependencies to support Laravel 9 (which drops PHP 7.4).  
+It should be stable too, but I want to test it in production before claiming as stable.
+
+The use of `v1.1.0` (or `master`) is encouraged because I immediately fix reported bugs, indeed you can use the current stable `v1.0.2` as fallback because they should be totally interchangeable and you can upgrade and downgrade them.
 
 # Installation
 ## Important
