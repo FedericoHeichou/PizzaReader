@@ -12,11 +12,11 @@ use App\Models\Page;
 
 class PageController extends Controller {
 
-    public function index($comic_slug, $chapter_id) {
+    public function index($comic_slug, $chapter_id): \Illuminate\Http\Response {
         return response('OK');
     }
 
-    public function store(Request $request, $comic_slug, $chapter_id) {
+    public function store(Request $request, $comic_slug, $chapter_id): \Illuminate\Http\JsonResponse {
         $comic = Comic::slug($comic_slug);
         if (!$comic) {
             abort(404);
@@ -50,20 +50,20 @@ class PageController extends Controller {
                 'hidden' => 0,
             ]);
             $page->url = Page::getUrl($comic, $chapter, $page);
-            array_push($response['files'], [
+            $response['files'][] = [
                 'name' => $page->filename,
                 'size' => $page->size,
                 'url' => $page->url,
                 'thumbnailUrl' => $page->url,
                 'deleteUrl' => route('admin.comics.chapters.pages.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id, 'page' => $page->id]),
                 'deleteType' => 'DELETE'
-            ]);
+            ];
         }
         ChapterDownload::cleanDownload($chapter->download, $comic, $chapter, $chapter);
         return response()->json($response);
     }
 
-    public function destroy($comic_id, $chapter_id, $page_id) {
+    public function destroy($comic_id, $chapter_id, $page_id): \Illuminate\Http\JsonResponse {
         $comic = Comic::find($comic_id);
         if (!$comic) {
             abort(404);

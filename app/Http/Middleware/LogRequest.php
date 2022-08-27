@@ -26,7 +26,7 @@ class LogRequest {
 
 
         $context = [];
-        $forbidden = ["_token", "_method", "password", "timezone", "new_password", "password_confirmation"];
+        $forbidden = ["_token", "_method", "password", "timezone", "new_password", "password_confirmation", "current_password"];
         foreach ($request->post() as $key => $val) {
             if(!in_array($key, $forbidden)) $context[$key] = $val;
         }
