@@ -108,7 +108,7 @@
                       {% } %}
                   </h5>
                   {% if (file.error) { %}
-                      <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                      <div><span class="label label-danger upload-error">Error</span> {%=file.error%}</div>
                   {% } %}
               </td>
               <td>
@@ -133,5 +133,11 @@
     </script>
     <script type="text/javascript">
         let old_files = @json($pages);
+        window.onbeforeunload = function() {
+            if ($('.upload-error').length) {
+                alertbox('Some uploads failed, do you want really quit?');
+                return 'Some uploads failed, do you want really quit?';
+            }
+        }
     </script>
 @endsection

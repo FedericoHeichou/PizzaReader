@@ -16,6 +16,23 @@
         </div>
     </div>
 </div>
+<div id="info-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="info-text-head">Warning!</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <span id="info-text-desc"></span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="info-btn-yes" class="btn btn-success">Ok</a>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function confirmbox(text, form_id) {
         event.preventDefault();
@@ -29,6 +46,16 @@
         modalContainer.find("#modal-btn-yes").click(function () {
             modalContainer.modal('hide');
             $('#' + form_id).submit();
+            return false;
+        });
+    }
+    function alertbox(text) {
+        event.preventDefault();
+        let modalContainer = $("#info-container");
+        modalContainer.modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
+        modalContainer.find("#info-text-desc").html(text);
+        modalContainer.find("#info-btn-yes").click(function () {
+            modalContainer.modal('hide');
             return false;
         });
     }
