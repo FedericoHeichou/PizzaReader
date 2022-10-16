@@ -26,8 +26,12 @@ class Page extends Model {
         return $this->belongsTo(Chapter::class);
     }
 
+    public static function getPath(&$comic, &$chapter, &$page, $encode=true) {
+        return Chapter::buildPath($comic, $chapter) . '/' . ($encode ? rawurlencode($page->filename) : $page->filename);
+    }
+
     public static function getUrl($comic, $chapter, $page) {
-        return asset('storage/' . Chapter::buildPath($comic, $chapter) . '/' . rawurlencode($page->filename) . '?v=' . strtotime($page->updated_at));
+        return asset('storage/' . Page::getPath($comic, $chapter, $page) . '?v=' . strtotime($page->updated_at));
     }
 
     public static function getUrlById($page_id) {

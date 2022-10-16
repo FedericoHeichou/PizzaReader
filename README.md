@@ -128,3 +128,13 @@ If you don't care and still need to clear the table I suggest to perform a backu
 /usr/bin/php artisan ratings:clear
 ```
 If you need to recover a deletion, reimport the `ratings` table then set to 0 all `rating_count` of chapters you need to recalculate; the next vote will force a recalculation of sums, counts and averages of voted chapter.
+
+## Some pages are not in the filesystem
+Sometime for reasons some pages are missing in the filesystem (for example you uploaded some chapters with unstable connection without checking the result).  
+This command will get all pages in the database and checks if they exists in the filesystem.  
+The missing pages will be printed.  
+Adding `--csv` will show the comics, chapter and page in a human readable mode with a link to the missing page instead of the only file's absolute path (you can normally open it with Excel too).
+```bash
+/usr/bin/php artisan pages:check
+/usr/bin/php artisan pages:check --csv
+```

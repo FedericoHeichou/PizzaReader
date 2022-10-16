@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\RatingsClear::class,
         Commands\ThumbnailResize::class,
         Commands\ViewsClear::class,
+        Commands\PagesCheck::class,
     ];
 
     /**
