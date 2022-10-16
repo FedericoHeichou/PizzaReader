@@ -69,7 +69,7 @@ class ComicController extends Controller {
         $fields = Comic::getFieldsIfValid($request);
 
         // If has a new title or slug regenerate it
-        if ((!isset($fields['slug']) && isset($fields['name']) && $comic->name != $fields['name']) || (isset($fields['slug']) && $comic->slug != $fields['slug'])) {
+        if ((!isset($fields['slug']) && array_key_exists('name', $fields) && $comic->name !== $fields['name']) || (isset($fields['slug']) && $comic->slug !== $fields['slug'])) {
             $fields['slug'] = Comic::generateSlug($fields);
         } else {
             unset($fields['slug']);

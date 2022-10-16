@@ -101,7 +101,7 @@ class ChapterController extends Controller {
         }
 
         // If has a new title or slug regenerate it
-        if ((!isset($fields['slug']) && isset($fields['title']) && $chapter->title != $fields['title']) || (isset($fields['slug']) && $chapter->slug != $fields['slug'])) {
+        if ((!isset($fields['slug']) && array_key_exists('title', $fields) && $chapter->title !== $fields['title']) || (isset($fields['slug']) && $chapter->slug !== $fields['slug'])) {
             $fields['slug'] = Chapter::generateSlug($fields);
         } else {
             unset($fields['slug']);
