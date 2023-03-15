@@ -35,6 +35,6 @@
         "jquery-touchswipe": "^1.6.19",
         "vue-router": "^3.5.2",
         "vuex": "^3.6.2",
-        "webpack": "^5.42.0"
+        "webpack": "^5.76.0"
     }
 }
