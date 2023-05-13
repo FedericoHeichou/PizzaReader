@@ -1,14 +1,11 @@
 import './bootstrap';
 
-import Vue from 'vue';
+import { createApp } from 'vue';
 
-import store from './store/index.js';
-import router from './router/index.js';
+import { store } from './store/index.js';
+import { router } from './router/index.js';
 
-const app = new Vue({
-    el: '#app',
-    router,
-    store,
+const app = createApp({
     data() {
         return {
             BASE_URL: typeof BASE_URL !== 'undefined' ? BASE_URL : '/',
@@ -91,5 +88,12 @@ const app = new Vue({
                 custom_html_selector.html('');
             }
         },
-    }
+    },
+});
+app.use(store);
+app.use(router);
+app.mount('#app');
+
+router.afterEach((to, from) => {
+    store.commit('SET_ROUTE', to);
 });

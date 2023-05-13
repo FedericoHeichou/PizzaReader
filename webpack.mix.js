@@ -13,8 +13,26 @@ const mix = require('laravel-mix');
 
 mix.version();
 
-mix.js('resources/js/app.js', 'public/js').vue()
-    .sass('resources/sass/app.scss', 'public/css').sourceMaps();
+mix.js('resources/js/app.js', 'public/js').vue({
+    version: 3,
+    options: {
+      compilerOptions: {
+        compatConfig: {
+          MODE: 2,
+        },
+      },
+    },
+  }).sass('resources/sass/app.scss', 'public/css').sourceMaps();
+
+mix.webpackConfig(() => {
+    return {
+      resolve: {
+        alias: {
+          vue: "@vue/compat",
+        }
+      },
+    }
+  })
 
 mix.scripts([
     'resources/js/card-search.js',
