@@ -94,6 +94,3 @@ app.use(store);
 app.use(router);
 app.mount('#app');
 
-router.afterEach((to, from) => {
-    store.commit('SET_ROUTE', to);
-});

@@ -25,7 +25,9 @@ export const actions = {
     },
     fetchComic({commit}, route) {
         const store = this;
-        if(store.getters.comic !== null) return;
+        if(store.getters.getComic(route.params.slug) != null) {
+            return new Promise(resolve => setTimeout(resolve));
+        }
         const loader = $('#loader');
         loader.show();
         return axios.get(API_BASE_URL + route.path, { params: { licensed: true } })
@@ -39,7 +41,9 @@ export const actions = {
     },
     fetchChapter({commit}, path) {
         const store = this;
-        if(store.getters.getChapter(path) !== null) return;
+        if(store.getters.getChapter(path) != null) {
+            return new Promise(resolve => setTimeout(resolve));
+        }
         const comic = store.getters.comic;
         const loader = $('#loader');
         loader.show();

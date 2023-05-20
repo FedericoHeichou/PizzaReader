@@ -336,7 +336,7 @@ export default {
             });
         this.chapter != null && this.updateCustomHTML();
     },
-    beforeRouteUpdate(to, from, next) {
+    beforeRouteUpdate(to, from) {
         if (from.path !== to.path) {
             this.setupParams(to.params)
             // If you don't set to null the Observer still has reference
@@ -356,7 +356,6 @@ export default {
             this.animation = true;
             this.setPage(to.hash);
         }
-        next();
     },
     updated() {
         if (this.needToRefresh) {
@@ -378,13 +377,14 @@ export default {
         } else if (this.firstLoad && this.page > 1 && this.renderingMode === 'long-strip') {
             this.animation = true;
             this.scrollTopOfPage();
-            this.firstLoad = false;
         }
         if(this.firstLoad && this.$store.getters.chapter && this.$store.getters.chapter.licensed) {
             this.showPopup();
         }
-
-        if (this.chapter != null && (this.needToRefresh || this.firstLoad)) this.updateCustomHTML();
+        if (this.chapter != null && (this.needToRefresh || this.firstLoad)) {
+            this.updateCustomHTML();
+        }
+        this.firstLoad = false;
     },
     data() {
         return {
@@ -404,7 +404,7 @@ export default {
             animation: false,
             needToRefresh: true,
             images: [],
-            firstLoad: true,
+            firstLoad: false,
             popupData : {
                 "header" : "Chapter licensed",
                 "body" : "This chapter is licensed and you can't read it.",
@@ -426,7 +426,7 @@ export default {
         setPage(hash) {
             if (this.max_page < 1) return;
             if (hash === "#last" || hash === "") this.animation = false;
-            let page = 1;
+            let page;
             let requested_page = hash.substring(1);
             if (requested_page === "last" || parseInt(requested_page) > this.max_page) {
                 page = this.max_page;

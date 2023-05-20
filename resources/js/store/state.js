@@ -1,8 +1,8 @@
 export const state = {
     info: null,
     comics: [],
-    comic: [],
-    chapter: [],
+    comics_obj: {},
+    chapters_obj: {},
     votes: {},
     vote_token: null,
     route: null,
