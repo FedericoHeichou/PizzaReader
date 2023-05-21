@@ -42,6 +42,8 @@ mix.scripts([
     'node_modules/jquery-touchswipe/jquery.touchSwipe.min.js',
 ], 'public/js/reader.js');
 
+mix.js('resources/js/bootstrap.js', 'public/js');
+
 mix.scripts([
     'resources/js/card-search.js',
     'resources/js/bscustomfile.min.js',
