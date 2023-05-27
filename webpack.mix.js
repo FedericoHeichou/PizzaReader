@@ -20,6 +20,7 @@ mix.js('resources/js/app.js', 'public/js').vue({
         compatConfig: {
           MODE: 2,
         },
+        whitespace: 'preserve',
       },
     },
   }).sass('resources/sass/app.scss', 'public/css').sourceMaps();
