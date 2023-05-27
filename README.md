@@ -3,7 +3,7 @@
     <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.2.0-blue">
     <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.0-blue">
     <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E9.19-lime">
-    <img alt="License" src="https://img.shields.io/badge/license-GPL-3.0-green"></p>
+    <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
 
 # About PizzaReader
 A manga and comic reader written in Laravel and Vue.  
