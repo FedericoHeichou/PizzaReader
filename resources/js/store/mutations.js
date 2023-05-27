@@ -1,6 +1,4 @@
-import router from '../router/index'
-
-let mutations = {
+export const mutations = {
     FETCH_INFO(state, info) {
         return state.info = info;
     },
@@ -11,22 +9,18 @@ let mutations = {
         return state.comics = comics;
     },
     FETCH_COMIC(state, comic) {
-        if (comic != null && comic['chapters'] != null) {
+        if (!comic) return;
+        if (comic['chapters'] != null) {
             comic['chapters'] = comic['chapters'].map(c => { return {...c, time: timePassed(c['published_on'])} });
         }
-        return state.comic.push(comic);
+        return state.comics_obj[comic.slug] = comic;
     },
     FETCH_CHAPTER(state, chapter) {
-        const comic = router.app.$store.getters.comic;
-        if (chapter === null && comic !== null) {
-            router.push(comic.url);
-        }
-        return state.chapter.push(chapter);
+        if (!chapter) return;
+        return state.chapters_obj[chapter.url] = chapter;
     },
     FETCH_VOTE(state, vote) {
         state.vote_token = vote['vote_token'];
-        return state.votes = {...state.votes, [vote.vote_id]: vote.your_vote};
-    }
+        return state.votes[vote.vote_id] = vote.your_vote;
+    },
 };
-
-export default mutations

@@ -5,12 +5,6 @@
   */
 
 /*!
-  * vue-router v4.2.0
-  * (c) 2023 Eduardo San Martin Morote
-  * @license MIT
-  */
-
-/*!
  * The buffer module from node.js, for the browser.
  *
  * @author   Feross Aboukhadijeh <http://feross.org>
@@ -28,15 +22,7 @@
  * Date: 2023-05-11T18:29Z
  */
 
-/*!
- * vuex v4.1.0
- * (c) 2022 Evan You
- * @license MIT
- */
-
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
  * @license

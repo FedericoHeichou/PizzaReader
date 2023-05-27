@@ -285,7 +285,7 @@
                     <div id="notches" class="row no-gutters h-100 w-100 directional">
                         <template v-for="(ch_page, index) in chapter.pages">
                             <router-link :class="images[index+1] == null ? 'notch col' : 'notch col loaded'"
-                                         :data-page="index+1" @mouseover.native="setNotch(index+1)"
+                                         :data-page="index+1" @mouseover="setNotch(index+1)"
                                          :to="'#' + (index+1)" :style="'order: ' + (index+1) + ';'">
                                 <div @click="needToRefresh = true"></div>
                             </router-link>
@@ -336,7 +336,7 @@ export default {
             });
         this.chapter != null && this.updateCustomHTML();
     },
-    beforeRouteUpdate(to, from, next) {
+    beforeRouteUpdate(to, from) {
         if (from.path !== to.path) {
             this.setupParams(to.params)
             // If you don't set to null the Observer still has reference
@@ -356,7 +356,6 @@ export default {
             this.animation = true;
             this.setPage(to.hash);
         }
-        next();
     },
     updated() {
         if (this.needToRefresh) {
@@ -378,13 +377,14 @@ export default {
         } else if (this.firstLoad && this.page > 1 && this.renderingMode === 'long-strip') {
             this.animation = true;
             this.scrollTopOfPage();
-            this.firstLoad = false;
         }
         if(this.firstLoad && this.$store.getters.chapter && this.$store.getters.chapter.licensed) {
             this.showPopup();
         }
-
-        if (this.chapter != null && (this.needToRefresh || this.firstLoad)) this.updateCustomHTML();
+        if (this.chapter != null && (this.needToRefresh || this.firstLoad)) {
+            this.updateCustomHTML();
+        }
+        this.firstLoad = false;
     },
     data() {
         return {
@@ -404,7 +404,7 @@ export default {
             animation: false,
             needToRefresh: true,
             images: [],
-            firstLoad: true,
+            firstLoad: false,
             popupData : {
                 "header" : "Chapter licensed",
                 "body" : "This chapter is licensed and you can't read it.",
@@ -415,22 +415,18 @@ export default {
     methods: {
         setupParams(params) {
             if (params.pathMatch) {
-                params.vol = params.pathMatch.split("/")[1];
+                ['vol', 'ch', 'sub'].forEach(element => {
+                    let index = params.pathMatch.indexOf(element);
+                    if (index !== -1) {
+                        params[element] = params.pathMatch[index + 1];
+                    }
+                });
             }
-            delete params.pathMatch;
-            if (params[1]) {
-                params.ch = params[1].split("/")[1];
-            }
-            delete params[1];
-            if (params[2]) {
-                params.sub = params[2].split("/")[1];
-            }
-            delete params[2];
         },
         setPage(hash) {
             if (this.max_page < 1) return;
             if (hash === "#last" || hash === "") this.animation = false;
-            let page = 1;
+            let page;
             let requested_page = hash.substring(1);
             if (requested_page === "last" || parseInt(requested_page) > this.max_page) {
                 page = this.max_page;
@@ -438,13 +434,9 @@ export default {
                 page = isNaN(parseInt(requested_page)) || parseInt(requested_page) < 1 ? 1 : parseInt(requested_page);
             }
             this.page = page;
-            let target_hash = '#' + page
+            let target_hash = '#' + page;
             if (location.hash !== target_hash) {
-                if (history.pushState) {
-                    history.pushState(null, null, target_hash);
-                } else {
-                    location.hash = target_hash;
-                }
+                location.hash = target_hash;
             }
             this.preloadImagesFrom(page);
         },

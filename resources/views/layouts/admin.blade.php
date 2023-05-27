@@ -21,7 +21,7 @@
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/bootstrap.js') }}" defer></script>
     <script src="{{ mix('js/admin.js') }}" defer></script>
     <script type="text/javascript">
         const LOGGED_IN = true;

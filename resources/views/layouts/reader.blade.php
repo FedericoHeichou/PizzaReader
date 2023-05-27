@@ -202,19 +202,18 @@
             </div>
         </nav>
         <main class="container-lg p-0 overflow-hidden">
-            <router-view>
-                <div style="text-align:center;position:absolute;top:0;left:0;width:100%;height:100%;background-color:#6cb2eb;">
-                    <div style="margin-top:50px;color:#fff;">
-                        @if(config('settings.logo'))
-                            <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
-                                 title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
-                                 src="{{ (config('settings.logo') ? '/storage/img/logo/' . substr(config('settings.logo'), 0, -4) : '/img/logo/PizzaReader') . '-128.png' }}">
-                        @endif
-                        <h4 style="margin-top:6px;font-weight:700;text-shadow:0 0 12px black">{{ config('settings.reader_name_long', 'PizzaReader') }}</h4>
-                        <p style="font-weight:700;text-shadow:0 0 6px black">{{ __('Loading') }}</p>
-                    </div>
+            <div v-if="!$router" style="text-align:center;position:absolute;top:0;left:0;width:100%;height:100%;background-color:#6cb2eb;">
+                <div style="margin-top:50px;color:#fff;">
+                    @if(config('settings.logo'))
+                        <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
+                                title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
+                                src="{{ (config('settings.logo') ? '/storage/img/logo/' . substr(config('settings.logo'), 0, -4) : '/img/logo/PizzaReader') . '-128.png' }}">
+                    @endif
+                    <h4 style="margin-top:6px;font-weight:700;text-shadow:0 0 12px black">{{ config('settings.reader_name_long', 'PizzaReader') }}</h4>
+                    <p style="font-weight:700;text-shadow:0 0 6px black">{{ __('Loading') }}</p>
                 </div>
-            </router-view>
+            </div>
+            <router-view v-else></router-view>
         </main>
     </div>
     <footer>

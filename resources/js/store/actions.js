@@ -1,8 +1,7 @@
-import router from '../router/index'
-
-let actions = {
+export const actions = {
     fetchInfo({commit}) {
-        if(router.app.$store.getters.info !== null) return;
+        const store = this;
+        if(store.getters.info !== null) return;
         return axios.get(API_BASE_URL + '/info')
             .then(res => {
                 commit('FETCH_INFO', res.data['info']);
@@ -11,7 +10,8 @@ let actions = {
             });
     },
     fetchComics({commit}, path) {
-        if(router.app.$store.getters.comics.length > 0) return;
+        const store = this;
+        if(store.getters.comics.length > 0) return;
         const loader = $('#loader');
         loader.show();
         return axios.get(API_BASE_URL + path)
@@ -24,7 +24,10 @@ let actions = {
             );
     },
     fetchComic({commit}, route) {
-        if(router.app.$store.getters.comic !== null) return;
+        const store = this;
+        if(store.getters.getComic(route.params.slug) != null) {
+            return new Promise(resolve => setTimeout(resolve));
+        }
         const loader = $('#loader');
         loader.show();
         return axios.get(API_BASE_URL + route.path, { params: { licensed: true } })
@@ -37,12 +40,16 @@ let actions = {
             );
     },
     fetchChapter({commit}, path) {
-        if(router.app.$store.getters.getChapter(path) !== null) return;
+        const store = this;
+        if(store.getters.getChapter(path) != null) {
+            return new Promise(resolve => setTimeout(resolve));
+        }
+        const comic = store.getters.comic;
         const loader = $('#loader');
         loader.show();
         return axios.get(API_BASE_URL + path)
             .then(res => {
-                if(router.app.$store.getters.comic === null) commit('FETCH_COMIC', res.data['comic']);
+                if(comic === null) commit('FETCH_COMIC', res.data['comic']);
                 commit('FETCH_CHAPTER', res.data['chapter']);
             }).catch(err => {
                 console.log(err);
@@ -59,5 +66,3 @@ let actions = {
             });
     }
 }
-
-export default actions
