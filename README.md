@@ -27,22 +27,22 @@ It supports (via settings) the PDF and ZIP downloads of chapters/volumes.
 ## Screenshots
 Click the images to open it.
 
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/9b0352d7-f9c3-46a3-b5e4-6202320ab426" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/9568bd7c-0e49-47e8-a767-1e6fc5deed6a" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/b7e1174f-0110-4725-8929-1fdca2fca7cc" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/015a924f-f146-4bb4-af50-7bcfe1abebcd" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/a06ffe54-2f5a-4ffd-8645-161b07408622" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/74960500-6f0d-44bd-922a-4435fd48f9aa" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/a7b6de1d-9350-471a-8b1a-77410c3e1f01" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/7c83b110-1f10-4501-9134-22479c577688" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/d67a6132-e7a9-4954-9d48-d9b1306246f7" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/59abed8a-b809-4a74-b029-1b1c0e453e37" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/0f6959d9-1699-4ad7-a951-fd83b2b23745" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/d884d670-4d17-4209-be33-93b06eb6ecf1" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/5c6dc306-4059-4c0c-9cf0-7ac579ed133d" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/f42b3da4-9832-4a43-abf9-223d020270ee" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/783fbfae-77c8-4cae-a43e-74c2e9cc1108" width="300" />
-<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/4940c037-0f8f-4a5f-9de0-f09b0c9689d4" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/f893f029-0378-4711-b75d-53b757d80deb" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/280e4f24-5ac2-4e26-bf03-cbe2a082f32c" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/4810ba54-9135-42ff-a5b2-55a897d32e13" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/1973fe89-3db8-4bd3-b3bb-09d60a191bad" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/7e3541da-55b9-4729-a570-875c80c2296f" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/6358ab59-7de2-4834-964e-f9f1245dfb4e" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/40c302aa-a93e-429e-abdc-dfe96f2c4e00" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/1be6c44d-7b38-4d8b-9563-a70d840314c7" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/73fc9a77-9ab3-4814-a6e1-41169f3b8a09" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/eb4c7cfb-f624-41d0-ae68-53184b802f05" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/4492da01-c136-4e9a-9feb-d324c88d8dac" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/d06f6b0f-d1cd-4674-be60-d869a8827795" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/84151f5b-5949-4d43-96d8-21a1502340fa" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/0ef4c7c7-0db4-4e41-8548-3014d75a8e7e" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/d57dbfd3-edff-4aa5-92b2-3e081133cbe1" width="300" />
+<img src="https://github.com/FedericoHeichou/PizzaReader/assets/34757141/5a4b54a1-afdb-4b46-8a5c-6132aef046dd" width="300" />
 
 # Current version
 The `master` version usually is stable because branches are merged after being tested in production on differents websites.  
