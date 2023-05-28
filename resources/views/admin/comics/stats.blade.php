@@ -10,28 +10,50 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="views-chart"></div>
-            <style>.canvasjs-chart-container>canvas:first-of-type { position: relative !important; }</style>
+            <canvas id="stats-chart"></canvas>
             <script>
                 document.addEventListener("DOMContentLoaded", function(event) {
-                    var chart = new CanvasJS.Chart("views-chart", {
-                        animationEnabled: true,
-                        theme: "{{ isset($_COOKIE['dark']) &&  $_COOKIE['dark'] ? 'dark2' : 'light2' }}",
-                        title:{
-                            text: "Views per day"
+                    const labels = {!! json_encode(array_keys($stats['views_per_day'])) !!};
+                    const data = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Views',
+                                backgroundColor: 'rgb(99, 255, 132)',
+                                borderColor: 'rgb(99, 255, 132)',
+                                data: {!! json_encode(array_values($stats['views_per_day'])) !!},
+                            },
+                        ]
+                    };
+                    const chart = new Chart(document.getElementById('stats-chart'), {
+                        type: 'line',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Stats per day'
+                                },
+                                zoom: {
+                                    zoom: {
+                                        wheel: {
+                                            enabled: true,
+                                        },
+                                        drag: {
+                                            enabled: true,
+                                        },
+                                        pinch: {
+                                            enabled: true,
+                                        },
+                                        mode: 'x',
+                                    },
+                                },
+                            },
                         },
-                        axisY:{
-                            includeZero: true
-                        },
-                        data: [{
-                            type: "column",
-                            yValueFormatString: "#,###",
-                            dataPoints: [
-                                @foreach($stats['views_per_day'] as $date => $views)
-                                    { label: "{{ $date }}", y: {{ $views }} },
-                                @endforeach
-                            ]
-                        }]
                     });
                     chart.render();
                 });
