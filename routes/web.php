@@ -56,6 +56,9 @@ Route::prefix('admin')->middleware("log.request")->group(function () {
 
                 // Only editors+ can store and destroy pages
                 Route::resource('chapters/{chapter}/pages', PageController::class)->only(['store', 'destroy', 'index'])->names('chapters.pages')->middleware('can.edit');
+
+                // Authorized checkers+ can see the stats
+                Route::get('stats', [ComicController::class, 'stats'])->name('stats')->middleware('can.see');
             });
         });
 

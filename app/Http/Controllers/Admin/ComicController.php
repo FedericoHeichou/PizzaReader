@@ -139,4 +139,13 @@ class ComicController extends Controller {
         $new_name = getSmallThumbnail($name);
         $file->save(storage_path("app/$path/$new_name"));
     }
+
+    public function stats($comic_slug) {
+        $comic = Comic::slug($comic_slug);
+        if (!$comic) {
+            abort(404);
+        }
+        $stats = Comic::getStats($comic);
+        return view('admin.comics.stats')->with(['comic' => $comic, 'stats' => $stats]);
+    }
 }

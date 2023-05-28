@@ -58,6 +58,7 @@ mix.scripts([
     'node_modules/blueimp-file-upload/js/jquery.fileupload-image.js',
     'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js',
     'resources/js/jquery.fileupload-setup.js',
+    'node_modules/@canvasjs/charts/canvasjs.min.js',
 ], 'public/js/admin.js');
 
 mix.styles([

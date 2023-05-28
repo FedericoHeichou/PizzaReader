@@ -12,6 +12,8 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@vue/compat": "^3.1.0",
+        "@vue/compiler-sfc": "^3.1.0",
         "axios": "^1.4.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0.3",
@@ -24,11 +26,10 @@
         "sass": "^1.62.1",
         "sass-loader": "^13.2.2",
         "vue": "^3.1.0",
-        "@vue/compat": "^3.1.0",
-        "vue-loader": "^16.0.0",
-        "@vue/compiler-sfc": "^3.1.0"
+        "vue-loader": "^16.0.0"
     },
     "dependencies": {
+        "@canvasjs/charts": "^3.7.7",
         "@fortawesome/fontawesome-free": "^6.4.0",
         "blueimp-file-upload": "^10.32.0",
         "blueimp-load-image": "^5.16.0",
