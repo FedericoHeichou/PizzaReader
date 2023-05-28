@@ -7,14 +7,20 @@ use App\Models\View;
 
 class ViewsClear extends Command {
 
-    protected $signature = 'views:clear';
-    protected $description = 'Delete IPs older than 1 week in views table';
+    protected $signature = 'views:clear {--days=30}';
+    protected $description = 'Delete IPs older than N days [default 30] in views table';
 
     function __construct() {
         parent::__construct();
     }
 
     public function handle() {
-        View::where('created_at', '<', now()->sub(1, 'week'))->delete();
+        $days = $this->option('days');
+        $validator = \Validator::make(['days' => $days], ['days' => 'required|integer|min:1']);
+        if ($validator->fails()) {
+            $this->error('Invalid days value');
+            return;
+        }
+        View::where('created_at', '<', now()->sub($days, 'days'))->delete();
     }
 }

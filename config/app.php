@@ -226,4 +226,15 @@ return [
 
     'edit_custom_html' => (bool) env('EDIT_CUSTOM_HTML', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cron values
+    |--------------------------------------------------------------------------
+    |
+    | Set the value of commands executed by cronjobs.
+    |
+    */
+
+    'cron_views_clear_days' => (int) env('CRON_VIEWS_CLEAR_DAYS', 30),
+
 ];

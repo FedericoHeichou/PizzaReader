@@ -109,15 +109,20 @@ php artisan migrate
 php artisan up
 ```
 # Cron
-To run crons add to the local crontab
+To run cronjobs add to the local crontab
 ```bash
-* * * * * cd /path-to-your-reader && /usr/bin/php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /path-to-your-reader && /usr/bin/php artisan schedule:run > /dev/null 2>&1
 ```
 
-If you have not a local crontab run in a remote one
+If you have not a local crontab you can run in a remote one
 ```bash
 * * * * * /usr/bin/curl "https://your-reader.local/cron.php?t=$(date +%s)" 2>&1
 ```
+
+## Cron config
+Some cronjobs can be configured.  
+For example you can set `CRON_VIEWS_CLEAR_DAYS` in your `.env` to specify the value passed with `--days` to [`views:clear`](#manually-clear-views-table) command.  
+All configurable settings are listed in the [.env.example](.env.example) file.
 
 # FAQ
 Sometime I add features or bugfix who requires you to run manually certain commands for readers updated from old versions.  
@@ -145,10 +150,10 @@ Usually there should be already resized thumbnail, but comics created in a very 
 If your views table is very big, it means you are not running a [cron](#cron).  
 Anyway you can manually clear views table:
 ```bash
-php artisan views:clear
+php artisan views:clear --days=30
 ```
-It will remove all views older than 1 week.  
-**Note**: it will not decrease the views counter, it only remove the combinations of `(ip, chapter)`, which means a user who read a chapter one week ago will increase the counter again in the next visit.
+It will remove all views older than N days (default 30).  
+**Note**: it will not decrease the views counter, it only remove the combinations of `(ip, chapter)`, which means a user who read a chapter one month ago will increase the counter again in the next visit.
 
 ## Manually clear rating table
 I don't suggest to perform this action if your table is not so big, but `sums` and `counts` used to calculate the average ratings are stored with the chapters too.  
@@ -159,7 +164,7 @@ The rating table has three purposes:
 
 If you don't care and still need to clear the table I suggest to perform a backup of `chapters` and `ratings` tables then run:
 ```bash
-php artisan ratings:clear
+php artisan ratings:clear --days=30
 ```
 If you need to recover a deletion, reimport the `ratings` table then set to 0 all `rating_count` of chapters you need to recalculate; the next vote will force a recalculation of sums, counts and averages of voted chapter.
 
