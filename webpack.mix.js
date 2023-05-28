@@ -61,6 +61,7 @@ mix.scripts([
     'node_modules/chart.js/dist/chart.umd.js',
     'node_modules/hammerjs/hammer.min.js',
     'node_modules/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js',
+    'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js',
 ], 'public/js/admin.js');
 
 mix.styles([

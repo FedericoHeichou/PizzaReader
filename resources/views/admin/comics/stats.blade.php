@@ -25,10 +25,27 @@
                             },
                         ]
                     };
+                    const scales = {
+                        x: {
+                            type: 'time',
+                            min: labels.length > 7 ? labels[labels.length - 7] : labels[0],
+                            max: labels[labels.length - 1],
+                            time: {
+                                unit: 'day',
+                            },
+                            position: 'bottom',
+                        },
+                        y: {
+                            type: 'linear',
+                            beginAtZero: true,
+                            position: 'left',
+                        },
+                    };
                     const chart = new Chart(document.getElementById('stats-chart'), {
                         type: 'line',
                         data: data,
                         options: {
+                            scales: scales,
                             responsive: true,
                             plugins: {
                                 legend: {
@@ -51,6 +68,15 @@
                                         },
                                         mode: 'x',
                                     },
+                                    limits: {
+                                        y: {
+                                            min: 0,
+                                        },
+                                        x: {
+                                            min: new Date(labels[0]).valueOf(),
+                                            max: new Date(labels[labels.length - 1]).valueOf(),
+                                        },
+                                    },
                                 },
                             },
                         },
@@ -58,6 +84,7 @@
                     chart.render();
                 });
             </script>
+            <p class="mt-4"><strong>Tip:</strong> You can zoom scrolling up/down or draging the char.</p>
         </div>
     </div>
 @endsection
