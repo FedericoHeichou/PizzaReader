@@ -46,6 +46,17 @@
                     </div>
                 </div>
             </form>
+            <div class="form-row mt-3">
+                <div class="col-sm-4 text-center">
+                    <p id="total-old"></p>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <p>Views</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <p id="total"></p>
+                </div>
+            </div>
             <p id="trend" class="text-center mt-4"></p>
             <canvas id="stats-chart"></canvas>
             <p class="mt-4"><strong>Tip:</strong> You can zoom pressing CTRL+scroll-up and CTRL+scroll-down or dragging the chart.</p>
@@ -153,6 +164,8 @@
                     setup_trend(chart.data.datasets[0].data, min_index, max_index);
                 });
                 function setup_trend(values, min_index, max_index, old_min_index, old_max_index) {
+                    document.getElementById('compare-from').value = labels[min_index];
+                    document.getElementById('compare-to').value = labels[max_index];
                     const trend = document.getElementById('trend');
                     if (isNaN(old_min_index)) {
                         old_min_index = Math.max(min_index - (max_index - min_index + 1), 0);
@@ -176,10 +189,13 @@
                     for (let i = min_index; i <= max_index; i++) {
                         current_sum += values[i];
                     }
+                    document.getElementById('total').innerHTML = current_sum;
                     let old_sum = 0;
                     for (let i = old_min_index; i <= old_max_index; i++) {
                         old_sum += values[i];
                     }
+                    document.getElementById('total-old').innerHTML = old_sum;
+
                     const grow = current_sum - old_sum;
                     if (isNaN(grow)) {
                         trend.innerHTML = 'Not enough data to show a trend.';
@@ -191,9 +207,6 @@
                     } else {
                         trend.innerHTML = '<span class="text-danger">' + grow + ' views</span> compared to the previous period.';
                     }
-
-                    document.getElementById('compare-from').value = labels[min_index];
-                    document.getElementById('compare-to').value = labels[max_index];
                     document.getElementById('compare-with-from').value = labels[old_min_index];
                     document.getElementById('compare-with-to').value = labels[old_max_index];
                 }
