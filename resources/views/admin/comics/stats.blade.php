@@ -16,6 +16,7 @@
                         <option value="last-90-days" data-min="91" data-max="2">Last 90 days</option>
                         <option value="last-year" data-min="366" data-max="2">Last year</option>
                         <option value="all-time" data-min="0" data-max="1">All time</option>
+                        <option value="custom">Custom</option>
                     </select>
                 </div>
             </div>
@@ -88,6 +89,7 @@
                                             const max_date = new Date(chart.scales.x.max).toISOString().split('T')[0];
                                             const min_index = labels.indexOf(min_date);
                                             const max_index = labels.lastIndexOf(max_date);
+                                            document.getElementById('time-range').value = 'custom';
                                             setup_trend(chart.data.datasets[0].data, min_index, max_index);
                                         },
                                     },
@@ -108,12 +110,15 @@
                     setup_trend(chart.data.datasets[0].data, min, max);
                 });
                 document.getElementById('time-range').addEventListener('change', function(event) {
+                    if (event.target.value === 'custom') {
+                        return;
+                    }
                     const dmin = parseInt(event.target.selectedOptions[0].dataset.min);
                     const dmax = parseInt(event.target.selectedOptions[0].dataset.max);
                     const chart = Chart.getChart('stats-chart');
                     const labels = chart.data.labels;
-                    const min = labels.length > dmin-1 ? labels.length - dmin : 0;
-                    const max = labels.length > dmax-1 ? labels.length - dmax : 0;
+                    const min = dmin > 0 && labels.length > dmin-1 ? labels.length - dmin : 0;
+                    const max = dmax > 0 && labels.length > dmax-1 ? labels.length - dmax : labels.length - 1;
                     chart.options.scales.x.min = labels[min];
                     chart.options.scales.x.max = labels[max];
                     chart.update();
@@ -121,6 +126,11 @@
                 });
                 function setup_trend(values, min, max) {
                     const diff = max - min + 1;
+                    const trend = document.getElementById('trend');
+                    if (max < diff) {
+                        trend.innerHTML = 'Not enough data to show a trend.';
+                        return;
+                    }
                     let current_sum = 0;
                     for (let i = min; i <= max; i++) {
                         current_sum += values[i];
@@ -131,12 +141,10 @@
                     }
                     const grow = current_sum - old_sum;
                     if (isNaN(grow)) {
-                        const trend = document.getElementById('trend');
                         trend.innerHTML = 'Not enough data to show a trend.';
                         return;
                     }
 
-                    const trend = document.getElementById('trend');
                     if (grow >= 0) {
                         trend.innerHTML = '<span class="text-success">+' + grow + ' views</span> compared to the previous period.';
                     } else {
