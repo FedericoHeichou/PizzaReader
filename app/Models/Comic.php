@@ -376,8 +376,18 @@ class Comic extends Model {
             ->orderBy('view_date')
             ->get();
         $views_per_day = [];
+        if ($views->isEmpty()) return [
+            'views_per_day' => $views_per_day,
+        ];
+        $first_day = $views->first()->view_date;
+        $today = date('Y-m-d');
+        $current_day = $first_day;
+        while ($current_day <= $today) {
+            $views_per_day[$current_day] = 0;
+            $current_day = date('Y-m-d', strtotime($current_day . ' +1 day'));
+        }
         foreach ($views as $view) {
-            $views_per_day[$view->view_date] = $view->views;
+             $views_per_day[$view->view_date] = $view->views;
         }
         return [
             'views_per_day' => $views_per_day,
