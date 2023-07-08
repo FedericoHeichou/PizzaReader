@@ -1,6 +1,6 @@
 # <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
 <p align="center">
-    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.2.0-blue">
+    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.3.0-blue">
     <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.0-blue">
     <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E9.19-lime">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
@@ -16,11 +16,12 @@ Current available languages:
 - english
 - italian
 
-To add other languages feel free to submit pull requests copying from [it.json](lang/it.json) and [it.js](resources/js/lang/it.js)
+To add other languages feel free to submit pull requests copying from [it.json](lang/it.json) and [it.js](resources/js/lang/it.js).  
+**Tip**: edit `APP_LOCALE` in your `.env` file to change the language.
 
 
 ## Secondary features
-You can add custom HTML (which includes js and css code) in many pages enabling the "EDIT_CUSTOM_HTML" feature in your `.env` file.  
+You can add custom HTML (which includes js and css code) in many pages enabling the `EDIT_CUSTOM_HTML` feature in your `.env` file.  
 When you finished to edit the HTML in the settings page you should disable this feature back.  
 It supports (via settings) the PDF and ZIP downloads of chapters/volumes.  
 
@@ -54,7 +55,15 @@ Older versions are not mainted at all.
 
 # Installation
 ## Important
-If you get forbidden 403 with images perform manually `cd public; ln -s ../storage/app/public storage`
+If you get forbidden 403 with images perform manually `cd public; ln -s ../storage/app/public storage`.  
+Installing automatic cronjobs is not required, but is strongly recommended, otherwise you should run them manually from time to time.  
+Why are cron jobs useful? Because they clear the database and file system of unused data.  
+If after months you notice that the Reader is slowing down, you are probably not running the cronjobs.
+
+## Settings
+All configurable settings are listed in the [.env.example](.env.example) file and explained in [config/app.php](config/app.php).  
+Most of them are only set during installation. After installation you can customise your reader using the settings menu in the admin dashboard.  
+After editing your `.env` file you should run `php artisan config:cache`. If you don't have access to your server, you can go to the settings menu in the admin dashboard and press the "save" button: it will do a `config:cache` by itself.
 
 ## How to
 ```bash
@@ -80,6 +89,8 @@ sed -i "s/^\(DB_DATABASE=\).*$/\1pizzareader/" .env
 sed -i "s/^\(DB_USERNAME=\).*$/\1pizzareader/" .env
 sed -i "s/^\(DB_PASSWORD=\).*$/\1password/" .env
 
+# If you want to change the language, you need to replace the value of "APP_LOCALE".
+
 sed -i "s/APP_ENV=production/APP_ENV=local/" .env
 # sed -i "s/APP_DEBUG=false/APP_DEBUG=true/" .env
 php composer.phar dump-autoload
@@ -95,6 +106,8 @@ find . -type d -exec chmod 0755 {} \;
 find . -type f -exec chmod 0644 {} \;
 # Maybe you need to chmod/chown the upload's directory
 ```
+
+You are now ready to register and login at `/admin`.
 
 # Update
 How to update your reader:
@@ -177,6 +190,12 @@ Adding `--csv` will show the comics, chapter and page in a human readable mode w
 php artisan pages:check
 php artisan pages:check --csv
 ```
+
+## There are many files with no extension in the storage
+If you are using a local cache (this is the default and most web service providers do not have caching capabilities), the reader will write its cache files to `storage/framework/cache/data`.  
+By default, a rate limit is installed in the API to prevent malicious IPs from making too many requests in a few seconds. A small file is created for each IP.  
+If you notice you have thousands of files it means you are not running cronjobs or you are using an old version of the reader, in fact in the latest version a garbage collector (GC) has been added and it clears the filesystem by itself.  
+You can run the garbage collector manually by running `php artisan cache:gc`.
 
 # Donations
 Donations are appreciated, feel free to contact me at the email listed in my profile: [FedericoHeichou](https://github.com/FedericoHeichou).
