@@ -237,4 +237,14 @@ return [
 
     'cron_views_clear_days' => (int) env('CRON_VIEWS_CLEAR_DAYS', 30),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Other generic options
+    |--------------------------------------------------------------------------
+    |
+    | Set the value of other generic options.
+    |
+    */
+
+    'api_rate_limit_per_minute' => (int) env('API_RATE_LIMIT_PER_MINUTE', 60),
 ];

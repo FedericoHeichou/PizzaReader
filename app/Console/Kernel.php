@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\ThumbnailResize::class,
         Commands\ViewsClear::class,
         Commands\PagesCheck::class,
+        Commands\CacheGC::class,
     ];
 
     /**
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('views:clear --days='.config('app.cron_views_clear_days'))->daily();
+        $schedule->command('cache:gc')->hourly();
     }
 
     /**
