@@ -12,6 +12,8 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@vue/compat": "^3.1.0",
+        "@vue/compiler-sfc": "^3.1.0",
         "axios": "^1.4.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0.3",
@@ -24,15 +26,17 @@
         "sass": "^1.62.1",
         "sass-loader": "^13.2.2",
         "vue": "^3.1.0",
-        "@vue/compat": "^3.1.0",
-        "vue-loader": "^16.0.0",
-        "@vue/compiler-sfc": "^3.1.0"
+        "vue-loader": "^16.0.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.4.0",
         "blueimp-file-upload": "^10.32.0",
         "blueimp-load-image": "^5.16.0",
         "blueimp-tmpl": "^3.20.0",
+        "chart.js": "^4.3.0",
+        "chartjs-adapter-date-fns": "^3.0.0",
+        "chartjs-plugin-zoom": "^2.0.1",
+        "hammerjs": "^2.0.8",
         "jquery-touchswipe": "^1.6.19",
         "vue-router": "^4.2.0",
         "vuex": "^4.0.2",

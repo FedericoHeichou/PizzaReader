@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -71,6 +72,10 @@ class Comic extends Model {
 
     public function lastPublishedChapter() {
         return $this->chapters(false)->published()->orderBy('published_on', 'desc')->first();
+    }
+
+    public function views_list(): HasManyThrough {
+        return $this->hasManyThrough(View::class, Chapter::class);
     }
 
     public static function slug($slug) {
@@ -357,5 +362,35 @@ class Comic extends Model {
 
     public static function generateSlug($fields) {
         return generateSlug(new Comic, $fields);
+    }
+
+    public static function getStats($comic): array {        
+        $date_format = 'DATE(`' . DB::getTablePrefix() . 'views`.`created_at`)';
+        $views = $comic->views_list()
+            ->select(DB::raw($date_format .' as view_date'), DB::raw('COUNT(*) AS views'))
+            ->groupBy(
+                DB::raw($date_format),
+                'comic_id', // TODO remove this when the laravel_through_key will be removed with groupBy
+                            // https://github.com/laravel/framework/issues/47260
+            )
+            ->orderBy('view_date')
+            ->get();
+        $views_per_day = [];
+        if ($views->isEmpty()) return [
+            'views_per_day' => $views_per_day,
+        ];
+        $first_day = $views->first()->view_date;
+        $today = date('Y-m-d');
+        $current_day = $first_day;
+        while ($current_day <= $today) {
+            $views_per_day[$current_day] = 0;
+            $current_day = date('Y-m-d', strtotime($current_day . ' +1 day'));
+        }
+        foreach ($views as $view) {
+             $views_per_day[$view->view_date] = $view->views;
+        }
+        return [
+            'views_per_day' => $views_per_day,
+        ];
     }
 }

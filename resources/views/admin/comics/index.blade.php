@@ -23,6 +23,7 @@
                             @method('DELETE')
                         </form>
                     @endif
+                    <span class="spacer">|</span><a href="{{ route('admin.comics.stats', $comic->slug) }}" target="_blank">Stats</a>
                     <span class="spacer">|</span><a href="{{ \App\Models\Comic::getUrl($comic) }}" target="_blank">Read</a>
                 </span>
             </div>

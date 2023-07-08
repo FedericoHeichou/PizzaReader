@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('views:clear')->weekly();
+        $schedule->command('views:clear --days='.config('app.cron_views_clear_days'))->daily();
     }
 
     /**
