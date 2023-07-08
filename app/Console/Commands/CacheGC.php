@@ -84,7 +84,7 @@ class CacheGC extends Command {
                 $folder_is_empty = true;
             }
 
-            if ($progress && $expired_file_count % 1 === 0) {
+            if ($progress && $expired_file_count % 10 === 0) {
                 echo "\rProgress: deleted $expired_file_count expired files, $empty_folders_count empty folders";
             }
         }
