@@ -101,7 +101,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <div class="custom-control custom-switch p-2">
+                            <div class="custom-control custom-switch p-2 ml-4">
                                 <input type="checkbox" class="custom-control-input" id="dark-mode-switch"
                                     {{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "checked" : "" }}>
                                 <label class="custom-control-label" for="dark-mode-switch">Dark</label>
