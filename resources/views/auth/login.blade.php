@@ -55,7 +55,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="btn-login">
                                     {{ __('Login') }}
                                 </button>
 
@@ -72,4 +72,10 @@
         </div>
     </div>
 </div>
+<script>
+document.getElementById('btn-login').addEventListener('click', function() {
+    this.disabled = true;
+    this.form.submit();
+});
+</script>
 @endsection
