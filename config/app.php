@@ -246,5 +246,6 @@ return [
     |
     */
 
-    'api_rate_limit_per_minute' => (int) env('API_RATE_LIMIT_PER_MINUTE', 60),
+    // Set the maximum number of requests allowed per minute for the API from the same IP address.
+    'api_rate_limit_per_minute' => (int) env('API_RATE_LIMIT_PER_MINUTE', 0),
 ];

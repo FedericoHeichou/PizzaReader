@@ -193,7 +193,7 @@ php artisan pages:check --csv
 
 ## There are many files with no extension in the storage
 If you are using a local cache (this is the default and most web service providers do not have caching capabilities), the reader will write its cache files to `storage/framework/cache/data`.  
-By default, a rate limit is installed in the API to prevent malicious IPs from making too many requests in a few seconds. A small file is created for each IP.  
+In addition, if you have enabled rate limiting in the API to prevent malicious IPs from making too many requests in a few seconds, a small file will be created for each IP.  
 If you notice you have thousands of files it means you are not running cronjobs or you are using an old version of the reader, in fact in the latest version a garbage collector (GC) has been added and it clears the filesystem by itself.  
 You can run the garbage collector manually by running `php artisan cache:gc --progress`.
 
