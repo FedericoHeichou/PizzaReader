@@ -365,12 +365,12 @@ class Settings extends Model {
     public static function getFieldsFromRequest($request, $form_fields) {
         $fields = getFieldsFromRequest($request, $form_fields);
         if (isset($fields['logo']) && $fields['logo']) {
-            $fields['logo'] = preg_replace("/%/", "", $request->file('logo')->getClientOriginalName());
+            $fields['logo'] = strip_forbidden_chars($request->file('logo')->getClientOriginalName());
         } else {
             unset($fields['logo']);
         }
         if (isset($fields['cover']) && $fields['cover']) {
-            $fields['cover'] = preg_replace("/%/", "", $request->file('cover')->getClientOriginalName());
+            $fields['cover'] = strip_forbidden_chars($request->file('cover')->getClientOriginalName());
         } else {
             unset($fields['cover']);
         }

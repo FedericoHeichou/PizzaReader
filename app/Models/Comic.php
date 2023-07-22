@@ -341,7 +341,7 @@ class Comic extends Model {
     public static function getFieldsFromRequest($request, $form_fields) {
         $fields = getFieldsFromRequest($request, $form_fields);
         if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
+            $fields['thumbnail'] = strip_forbidden_chars($request->file('thumbnail')->getClientOriginalName());
         } else {
             unset($fields['thumbnail']);
         }
