@@ -122,7 +122,7 @@ function getNameFromId($array, $id): string {
 
 function getSmallThumbnail($thumbnail) {
     if (!$thumbnail) return null;
-    return substr_replace($thumbnail, '-small.jpg', strrpos($thumbnail, '.', -1));
+    return preg_replace('/(\.[^.?]+)(\?.*)?$/', '-small.jpg$2', $thumbnail);
 }
 
 function strip_forbidden_chars($string) {

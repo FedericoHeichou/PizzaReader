@@ -179,8 +179,7 @@ class Chapter extends Model {
     public static function getThumbnailUrl($comic, $chapter): ?string {
         if ($chapter->thumbnail) return $chapter->thumbnail;
         if (!config('settings.default_chapter_thumbnail')) return Comic::getThumbnailUrl($comic);
-        $thumbnail_path = 'storage/' . Chapter::buildPath($comic, $chapter) . '/' . $chapter->pages()->first()->filename;
-        return File::exists($thumbnail_path) ? asset($thumbnail_path) : null;
+        return Page::getUrl($comic, $chapter, $chapter->pages()->first());
     }
 
     public static function canChapterPdf($chapter): bool {
