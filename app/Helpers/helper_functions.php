@@ -122,5 +122,18 @@ function getNameFromId($array, $id): string {
 
 function getSmallThumbnail($thumbnail) {
     if (!$thumbnail) return null;
-    return substr_replace($thumbnail, '-small.jpg', strrpos($thumbnail, '.', -1));
+    return preg_replace('/(\.[^.?]+)(\?.*)?$/', '-small.jpg$2', $thumbnail);
+}
+
+function strip_forbidden_chars($string) {
+    // Remove "%", "#" and "?" from filename because apache mod_rewrite decodes it in the internal redirect
+    // For example a file called "test%3dfile.jpg" will be urlencoded to "test%253dfile.jpg"
+    // The browser will send a request for "test%253dfile.jpg" which will be decoded to "test%3dfile.jpg"
+    // Apache will check correctly for "test%3dfile.jpg" in the filesystem
+    // If the user can't use the /public path as root directory the default .htaccess file will
+    // perform a internal redirect with mod_rewrite if the file is not found (which in this case always happens)
+    // The internal redirect will decode the filename again in "test=file.jpg" and the file will not be found (I think this is a bug)
+    // Furthermore if the user has a https redirect and is not using NE (noescape) flag in the rewrite rule other problems could arise
+    // Just for being sure we remove these characters from the filename
+    return preg_replace("/%|#|\?/", "", $string);
 }

@@ -16,7 +16,8 @@
         "laravel/ui": "^4.0",
         "ext-json": "*",
         "ext-zip": "*",
-        "ext-imagick": "*"
+        "ext-imagick": "*",
+        "ext-gd": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

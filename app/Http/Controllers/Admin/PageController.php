@@ -33,7 +33,7 @@ class PageController extends Controller {
         $response = ["files" => []];
         $path = Chapter::absolutePath($comic, $chapter);
         foreach ($request->file('files') as $file) {
-            $original_file_name = preg_replace("/%/", "", $file->getClientOriginalName());
+            $original_file_name = strip_forbidden_chars($file->getClientOriginalName());
             $filename = $path . '/' . $original_file_name;
             $file->storeAs(Chapter::path($comic, $chapter), $original_file_name);
             $dimension = getimagesize($filename);

@@ -127,8 +127,11 @@ class Comic extends Model {
 
     public static function getThumbnailUrl($comic) {
         if ($comic->thumbnail === null || $comic->thumbnail === '') return null;
-        $thumbnail_path = 'storage/' . Comic::buildPath($comic) . '/';
-        return File::exists($thumbnail_path . $comic->thumbnail) ? asset($thumbnail_path . rawurlencode($comic->thumbnail)) : null;
+        $thumbnail_basepath = 'storage/' . Comic::buildPath($comic) . '/';
+        $thumbnail_path = $thumbnail_basepath . $comic->thumbnail;
+        if (!File::exists($thumbnail_path)) return null;
+        $mtime = File::lastModified($thumbnail_path);
+        return asset($thumbnail_basepath . rawurlencode($comic->thumbnail) . '?v=' . $mtime);
     }
 
     public static function getUrl($comic) {
@@ -341,7 +344,7 @@ class Comic extends Model {
     public static function getFieldsFromRequest($request, $form_fields) {
         $fields = getFieldsFromRequest($request, $form_fields);
         if (isset($fields['thumbnail']) && $fields['thumbnail']) {
-            $fields['thumbnail'] = preg_replace("/%/", "", $request->file('thumbnail')->getClientOriginalName());
+            $fields['thumbnail'] = strip_forbidden_chars($request->file('thumbnail')->getClientOriginalName());
         } else {
             unset($fields['thumbnail']);
         }
