@@ -5,12 +5,17 @@
             The page you are trying to get doesn't exist.<br>
             If you clicked a link it is expired (for example the chapter has been removed).<br>
         </div>
-        <img class="img-thumbnail" style="max-width:100%;" src="/img/404.gif">
+        <img class="img-thumbnail" style="max-width:100%;" :src="reader.BASE_URL + 'img/404.gif'">
     </div>
 </template>
 
 <script>
 export default {
-    name: "NotFound"
+    name: "NotFound",
+    data() {
+        return {
+            reader: this.$root,
+        }
+    }
 }
 </script>

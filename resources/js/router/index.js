@@ -5,7 +5,7 @@ import Read from "../components/Read.vue";
 import NotFound from "../components/NotFound.vue";
 
 export const router = createRouter({
-    history: createWebHistory(__dirname),
+    history: createWebHistory(BASE_URL.split('/').slice(3).filter(Boolean).join('/')),
     routes: [
         {path: '/public/*', redirect: '/*'},
         {path: '/', component: Comics, name: 'Last Releases'},

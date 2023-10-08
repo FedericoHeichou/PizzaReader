@@ -1,7 +1,7 @@
 {
-    "/js/app.js": "/js/app.js?id=43c3411c03e1897e3fc4f02739708fb4",
+    "/js/app.js": "/js/app.js?id=b8708d268ea2e2c1b1db6cd8dd486071",
     "/js/bootstrap.js": "/js/bootstrap.js?id=961d74f6a75d5cfcdba25e35f7db7346",
-    "/css/app.css": "/css/app.css?id=16b9979212977281ecce3418fcd60206",
+    "/css/app.css": "/css/app.css?id=19374f5c58cf6a4a0744fe246d178c0f",
     "/js/reader.js": "/js/reader.js?id=a1392e34bc3b07460d6e274d270c5919",
     "/js/admin.js": "/js/admin.js?id=3ab03d2c68cfa9d4a6aebbff8a1c7325",
     "/css/reader.css": "/css/reader.css?id=45b49d0415489d7451735ac2e0ca3479",
@@ -11,5 +11,22 @@
     "/img/loading.gif": "/img/loading.gif?id=eece9c4dc7d9152b3712237c02d92323",
     "/img/progressbar.gif": "/img/progressbar.gif?id=ab1b062224823ba0fbf5ef32e72f4b86",
     "/js/lang/it.js": "/js/lang/it.js?id=ad44fd82b230d7c2dd83e95450efe427",
-    "/js/tmpl.min.js.map": "/js/tmpl.min.js.map?id=8978b8386845147646d4cedca5dc2668"
+    "/js/tmpl.min.js.map": "/js/tmpl.min.js.map?id=8978b8386845147646d4cedca5dc2668",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.eot": "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.eot?id=0868992b7c56298026b76b22c534eab9",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.svg": "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.svg?id=1d5619cd804367cefe6da2d79289218a",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.ttf": "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.ttf?id=e2e2b1797606a266ed55549f5bb5a179",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.woff": "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.woff?id=66ea863732752673548b3b6537b6465b",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.woff2": "/fonts/vendor/@fortawesome/fontawesome-free/fa-brands-400.woff2?id=fe912d1c4a7e0e1db87a64eb7e54c945",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.eot": "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.eot?id=7077d9231c75a9046a76a7c967fe5a83",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.svg": "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.svg?id=c5d109be8edd3de0f60eb472bd9ef691",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.ttf": "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.ttf?id=31a6b5ecfc8d018d0e3a294f0c80e9e9",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.woff": "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.woff?id=5f9919e4ca7ba90270eb4b245401b9a8",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.woff2": "/fonts/vendor/@fortawesome/fontawesome-free/fa-regular-400.woff2?id=bf8eabe300a00a3adb0293596987abc4",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.eot": "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.eot?id=0af95f09495e76b34fb2a911b8c78051",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.svg": "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.svg?id=37bc7099f6f1ba80236164f22e905837",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.ttf": "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.ttf?id=cd687455c6d6c058e2e9f84f409e2965",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.woff": "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.woff?id=26f963f67e793d91cc76426d43836849",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.woff2": "/fonts/vendor/@fortawesome/fontawesome-free/fa-solid-900.woff2?id=eea38615e7b5dbbaf88c263f2230cc32",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-v4compatibility.ttf": "/fonts/vendor/@fortawesome/fontawesome-free/fa-v4compatibility.ttf?id=6ebbf5afc34f54463abc2b81ca637364",
+    "/fonts/vendor/@fortawesome/fontawesome-free/fa-v4compatibility.woff2": "/fonts/vendor/@fortawesome/fontawesome-free/fa-v4compatibility.woff2?id=67b8a78b7e80e805cfa4ee0421895ba4"
 }

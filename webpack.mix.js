@@ -12,6 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.version();
+mix.options({
+    processCssUrls: false,
+});
 
 mix.js('resources/js/app.js', 'public/js').vue({
     version: 3,
@@ -80,3 +83,4 @@ mix.styles([
 mix.copyDirectory('node_modules/blueimp-file-upload/img', 'public/img');
 mix.copyDirectory('resources/js/lang', 'public/js/lang');
 mix.copy('node_modules/blueimp-tmpl/js/tmpl.min.js.map', 'public/js');
+mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/fonts/vendor/@fortawesome/fontawesome-free');
