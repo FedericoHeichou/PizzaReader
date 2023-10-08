@@ -26,17 +26,25 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $base_uri = parse_url(config('app.url'), PHP_URL_PATH);
+        $base_uri = trim(preg_replace('/\/+/', '/', $base_uri), '/');
+        if (!empty($base_uri)) {
+            $base_uri .= '/';
+        }
+
         $this->configureRateLimiting();
 
-        $this->routes(function () {
+        $this->routes(function () use ($base_uri) {
             Route::middleware(isset($_COOKIE[config('session.cookie')]) ? 'web': 'api')
-                ->prefix('api')
+                ->prefix($base_uri . 'api')
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
+                ->prefix($base_uri)
                 ->group(base_path('routes/web.php'));
 
             Route::middleware(isset($_COOKIE[config('session.cookie')]) ? 'web' : 'api')
+                ->prefix($base_uri)
                 ->namespace($this->namespace)
                 ->group(base_path('routes/fe.php'));
         });

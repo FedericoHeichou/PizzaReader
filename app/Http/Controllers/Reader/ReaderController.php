@@ -103,7 +103,7 @@ class ReaderController extends Controller {
         }
 
         $response['chapter'] = Chapter::generateReaderArray($comic, $chapter);
-        $response['chapter']['pages'] = Chapter::isLicensed($chapter) ? [asset('/img/404.gif')] : Page::getAllPagesForReader($comic, $chapter);
+        $response['chapter']['pages'] = Chapter::isLicensed($chapter) ? [asset('img/404.gif')] : Page::getAllPagesForReader($comic, $chapter);
 
         $previous_chapter = null;
         $next_chapter = null;

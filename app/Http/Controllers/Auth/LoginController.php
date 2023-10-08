@@ -20,7 +20,9 @@ class LoginController extends Controller {
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        logout as performLogout;
+    }
 
     /**
      * Where to redirect users after login.
@@ -45,5 +47,12 @@ class LoginController extends Controller {
         $user->last_login = Carbon::now()->toDateTimeString();
         $user->timezone = $request->timezone;
         $user->save();
+    }
+
+    public function logout(Request $request) {
+        $this->performLogout($request);
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->route('admin.comics.index');
     }
 }

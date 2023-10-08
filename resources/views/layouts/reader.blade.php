@@ -207,7 +207,7 @@
                     @if(config('settings.logo'))
                         <img alt="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
                                 title="Logo of {{ config('settings.reader_name', 'PizzaReader') }}"
-                                src="{{ (config('settings.logo') ? '/storage/img/logo/' . substr(config('settings.logo'), 0, -4) : '/img/logo/PizzaReader') . '-128.png' }}">
+                                src="{{ asset((config('settings.logo') ? 'storage/img/logo/' . substr(config('settings.logo'), 0, -4) : 'img/logo/PizzaReader') . '-128.png') }}">
                     @endif
                     <h4 style="margin-top:6px;font-weight:700;text-shadow:0 0 12px black">{{ config('settings.reader_name_long', 'PizzaReader') }}</h4>
                     <p style="font-weight:700;text-shadow:0 0 6px black">{{ __('Loading') }}</p>

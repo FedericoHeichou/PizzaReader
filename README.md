@@ -97,10 +97,10 @@ php composer.phar dump-autoload
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
-php artisan config:cache
-php composer.phar dump-autoload
 sed -i "s/APP_ENV=local/APP_ENV=production/" .env
 # sed -i "s/APP_DEBUG=true/APP_DEBUG=false/" .env
+php artisan config:cache
+php composer.phar dump-autoload
 
 find . -type d -exec chmod 0755 {} \;
 find . -type f -exec chmod 0644 {} \;
