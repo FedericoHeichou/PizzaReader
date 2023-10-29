@@ -480,7 +480,7 @@ body.hide-header #reader[data-display="fit-both"] #reader-images img {
 /* load icon */
 
 .reader-image-wrapper {
-    background: transparent url(/img/loading.gif) center no-repeat;
+    background: transparent url(../img/loading.gif) center no-repeat;
     min-height: 128px;
     min-width: 128px;
 }
