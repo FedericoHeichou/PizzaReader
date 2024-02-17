@@ -326,7 +326,9 @@ export default {
                     this.updateViewChapter();
                 } else {
                     const ComponentClass = Vue.extend(NotFound);
-                    const instance = new ComponentClass();
+                    const instance = new ComponentClass({
+                        propsData: { reader: this.reader }
+                    });
                     instance.$mount();
                     if(typeof this.$refs.notfound !== "undefined") this.$refs.notfound.appendChild(instance.$el);
                     const title = 'Error 404' + " | " + this.reader.SITE_NAME;

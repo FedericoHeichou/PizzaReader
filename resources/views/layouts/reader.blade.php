@@ -122,29 +122,30 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <router-link to="/" class="nav-link">
+                            <router-link to="/" class="nav-link last-releases">
                                 <span aria-hidden="true" title="Last Releases" class="fas fa-list-alt fa-fw"></span> {{ __('Last Releases') }}
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/recommended" class="nav-link">
+                            <router-link to="/recommended" class="nav-link recommended">
                                 <span aria-hidden="true" title="Recommended" class="fas fa-star fa-fw"></span> {{ __('Recommended') }}
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/comics" class="nav-link">
+                            <router-link to="/comics" class="nav-link comics">
                                 <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> {{ __('All Comics') }}
                             </router-link>
                         </li>
                     @foreach(parse_ini_string(config('settings.menu')) as $k => $v)
                         <?php
+                            $k_slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(" ", "-", strtolower($k)));
                             $a = explode(",", $v);
                             $css = count($a) ? $a[0] : null;
                             $url = count($a) > 1 ? $a[1] : null;
                         ?>
                         @if($url !== null && $css !== null)
                         <li class="nav-item">
-                            <a href="{{ $url }}" class="nav-link" target="_blank">
+                            <a href="{{ $url }}" class="nav-link {{$k_slug}}" target="_blank">
                                 @if($css)<span aria-hidden="true" title="{{ $k }}" class="{{ $css }}"></span>@endif {{ $k }}
                             </a>
                         </li>

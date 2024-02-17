@@ -12,9 +12,10 @@
 <script>
 export default {
     name: "NotFound",
-    data() {
-        return {
-            reader: this.$root,
+    props: {
+        reader: {
+            type: Object,
+            required: true
         }
     }
 }
