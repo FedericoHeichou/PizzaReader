@@ -65,7 +65,7 @@ const assignComics = function () {
 
     $.ajax({
         type: 'PATCH',
-        url: '/admin/users/' + user_id + '/comics',
+        url: BASE_URL + 'admin/users/' + user_id + '/comics',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
@@ -130,7 +130,7 @@ $(document).ready(function () {
         if ($(this).val().length < 3) return;
         $.ajax({
             type: 'POST',
-            url: '/admin/comics/search/' + encodeURI($(this).val()),
+            url: BASE_URL + 'admin/comics/search/' + encodeURI($(this).val()),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
@@ -181,12 +181,12 @@ const purgeChapter = function (url) {
         redirect: 'follow'
     }
     showNotification('Running purge...', 'warning');
-    fetch(`/api${url}`, init).then(res => showNotification('Reader purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`${API_BASE_URL}${url}`, init).then(res => showNotification('Reader purged:', res.status === 200 ? 'success' : 'error'));
     const ch_slug = url.split('/', 3)[2];
-    fetch(`/api/comics/${ch_slug}`, init).then(res => showNotification('Comic purged:', res.status === 200 ? 'success' : 'error'));
-    fetch(`/api/comics`, init).then(res => showNotification('Comics purged:', res.status === 200 ? 'success' : 'error'));
-    fetch(`/api/recommended`, init).then(res => showNotification('Recommended purged:', res.status === 200 ? 'success' : 'error'));
-    fetch(`/api/info`, init).then(res => showNotification('Info purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`${API_BASE_URL}/comics/${ch_slug}`, init).then(res => showNotification('Comic purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`${API_BASE_URL}/comics`, init).then(res => showNotification('Comics purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`${API_BASE_URL}/recommended`, init).then(res => showNotification('Recommended purged:', res.status === 200 ? 'success' : 'error'));
+    fetch(`${API_BASE_URL}/info`, init).then(res => showNotification('Info purged:', res.status === 200 ? 'success' : 'error'));
 }
 
 async function showNotification(msg, status) {

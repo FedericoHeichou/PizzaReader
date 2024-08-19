@@ -24,7 +24,7 @@
                         </form>
                     @endif
                     <span class="spacer">|</span><a href="{{ route('admin.comics.stats', $comic->slug) }}" target="_blank">Stats</a>
-                    <span class="spacer">|</span><a href="{{ \App\Models\Comic::getUrl($comic) }}" target="_blank">Read</a>
+                    <span class="spacer">|</span><a href="{{ asset(substr(\App\Models\Comic::getUrl($comic), 1)) }}" target="_blank">Read</a>
                 </span>
             </div>
         @endforeach
