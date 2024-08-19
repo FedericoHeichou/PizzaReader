@@ -21,11 +21,13 @@
     <meta property="og:url" content="{{ URL::current() }}" />
 
     <!-- Scripts -->
-    <script src="{{ mix('js/bootstrap.js') }}" defer></script>
-    <script src="{{ mix('js/admin.js') }}" defer></script>
     <script type="text/javascript">
+        const BASE_URL = "{{ substr(config('app.url'), -1) === '/' ? config('app.url') : config('app.url') . '/' }}"
+        const API_BASE_URL = BASE_URL + 'api';
         const LOGGED_IN = true;
     </script>
+    <script src="{{ mix('js/bootstrap.js') }}" defer></script>
+    <script src="{{ mix('js/admin.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

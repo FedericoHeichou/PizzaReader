@@ -28,7 +28,7 @@
                         </form>
                     @endif
                     @if($is_chapter)
-                    <a href="/api{{ \App\Models\Chapter::getChapterDownload($comic, $chapter) }}" class="float-right">
+                    <a href="{{ asset('api' . \App\Models\Chapter::getChapterDownload($comic, $chapter)) }}" class="float-right">
                         <span title="Direct download" class="fa fa-download fa-2x pt-1"></span>
                     </a>
                     @endif
