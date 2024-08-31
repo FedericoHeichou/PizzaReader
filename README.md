@@ -65,6 +65,10 @@ All configurable settings are listed in the [.env.example](.env.example) file an
 Most of them are only set during installation. After installation you can customise your reader using the settings menu in the admin dashboard.  
 After editing your `.env` file you should run `php artisan config:cache`. If you don't have access to your server, you can go to the settings menu in the admin dashboard and press the "save" button: it will do a `config:cache` by itself.
 
+## Docker
+Here a dummy repository to run the reader with Docker: [PizzaReader-docker](https://github.com/FedericoHeichou/PizzaReader-docker).  
+This is not production ready, but it can be useful for testing and with some modifications it can be used in production.
+
 ## How to
 ```bash
 # If you want you can specify a tag

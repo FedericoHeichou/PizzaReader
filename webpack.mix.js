@@ -35,6 +35,9 @@ mix.webpackConfig(() => {
           vue: "@vue/compat",
         }
       },
+      stats: {
+        children: true
+      },
     }
   })
 
