@@ -178,7 +178,7 @@
 
                 <div v-for="chapter in comic.chapters"
                      :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '') + (chapter.licensed ? ' licensed' : '') + (getViewed(chapter.slug_lang_vol_ch_sub) ? ' read text-secondary' : '')">
-                    <div class="col-auto text-sm-center pe-0 order-1 overflow-hidden">
+                    <div class="col-auto text-sm-center pe-0 order-0 overflow-hidden">
                         <span :class="'cursor-pointer fa fa-eye' + (getViewed(chapter.slug_lang_vol_ch_sub) ? '' : '-slash') + ' fa-fw'"
                               :title="'Mark as ' + (getViewed(chapter.slug_lang_vol_ch_sub) ? 'unread' : 'read')" @click="setViewed(chapter.slug_lang_vol_ch_sub)"></span>
                         <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
@@ -194,7 +194,7 @@
                         </a>
                         <span v-else class="fa fa-file-pdf fa-fw text-secondary" title="PDF unavailable"></span>
                     </div>
-                    <div class="col-sm-5 col-7 text-start order-2 text-truncate">
+                    <div class="col-sm-5 col-7 text-start order-1 text-truncate">
                         <span class="chapter">
                             <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
                                 <span class="fas fa-edit fa-fw me-0" aria-hidden="true" title="Edit"></span>
@@ -203,10 +203,10 @@
                             <span v-else data-bs-toggle="modal" data-bs-target="#modal-container" class="filter" :title="chapter.full_title + ' [LICENSED]'">{{ chapter.full_title }}</span>
                         </span>
                     </div>
-                    <div class="col-auto text-sm-center pe-sm-3 pe-1 order-sm-3 order-4 overflow-hidden">
+                    <div class="col-auto text-sm-center pe-sm-3 pe-1 order-sm-2 order-3 overflow-hidden">
                         <span :class="'rounded flag flag-' + chapter.language" :title="chapter.language"></span>
                     </div>
-                    <div class="col-sm-2 col-7 text-start ps-sm-3 ps-0 order-sm-4 order-5 text-truncate"
+                    <div class="col-sm-2 col-7 text-start ps-sm-3 ps-0 order-sm-3 order-4 text-truncate"
                          :title="chapter.teams.filter(Boolean).map(function(el){return el.name;}).join(', ')">
                         <template v-if="chapter.teams[0] != null">
                             <a :href="chapter.teams[0].url" target="_blank">{{ chapter.teams[0].name }}</a>
@@ -215,8 +215,8 @@
                             <a :href="chapter.teams[1].url" target="_blank">{{ chapter.teams[1].name }}</a>
                         </template>
                     </div>
-                    <div class="col-md-2 col text-info text-end order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
-                    <div class="col text-end overflow-hidden order-sm-6 order-3 ps-0 ch-time" :title="new Date(chapter.published_on)">
+                    <div class="col-md-2 col text-info text-end order-sm-5 order-5 overflow-hidden">{{ chapter.views }}</div>
+                    <div class="col text-end overflow-hidden order-sm-5 order-2 ps-0 ch-time" :title="new Date(chapter.published_on)">
                         {{ chapter.time }}
                     </div>
                 </div>
@@ -245,12 +245,12 @@
                 </div>
 
                 <div v-for="(download, volume) in comic.volume_downloads" class="row flex-sm-nowrap text-truncate border-bottom py-1 item">
-                    <div class="col-auto text-sm-center pe-0 order-1 overflow-hidden">
+                    <div class="col-auto text-sm-center pe-0 order-0 overflow-hidden">
                         <a :href="reader.API_BASE_URL + download">
                             <span class="fa fa-download fa-fw ps-sm-1" title="Direct download"></span>
                         </a>
                     </div>
-                    <div class="col-10 text-start order-2 overflow-hidden">
+                    <div class="col-10 text-start order-1 overflow-hidden">
                         <span class="chapter">
                             <a :href="reader.API_BASE_URL + download">{{ volume }}</a>
                         </span>
