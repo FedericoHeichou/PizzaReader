@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use DuplicatedChapter;
+use App\Exceptions\DuplicatedChapter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

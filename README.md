@@ -1,7 +1,7 @@
 # <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
 <p align="center">
     <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.4.x-blue">
-    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.0-blue">
+    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.1-blue">
     <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E9.19-lime">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
 
@@ -50,7 +50,7 @@ The `master` version usually is stable because branches are merged after being t
 If you see my last commit is old, you can consider the `master` branch stable, I just forgot to tag.  
 Sometime I merge dependabot's pull requests on `master` without rebuilding the application because most of them are only for development.
 
-The current stable version is based on Laravel 9 and requires PHP >=8.0.  
+The current stable version is based on Laravel 10 and requires PHP >=8.1.  
 Older versions are not mainted at all.
 
 # Installation
@@ -68,6 +68,10 @@ After editing your `.env` file you should run `php artisan config:cache`. If you
 ## Docker
 Here a dummy repository to run the reader with Docker: [PizzaReader-docker](https://github.com/FedericoHeichou/PizzaReader-docker).  
 This is not production ready, but it can be useful for testing and with some modifications it can be used in production.
+
+## Requirements
+Basic requirements are listed in the [composer.json](composer.json) file.  
+Other required system libraries and settings are listed in the [PizzaReader-docker's Dockerfile](https://github.com/FedericoHeichou/PizzaReader-docker/blob/main/Dockerfile).
 
 ## How to
 ```bash

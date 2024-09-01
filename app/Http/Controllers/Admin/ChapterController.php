@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\DuplicatedChapter;
 use App\Models\ChapterDownload;
 use App\Models\VolumeDownload;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class ChapterController extends Controller {
 
         try {
             $fields = Chapter::getFieldsIfValid($comic, $request);
-        } catch (\DuplicatedChapter $e){
+        } catch (DuplicatedChapter $e){
             return back()->with('error', $e->getMessage())->withInput();
         }
 
@@ -96,7 +97,7 @@ class ChapterController extends Controller {
 
         try {
             $fields = Chapter::getFieldsIfValid($comic, $request);
-        } catch (\DuplicatedChapter $e){
+        } catch (DuplicatedChapter $e){
             return back()->with('error', $e->getMessage())->withInput();
         }
 

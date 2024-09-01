@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class DuplicatedChapter extends Exception {
-}
-
 const forbidden_words = ['update', 'edit', 'create', 'show', 'store', 'destroy'];
 
 function generateSlug($class, $fields) {

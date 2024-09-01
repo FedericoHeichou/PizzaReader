@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use App\Models\Team;
 
-class TestSeeder extends Seeder { //TODO to remove
+class TestSeeder extends Seeder { // Dev only
     /**
      * Run the database seeds.
      *

@@ -16,11 +16,12 @@ class LogRequest {
      * @return mixed
      */
     public function handle(Request $request, Closure $next) {
+        $user = Auth::check() ? '"[' . Auth::id() . '] ' . Auth::user()->name . '"' : 'guest';
+
         $response = $next($request);
 
         if($request->method() === "GET") return $response;
 
-        $user = Auth::check() ? '"[' . Auth::id() . '] ' . Auth::user()->name . '"' : 'guest';
         $log = $request->ip() . ' - ' . $user . ' - "' . $request->method() . ' ' . $request->getRequestUri() . '" - "' .
             $request->server('HTTP_USER_AGENT') . '"';
 
