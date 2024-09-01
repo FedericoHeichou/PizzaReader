@@ -43,7 +43,7 @@ class UserController extends Controller {
         $request->validate([
             'name' => ['string', 'max:191'],
             'email' => ['string', 'email', 'max:191', Rule::unique('users')->ignore($user->id)],
-            'password' => ['string', 'min:8', 'max:191', 'password:web', Rule::requiredIf(Auth::user()->id === $user->id)],
+            'password' => ['string', 'min:8', 'max:191', 'current_password:web', Rule::requiredIf(Auth::user()->id === $user->id)],
             'new_password' => ['string', 'min:8', 'max:191', 'nullable'],
             'role' => ['integer', 'between:1,4'],
         ]);
