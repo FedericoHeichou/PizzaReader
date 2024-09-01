@@ -1,23 +1,23 @@
 <!--suppress XmlDuplicatedId -->
 <template>
     <div v-if="chapter != null && max_page > 0" id="reader"
-         :class="'row flex-column no-gutters layout-horizontal' + (hide_sidebar ? ' hide-sidebar' : '')"
+         :class="'row flex-column g-0 layout-horizontal' + (hide_sidebar ? ' hide-sidebar' : '')"
          :data-renderer="renderingMode" :data-display="displayFit" :data-direction="direction">
         <div id="reader-controls-container" class="container">
-            <div id="reader-controls-wrapper" class="bg-reader-controls row no-gutters flex-nowrap">
+            <div id="reader-controls-wrapper" class="bg-reader-controls row g-0 flex-nowrap">
                 <div class="d-none d-lg-flex col-auto justify-content-center align-items-center cursor-pointer"
                      id="reader-controls-collapser" data-setting="hide-sidebar" :data-value="hide_sidebar^1"
                      @click="setSettings">
                     <span class="fas fa-caret-right fa-fw arrow-link" aria-hidden="true" title="Collapse menu"
                           data-setting="hide-sidebar" :data-value="hide_sidebar^1"></span>
                 </div>
-                <div id="reader-controls" class="col row no-gutters flex-column flex-nowrap">
+                <div id="reader-controls" class="col row g-0 flex-column flex-nowrap">
                     <div id="reader-controls-title" class="col-auto text-center p-2">
                         <router-link :to="comic.url" class="comic-title" :title="comic.title">
                             {{ comic.title }}
                         </router-link>
                     </div>
-                    <div id="reader-controls-chapters" class="col-auto row no-gutters align-items-center">
+                    <div id="reader-controls-chapters" class="col-auto row g-0 align-items-center">
                         <router-link v-if="chapter.previous != null" :title="chapter.previous.full_title"
                                      id="chapter-link-left" class="col-auto arrow-link" :to="chapter.previous.url">
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true"></span>
@@ -27,7 +27,7 @@
                             <span class="fas fa-angle-left fa-fw" aria-hidden="true"></span>
                         </router-link>
                         <div class="col py-2">
-                            <select class="form-control col" id="jump-chapter" name="jump-chapter" @change="jumpChapter">
+                            <select class="form-control form-select col" id="jump-chapter" name="jump-chapter" @change="jumpChapter">
                                 <template v-for="other_ch in comic.chapters">
                                     <option v-if="other_ch.url !== chapter.url" :value="other_ch.url">
                                         {{ other_ch.full_chapter ? other_ch.full_chapter : other_ch.full_title }}
@@ -46,8 +46,8 @@
                                      title="Back to comic" :to="comic.url">
                             <span class="fas fa-angle-right fa-fw" aria-hidden="true"></span>
                         </router-link>
-                        <div class="col-auto py-2 pr-2 d-lg-none">
-                            <select id="jump-page" class="form-control" name="jump-page" @change="jumpPage">
+                        <div class="col-auto py-2 pe-2 d-lg-none">
+                            <select id="jump-page" class="form-control form-select" name="jump-page" @change="jumpPage">
                                 <template v-for="(ch_page, index) in chapter.pages">
                                     <option v-if="page !== index+1" :value="index + 1">
                                         {{ index + 1 }}
@@ -59,7 +59,7 @@
                             </select>
                         </div>
                     </div>
-                    <div id="reader-controls-groups" class="no-gutters p-2 text-center font-weight-bold">
+                    <div id="reader-controls-groups" class="g-0 p-2 text-center fw-bold">
                         <p class="mb-1">{{ chapter.title ? chapter.title : chapter.full_title }}</p>
                         <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
                             <span class="fa fa-download fa-fw" title="Direct download"></span>
@@ -74,7 +74,7 @@
                         </a>
                         <span v-else class="fa fa-file-pdf fa-fw text-secondary" title="PDF unavailable"></span>
                         <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
-                            <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                            <span class="fas fa-edit fa-fw me-0" aria-hidden="true" title="Edit"></span>
                         </a>
                         <ul class="ratings">
                             <li :class="'star' + (vote(chapter.vote_id) === 5 ? ' selected' : '')" data-vote="5" @click="sendVote"></li>
@@ -85,8 +85,8 @@
                         </ul>
                         {{ reader.__('Current rating') }}: {{ chapter.rating || 'N/A' }}
                     </div>
-                    <div id="reader-controls-actions" class="col-auto row no-gutters p-1">
-                        <div class="col row no-gutters">
+                    <div id="reader-controls-actions" class="col-auto row g-0 p-1">
+                        <div class="col row g-0">
                             <a title="Reader settings" class="btn btn-secondary col m-1 d-inline d-lg-none" role="button"
                                id="settings-button" @click="toggleSettings">
                                 <span class="fas fa-cog fa-fw"></span><span class="d-none d-lg-inline"> Settings</span>
@@ -101,95 +101,87 @@
                         </div>
                     </div>
                     <div id="reader-controls-mode"
-                         class="col-auto d-lg-flex d-none flex-column align-items-start row no-gutters p-2">
-                        <div class="col text-center font-weight-bold">{{ reader.__('Fit display to') }}</div>
-                        <div class="col btn-group btn-group-toggle" data-toggle="buttons">
-                            <label v-if="displayFit === 'fit-both'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Both') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="fit-both" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Both') }}
-                            </label>
-                            <label v-if="displayFit === 'fit-width'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Width') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="fit-width" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Width') }}
-                            </label>
-                            <label v-if="displayFit === 'fit-height'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="fit-height" data-setting="displayFit"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Height') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="fit-height" data-setting="displayFit"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Height') }}
-                            </label>
-                            <label v-if="displayFit === 'no-resize'" class="btn btn-secondary col-3 active">
-                                <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Full') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-3">
-                                <input type="radio" data-value="no-resize" data-setting="displayFit" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Full') }}
-                            </label>
+                         class="col-auto d-lg-flex d-none flex-column align-items-start row g-0 p-2">
+                        <div class="col text-center fw-bold">{{ reader.__('Fit display to') }}</div>
+                        <div class="col btn-group btn-group-toggle" role="group" data-bs-toggle="buttons" :aria-label="reader.__('Fit display to')">
+                            <template v-if="displayFit === 'fit-both'">
+                                <input type="radio" id="btn-check-fit-both" class="btn-check" data-value="fit-both" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-3 active" for="btn-check-fit-both">{{ reader.__('Both') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-fit-both" class="btn-check" data-value="fit-both" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-3" for="btn-check-fit-both">{{ reader.__('Both') }}</label>
+                            </template>
+                            <template v-if="displayFit === 'fit-width'">
+                                <input type="radio" id="btn-check-fit-width" class="btn-check" data-value="fit-width" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-3 active" for="btn-check-fit-width">{{ reader.__('Width') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-fit-width" class="btn-check" data-value="fit-width" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-3" for="btn-check-fit-width">{{ reader.__('Width') }}</label>
+                            </template>
+                            <template v-if="displayFit === 'fit-height'">
+                                <input type="radio" id="btn-check-fit-height" class="btn-check" data-value="fit-height" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-3 active" for="btn-check-fit-height">{{ reader.__('Height') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-fit-height" class="btn-check" data-value="fit-height" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-3" for="btn-check-fit-height">{{ reader.__('Height') }}</label>
+                            </template>
+                            <template v-if="displayFit === 'no-resize'">
+                                <input type="radio" id="btn-check-no-resize" class="btn-check" data-value="no-resize" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-3 active" for="btn-check-no-resize">{{ reader.__('Full') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-no-resize" class="btn-check" data-value="no-resize" data-setting="displayFit" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-3" for="btn-check-no-resize">{{ reader.__('Full') }}</label>
+                            </template>
                         </div>
-                        <div class="col text-center font-weight-bold mt-2">{{ reader.__('Page rendering') }}</div>
-                        <div class="col btn-group btn-group-toggle" data-toggle="buttons">
-                            <label v-if="renderingMode === 'double-page'" class="btn btn-secondary col-4 active">
-                                <input type="radio" data-value="double-page" data-setting="renderingMode"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Double') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-4">
-                                <input type="radio" data-value="double-page" data-setting="renderingMode"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Double') }}
-                            </label>
-                            <label v-if="renderingMode === 'single-page'" class="btn btn-secondary col-4 active">
-                                <input type="radio" data-value="single-page" data-setting="renderingMode"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Single') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-4">
-                                <input type="radio" data-value="single-page" data-setting="renderingMode"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Single') }}
-                            </label>
-                            <label v-if="renderingMode === 'long-strip'" class="btn btn-secondary col-4 active">
-                                <input type="radio" data-value="long-strip" data-setting="renderingMode"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Long Strip') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-4">
-                                <input type="radio" data-value="long-strip" data-setting="renderingMode"
-                                       @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Long Strip') }}
-                            </label>
+                        <div class="col text-center fw-bold mt-2">{{ reader.__('Page rendering') }}</div>
+                        <div class="col btn-group btn-group-toggle" role="group" data-bs-toggle="buttons" :aria-label="reader.__('Page rendering')">
+                            <template v-if="renderingMode === 'double-page'">
+                                <input type="radio" id="btn-check-double-page" class="btn-check" data-value="double-page" data-setting="renderingMode" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-4 active" for="btn-check-double-page">{{ reader.__('Double') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-double-page" class="btn-check" data-value="double-page" data-setting="renderingMode" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-4" for="btn-check-double-page">{{ reader.__('Double') }}</label>
+                            </template>
+                            <template v-if="renderingMode === 'single-page'">
+                                <input type="radio" id="btn-check-single-page" class="btn-check" data-value="single-page" data-setting="renderingMode" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-4 active" for="btn-check-single-page">{{ reader.__('Single') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-single-page" class="btn-check" data-value="single-page" data-setting="renderingMode" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-4" for="btn-check-single-page">{{ reader.__('Single') }}</label>
+                            </template>
+                            <template v-if="renderingMode === 'long-strip'">
+                                <input type="radio" id="btn-check-long-strip" class="btn-check" data-value="long-strip" data-setting="renderingMode" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-4 active" for="btn-check-long-strip">{{ reader.__('Long Strip') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-long-strip" class="btn-check" data-value="long-strip" data-setting="renderingMode" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-4" for="btn-check-long-strip">{{ reader.__('Long Strip') }}</label>
+                            </template>
                         </div>
-                        <div class="col text-center font-weight-bold mt-2">{{ reader.__('Direction') }}</div>
-                        <div class="col btn-group btn-group-toggle" data-toggle="buttons">
-                            <label v-if="direction === 'ltr'" class="btn btn-secondary col-6 active">
-                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Left to right') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-6">
-                                <input type="radio" data-value="ltr" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Left to right') }}
-                            </label>
-                            <label v-if="direction === 'rtl'" class="btn btn-secondary col-6 active">
-                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()" checked>{{ reader.__('Right to left') }}
-                            </label>
-                            <label v-else class="btn btn-secondary col-6">
-                                <input type="radio" data-value="rtl" data-setting="direction" @click="setSettings"
-                                       autocomplete="off" onkeydown="event.preventDefault()">{{ reader.__('Right to left') }}
-                            </label>
+                        <div class="col text-center fw-bold mt-2">{{ reader.__('Direction') }}</div>
+                        <div class="col btn-group btn-group-toggle" role="group" data-bs-toggle="buttons" :aria-label="reader.__('Direction')">
+                            <template v-if="direction === 'ltr'">
+                                <input type="radio" id="btn-check-ltr" class="btn-check" data-value="ltr" data-setting="direction" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-6 active" for="btn-check-ltr">{{ reader.__('Left to right') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-ltr" class="btn-check" data-value="ltr" data-setting="direction" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-6" for="btn-check-ltr">{{ reader.__('Left to right') }}</label>
+                            </template>
+                            <template v-if="direction === 'rtl'">
+                                <input type="radio" id="btn-check-rtl" class="btn-check" data-value="rtl" data-setting="direction" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()" checked>
+                                <label class="btn btn-secondary col-6 active" for="btn-check-rtl">{{ reader.__('Right to left') }}</label>
+                            </template>
+                            <template v-else>
+                                <input type="radio" id="btn-check-rtl" class="btn-check" data-value="rtl" data-setting="direction" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
+                                <label class="btn btn-secondary col-6" for="btn-check-rtl">{{ reader.__('Right to left') }}</label>
+                            </template>
                         </div>
                     </div>
 
@@ -197,14 +189,14 @@
 
                     <div id="reader-controls-footer" class="col-auto mt-auto d-none d-lg-flex justify-content-center">
                         <div
-                            class="text-muted text-center text-truncate row flex-wrap justify-content-center p-2 no-gutters">
+                            class="text-muted text-center text-truncate row flex-wrap justify-content-center p-2 g-0">
                             Powered by&nbsp;
                             <a href="https://github.com/FedericoHeichou/PizzaReader" target="_blank">
                                 PizzaReader
                             </a>
                         </div>
                     </div>
-                    <div id="reader-controls-pages" class="col-auto d-none d-lg-flex row no-gutters align-items-center">
+                    <div id="reader-controls-pages" class="col-auto d-none d-lg-flex row g-0 align-items-center">
                         <router-link v-if="(valueLeft === -1 && page > 1) ||
                         (valueLeft === 1 && page < max_page)" :to="'#' + (page+valueLeft)"
                                      id="page-link-left" class="col-auto arrow-link">
@@ -246,7 +238,7 @@
             </div>
         </div>
 
-        <div id="reader-main" class="col row no-gutters flex-column flex-nowrap noselect">
+        <div id="reader-main" class="col row g-0 flex-column flex-nowrap noselect">
             <noscript>
                 <div class="alert alert-danger text-center">
                     JavaScript is required for this reader to work.
@@ -254,35 +246,35 @@
             </noscript>
             <div id="banner_top" class="text-center"></div>
             <div @click="clickPage" id="reader-images" :rendering="renderingMode"
-                class="col-auto row no-gutters flex-nowrap m-auto text-center cursor-pointer directional">
+                class="col-auto row g-0 flex-nowrap m-auto text-center cursor-pointer directional">
                 <template v-if="renderingMode === 'single-page'">
                     <div :data-page="page" :style="'order: ' + page + ';'" :rendering="renderingMode"
-                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
+                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row g-0">
                     </div>
                 </template>
                 <template v-else-if="renderingMode === 'double-page'">
                     <div :data-page="page" :style="'order: ' + page + ';'" :rendering="renderingMode"
-                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
+                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row g-0">
                     </div>
                     <div v-if="chapter.pages[page] != null" :data-page="page+1" :style="'order: ' + (page+1) + ';'" :rendering="renderingMode"
-                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
+                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row g-0">
                     </div>
                 </template>
                 <template v-else>
                     <div v-for="(ch_page, index) in chapter.pages" :data-page="index+1" :style="'order: ' + (index+1) + ';'" :rendering="renderingMode"
-                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row no-gutters">
+                         class="reader-image-wrapper col-auto my-auto justify-content-center align-items-center noselect nodrag row g-0">
                     </div>
                 </template>
             </div>
             <div id="banner_bottom" class="text-center"></div>
             <div id="reader-page-bar" class="col-auto d-none d-lg-flex directional">
-                <div id="track" class="cursor-pointer row no-gutters">
+                <div id="track" class="cursor-pointer row g-0">
                     <div id="trail" class="position-absolute h-100 noevents"
                          :style="'width: ' + (page === max_page ? 100*page/max_page : (100*(page+renderedPages-1)/max_page)) + '%;'">
                         <div id="thumb" class="h-100"
                              :style="'width: ' + (page === max_page ? 100/page : (100/(page+renderedPages-1)*renderedPages)) + '%;'"></div>
                     </div>
-                    <div id="notches" class="row no-gutters h-100 w-100 directional">
+                    <div id="notches" class="row g-0 h-100 w-100 directional">
                         <template v-for="(ch_page, index) in chapter.pages">
                             <router-link :class="images[index+1] == null ? 'notch col' : 'notch col loaded'"
                                          :data-page="index+1" @mouseover="setNotch(index+1)"
@@ -408,8 +400,8 @@ export default {
             images: [],
             firstLoad: false,
             popupData : {
-                "header" : "Chapter licensed",
-                "body" : "This chapter is licensed and you can't read it.",
+                "header" : this.$root.__('Chapter licensed'),
+                "body" : this.$root.__('This chapter is licensed and you can\'t read it.'),
                 "button" : "Ok",
             }
         }
@@ -489,7 +481,7 @@ export default {
             //this.reader.setCookie(setting, value, 3650);
         },
         scrollTopOfPage() {
-            $('button[data-target="#navbarSupportedContent"][aria-expanded="true"]').click();
+            $('button[data-bs-target="#navbarSupportedContent"][aria-expanded="true"]').click();
             if (this.max_page < 1 || !this.animation) return;
             let offset = $('body').hasClass('hide-header') ? 0 : Number(getComputedStyle(document.body, "").fontSize.match(/(\d*(\.\d*)?)px/)[1]) * 3.5
             if (this.renderingMode === 'long-strip') {
@@ -574,7 +566,8 @@ export default {
             window.axios.post(this.reader.API_BASE_URL + '/vote' + this.$route.path.slice(5), {'vote': vote, 'vote_token': this.$store.getters.vote_token});
         },
         showPopup() {
-            $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
+            const modal = new bootstrap.Modal(document.getElementById('modal-container'));
+            modal.show();
         },
         updateCustomHTML() {
             this.reader.updateCustomHTML('banner_top');

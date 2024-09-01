@@ -105,9 +105,6 @@ body.hide-header {
     display: none;
 }
 
-#modal-settings .advanced label {
-}
-
 #modal-settings .advanced label:before {
     content: '* ';
 }
@@ -438,10 +435,6 @@ body.hide-header #reader[data-display="fit-both"] #reader-images img {
 
 #reader-page-bar:hover #thumb {
     background: #eee;
-}
-
-#reader-page-bar:hover #track {
-    /*border: 2px solid #ccc;*/
 }
 
 #reader-page-bar .notch:not(.loaded) {

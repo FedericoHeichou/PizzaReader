@@ -1,7 +1,7 @@
 @extends('admin.comics.main')
 @section('list-title', 'Your Comics')
 @section('list-buttons')
-    <a href="{{ route('admin.comics.create') }}" class="btn btn-success ml-3">Add comic</a>
+    <a href="{{ route('admin.comics.create') }}" class="btn btn-success ms-3">Add comic</a>
 @endsection
 @section('list')
     <div class="list">
@@ -15,8 +15,7 @@
                     @if(Auth::user()->hasPermission("manager"))
                         <span class="spacer">|</span>
                         <a href="{{ route('admin.comics.destroy', $comic->id) }}"
-                           onclick="confirmbox('Do you want to delete this comic and its relative chapters?', 'destroy-comic-form-{{ $comic->id }}');">
-                            Delete comic</a>
+                            data-bs-toggle="modal" data-bs-target="#modal-container" data-description="Do you want to delete this comic and its relative chapters?" data-form="destroy-comic-form-{{ $comic->id }}">Delete comic</a>
                         <form id="destroy-comic-form-{{ $comic->id }}" action="{{ route('admin.comics.destroy', $comic->id) }}"
                             method="POST" class="d-none">
                             @csrf

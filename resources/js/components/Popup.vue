@@ -1,16 +1,16 @@
 <template>
-    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" style="display: none">
-        <div class="modal-dialog" role="document">
+    <div id="modal-container" class="modal fade" tabindex="-1" style="display: none" aria-labelledby="modal-text-head" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 id="modal-text-head">{{ popupData.header }}</h3>
-                    <button @click="closeFunction" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <span id="modal-text-desc">{{ popupData.body }}</span>
                 </div>
                 <div class="modal-footer">
-                    <span @click="closeFunction" class="btn btn-success">{{ popupData.button }}</span>
+                    <span class="btn btn-success" data-bs-dismiss="modal">{{ popupData.button }}</span>
                 </div>
             </div>
         </div>
@@ -21,10 +21,5 @@
 export default {
     name: "Popup",
     props : ["popupData"],
-    methods : {
-        closeFunction(){
-            $('#modal-container').modal('hide');
-        }
-    },
 }
 </script>

@@ -5,43 +5,43 @@
                 <span class="fas fa-book fa-fw"></span>
                 {{ comic.title }}
                 <a v-if="comic.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug" target="_blank">
-                    <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                    <span class="fas fa-edit fa-fw me-0" aria-hidden="true" title="Edit"></span>
                 </a>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-3 col-md-4 text-center">
-                        <div class="thumbnail-full float-lg-left">
+                        <div class="thumbnail-full float-lg-start">
                             <img :src="comic.thumbnail" class="rounded" :alt="comic.title" :title="comic.title">
                         </div>
                     </div>
                     <div class="col-xl-9 col-md-8">
 
                         <div v-if="comic.last_chapter != null" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Last chapter') }}:</label>
                             </div>
                             <div class="col-md-10 text-success">
                                 <span class="fas fa-book-open fa-fw" aria-hidden="true" title="Last chapter"></span>
-                                <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold">
+                                <router-link :to="comic.last_chapter.url" class="text-success fw-bold">
                                     {{ comic.last_chapter.full_title }}
                                 </router-link>
                             </div>
                         </div>
 
                         <div v-if="comic.alt_titles.length" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0 label-badge">{{ reader.__('Alternative titles') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <template v-for="alt_title in comic.alt_titles">
-                                    <span class="badge badge-success p-2 text-white">{{ alt_title }}</span>&nbsp;
+                                    <span class="badge bg-success p-2 text-white">{{ alt_title }}</span>&nbsp;
                                 </template>
                             </div>
                         </div>
 
                         <div v-if="comic.author" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Author') }}:</label>
                             </div>
                             <div class="col-md-10">
@@ -50,7 +50,7 @@
                         </div>
 
                         <div v-if="comic.artist" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Artist') }}:</label>
                             </div>
                             <div class="col-md-10">
@@ -59,24 +59,24 @@
                         </div>
 
                         <div v-if="comic.target" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0 label-badge">{{ reader.__('Target') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <router-link v-if="comic.target != null" :to="'/targets/' + comic.target.toLowerCase()"
-                                             class="badge badge-info p-2 text-white">{{ comic.target }}
+                                             class="badge bg-info p-2 text-white">{{ comic.target }}
                                 </router-link>
                                 <template v-else>{{ comic.target }}</template>
                             </div>
                         </div>
 
                         <div v-if="comic.genres.length" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0 label-badge">{{ reader.__('Genres') }}:</label>
                             </div>
                             <div class="col-md-10">
                                 <template v-for="genre in comic.genres">
-                                    <router-link :to="'/genres/' + genre.slug" class="badge badge-info p-2 text-white">
+                                    <router-link :to="'/genres/' + genre.slug" class="badge bg-info p-2 text-white">
                                         {{ genre.name }}
                                     </router-link>&nbsp;
                                 </template>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Format') }}:</label>
                             </div>
                             <div class="col-md-10">
@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Adult') }}:</label>
                             </div>
                             <div class="col-md-10">
@@ -102,7 +102,7 @@
                         </div>
 
                         <div class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Stats') }}:</label>
                             </div>
                             <div class="col-md-10">
@@ -121,7 +121,7 @@
                         </div>
 
                         <div v-if="comic.status" class="row border-bottom py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0 label-badge">{{ reader.__('Status') }}:</label>
                             </div>
                             <div class="col-md-10">
@@ -130,7 +130,7 @@
                         </div>
 
                         <div v-if="comic.description" class="row py-1">
-                            <div class="col-md-2 font-weight-bold">
+                            <div class="col-md-2 fw-bold">
                                 <label class="mb-0">{{ reader.__('Description') }}:</label>
                             </div>
                             <div class="col-md-10 text-pre text-justify">{{ comic.description }}</div>
@@ -151,7 +151,7 @@
                         {{ reader.__('Chapters') }}
                     </div>
                     <div class="col-sm-3">
-                        <input class="form-control mr-sm-2 ui-autocomplete-input card-search" type="search"
+                        <input class="form-control me-sm-2 ui-autocomplete-input card-search" type="search"
                                :placeholder="reader.__('Filter chapters')" aria-label="Filter" name="filter" autocomplete="off">
                     </div>
                 </div>
@@ -159,32 +159,32 @@
             <div class="card-body">
 
                 <div class="row border-bottom py-1 d-sm-flex d-none">
-                    <div class="col-sm-auto text-center pr-0">
+                    <div class="col-sm-auto text-center pe-0">
                         <span class="fa fa-eye fa-fw" title="Read"></span>
-                        <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                        <span class="fa fa-download fa-fw ps-sm-1" title="Direct download"></span>
                         <span class="fa fa-cloud-download-alt fa-fw" title="External download"></span>
                         <span class="fa fa-file-pdf fa-fw" title="PDF"></span>
                     </div>
-                    <div class="col-sm-5 text-left">{{ reader.__('Title') }}</div>
+                    <div class="col-sm-5 text-start">{{ reader.__('Title') }}</div>
                     <div class="col-sm-auto text-center">
                         <span class="fa fa-globe fa-fw" title="Language" style="width:24px"></span>
                     </div>
-                    <div class="col-sm-2 text-success text-left pl-3">
+                    <div class="col-sm-2 text-success text-start ps-3">
                         <span class="fa fa-users fa-fw" title="Team"></span>
                     </div>
-                    <div class="col-md-2 col text-info text-right"><span class="fa fa-eye fa-fw" title="Views"></span></div>
-                    <div class="col-sm text-right pl-0"><span class="fa fa-clock fa-fw" title="Publication date"></span></div>
+                    <div class="col-md-2 col text-info text-end"><span class="fa fa-eye fa-fw" title="Views"></span></div>
+                    <div class="col-sm text-end ps-0"><span class="fa fa-clock fa-fw" title="Publication date"></span></div>
                 </div>
 
                 <div v-for="chapter in comic.chapters"
                      :class="'row flex-sm-nowrap text-truncate border-bottom py-1 item' + (chapter.hidden ? ' hidden' : '') + (chapter.licensed ? ' licensed' : '') + (getViewed(chapter.slug_lang_vol_ch_sub) ? ' read text-secondary' : '')">
-                    <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
+                    <div class="col-auto text-sm-center pe-0 order-1 overflow-hidden">
                         <span :class="'cursor-pointer fa fa-eye' + (getViewed(chapter.slug_lang_vol_ch_sub) ? '' : '-slash') + ' fa-fw'"
                               :title="'Mark as ' + (getViewed(chapter.slug_lang_vol_ch_sub) ? 'unread' : 'read')" @click="setViewed(chapter.slug_lang_vol_ch_sub)"></span>
                         <a v-if="chapter.chapter_download !== null" :href="reader.API_BASE_URL + chapter.chapter_download">
-                            <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                            <span class="fa fa-download fa-fw ps-sm-1" title="Direct download"></span>
                         </a>
-                        <span v-else class="fa fa-download fa-fw text-secondary pl-sm-1" title="Direct download unavailable"></span>
+                        <span v-else class="fa fa-download fa-fw text-secondary ps-sm-1" title="Direct download unavailable"></span>
                         <a v-if="chapter.download_link !== null" :href="chapter.download_link" target="_blank">
                             <span class="fa fa-cloud-download-alt fa-fw" title="External download"></span>
                         </a>
@@ -194,19 +194,19 @@
                         </a>
                         <span v-else class="fa fa-file-pdf fa-fw text-secondary" title="PDF unavailable"></span>
                     </div>
-                    <div class="col-sm-5 col-7 text-left order-2 text-truncate">
+                    <div class="col-sm-5 col-7 text-start order-2 text-truncate">
                         <span class="chapter">
                             <a v-if="chapter.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug + '/chapters/' + chapter.id" target="_blank">
-                                <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                                <span class="fas fa-edit fa-fw me-0" aria-hidden="true" title="Edit"></span>
                             </a>
                             <router-link v-if="!chapter.licensed || chapter.id !== null" :to="chapter.url" class="filter" :title="chapter.full_title">{{ chapter.full_title }}</router-link>
-                            <span v-else @click="showPopup" class="filter" :title="chapter.full_title + ' [LICENSED]'">{{ chapter.full_title }}</span>
+                            <span v-else data-bs-toggle="modal" data-bs-target="#modal-container" class="filter" :title="chapter.full_title + ' [LICENSED]'">{{ chapter.full_title }}</span>
                         </span>
                     </div>
-                    <div class="col-auto text-sm-center pr-sm-3 pr-1 order-sm-3 order-4 overflow-hidden">
+                    <div class="col-auto text-sm-center pe-sm-3 pe-1 order-sm-3 order-4 overflow-hidden">
                         <span :class="'rounded flag flag-' + chapter.language" :title="chapter.language"></span>
                     </div>
-                    <div class="col-sm-2 col-7 text-left pl-sm-3 pl-0 order-sm-4 order-5 text-truncate"
+                    <div class="col-sm-2 col-7 text-start ps-sm-3 ps-0 order-sm-4 order-5 text-truncate"
                          :title="chapter.teams.filter(Boolean).map(function(el){return el.name;}).join(', ')">
                         <template v-if="chapter.teams[0] != null">
                             <a :href="chapter.teams[0].url" target="_blank">{{ chapter.teams[0].name }}</a>
@@ -215,8 +215,8 @@
                             <a :href="chapter.teams[1].url" target="_blank">{{ chapter.teams[1].name }}</a>
                         </template>
                     </div>
-                    <div class="col-md-2 col text-info text-right order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
-                    <div class="col text-right overflow-hidden order-sm-6 order-3 pl-0 ch-time" :title="new Date(chapter.published_on)">
+                    <div class="col-md-2 col text-info text-end order-sm-6 order-6 overflow-hidden">{{ chapter.views }}</div>
+                    <div class="col text-end overflow-hidden order-sm-6 order-3 ps-0 ch-time" :title="new Date(chapter.published_on)">
                         {{ chapter.time }}
                     </div>
                 </div>
@@ -238,19 +238,19 @@
             <div class="card-body">
 
                 <div class="row border-bottom py-1 d-sm-flex d-none">
-                    <div class="col-sm-auto text-center pr-0">
-                        <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                    <div class="col-sm-auto text-center pe-0">
+                        <span class="fa fa-download fa-fw ps-sm-1" title="Direct download"></span>
                     </div>
-                    <div class="col-10 text-left">{{ reader.__('Filename') }}</div>
+                    <div class="col-10 text-start">{{ reader.__('Filename') }}</div>
                 </div>
 
                 <div v-for="(download, volume) in comic.volume_downloads" class="row flex-sm-nowrap text-truncate border-bottom py-1 item">
-                    <div class="col-auto text-sm-center pr-0 order-1 overflow-hidden">
+                    <div class="col-auto text-sm-center pe-0 order-1 overflow-hidden">
                         <a :href="reader.API_BASE_URL + download">
-                            <span class="fa fa-download fa-fw pl-sm-1" title="Direct download"></span>
+                            <span class="fa fa-download fa-fw ps-sm-1" title="Direct download"></span>
                         </a>
                     </div>
-                    <div class="col-10 text-left order-2 overflow-hidden">
+                    <div class="col-10 text-start order-2 overflow-hidden">
                         <span class="chapter">
                             <a :href="reader.API_BASE_URL + download">{{ volume }}</a>
                         </span>
@@ -329,9 +329,6 @@ export default {
             localStorage.setItem('viewed', JSON.stringify(this.viewed));
             //this.reader.setCookie('viewed', JSON.stringify(this.viewed), 3650);
             this.$forceUpdate();
-        },
-        showPopup() {
-            $('#modal-container').modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
         },
         updateCustomHTML() {
             this.reader.updateCustomHTML('comic_top_html');

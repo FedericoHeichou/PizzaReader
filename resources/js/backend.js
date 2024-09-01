@@ -94,34 +94,42 @@ const deleteComic = function (comic_id) {
     assignComicsBuild();
 }
 
-const assignComicsBox = function (user, comics) {
-    event.preventDefault();
-    let modalContainer = $("#modal-assign");
-    modalContainer.find('h4').html('Assign comics to ' + user.name).attr('data-user', user.id);
-    modalContainer.find('#all_comics').prop('checked', user.all_comics);
+const assignComicsBox = function (event) {
+    const button = event.relatedTarget;
+    const userName = button.dataset.userName;
+    const userId = button.dataset.userId;
+    const userAllComics = button.dataset.userAllComics === '1';
+    const titleElement = modalAssign.querySelector('h4');
+    titleElement.textContent = 'Assign comics to ' + userName;
+    titleElement.dataset.user = userId;
+    const allComicsCheckbox = modalAssign.querySelector('#all_comics');
+    allComicsCheckbox.checked = userAllComics;
     assignedComics = [];
+    const comicsB64 = button.dataset.comics;
+    const comics = JSON.parse(window.atob(comicsB64));
     if (comics.length) {
         comics.forEach(function (comic) {
             assignedComics[comic.pivot.comic_id] = comic.name
         });
     }
     assignComicsBuild();
-    modalContainer.modal({show: true, closeOnEscape: true, backdrop: 'static', keyboard: true});
 }
 
 function assignComicsBuild() {
     let assigned_comics_html = '<div class="comics">';
     for(let i=1; i < assignedComics.length; i++) {
         if(assignedComics[i] !== undefined) assigned_comics_html += '<span data-comic="' + i +
-            '" class="comic badge badge-info p-2 text-white mr-2 mt-1 cursor-pointer" onclick="deleteComic(' + i + ')">' +
+            '" class="comic badge bg-info p-2 text-white mr-2 mt-1 cursor-pointer" onclick="deleteComic(' + i + ')">' +
             assignedComics[i] + ' <span class="fas fa-times-circle fa-fw"></span></span>';
     }
     assigned_comics_html += '</div>';
     $('#assigned-comics').html(assigned_comics_html);
 }
+if (typeof modalAssign !== 'undefined') {
+    modalAssign.addEventListener('show.bs.modal', assignComicsBox);
+}
 
-
-$(document).ready(function () {
+$(function () {
     let comic_search = $('#comic-search');
     let results_box = $('#results-box');
     comic_search.on('input', function () {

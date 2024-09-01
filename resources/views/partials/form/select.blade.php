@@ -1,6 +1,6 @@
 @extends('partials.form.base')
 @section('element-' . $field)
-        <select {{ isset($required) && $required ? 'required' : '' }} class="form-control @error($field) is-invalid @enderror"
+        <select {{ isset($required) && $required ? 'required' : '' }} class="form-control form-select @error($field) is-invalid @enderror"
                 name="{{ $field }}" id="{{ $field }}">
         @if(isset($nullable))
             <option value="0">---</option>

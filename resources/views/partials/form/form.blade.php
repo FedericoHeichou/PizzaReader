@@ -2,9 +2,9 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <div class="form-row">
+            <div class="row">
                 <div class="col-12">
-                    <h3 class="mt-1 float-left">@yield('card-title')</h3>
+                    <h3 class="mt-1 float-start">@yield('card-title')</h3>
                 </div>
             </div>
         </div>
@@ -16,8 +16,8 @@
                     <?php $field['parameters']['type'] =  $field['type'] ?>
                     @include('partials.form.' . $field['type'], $field['parameters'])
                 @endforeach
-                <div class="form-row text-center">
-                    <button type="submit" id="submit" class="btn btn-lg btn-success btn-block">Save</button>
+                <div class="d-grid gap-2 max-auto">
+                    <button type="submit" id="submit" class="btn btn-lg btn-success">Save</button>
                 </div>
             </form>
         </div>
