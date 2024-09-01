@@ -189,8 +189,8 @@ const purgeChapter = function (url) {
         redirect: 'follow'
     }
     showNotification('Running purge...', 'warning');
-    fetch(`${API_BASE_URL}${url}`, init).then(res => showNotification('Reader purged:', res.status === 200 ? 'success' : 'error'));
-    const ch_slug = url.split('/', 3)[2];
+    fetch(url, init).then(res => showNotification('Reader purged:', res.status === 200 ? 'success' : 'error'));
+    const ch_slug = url.substr(BASE_URL.length).split('/', 2)[1];
     fetch(`${API_BASE_URL}/comics/${ch_slug}`, init).then(res => showNotification('Comic purged:', res.status === 200 ? 'success' : 'error'));
     fetch(`${API_BASE_URL}/comics`, init).then(res => showNotification('Comics purged:', res.status === 200 ? 'success' : 'error'));
     fetch(`${API_BASE_URL}/recommended`, init).then(res => showNotification('Recommended purged:', res.status === 200 ? 'success' : 'error'));
