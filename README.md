@@ -2,7 +2,7 @@
 <p align="center">
     <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.4.x-blue">
     <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.1-blue">
-    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E9.19-lime">
+    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E10.0-lime">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
 
 # About PizzaReader
