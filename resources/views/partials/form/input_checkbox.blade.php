@@ -5,6 +5,6 @@
             <input type="checkbox"
                    class="form-check-input @error($field) is-invalid @enderror" value="@yield($field, 0)"
                    name="{{ $field }}" id="{{ $field }}" {{ $__env->yieldContent($field) ? 'checked' : '' }} >
-            <label for="{{ $field }}" class="form-check-label">Enable</label>
+            <label for="{{ $field }}" class="form-label form-check-label">Enable</label>
         </div>
 @endsection

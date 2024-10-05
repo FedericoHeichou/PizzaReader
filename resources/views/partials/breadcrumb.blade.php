@@ -1,5 +1,5 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb p-3 rounded-1">
         <?php $link = "" ?>
         @for($i = 1; $i <= count(Request::segments()); $i++)
             @if(Request::segment($i-1) === "comics" && !in_array(Request::segment($i), forbidden_words)) <?php $text = $comic->name; ?>

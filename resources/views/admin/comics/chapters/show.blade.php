@@ -114,7 +114,7 @@
               <td>
                   <span class="size">{%=o.formatFileSize(file.size)%}</span>
               </td>
-              <td class="td-buttons pr-4">
+              <td class="td-buttons pe-4">
                   {% if (file.deleteUrl) { %}
                       <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                           <i class="fas fa-trash"></i>

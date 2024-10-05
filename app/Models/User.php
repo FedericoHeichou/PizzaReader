@@ -6,9 +6,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable {
-    use HasFactory, Notifiable;
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,17 +38,21 @@ class User extends Authenticatable {
     ];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'id' => 'integer',
-        'role_id' => 'integer',
-        'email_verified_at' => 'datetime',
-        'last_login' => 'datetime',
-        'all_comics' => 'boolean'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'role_id' => 'integer',
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'last_login' => 'datetime',
+            'all_comics' => 'boolean',
+        ];
+    }
 
     public function role() {
         return $this->belongsTo(Role::class);

@@ -3,12 +3,12 @@
     @yield('information')
     <div class="card">
         <div class="card-header">
-            <div class="form-row">
+            <div class="row">
                 <div class="col-sm-9">
-                    <h3 class="mt-1 float-left">{{ $comic->name }} stats</h3>
+                    <h3 class="mt-1 float-start">{{ $comic->name }} stats</h3>
                 </div>
                 <div class="col-sm-3">
-                    <select class="form-control float-right" id="time-range">
+                    <select class="form-control form-select float-end" id="time-range">
                         <option value="today" data-min="2" data-max="1">Today</option>
                         <option value="yesterday" data-min="3" data-max="2">Yesterday</option>
                         <option value="last-7-days" data-min="8" data-max="2" selected="selected">Last 7 days</option>
@@ -24,29 +24,29 @@
         <div class="card-body">
             <p>Select periods to compare:</p>
             <form method="dialog">
-                <div class="form-row">
+                <div class="row">
                     <div class="col-sm-2">
-                        <label for="compare-with-from" class="sr-only">From</label>
+                        <label for="compare-with-from" class="form-label visually-hidden">From</label>
                         <input required type="date" class="form-control" id="compare-with-from" value="{{ date('Y-m-d', strtotime('-14 days')) }}">
                     </div>
                     <div class="col-sm-2">
-                        <label for="compare-with-to" class="sr-only">To</label>
+                        <label for="compare-with-to" class="form-label visually-hidden">To</label>
                         <input required type="date" class="form-control" id="compare-with-to" value="{{ date('Y-m-d', strtotime('-8 days')) }}">
                     </div>
                     <div class="col-sm-4 text-center">
                         <input type="submit" class="btn btn-primary" id="compare" value="Compare">
                     </div>
                     <div class="col-sm-2">
-                        <label for="compare-from" class="sr-only">From</label>
+                        <label for="compare-from" class="form-label visually-hidden">From</label>
                         <input required type="date" class="form-control" id="compare-from" value="{{ date('Y-m-d', strtotime('-7 days')) }}">
                     </div>
                     <div class="col-sm-2">
-                        <label for="compare-to" class="sr-only">To</label>
+                        <label for="compare-to" class="form-label visually-hidden">To</label>
                         <input required type="date" class="form-control" id="compare-to" value="{{ date('Y-m-d', strtotime('-1 days')) }}">
                     </div>
                 </div>
             </form>
-            <div class="form-row mt-3">
+            <div class="row mt-3">
                 <div class="col-sm-4 text-center">
                     <p id="total-old"></p>
                 </div>

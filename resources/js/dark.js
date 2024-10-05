@@ -1,7 +1,13 @@
-$(document).ready(function(){
+$(function(){
     $("#dark-mode-switch").on("change", function() {
         setCookie("dark", parseInt(getCookie("dark")) ? 0 : 1, 3650);
-        $("body").toggleClass("dark");
+        const body = $("body");
+        body.toggleClass("dark");
+        if (body.hasClass("dark")) {
+            body.attr("data-bs-theme", "dark");
+        } else {
+            body.attr("data-bs-theme", "light");
+        }
     });
 });
 

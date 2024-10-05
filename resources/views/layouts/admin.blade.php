@@ -45,7 +45,7 @@
     <meta name="msapplication-TileImage" content="{{ config('settings.logo_asset_72') }}"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}" crossOrigin="use-credentials">
 </head>
-<body class="{{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "dark" : "" }}">
+<body class="{{ isset($_COOKIE['dark']) &&  $_COOKIE['dark'] ? 'dark' : '' }}" data-bs-theme="{{ isset($_COOKIE['dark']) &&  $_COOKIE['dark'] ? 'dark' : '' }}">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container px-lg-0">
@@ -57,13 +57,13 @@
                     @endif
                     {{ config('settings.reader_name', 'PizzaReader') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link{{ Route::is('admin.comics.*') ? ' active' : '' }}"
                                href="{{ route('admin.comics.index') }}">
@@ -101,12 +101,12 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <div class="custom-control custom-switch p-2 ml-4">
-                                <input type="checkbox" class="custom-control-input" id="dark-mode-switch"
+                            <div class="form-check form-switch p-2 ms-4">
+                                <input class="form-check-input" type="checkbox" id="dark-mode-switch"
                                     {{ isset($_COOKIE["dark"]) &&  $_COOKIE["dark"] ? "checked" : "" }}>
-                                <label class="custom-control-label" for="dark-mode-switch">Dark</label>
+                                <label class="form-check-label" for="dark-mode-switch">Dark</label>
                             </div>
                         </li>
                         <!-- Authentication Links -->
@@ -121,7 +121,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

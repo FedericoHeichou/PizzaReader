@@ -5,7 +5,7 @@
 @section('form-action', route('admin.comics.destroy', $comic->id))
 @section('list-title', 'Chapters')
 @section('list-buttons')
-    <a href="{{ route('admin.comics.chapters.create', $comic->slug) }}" class="btn btn-success ml-3">Add chapter</a>
+    <a href="{{ route('admin.comics.chapters.create', $comic->slug) }}" class="btn btn-success ms-3">Add chapter</a>
 @endsection
 @section('list')
     <div class="list">
@@ -21,8 +21,7 @@
                     <span class="small">
                         @if(Auth::user()->hasPermission("manager"))
                             <a href="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
-                               onclick="confirmbox('Do you want to delete this chapter and its relative pages?', 'destroy-chapter-form-{{ $chapter->id }}')">
-                                Delete chapter</a>
+                                data-bs-toggle="modal" data-bs-target="#modal-container" data-description="Do you want to delete this chapter and its relative pages?" data-form="destroy-chapter-form-{{ $chapter->id }}">Delete chapter</a>
                             <form id="destroy-chapter-form-{{ $chapter->id }}" action="{{ route('admin.comics.chapters.destroy', ['comic' => $comic->id, 'chapter' => $chapter->id]) }}"
                                   method="POST" class="d-none">
                                 @csrf

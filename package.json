@@ -1,6 +1,6 @@
 {
     "name": "pizzareader",
-    "version": "1.0.4",
+    "version": "1.1.0",
     "private": true,
     "scripts": {
         "dev": "npm run development",
@@ -15,7 +15,7 @@
         "@vue/compat": "^3.1.0",
         "@vue/compiler-sfc": "^3.1.0",
         "axios": "^1.6.0",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^5.0.0",
         "cross-env": "^7.0.3",
         "jquery": "^3.7.0",
         "laravel-mix": "^6.0.49",

@@ -1,14 +1,16 @@
 # <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
 <p align="center">
-    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.4.x-blue">
-    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.0-blue">
-    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E9.19-lime">
+    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.5.x-blue">
+    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.2-blue">
+    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E11.0-lime">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
 
 # About PizzaReader
 A manga and comic reader written in Laravel and Vue.  
 It is used from 2020 by many italian scanlation teams, like [lupiteam.net](https://lupiteam.net), [phoenixscans.com](https://www.phoenixscans.com) and [gtothegreatsite.net](https://reader.gtothegreatsite.net), that is the reason why it is called PizzaReader.  
-It supports [Tachiyomi](https://tachiyomi.org/), a manga reader Android application and I created there a [multisrc class](https://github.com/tachiyomiorg/tachiyomi-extensions/tree/master/multisrc/overrides/pizzareader) to add your reader there too.  
+
+It supports [Mihon](https://mihon.app/) (fork of the discontinued [Tachiyomi](https://tachiyomi.org/)), a manga reader Android application and I created a [multisrc class](https://github.com/keiyoushi/extensions-source/tree/main/lib-multisrc/pizzareader) there (originally it was in the official [tachiyomi-extensions](https://github.com/tachiyomiorg/tachiyomi-extensions/tree/master/multisrc/overrides/pizzareader) and now deleted repo) to allow you to easily create an extension and make your reader available in the most famous opensource manga reader app. Of course, other Tachiyomi forks may also be compatible. 
+
 The admin panel is inspired by the old famous [FoOlSlide2](https://github.com/chocolatkey/FoOlSlide2) because I started to develop this reader for personal use, but other italian teams contacted me and asked to install it on their websites.  
 I made this reader publicly available in May 2023.
 
@@ -50,7 +52,7 @@ The `master` version usually is stable because branches are merged after being t
 If you see my last commit is old, you can consider the `master` branch stable, I just forgot to tag.  
 Sometime I merge dependabot's pull requests on `master` without rebuilding the application because most of them are only for development.
 
-The current stable version is based on Laravel 9 and requires PHP >=8.0.  
+The current stable version is based on Laravel 11 and requires PHP >=8.2.  
 Older versions are not mainted at all.
 
 # Installation
@@ -68,6 +70,10 @@ After editing your `.env` file you should run `php artisan config:cache`. If you
 ## Docker
 Here a dummy repository to run the reader with Docker: [PizzaReader-docker](https://github.com/FedericoHeichou/PizzaReader-docker).  
 This is not production ready, but it can be useful for testing and with some modifications it can be used in production.
+
+## Requirements
+Basic requirements are listed in the [composer.json](composer.json) file.  
+Other required system libraries and settings are listed in the [PizzaReader-docker's Dockerfile](https://github.com/FedericoHeichou/PizzaReader-docker/blob/main/Dockerfile).
 
 ## How to
 ```bash

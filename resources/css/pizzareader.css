@@ -1,0 +1,15 @@
+.text-justify {
+    text-align: justify !important;
+}
+
+a, nav a:hover, a.btn:hover {
+    text-decoration: none;
+}
+
+a:hover, .breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb {
+    background-color: #e9ecef;
+}

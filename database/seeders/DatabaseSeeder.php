@@ -5,18 +5,18 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run() {
+    public function run(): void
+    {
         $this->call([
             RoleSeeder::class,
             ComicFormatSeeder::class,
             SettingsSeeder::class,
-            //TestSeeder::class, //TODO to remove
+            // TestSeeder::class, // Dev only
         ]);
     }
 }

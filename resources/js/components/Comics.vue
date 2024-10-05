@@ -5,13 +5,13 @@
             <div v-if="reader.$route.name === 'All Comics'" id="all_comics_top_html" class="text-center"></div>
             <div class="row">
                 <div v-for="comic in comics" :class="'col-lg-6 pb-1 pt-2 border-bottom item' + (comic.hidden ? ' hidden' : '')">
-                    <div :class="'thumbnail float-left mr-3 ml-1' + (reader.$route.name === 'Last Releases' ? ' small' : '')">
+                    <div :class="'thumbnail float-start me-3 ms-1' + (reader.$route.name === 'Last Releases' ? ' small' : '')">
                         <router-link :to="comic.url"><img :src="comic.thumbnail_small" :onerror="'this.onerror=null;this.src=\'' + comic.thumbnail +'\';'" :alt="comic.title" :title="comic.title" class="rounded"></router-link>
                     </div>
                     <div class="text-truncate mb-1 d-flex flex-nowrap align-items-center">
-                        <h5 class="font-weight-bold mb-0 mr-1">
+                        <h5 class="fw-bold mb-0 me-1">
                             <a v-if="comic.id !== null" :href="reader.BASE_URL + 'admin/comics/' + comic.slug" target="_blank">
-                                <span class="fas fa-edit fa-fw mr-0" aria-hidden="true" title="Edit"></span>
+                                <span class="fas fa-edit fa-fw me-0" aria-hidden="true" title="Edit"></span>
                             </a>
                             <router-link class="text-wrap filter" :title="comic.title" :to="comic.url">
                                 {{ comic.title }}
@@ -42,10 +42,10 @@
                         </li>
                         <li v-if="comic.last_chapter != null" class="text-success">
                             <span class="fas fa-book-open fa-fw" aria-hidden="true" title="Last chapter"></span>
-                            <router-link :to="comic.last_chapter.url" class="text-success font-weight-bold">{{ comic.last_chapter.full_title }}</router-link>
+                            <router-link :to="comic.last_chapter.url" class="text-success fw-bold">{{ comic.last_chapter.full_title }}</router-link>
                         </li>
                     </ul>
-                    <div v-if="reader.$route.path !== '/'" class="description text-pre pr-2 pr-lg-0">{{ comic.description }}</div>
+                    <div v-if="reader.$route.path !== '/'" class="description text-pre pe-2 pe-lg-0">{{ comic.description }}</div>
                     <div v-else class="" :title="new Date(comic.last_chapter.published_on)">
                         <span title="Publication date" class="fa fa-clock fa-fw"></span> {{ comic.last_chapter.time }}
                     </div>

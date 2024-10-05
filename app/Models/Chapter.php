@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use DuplicatedChapter;
+use App\Exceptions\DuplicatedChapter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 
 class Chapter extends Model {

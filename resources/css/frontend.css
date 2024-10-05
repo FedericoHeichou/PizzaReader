@@ -32,13 +32,13 @@ body {
 }
 
 .badge-status {
-    background-color: var(--blue);
+    background-color: var(--bs-blue);
 }
 
 .badge-status[data-status^="finish"],
 .badge-status[data-status^="concl"],
 .badge-status[data-status^="compl"] {
-    background-color: var(--green);
+    background-color: var(--bs-green);
 }
 
 .badge-status[data-status^="suspen"],
@@ -47,7 +47,7 @@ body {
 .badge-status[data-status^="on hiatus"],
 .badge-status[data-status^="in pausa"],
 .badge-status[data-status^="paus"] {
-    background-color: var(--red);
+    background-color: var(--bs-red);
 }
 
 .badge {
@@ -109,6 +109,12 @@ body {
     overflow-x: hidden;
     max-height: 350px;
     max-width: 300px;
+}
+
+@media (max-width: 767px) {
+    #results-box {
+        max-width: calc(100% - 1.5rem);
+    }
 }
 
 #results-box ul {
