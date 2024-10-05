@@ -20,7 +20,7 @@ class Comic extends Model {
         'hidden' => 'integer',
         'comic_format_id' => 'integer',
         'adult' => 'integer',
-        'order_index' => 'float',
+        'order_index' => 'decimal:3',
     ];
 
     public function scopePublished($query) {

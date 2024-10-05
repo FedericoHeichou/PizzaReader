@@ -3,16 +3,17 @@
     "type": "project",
     "description": "A Manga and Comics reader written in Laravel",
     "keywords": [
-        "framework",
-        "laravel"
+        "manga",
+        "comics",
+        "reader"
     ],
     "license": "Apache-2.0",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.5",
-        "laravel/framework": "^10.0",
-        "laravel/sanctum": "^3.2",
+        "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "ext-json": "*",
@@ -25,7 +26,7 @@
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },

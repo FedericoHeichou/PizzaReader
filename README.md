@@ -1,8 +1,8 @@
 # <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
 <p align="center">
-    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.4.x-blue">
-    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.1-blue">
-    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E10.0-lime">
+    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.5.x-blue">
+    <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.2-blue">
+    <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E11.0-lime">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
 
 # About PizzaReader
@@ -50,7 +50,7 @@ The `master` version usually is stable because branches are merged after being t
 If you see my last commit is old, you can consider the `master` branch stable, I just forgot to tag.  
 Sometime I merge dependabot's pull requests on `master` without rebuilding the application because most of them are only for development.
 
-The current stable version is based on Laravel 10 and requires PHP >=8.1.  
+The current stable version is based on Laravel 11 and requires PHP >=8.2.  
 Older versions are not mainted at all.
 
 # Installation
