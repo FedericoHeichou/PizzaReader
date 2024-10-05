@@ -8,7 +8,9 @@
 # About PizzaReader
 A manga and comic reader written in Laravel and Vue.  
 It is used from 2020 by many italian scanlation teams, like [lupiteam.net](https://lupiteam.net), [phoenixscans.com](https://www.phoenixscans.com) and [gtothegreatsite.net](https://reader.gtothegreatsite.net), that is the reason why it is called PizzaReader.  
-It supports [Tachiyomi](https://tachiyomi.org/), a manga reader Android application and I created there a [multisrc class](https://github.com/tachiyomiorg/tachiyomi-extensions/tree/master/multisrc/overrides/pizzareader) to add your reader there too.  
+
+It supports [Mihon](https://mihon.app/) (fork of the discontinued [Tachiyomi](https://tachiyomi.org/)), a manga reader Android application and I created a [multisrc class](https://github.com/keiyoushi/extensions-source/tree/main/lib-multisrc/pizzareader) there (originally it was in the official [tachiyomi-extensions](https://github.com/tachiyomiorg/tachiyomi-extensions/tree/master/multisrc/overrides/pizzareader) and now deleted repo) to allow you to easily create an extension and make your reader available in the most famous opensource manga reader app. Of course, other Tachiyomi forks may also be compatible. 
+
 The admin panel is inspired by the old famous [FoOlSlide2](https://github.com/chocolatkey/FoOlSlide2) because I started to develop this reader for personal use, but other italian teams contacted me and asked to install it on their websites.  
 I made this reader publicly available in May 2023.
 
