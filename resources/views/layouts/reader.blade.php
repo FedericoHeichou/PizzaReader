@@ -37,7 +37,7 @@
             }
         }
     } else {
-        $comic_title = ucwords(str_replace("-", " ", $comic_slug));
+        $comic_title = ucwords(str_replace("-", " ", (string)$comic_slug));
         if (request()->segment(1) === "read") {
             $ch_uri = substr(request()->getRequestUri(), strlen(request()->segment(1) . "/" . request()->segment(2) . "/" . request()->segment(3)) + 2);
             $ch = ReaderController::explodeCh(request()->segment(3), $ch_uri);
@@ -134,6 +134,11 @@
                         <li class="nav-item">
                             <router-link to="/comics" class="nav-link comics">
                                 <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> {{ __('All Comics') }}
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/advanced-search" class="nav-link advanced-seach">
+                                <span aria-hidden="true" title="Comics" class="fas fa-book fa-fw"></span> {{ __('Advanced Search') }}
                             </router-link>
                         </li>
                     @foreach(parse_ini_string(config('settings.menu')) as $k => $v)
