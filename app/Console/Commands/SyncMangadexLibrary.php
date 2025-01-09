@@ -157,14 +157,14 @@ class SyncMangadexLibrary extends Command
                 if ($processed >= $total) {
                     break;
                 }
-                sleep(3);
+                sleep(2);
             }
         }
     }
     private function saveList()
     {
         $authData = $this->mangadexApi->auth();
-        $limit = 20;
+        $limit = 10;
         $offset = 0;
         for (;;) {
             $data = $this->mangadexApi->getList($authData['access_token'], $limit, $offset);
@@ -173,6 +173,7 @@ class SyncMangadexLibrary extends Command
             }
             $offset += $limit;
             sleep(3);
+            break;
         }
 
     }
