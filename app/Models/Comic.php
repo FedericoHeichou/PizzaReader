@@ -367,7 +367,7 @@ class Comic extends Model {
         return generateSlug(new Comic, $fields);
     }
 
-    public static function getStats($comic): array {        
+    public static function getStats($comic): array {
         $date_format = 'DATE(`' . DB::getTablePrefix() . 'views`.`created_at`)';
         $views = $comic->views_list()
             ->select(DB::raw($date_format .' as view_date'), DB::raw('COUNT(*) AS views'))
@@ -395,5 +395,10 @@ class Comic extends Model {
         return [
             'views_per_day' => $views_per_day,
         ];
+    }
+
+    public function manga()
+    {
+        $this->hasOne(MangadexManga::class);
     }
 }
