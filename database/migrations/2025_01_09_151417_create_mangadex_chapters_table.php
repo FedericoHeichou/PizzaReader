@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mangadex_mangas', function (Blueprint $table) {
+        Schema::create('mangadex_chapters', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('mangadex_id')->unique()->index();
+            $table->string('title');
+            $table->integer('chapter_number');
+            $table->integer('volume_number');
+            $table->string('language', '5');
             $table->boolean('is_processed')->default(false);
-            $table->foreignIdFor(\App\Models\Comic::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\MangadexManga::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Chapter::class)->constrained()->cascadeOnDelete();
         });
     }
 
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mangadex_mangas');
+        Schema::dropIfExists('mangadex_chapters');
     }
 };

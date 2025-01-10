@@ -52,18 +52,18 @@ class SyncMangadexLibrary extends Command
      */
     public function handle()
     {
-        Team::create(
-            [
-                'name' => 'test', 'slug' => 'test', 'url' => 'google.com',
-            ]
-        );
-        $user = User::create([
-            'name' => 'Valerie',
-            'email' => 'v@v.c',
-            'password' => Hash::make('12345678'),
-        ]);
-        $user->role()->associate(Role::where('name', 'admin')->first());
-        $user->save();
+//        Team::create(
+//            [
+//                'name' => 'test', 'slug' => 'test', 'url' => 'google.com',
+//            ]
+//        );
+//        $user = User::create([
+//            'name' => 'Valerie',
+//            'email' => 'v@v.c',
+//            'password' => Hash::make('12345678'),
+//        ]);
+//        $user->role()->associate(Role::where('name', 'admin')->first());
+//        $user->save();
         $this->saveList();
         $this->prepareChaptersToSave();
         $this->saveChapters();
@@ -164,10 +164,11 @@ class SyncMangadexLibrary extends Command
     private function saveList()
     {
         $authData = $this->mangadexApi->auth();
-        $limit = 10;
+        $limit = 2;
         $offset = 0;
         for (;;) {
             $data = $this->mangadexApi->getList($authData['access_token'], $limit, $offset);
+            dd($data);
             if (! empty($data['data'])) {
                 $this->processSingleListPage($data);
             }

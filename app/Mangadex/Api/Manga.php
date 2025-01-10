@@ -7,12 +7,23 @@ use Illuminate\Support\Facades\Http;
 
 class Manga extends MangadexApi
 {
+    private readonly array $credentials;
     private const   MANGA_ENDPOINT = '/manga';
     private const RELATION_ENDPOINT = '/relation';
     private const RANDOM_ENDPOINT = '/random';
     private const TAG_ENDPOINT = '/tag';
 
-//    private const
+    public function __construct()
+    {
+        $this->credentials = [
+            'username'=>env('MANGADEX_USERNAME'),
+            'password'=>env('MANGADEX_PASSWORD'),
+            'client_id' => env('MANGADEX_CLIENT_ID'),
+            'client_secret' => env('MANGADEX_CLIENT_SECRET')
+        ];
+        parent::__construct();
+    }
+
 
     /**
      * Get Manga Lists
@@ -69,6 +80,7 @@ class Manga extends MangadexApi
     }
     public function getChapterImage(string $baseUrl, string $chapterHash, string $imageId)
     {
+        sleep(2);
         return Http::get("{$baseUrl}/data/{$chapterHash}/{$imageId}");
     }
 
@@ -116,15 +128,12 @@ class Manga extends MangadexApi
     }
     public function auth()
     {
-        $response = Http::asForm()->post('https://auth.mangadex.org/realms/mangadex/protocol/openid-connect/token', [
-            'grant_type'=>'password',
-            'username'=>'valerie001',
-            'password'=>'*x2@szgPL!DuLe3',
-            'client_id' => 'personal-client-05d928e0-e59b-41ad-a02c-4d4685927ec7-8bda937a',
-            'client_secret' => '7tNEj2ht0WUiyMmpGoDSvTib8HL9N8LI'
-        ]);
+        sleep(2);
+        $response = Http::asForm()->post(
+            'https://auth.mangadex.org/realms/mangadex/protocol/openid-connect/token',
+            array_merge($this->credentials, ['grant_type'=>'password'])
+        );
         return json_decode($response->getBody()->getContents(), true);
-//        dd($response->getBody()->getContents());
     }
     public function getList(string $token, int $limit = 10, int $offset = 0)
     {

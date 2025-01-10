@@ -60,6 +60,7 @@ class MangadexApi
      */
     protected function handleResponse ($response) : object
     {
+        sleep(2);
         if ($response->getStatusCode() === 200) {
             return json_decode($response->getBody());
         } else {
