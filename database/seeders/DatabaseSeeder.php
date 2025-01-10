@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ComicFormatSeeder::class,
             SettingsSeeder::class,
+            TeamSeeder::class,
+            UserSeeder::class,
             // TestSeeder::class, // Dev only
         ]);
     }

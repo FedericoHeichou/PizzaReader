@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('mangadex_id')->unique()->index();
             $table->string('title');
             $table->integer('chapter_number');
-            $table->integer('volume_number');
+            $table->integer('volume_number')->nullable();
             $table->string('language', '5');
             $table->boolean('is_processed')->default(false);
             $table->foreignIdFor(\App\Models\MangadexManga::class)->constrained()->cascadeOnDelete();

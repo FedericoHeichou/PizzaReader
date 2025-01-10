@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
 use App\Mangadex\Api\Manga as MangadexApi;
 use App\Models\Chapter;
@@ -10,38 +10,29 @@ use App\Models\MangadexManga;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Console\Command;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class SyncWithMangadex extends Command
+class SyncWithMangadex implements ShouldQueue
 {
+    use Queueable;
+
+    /**
+     * Create a new job instance.
+     */
     public function __construct(private MangadexApi $mangadexApi)
     {
-        return parent:: __construct();
     }
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:sync-with-mangadex';
 
     /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
+     * Execute the job.
      */
     public function handle()
     {
-        $this->init();
         $this->saveList();
     }
 
@@ -235,24 +226,6 @@ class SyncWithMangadex extends Command
     private function storeAs($path, $name, $content)
     {
         Storage::disk('local')->put("{$path}/$name", $content);
-    }
-    private function init()
-    {
-        if (Team::all()->count() != 0) {
-            return;
-        }
-        Team::create(
-            [
-                'name' => 'test', 'slug' => 'test', 'url' => 'google.com',
-            ]
-        );
-        $user = User::create([
-            'name' => 'Valerie',
-            'email' => 'v@v.c',
-            'password' => Hash::make('12345678'),
-        ]);
-        $user->role()->associate(Role::where('name', 'admin')->first());
-        $user->save();
     }
     private function getCoverArtId(array $relationships): string
     {
