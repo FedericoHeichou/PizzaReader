@@ -14,7 +14,7 @@
     "devDependencies": {
         "@vue/compat": "^3.1.0",
         "@vue/compiler-sfc": "^3.1.0",
-        "axios": "^1.6.0",
+        "axios": "^1.8.2",
         "bootstrap": "^5.0.0",
         "cross-env": "^7.0.3",
         "jquery": "^3.7.0",
