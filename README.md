@@ -1,6 +1,6 @@
 # <p align="center">![PizzaReader Logo](storage/app/public/img/logo/PizzaReader-128.png)<br />PizzaReader</p>
 <p align="center">
-    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.5.x-blue">
+    <img alt="Latest version" src="https://img.shields.io/badge/stable-v1.6.x-blue">
     <img alt="PHP Version Support" src="https://img.shields.io/badge/php-%3E%3D8.2-blue">
     <img alt="Laravel version" src="https://img.shields.io/badge/laravel-%5E11.0-lime">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-green"></p>
@@ -119,6 +119,9 @@ find . -type f -exec chmod 0644 {} \;
 
 You are now ready to register and login at `/admin`.
 
+## Migrating from another reader
+Check in the FAQs below if you want a shortcut to import a chapter.
+
 # Update
 How to update your reader:
 ```bash
@@ -206,6 +209,60 @@ If you are using a local cache (this is the default and most web service provide
 In addition, if you have enabled rate limiting in the API to prevent malicious IPs from making too many requests in a few seconds, a small file will be created for each IP.  
 If you notice you have thousands of files it means you are not running cronjobs or you are using an old version of the reader, in fact in the latest version a garbage collector (GC) has been added and it clears the filesystem by itself.  
 You can run the garbage collector manually by running `php artisan cache:gc --progress`.
+
+## How to import a chapter
+First, the comic has to exist, so you have to to create it manually in the admin panel.  
+Then you need to upload the chapter pages to a directory.  
+
+Finally, you can run the `chapters:import` command to import the chapter, specifying the directory and comic slug or ID.  
+All the images in the directory will be imported as pages of the chapter.  
+You can also specify some optional parameters like the chapter title, volume, number, subchapter, visibility, license, publication date, publication start date, publication end date, timezone, language, team, team2 and views; but as in the panel you can't have duplicate chapters, so they must have a unique combination of volume, chapter and subchapter.  
+
+**Note**: the default value of `hidden` is the same as `default_hidden_comic` in the settings (which is usually `true`), so if you want to publish the chapter immediately, you may need to set it to `false`.
+
+Upload the chapter somewhere in your server, then run:
+```bash
+php artisan chapters:import /path/to/pages/dir test-comic --team=Pizzaioli --hidden=false --chapter=1 --title="Chapter test"
+```
+
+After the import, if the command was successful, you can delete the directory containing the pages because they are now copied to the storage.  
+
+This is an example output of the `--help` command:
+```bash
+Description:
+  Import a chapter with all its pages for a specific comic
+
+Usage:
+  chapters:import [options] [--] <pages_directory> <comic_slug_or_id>
+
+Arguments:
+  pages_directory                      Target directory containing the pages which will be imported
+  comic_slug_or_id                     Comic slug or ID
+
+Options:
+      --title[=TITLE]                  Chapter title
+      --volume[=VOLUME]                Chapter volume
+      --chapter[=CHAPTER]              Chapter number
+      --subchapter[=SUBCHAPTER]        Chapter subchapter
+      --hidden[=HIDDEN]                Chapter visibility. Remember to set to false if you want to publish it immediately [default: configured default_hidden_comic value]
+      --licensed[=LICENSED]            Specify if the chapter is licensed [default: "false"]
+      --published_on[=PUBLISHED_ON]    Chapter publication date in the format YYYY-MM-DDTHH:MM. If not set, the current date will be used
+      --publish_start[=PUBLISH_START]  Chapter publication start date in the format YYYY-MM-DDTHH:MM. If not set, published_on will be used
+      --publish_end[=PUBLISH_END]      Chapter publication start date in the format YYYY-MM-DDTHH:MM. If not set, the publication will never end
+      --timezone[=TIMEZONE]            Chapter timezone. If not specified, the current PHP timezone will be used. Example: Europe/Rome
+      --language[=LANGUAGE]            Chapter language. If not specified, the reader default language will be used
+      --team[=TEAM]                    Team slug or ID
+      --team2[=TEAM2]                  Team2 slug or ID
+      --views[=VIEWS]                  Chapter views [default: "0"]
+  -h, --help                           Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                          Do not output any message
+  -V, --version                        Display this application version
+      --ansi|--no-ansi                 Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction                 Do not ask any interactive question
+      --env[=ENV]                      The environment the command should run under
+  -v|vv|vvv, --verbose                 Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
+
 
 # Donations
 Donations are appreciated, feel free to contact me at the email listed in my profile: [FedericoHeichou](https://github.com/FedericoHeichou).

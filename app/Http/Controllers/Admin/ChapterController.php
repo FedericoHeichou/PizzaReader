@@ -50,7 +50,7 @@ class ChapterController extends Controller {
         $now = Carbon::now();
         if(!$chapter['hidden'] && !$chapter['licensed'] && $now >= $chapter->publish_start && (!$chapter->publish_end || $now < $chapter->publish_end))
             VolumeDownload::cleanDownload(Chapter::volume_download($chapter), $comic);
-        return redirect()->route('admin.comics.chapters.show', ['comic' => $comic_slug, 'chapter' => $chapter->id])->with('success', 'Chapter created');
+        return redirect()->route('admin.comics.chapters.show', ['comic' => $comic_slug, 'chapter' => $chapter->id])->with('success', 'Chapter created')->with('chapter_id', $chapter->id);
     }
 
     public function show($comic_slug, $chapter_id) {
