@@ -51,4 +51,5 @@ const lang_messages = {
     "Left to right": "Da sinistra a destra",
     "Right to left": "Da destra a sinistra",
     "Page": "Pagina",
+    "Reset settings to default": "Ripristina impostazioni predefinite",
 }
