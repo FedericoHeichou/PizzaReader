@@ -476,7 +476,7 @@ class Chapter extends Model {
         $fields['published_on'] = convertToUTC($fields['published_on'], $fields['timezone']);
         $fields['publish_start'] = convertToUTC($fields['publish_start'], $fields['timezone']);
         if($fields['publish_end']) $fields['publish_end'] = convertToUTC($fields['publish_end'], $fields['timezone']);
-        Auth::user()->update(['timezone' => $fields['timezone']]);
+        if (Auth::user()) Auth::user()->update(['timezone' => $fields['timezone']]);
         unset($fields['timezone']);
         $fields['comic_id'] = $comic->id;
         if ($fields['team2_id'] === '0') unset($fields['team2_id']);
