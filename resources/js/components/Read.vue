@@ -14,6 +14,7 @@
                 <div id="reader-controls" class="col row g-0 flex-column flex-nowrap">
                     <div id="reader-controls-title" class="col-auto text-center p-2">
                         <router-link :to="comic.url" class="comic-title" :title="comic.title">
+                            <span class="fas fa-arrow-left fa-fw" aria-hidden="true"></span>
                             {{ comic.title }}
                         </router-link>
                     </div>
@@ -182,6 +183,11 @@
                                 <input type="radio" id="btn-check-rtl" class="btn-check" data-value="rtl" data-setting="direction" @click="setSettings" autocomplete="off" onkeydown="event.preventDefault()">
                                 <label class="btn btn-secondary col-6" for="btn-check-rtl">{{ reader.__('Right to left') }}</label>
                             </template>
+                        </div>
+                        <div class="col text-center mt-4">
+                            <button class="btn btn-secondary w-100" @click="setSettings" data-setting="reset" data-value="0">
+                                {{ reader.__('Reset settings to default') }}
+                            </button>
                         </div>
                     </div>
 
@@ -474,6 +480,18 @@ export default {
                 this.renderingMode = value;
                 this.renderedPages = this.renderingMode === 'double-page' ? 2 : 1;
                 this.needToRefresh = true;
+            } else if (setting === 'reset') {
+                this.displayFit = 'fit-width';
+                const comic = this.$store.getters.comic;
+                this.renderingMode = comic.format_id === 2 ? 'long-strip' : 'single-page';
+                this.direction = 'ltr';
+                this.valueLeft = -1;
+                this.valueRight = 1;
+                this.needToRefresh = true;
+                localStorage.removeItem('displayFit');
+                localStorage.removeItem('renderingMode');
+                localStorage.removeItem('direction');
+                return;
             } else {
                 return;
             }
@@ -555,6 +573,9 @@ export default {
             $('title').html(title);
             $('meta[property="og:title"]').html(title);
             this.firstLoad = true;
+            if (!this.$root.getSetting('renderingMode') && comic.format_id === 2) {
+                this.renderingMode = 'long-strip';
+            }
             this.$store.dispatch('fetchVote', chapter.vote_id);
         },
         sendVote(e) {

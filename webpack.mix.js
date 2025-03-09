@@ -38,6 +38,9 @@ mix.webpackConfig(() => {
       stats: {
         children: true
       },
+      output: {
+        crossOriginLoading: 'anonymous',
+      },
     }
   })
 
