@@ -4,6 +4,7 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Chapter;
 use App\Models\Comic;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -66,6 +67,7 @@ class ChapterControllerTest extends TestCase
 
         $manager = User::factory()->manager()->create();
         $comic   = Comic::factory()->create();
+        $team    = Team::factory()->create();
 
         $now = now()->format('Y-m-d\TH:i');
 
@@ -76,6 +78,7 @@ class ChapterControllerTest extends TestCase
             'language'     => 'en',
             'published_on' => $now,
             'publish_start'=> $now,
+            'team_id'      => $team->id,
         ]);
 
         $response->assertRedirect();
@@ -146,7 +149,8 @@ class ChapterControllerTest extends TestCase
 
         $manager = User::factory()->manager()->create();
         $comic   = Comic::factory()->create();
-        $chapter = Chapter::factory()->for($comic)->create(['chapter' => 5]);
+        $team    = Team::factory()->create();
+        $chapter = Chapter::factory()->for($comic)->create(['chapter' => 5, 'team_id' => $team->id]);
 
         $now = now()->format('Y-m-d\TH:i');
 
@@ -157,6 +161,7 @@ class ChapterControllerTest extends TestCase
             'language'     => 'en',
             'published_on' => $now,
             'publish_start'=> $now,
+            'team_id'      => $team->id,
         ])->assertRedirect();
 
         $this->assertDatabaseHas('chapters', ['id' => $chapter->id, 'chapter' => 10]);
@@ -173,7 +178,7 @@ class ChapterControllerTest extends TestCase
         $chapter = Chapter::factory()->for($comic)->create();
 
         $this->actingAs($manager)
-            ->delete("/admin/comics/{$comic->slug}/chapters/{$chapter->id}")
+            ->delete("/admin/comics/{$comic->id}/chapters/{$chapter->id}")
             ->assertRedirect();
 
         $this->assertDatabaseMissing('chapters', ['id' => $chapter->id]);
