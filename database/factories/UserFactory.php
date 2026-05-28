@@ -24,12 +24,34 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'role_id' => 5, // user
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'all_comics' => false,
         ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => ['role_id' => 1]);
+    }
+
+    public function manager(): static
+    {
+        return $this->state(fn (array $attributes) => ['role_id' => 2]);
+    }
+
+    public function editor(): static
+    {
+        return $this->state(fn (array $attributes) => ['role_id' => 3]);
+    }
+
+    public function checker(): static
+    {
+        return $this->state(fn (array $attributes) => ['role_id' => 4]);
     }
 
     /**

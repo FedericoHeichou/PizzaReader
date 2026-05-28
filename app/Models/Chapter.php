@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exceptions\DuplicatedChapter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 class Chapter extends Model {
+    use HasFactory;
     protected $fillable = [
         'comic_id', 'team_id', 'team2_id', 'volume', 'chapter', 'subchapter', 'title', 'slug', 'salt', 'prefix',
         'hidden', 'licensed', 'views', 'rating', 'download_link', 'thumbnail', 'language', 'published_on',
