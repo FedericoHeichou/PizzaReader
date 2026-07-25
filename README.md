@@ -150,6 +150,14 @@ Some cronjobs can be configured.
 For example you can set `CRON_VIEWS_CLEAR_DAYS` in your `.env` to specify the value passed with `--days` to [`views:clear`](#manually-clear-views-table) command.  
 All configurable settings are listed in the [.env.example](.env.example) file.
 
+# Tests
+
+Before running tests ensure to clear the config cache, else it will drop the database and you will lose all your data:
+```bash
+php artisan config:clear
+php artisan test
+```
+
 # FAQ
 Sometime I add features or bugfix who requires you to run manually certain commands for readers updated from old versions.  
 You can read these FAQs to findout if you have some of problems listed here and how to solve them.
