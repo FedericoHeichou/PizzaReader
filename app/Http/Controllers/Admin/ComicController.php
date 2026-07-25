@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ComicController extends Controller {
     public function index() {
@@ -128,16 +128,14 @@ class ComicController extends Controller {
     }
 
     public static function storeSmall($file, $path, $name, $new_width=150, $new_height=213) {
-        $height = Image::make($file)->height();
-        $width = Image::make($file)->width();
-        if ($width > $height) $new_width = null;
-        else $new_height = null;
-        $file = Image::make($file)->resize($new_width, $new_height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $file->encode('jpg');
+        $image = Image::decode($file);
+        if ($image->width() > $image->height()) {
+            $image = $image->scale(height: $new_height);
+        } else {
+            $image = $image->scale(width: $new_width);
+        }
         $new_name = getSmallThumbnail($name);
-        $file->save(storage_path("app/$path/$new_name"));
+        $image->save(storage_path("app/$path/$new_name"), quality: 80);
     }
 
     public function stats($comic_slug) {

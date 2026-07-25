@@ -7,20 +7,20 @@
         "comics",
         "reader"
     ],
-    "license": "Apache-2.0",
+    "license": "GPL-3.0",
     "require": {
-        "php": "^8.2",
-        "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "^2.5",
-        "laravel/framework": "^12.0",
-        "symfony/console": ">=7.0.3 <7.4",
-        "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.0",
+        "php": "^8.3",
+        "ext-gd": "*",
+        "ext-imagick": "*",
         "ext-json": "*",
         "ext-zip": "*",
-        "ext-imagick": "*",
-        "ext-gd": "*"
+        "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^4.0",
+        "intervention/image-laravel": "^4.0",
+        "laravel/framework": "^13.0",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^3.0",
+        "laravel/ui": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -28,7 +28,7 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^8.1",
-        "phpunit/phpunit": "^11.0",
+        "phpunit/phpunit": "^12.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
