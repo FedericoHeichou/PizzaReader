@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
 class Comic extends Model {
+    use HasFactory;
     protected $fillable = [
         'name', 'slug', 'salt', 'hidden', 'author', 'artist', 'target', 'genres', 'status', 'description', 'thumbnail',
         'custom_chapter', 'comic_format_id', 'adult', 'order_index', 'alt_titles',
