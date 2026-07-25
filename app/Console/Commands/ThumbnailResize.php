@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Http\Controllers\Admin\ComicController;
 use Illuminate\Console\Command;
 use App\Models\Comic;
-use Intervention\Image\Laravel\Facades\Image;
 
 class ThumbnailResize extends Command {
 
