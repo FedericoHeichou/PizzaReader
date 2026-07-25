@@ -14,5 +14,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->withoutMiddleware(VerifyCsrfToken::class);
+        // Uncomment the line below to see exceptions in tests instead of HTTP responses.
+        // $this->withoutExceptionHandling();
     }
 }

@@ -79,6 +79,7 @@ class ChapterControllerTest extends TestCase
             'published_on' => $now,
             'publish_start'=> $now,
             'team_id'      => $team->id,
+            'timezone'     => 'Europe/Rome',
         ]);
 
         $response->assertRedirect();
@@ -162,6 +163,7 @@ class ChapterControllerTest extends TestCase
             'published_on' => $now,
             'publish_start'=> $now,
             'team_id'      => $team->id,
+            'timezone'     => 'Europe/Rome',
         ])->assertRedirect();
 
         $this->assertDatabaseHas('chapters', ['id' => $chapter->id, 'chapter' => 10]);
