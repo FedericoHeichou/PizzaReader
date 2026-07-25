@@ -21,7 +21,7 @@ class ChapterNameTest extends TestCase
         return $chapter;
     }
 
-    private function makeComic(string $custom_chapter = null): object
+    private function makeComic(?string $custom_chapter = null): object
     {
         return (object)['custom_chapter' => $custom_chapter];
     }

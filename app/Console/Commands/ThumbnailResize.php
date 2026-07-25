@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Http\Controllers\Admin\ComicController;
 use Illuminate\Console\Command;
 use App\Models\Comic;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ThumbnailResize extends Command {
 
@@ -20,7 +20,7 @@ class ThumbnailResize extends Command {
         $comics = Comic::whereNotNull('thumbnail')->get();
         foreach ($comics as $comic) {
             $path = Comic::path($comic);
-            $file = Image::make(storage_path("app/$path/$comic->thumbnail"));
+            $file = Image::decode(storage_path("app/$path/$comic->thumbnail"));
             ComicController::storeSmall($file, $path, $comic->thumbnail);
         }
     }

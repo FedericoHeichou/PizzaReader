@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class SettingsController extends Controller {
 
@@ -60,19 +60,9 @@ class SettingsController extends Controller {
     }
 
     function convertAndStore($file, $path, $name, $old_name, $size) {
-        $height = Image::make($file)->height();
-        $width = Image::make($file)->width();
-        $new_width = $size;
-        $new_height = $size;
-        if ($width > $height) $new_width = null;
-        else $new_height = null;
-        $file = Image::make($file)->resize($new_width, $new_height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $file->crop($size, $size);
-        $file->encode('png');
+        $image = Image::decode($file)->cover($size, $size);
         Storage::delete("$path/$old_name-$size.png");
-        $file->save(storage_path("app$path/$name-$size.png"));
+        $image->save(storage_path("app$path/$name-$size.png"));        
     }
 
 
