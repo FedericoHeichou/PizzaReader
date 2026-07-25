@@ -47,11 +47,15 @@ class AuthTest extends TestCase
 
     public function test_user_can_login_with_valid_credentials(): void
     {
+        $this->withoutMiddleware(
+            \App\Http\Middleware\VerifyCsrfToken::class
+        );
         $user = User::factory()->create();
 
         $response = $this->post('/admin/login', [
             'email' => $user->email,
             'password' => 'password',
+            'timezone' => 'Europe/Rome',
         ]);
 
         $response->assertRedirect();
