@@ -90,6 +90,7 @@ sed -i 's/RewriteEngine On/RewriteEngine On\n    RewriteCond %{HTTP_HOST} ^\(.+\
 cd ..
 
 php composer.phar install --no-dev
+# Hint: you can run `php composer.phar update --no-dev` to update the dependencies, it is advised if you are running a newer version of PHP than the minimum required by the current composer.json, because some of them may have been optimized for your versions of PHP
 cp .env.example .env
 sed -i 's/^\(APP_NAME=\).*$/\1PizzaReader/' .env
 sed -i "s,^\(APP_URL=\).*$,\1https:\/\/reader.pizzareader.local," .env
