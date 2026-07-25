@@ -135,9 +135,6 @@ class ComicController extends Controller {
             $image = $image->scale(width: $new_width);
         }
         $new_name = getSmallThumbnail($name);
-        if (!str_ends_with(strtolower($new_name), '.jpg') && !str_ends_with(strtolower($new_name), '.jpeg')) {
-            $new_name .= '.jpg';
-        }
         $image->save(storage_path("app/$path/$new_name"), quality: 80);
     }
 
