@@ -14,6 +14,9 @@ const mix = require('laravel-mix');
 mix.version();
 mix.options({
     processCssUrls: false,
+    cssNano: {
+      svgo: false,
+    },
 });
 
 mix.js('resources/js/app.js', 'public/js').vue({
@@ -26,7 +29,12 @@ mix.js('resources/js/app.js', 'public/js').vue({
         whitespace: 'preserve',
       },
     },
-  }).sass('resources/sass/app.scss', 'public/css').sourceMaps();
+  }).sass('resources/sass/app.scss', 'public/css', {
+    sassOptions: {
+      silenceDeprecations: ['import', 'legacy-js-api'],
+      quietDeps: true,
+    },
+}).sourceMaps();
 
 mix.webpackConfig(() => {
     return {

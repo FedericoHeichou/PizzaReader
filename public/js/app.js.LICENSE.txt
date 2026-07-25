@@ -1,13 +1,7 @@
 /*!
-  * Bootstrap v5.3.3 (https://getbootstrap.com/)
-  * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-  */
-
-/*!
-  * vue-router v4.5.0
-  * (c) 2024 Eduardo San Martin Morote
-  * @license MIT
   */
 
 /*!
@@ -29,16 +23,20 @@
  */
 
 /*!
+ * vue-router v4.6.4
+ * (c) 2025 Eduardo San Martin Morote
+ * @license MIT
+ */
+
+/*!
  * vuex v4.1.0
  * (c) 2022 Evan You
  * @license MIT
  */
 
-/*! #__NO_SIDE_EFFECTS__ */
-
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
 
 /**
  * @license
@@ -50,7 +48,7 @@
  */
 
 /**
-* @vue/compat v3.5.13
+* @vue/compat v3.5.40
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
 **/
