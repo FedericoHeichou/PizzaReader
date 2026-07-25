@@ -217,7 +217,7 @@ class Chapter extends Model {
                         elseif ($num === '3') $name .= 'rd';
                         else $name .= 'th';
                     }
-                } elseif (strlen($v) > 3 && $v[4] === ':') {
+                } elseif (strlen($v) > 4 && $v[4] === ':') {
                     $pre = substr($v, 0, 4);
                     $past = substr($v, 5, -1);
                     if (($pre === '{vol' && $chapter->volume !== null) ||
