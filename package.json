@@ -12,7 +12,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@vue/compat": "^3.1.0",
+        "@vue/compat": "^3.5.44",
         "@vue/compiler-sfc": "^3.1.0",
         "axios": "^1.8.2",
         "bootstrap": "^5.0.0",
@@ -25,7 +25,7 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.62.1",
         "sass-loader": "^13.2.2",
-        "vue": "^3.1.0",
+        "vue": "^3.5.44",
         "vue-loader": "^16.0.0"
     },
     "dependencies": {
