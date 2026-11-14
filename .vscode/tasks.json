@@ -1,0 +1,179 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Tests: All (Docker 8.5)",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-w",
+        "/var/www/html",
+        "-e",
+        "APP_ENV=testing",
+        "-e",
+        "DB_CONNECTION=sqlite",
+        "-e",
+        "DB_DATABASE=:memory:",
+        "pizzareader-php-fpm-tests85-1",
+        "sh",
+        "-c",
+        "php artisan config:clear && php artisan test"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Tests: All (Docker 8.3)",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-w",
+        "/var/www/html",
+        "-e",
+        "APP_ENV=testing",
+        "-e",
+        "DB_CONNECTION=sqlite",
+        "-e",
+        "DB_DATABASE=:memory:",
+        "pizzareader-php-fpm-tests83-1",
+        "sh",
+        "-c",
+        "php artisan config:clear && php artisan test"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Composer: Install (Docker 8.3)",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-w",
+        "/var/www/html",
+        "pizzareader-php-fpm-tests83-1",
+        "./composer.phar",
+        "install",
+        "--prefer-dist",
+        "--no-interaction"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Composer: Update (Docker 8.3)",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-w",
+        "/var/www/html",
+        "pizzareader-php-fpm-tests83-1",
+        "./composer.phar",
+        "update",
+        "--prefer-dist",
+        "--no-interaction",
+        "--with-all-dependencies"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Composer: Install (Docker 8.5)",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-w",
+        "/var/www/html",
+        "pizzareader-php-fpm-tests85-1",
+        "./composer.phar",
+        "install",
+        "--prefer-dist",
+        "--no-interaction"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Composer: Update (Docker 8.5)",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-w",
+        "/var/www/html",
+        "pizzareader-php-fpm-tests85-1",
+        "./composer.phar",
+        "update",
+        "--prefer-dist",
+        "--no-interaction",
+        "--with-all-dependencies"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Tests: All",
+      "type": "shell",
+      "command": "php artisan config:clear && php artisan test",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "APP_ENV": "testing",
+          "DB_CONNECTION": "sqlite",
+          "DB_DATABASE": ":memory:"
+        }
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Tests: Unit",
+      "type": "shell",
+      "command": "php artisan config:clear && php artisan test --testsuite=Unit",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "APP_ENV": "testing",
+          "DB_CONNECTION": "sqlite",
+          "DB_DATABASE": ":memory:"
+        }
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Tests: Feature",
+      "type": "shell",
+      "command": "php artisan config:clear && php artisan test --testsuite=Feature",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "APP_ENV": "testing",
+          "DB_CONNECTION": "sqlite",
+          "DB_DATABASE": ":memory:"
+        }
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Tests: Current File",
+      "type": "shell",
+      "command": "php artisan config:clear && php artisan test \"${relativeFile}\"",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "APP_ENV": "testing",
+          "DB_CONNECTION": "sqlite",
+          "DB_DATABASE": ":memory:"
+        }
+      },
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}
