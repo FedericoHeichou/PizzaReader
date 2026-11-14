@@ -1,15 +1,8 @@
 /*!
-  * Bootstrap v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap v5.3.9 (https://getbootstrap.com/)
+  * Copyright 2011-2026 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
 
 /*!
  * jQuery JavaScript Library v3.7.1
@@ -23,8 +16,8 @@
  */
 
 /*!
- * vue-router v4.6.4
- * (c) 2025 Eduardo San Martin Morote
+ * vue-router v4.6.5
+ * (c) 2026 Eduardo San Martin Morote
  * @license MIT
  */
 
@@ -33,8 +26,6 @@
  * (c) 2022 Evan You
  * @license MIT
  */
-
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
 
@@ -48,7 +39,7 @@
  */
 
 /**
-* @vue/compat v3.5.40
+* @vue/compat v3.5.45
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
 **/
