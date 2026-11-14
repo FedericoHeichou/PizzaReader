@@ -33,6 +33,7 @@ mix.js('resources/js/app.js', 'public/js').vue({
     sassOptions: {
       silenceDeprecations: ['import', 'legacy-js-api'],
       quietDeps: true,
+      charset: false,
     },
 }).sourceMaps();
 
