@@ -91,7 +91,6 @@ cd ..
 
 php composer.phar install --no-dev
 # Hint: you can run `php composer.phar update --no-dev` to update the dependencies, it is advised if you are running a newer version of PHP than the minimum required by the current composer.json, because some of them may have been optimized for your versions of PHP
-php composer.phar dump-autoload --optimize --no-dev
 cp .env.example .env
 sed -i 's/^\(APP_NAME=\).*$/\1PizzaReader/' .env
 sed -i "s,^\(APP_URL=\).*$,\1https:\/\/reader.pizzareader.local," .env
@@ -105,14 +104,13 @@ sed -i "s/^\(DB_PASSWORD=\).*$/\1password/" .env
 
 sed -i "s/APP_ENV=production/APP_ENV=local/" .env
 # sed -i "s/APP_DEBUG=false/APP_DEBUG=true/" .env
-php composer.phar dump-autoload
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
 sed -i "s/APP_ENV=local/APP_ENV=production/" .env
 # sed -i "s/APP_DEBUG=true/APP_DEBUG=false/" .env
 php artisan optimize
-php composer.phar dump-autoload
+php composer.phar dump-autoload --optimize --no-dev
 
 find . -type d -exec chmod 0755 {} \;
 find . -type f -exec chmod 0644 {} \;
