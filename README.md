@@ -65,7 +65,7 @@ If after months you notice that the Reader is slowing down, you are probably not
 ## Settings
 All configurable settings are listed in the [.env.example](.env.example) file and explained in [config/app.php](config/app.php).  
 Most of them are only set during installation. After installation you can customise your reader using the settings menu in the admin dashboard.  
-After editing your `.env` file you should run `php artisan config:cache`. If you don't have access to your server, you can go to the settings menu in the admin dashboard and press the "save" button: it will do a `config:cache` by itself.
+After editing your `.env` file you should run `php artisan config:cache` or `php artisan optimize`. If you don't have access to your server, you can go to the settings menu in the admin dashboard and press the "save" button: it will do a `config:cache` by itself.
 
 ## Docker
 Here a dummy repository to run the reader with Docker: [PizzaReader-docker](https://github.com/FedericoHeichou/PizzaReader-docker).  
@@ -91,6 +91,7 @@ cd ..
 
 php composer.phar install --no-dev
 # Hint: you can run `php composer.phar update --no-dev` to update the dependencies, it is advised if you are running a newer version of PHP than the minimum required by the current composer.json, because some of them may have been optimized for your versions of PHP
+php composer.phar dump-autoload --optimize --no-dev
 cp .env.example .env
 sed -i 's/^\(APP_NAME=\).*$/\1PizzaReader/' .env
 sed -i "s,^\(APP_URL=\).*$,\1https:\/\/reader.pizzareader.local," .env
@@ -110,7 +111,7 @@ php artisan migrate
 php artisan db:seed
 sed -i "s/APP_ENV=local/APP_ENV=production/" .env
 # sed -i "s/APP_DEBUG=true/APP_DEBUG=false/" .env
-php artisan config:cache
+php artisan optimize
 php composer.phar dump-autoload
 
 find . -type d -exec chmod 0755 {} \;
@@ -130,8 +131,9 @@ php artisan down --render='maintenance' --secret='YourCustomSecret' || php artis
 # You can bypass maintenance mode by visiting your site with the secret URI you choose, for example https://pizzareader.local/YourCustomSecret
 git pull origin master
 php composer.phar install --no-dev
+php composer.phar dump-autoload --optimize --no-dev
 php artisan cache:clear
-php artisan config:cache
+php artisan optimize
 php artisan migrate
 php artisan up
 ```
